@@ -95,6 +95,14 @@
             }
         },
         {
+            "Key": "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
+            "Value": {
+                "id": "c84b2366-fe51-4172-a0ae-c21fd166faa7",
+                "resourcePath": "scripts\\chatterbox_get_state\\chatterbox_get_state.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "36f2c371-0af7-4281-bef1-c48ce4fbbb54",
             "Value": {
                 "id": "666752ac-f982-4629-969c-542257aa9859",
@@ -682,7 +690,7 @@
             "Key": "fe827cce-097e-4bbf-a9ac-757793ca5408",
             "Value": {
                 "id": "15548e34-ee00-474e-9aff-0bc06b926c90",
-                "resourcePath": "scripts\\chatterbox_end\\chatterbox_end.yy",
+                "resourcePath": "scripts\\chatterbox_stop\\chatterbox_stop.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -725,6 +733,7 @@
         "fe827cce-097e-4bbf-a9ac-757793ca5408",
         "881dd845-b97a-4dce-a3fe-1ad4ded0084f",
         "a0f5144a-4fc5-429c-8c9a-a0c4c2b713c2",
+        "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "00fbc8f9-0e51-458c-8834-69a5cbc5e94b"
     ],

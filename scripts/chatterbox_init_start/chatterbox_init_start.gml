@@ -42,15 +42,16 @@ enum __CHATTERBOX
     TITLE,            // 6
     
     __SECTION1,       // 7
-    LINE,             // 8
-    INDENT,           // 9
+    INITIALISED,      // 8
+    INSTRUCTION,      // 9
+    INDENT,           //10
     
-    __SECTION2,       //10
-    SCRIBBLES,        //11
-    BUTTONS,          //12
-    INSTANCES,        //13
+    __SECTION2,       //11
+    SCRIBBLES,        //12
+    BUTTONS,          //13
+    INSTANCES,        //14
     
-    __SIZE            //14
+    __SIZE            //15
 }
 
 //enum __CHATTERBOX_VM
@@ -76,6 +77,7 @@ enum __CHATTERBOX
 #macro __CHATTERBOX_VM_ELSE     "else"
 #macro __CHATTERBOX_VM_ELSEIF   "elseif"
 #macro __CHATTERBOX_VM_IF_END   "end"
+#macro __CHATTERBOX_VM_STOP     "stop"
 
 #endregion
 

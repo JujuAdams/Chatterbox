@@ -244,6 +244,11 @@ repeat(_font_count)
                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                         _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = __chatterbox_remove_whitespace(string_delete(_string, 1, 7), true);
                     }
+                    else if (_string == "stop")
+                    {
+                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
+                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                    }
                     else
                     {
                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ACTION;
@@ -258,6 +263,14 @@ repeat(_font_count)
         }
         
         #endregion
+        
+        //Make sure we always have an STOP instruction at the end
+        var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
+        _array[ __CHATTERBOX_INSTRUCTION.TYPE      ] = __CHATTERBOX_VM_STOP;
+        _array[ __CHATTERBOX_INSTRUCTION.INDENT    ] = 0;
+        _array[ __CHATTERBOX_INSTRUCTION.CONTENT   ] = "";
+        _array[ __CHATTERBOX_INSTRUCTION.CONTENT_2 ] = "";
+        ds_list_add(_instruction_list, _array);
         
         
         

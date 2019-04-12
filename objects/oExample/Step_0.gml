@@ -1,1 +1,1 @@
-//chatterbox_step(chatterbox);
+chatterbox_step(chatterbox);

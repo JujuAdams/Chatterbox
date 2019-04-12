@@ -56,15 +56,12 @@ if (ds_list_size(_instruction_list) == 0)
     return false;
 }
 
+show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
+
 var _instruction_array = _instruction_list[| 0];
-var _indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
-var _type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
-var _content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+_chatterbox[| __CHATTERBOX.INITIALISED ] = false;
+_chatterbox[| __CHATTERBOX.INSTRUCTION ] = 0;
+_chatterbox[| __CHATTERBOX.INDENT      ] = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
 
-_chatterbox[| __CHATTERBOX.LINE   ] = 0;
-_chatterbox[| __CHATTERBOX.INDENT ] = _indent;
-
-if (_type == __CHATTERBOX_VM_TEXT)
-{
-    ds_list_insert(_chatterbox[| __CHATTERBOX.SCRIBBLES ], 0, scribble_create(_content));
-}
+chatterbox_step(_chatterbox);
+return true;
