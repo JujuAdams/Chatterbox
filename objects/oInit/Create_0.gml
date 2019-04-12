@@ -1,10 +1,14 @@
-//  Scribble v4.5.1
+//  Chatterbox v0.0.0
 //  2019/04/12
 //  @jujuadams
-//  With thanks to glitchroy and Rob van Saaze
+//  With thanks to Els White
 //  
-//  For use with GMS2.2.2 and later
+//  
+//  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
+
+
+//Initialise Scribble
 scribble_init_start("Fonts");
 scribble_init_add_font("fTestA");
 scribble_init_add_font("fTestB");
@@ -22,6 +26,14 @@ scribble_add_flag("rumble", 2);
 
 scribble_set_glyph_property("sSpriteFont", "f", SCRIBBLE_GLYPH.SEPARATION, -1, true);
 scribble_set_glyph_property("sSpriteFont", "q", SCRIBBLE_GLYPH.SEPARATION, -1, true);
+
+
+
+//Initialise Chatterbox
+chatterbox_init_start("Yarn");
+chatterbox_init_add("Test.json");
+chatterbox_init_end();
+
 
 instance_destroy();
 room_goto_next();

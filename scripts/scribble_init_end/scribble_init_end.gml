@@ -16,7 +16,7 @@ if ( !variable_global_exists("__scribble_init_complete" ) )
     exit;
 }
 
-show_debug_message("\nScribble: Font initialisation started");
+show_debug_message("Scribble: Font initialisation started");
 
 
 
@@ -366,7 +366,7 @@ mask_index = _old_mask_index;
 
 
 
-show_debug_message("Scribble:   Font initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");
-show_debug_message("Scribble: Thanks for using Scribble!\n");
+show_debug_message("Scribble: Font initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");
+show_debug_message("Scribble: Thanks for using Scribble!");
 
 global.__scribble_init_complete = true;
