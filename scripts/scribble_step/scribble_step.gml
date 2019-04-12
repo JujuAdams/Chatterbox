@@ -1,7 +1,7 @@
 /// Animates effects, advances the typewriter effect for a Scribble data structure, and executes events as they appear
 ///
 /// @param json         The Scribble data structure to manipulate
-/// @param [stepSize]   The step size e.g. a delta time coefficient. Defaults to 1
+/// @param [stepSize]   The step size e.g. a delta time coefficient. Defaults to SCRIBBLE_DEFAULT_STEP_SIZE
 ///
 /// All optional arguments accept <undefined> to indicate that the default value should be used.
 

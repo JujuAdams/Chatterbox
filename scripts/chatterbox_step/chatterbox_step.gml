@@ -107,7 +107,7 @@ if (_evaluate)
                     break;
                 }
                 
-                show_debug_message("Chatterbox: Displaying TEXT instruction (" + string(_instruction) + ") from node \"" + _node_title + "\"");
+                show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " TEXT = \"" + string(_instruction_content) + "\"");
                 
                 var _text = scribble_create(_instruction_content);
                 if (_first_iteration)
@@ -122,7 +122,7 @@ if (_evaluate)
             break;
             
             case __CHATTERBOX_VM_OPTION:
-                show_debug_message("Chatterbox: Displaying OPTION instruction (" + string(_instruction) + ") from node \"" + _node_title + "\"");
+                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " OPTION = \"" + string(_instruction_content) + "\" -> \"" + string(_instruction_content_2) + "\"");
                 
                 var _button = scribble_create(_instruction_content);
                 
@@ -154,7 +154,7 @@ if (_evaluate)
             case __CHATTERBOX_VM_STOP:
                 if (_previous_instruction_type == __CHATTERBOX_VM_UNKNOWN)
                 {
-                    show_debug_message("Chatterbox: Executing STOP instruction (" + string(_instruction) + ") from node \"" + _node_title + "\"");
+                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " STOP");
                     chatterbox_stop(_chatterbox);
                     exit;
                 }
