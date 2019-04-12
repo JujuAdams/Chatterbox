@@ -1,1 +1,1 @@
-chatterbox_draw(chatterbox);
+//chatterbox_draw(chatterbox);

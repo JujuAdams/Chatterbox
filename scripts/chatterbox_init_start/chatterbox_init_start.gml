@@ -50,6 +50,32 @@ enum __CHATTERBOX_HOST
     __SIZE            //14
 }
 
+//enum __CHATTERBOX_VM
+//{
+//    PORTRAIT,
+//    TEXT,
+//    DELAY,
+//    WAIT,
+//    OPTION,
+//    REDIRECT,
+//    ACTION,
+//    VARIABLE_SET,
+//    __SIZE
+//}
+
+#macro __CHATTERBOX_VM_TEXT     "text"
+#macro __CHATTERBOX_VM_POTRAIT  "portrait"
+#macro __CHATTERBOX_VM_DELAY    "delay"
+#macro __CHATTERBOX_VM_WAIT     "wait"
+#macro __CHATTERBOX_VM_OPTION   "option"
+#macro __CHATTERBOX_VM_REDIRECT "redirect"
+#macro __CHATTERBOX_VM_ACTION   "action"
+#macro __CHATTERBOX_VM_IF       "if begin"
+#macro __CHATTERBOX_VM_ELSE     "else"
+#macro __CHATTERBOX_VM_ELSEIF   "elseif"
+#macro __CHATTERBOX_VM_IF_END   "end"
+#macro __CHATTERBOX_VM_SHORTCUT "shortcut"
+
 enum __CHATTERBOX
 {
     __SIZE        // 0
