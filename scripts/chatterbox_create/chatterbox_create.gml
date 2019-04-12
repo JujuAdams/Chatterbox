@@ -8,24 +8,30 @@ var _top    = ((argument_count > 1) && (argument[1] != undefined))? argument[1] 
 var _right  = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_RIGHT;
 var _bottom = ((argument_count > 3) && (argument[3] != undefined))? argument[3] : CHATTERBOX_DEFAULT_BOTTOM;
 
-var _array = array_create(__CHATTERBOX_HOST.__SIZE);
 
-_array[ __CHATTERBOX_HOST.__SECTION0       ] = "-- Parameters --";
-_array[ __CHATTERBOX_HOST.FILENAME         ] = global.__chatterbox_open_file;
-_array[ __CHATTERBOX_HOST.TITLE            ] = undefined;
-_array[ __CHATTERBOX_HOST.LEFT             ] = _left;
-_array[ __CHATTERBOX_HOST.TOP              ] = _top;
-_array[ __CHATTERBOX_HOST.RIGHT            ] = _right;
-_array[ __CHATTERBOX_HOST.BOTTOM           ] = _bottom;
 
-_array[ __CHATTERBOX_HOST.__SECTION1       ] = "-- State --";
-_array[ __CHATTERBOX_HOST.BODY             ] = undefined;
-_array[ __CHATTERBOX_HOST.LINE             ] = undefined;
+var _list = ds_list_create();
 
-_array[ __CHATTERBOX_HOST.__SECTION2       ] = "-- Children --"
-_array[ __CHATTERBOX_HOST.PRIMARY_SCRIBBLE ] = undefined;
-_array[ __CHATTERBOX_HOST.SCRIBBLES        ] = [];
-_array[ __CHATTERBOX_HOST.BUTTONS          ] = [];
-_array[ __CHATTERBOX_HOST.INSTANCES        ] = [];
+_list[| __CHATTERBOX_HOST.__SECTION0       ] = "-- Parameters --";
+_list[| __CHATTERBOX_HOST.FILENAME         ] = global.__chatterbox_open_file;
+_list[| __CHATTERBOX_HOST.TITLE            ] = undefined;
+_list[| __CHATTERBOX_HOST.LEFT             ] = _left;
+_list[| __CHATTERBOX_HOST.TOP              ] = _top;
+_list[| __CHATTERBOX_HOST.RIGHT            ] = _right;
+_list[| __CHATTERBOX_HOST.BOTTOM           ] = _bottom;
+_list[| __CHATTERBOX_HOST.BODY             ] = undefined;
 
-return _array;
+_list[| __CHATTERBOX_HOST.__SECTION1       ] = "-- State --";
+_list[| __CHATTERBOX_HOST.LINE             ] = undefined;
+_list[| __CHATTERBOX_HOST.INDENT           ] = undefined;
+
+_list[| __CHATTERBOX_HOST.__SECTION2       ] = "-- Children --"
+_list[| __CHATTERBOX_HOST.SCRIBBLES        ] = ds_list_create();
+_list[| __CHATTERBOX_HOST.BUTTONS          ] = ds_list_create();
+_list[| __CHATTERBOX_HOST.INSTANCES        ] = ds_list_create();
+
+ds_list_mark_as_list(_list, __CHATTERBOX_HOST.SCRIBBLES);
+ds_list_mark_as_list(_list, __CHATTERBOX_HOST.BUTTONS  );
+ds_list_mark_as_list(_list, __CHATTERBOX_HOST.INSTANCES);
+
+return _list;

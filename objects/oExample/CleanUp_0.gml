@@ -1,1 +1,1 @@
-//chatterbox_destroy(chatterbox);
+chatterbox_destroy(chatterbox);

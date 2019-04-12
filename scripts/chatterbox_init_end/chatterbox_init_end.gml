@@ -15,7 +15,6 @@ show_debug_message("Chatterbox: Initialisation started");
 
 
 
-var _raw_instr_list = ds_list_create();
 var _font_count = ds_map_size(global.__chatterbox_file_data);
 var _name = ds_map_find_first(global.__chatterbox_file_data);
 repeat(_font_count)
@@ -35,7 +34,6 @@ repeat(_font_count)
     var _yarn_json = json_decode(_string);
     var _node_list = _yarn_json[? "default" ];
     var _node_count = ds_list_size(_node_list);
-    
     var _title_string = "Chatterbox:     Found " + string(_node_count) + " titles: ";
     var _title_count = 0;
     for(var _node = 0; _node < _node_count; _node++)
@@ -44,12 +42,12 @@ repeat(_font_count)
         var _title = _node_map[? "title" ];
         var _body  = _node_map[? "body"  ];
         
-        var _instruction_count = 0;
-        var _instruction_array = array_create(0);
-        _chatterbox_map[? _title ] = _instruction_array;
+        var _instruction_list = ds_list_create();
+        ds_map_add_list(_chatterbox_map, _title, _instruction_list);
         
         
         
+        //Debug output that displays all the nodes in a file
         _title_string += "\"" + _title + "\"";
         if (_node < _node_count-1)
         {
@@ -76,7 +74,10 @@ repeat(_font_count)
         }
         _body += "\n";
         
-        ds_list_clear(_raw_instr_list);
+        
+        
+        #region Parse the body text for this node
+        
         var _read = 0;
         var _read_prev = 1;
         var _read_char = "";
@@ -155,41 +156,23 @@ repeat(_font_count)
             //If we haven't found a string to handle, or we've found a load of whitespace, do another iteration
             if (_string == "") continue;
             
-            //Remove leading whitespace
-            var _i = 1;
-            var _indent = 0;
-            repeat(string_length(_string))
-            {
-                var _char = string_char_at(_string, _i);
-                if (ord(_char) > 32) break;
-                if (ord(_char) == 32) _indent++;
-                if (ord(_char) ==  9) _indent += CHATTERBOX_TAB_INDENT_SIZE;
-                _i++;
-            }
-            if (_i > string_length(_string)) continue; //If the whole string is whitespace, do another iteration
-            _string = string_delete(_string, 1, _i-1);
-            
-            //Remove trailing whitespace
-            var _i = string_length(_string);
-            repeat(string_length(_string))
-            {
-                var _char = string_char_at(_string, _i);
-                if (ord(_char) > 32) break;
-                _i--;
-            }
-            _string = string_copy(_string, 1, _i);
-            
+            //Strip whitespace from both ends of the string
+            _string = __chatterbox_remove_whitespace(_string, false);
+            if (_string == "") continue;
+            _string = __chatterbox_remove_whitespace(_string, true);
+            _indent = global.__chatterbox_indent_size;
             if (CHATTERBOX_ROUND_UP_INDENTS) _indent = CHATTERBOX_TAB_INDENT_SIZE*ceil(_indent/CHATTERBOX_TAB_INDENT_SIZE);
+            
             switch(_close_type)
             {
                 case __CHATTERBOX_VM_TEXT:
-                    if (string_copy(_string, 1, 3) == "-> ")
+                    if (string_copy(_string, 1, 2) == "->")
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_SHORTCUT, _indent, string_delete(_string, 1, 3)]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_SHORTCUT, _indent, __chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)]);
                     }
                     else
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_TEXT, _indent, _string]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_TEXT, _indent, _string]);
                     }
                     
                     if (_read_char != "\n") _fresh_newline = false;
@@ -199,13 +182,13 @@ repeat(_font_count)
                     var _pos = string_pos("|", _string);
                     if (_pos < 1)
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_REDIRECT, _indent, _string]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_REDIRECT, _indent, _string]);
                     }
                     else
                     {
-                        var _display_text = string_copy(_string, 1, _pos-1);
-                        var _target_title = string_delete(_string, 1, _pos);
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_OPTION, _indent, _display_text, _target_title]);
+                        var _display_text = __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false);
+                        var _target_title = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_OPTION, _indent, _display_text, _target_title]);
                     }
                 break;
                 
@@ -214,30 +197,30 @@ repeat(_font_count)
                     {
                         if (_fresh_newline)
                         {
-                            ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_IF, _indent, string_delete(_string, 1, 3)]);
+                            ds_list_add(_instruction_list, [__CHATTERBOX_VM_IF, _indent, __chatterbox_remove_whitespace(string_delete(_string, 1, 3), true)]);
                         }
                         else
                         {
                             _indent = _indent_prev;
-                            ds_list_insert(_raw_instr_list, ds_list_size(_raw_instr_list)-1, [__CHATTERBOX_VM_IF, _indent, _string]);
-                            ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_IF_END, _indent]);
+                            ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, [__CHATTERBOX_VM_IF, _indent, _string]);
+                            ds_list_add(_instruction_list, [__CHATTERBOX_VM_IF_END, _indent]);
                         }
                     }
                     else if (_string == "endif")
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_IF_END, _indent]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_IF_END, _indent]);
                     }
                     else if (_string == "else")
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_ELSE, _indent]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_ELSE, _indent]);
                     }
                     else if (string_copy(_string, 1, 7) == "elseif ")
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_ELSEIF, _indent, string_delete(_string, 1, 7)]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_ELSEIF, _indent, __chatterbox_remove_whitespace(string_delete(_string, 1, 7), true)]);
                     }
                     else
                     {
-                        ds_list_add(_raw_instr_list, [__CHATTERBOX_VM_ACTION, _indent, _string]);
+                        ds_list_add(_instruction_list, [__CHATTERBOX_VM_ACTION, _indent, _string]);
                     }
                 break;
             }
@@ -245,12 +228,17 @@ repeat(_font_count)
             _indent_prev = _indent;
         }
         
+        #endregion
+        
+        
+        
+        //Debug output that enumerates all instructions for this node
         if (__CHATTERBOX_DEBUG)
         {
             var _i = 0;
-            repeat(ds_list_size(_raw_instr_list))
+            repeat(ds_list_size(_instruction_list))
             {
-                var _array = _raw_instr_list[| _i];
+                var _array = _instruction_list[| _i];
                 _string = "";
                 
                 var _j = 0;
@@ -267,12 +255,12 @@ repeat(_font_count)
             show_debug_message("Chatterbox:");
         }
     }
+    
+    //Debug output that displays all the nodes in a file
     show_debug_message(_title_string);
     
     ds_map_destroy(_yarn_json);
 }
-
-ds_list_destroy(_raw_instr_list);
 
 
 

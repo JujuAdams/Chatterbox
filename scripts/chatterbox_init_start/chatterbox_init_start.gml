@@ -24,6 +24,10 @@ enum __CHATTERBOX_FILE
 
 enum __CHATTERBOX_DATA
 {
+    TYPE,
+    INDENT,
+    CONTENT,
+    CONTENT_2,
     __SIZE        // 0
 }
 
@@ -36,18 +40,18 @@ enum __CHATTERBOX_HOST
     BOTTOM,           // 4
     FILENAME,         // 5
     TITLE,            // 6
+    BODY,             // 7
     
-    __SECTION1,       // 7
-    BODY,             // 8
+    __SECTION1,       // 8
     LINE,             // 9
+    INDENT,           //10
     
-    __SECTION2,       //10
-    PRIMARY_SCRIBBLE, //11
-    SCRIBBLES,        //11
-    BUTTONS,          //12
-    INSTANCES,        //13
+    __SECTION2,       //11
+    SCRIBBLES,        //12
+    BUTTONS,          //13
+    INSTANCES,        //14
     
-    __SIZE            //14
+    __SIZE            //15
 }
 
 //enum __CHATTERBOX_VM
@@ -64,9 +68,7 @@ enum __CHATTERBOX_HOST
 //}
 
 #macro __CHATTERBOX_VM_TEXT     "text"
-#macro __CHATTERBOX_VM_POTRAIT  "portrait"
-#macro __CHATTERBOX_VM_DELAY    "delay"
-#macro __CHATTERBOX_VM_WAIT     "wait"
+#macro __CHATTERBOX_VM_SHORTCUT "shortcut"
 #macro __CHATTERBOX_VM_OPTION   "option"
 #macro __CHATTERBOX_VM_REDIRECT "redirect"
 #macro __CHATTERBOX_VM_ACTION   "action"
@@ -74,7 +76,6 @@ enum __CHATTERBOX_HOST
 #macro __CHATTERBOX_VM_ELSE     "else"
 #macro __CHATTERBOX_VM_ELSEIF   "elseif"
 #macro __CHATTERBOX_VM_IF_END   "end"
-#macro __CHATTERBOX_VM_SHORTCUT "shortcut"
 
 enum __CHATTERBOX
 {
@@ -121,3 +122,4 @@ global.__chatterbox_file_data      = ds_map_create();
 global.__chatterbox_data           = ds_map_create();
 global.__chatterbox_init_complete  = false;
 global.__chatterbox_open_file      = "";
+global.__chatterbox_indent_size    = 0;
