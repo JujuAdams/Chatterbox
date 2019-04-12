@@ -13,7 +13,7 @@ var _bottom = ((argument_count > 3) && (argument[3] != undefined))? argument[3] 
 var _list = ds_list_create();
 
 _list[| __CHATTERBOX_HOST.__SECTION0 ] = "-- Parameters --";
-_list[| __CHATTERBOX_HOST.FILENAME   ] = global.__chatterbox_open_file;
+_list[| __CHATTERBOX_HOST.FILENAME   ] = global.__chatterbox_default_file;
 _list[| __CHATTERBOX_HOST.TITLE      ] = undefined;
 _list[| __CHATTERBOX_HOST.LEFT       ] = _left;
 _list[| __CHATTERBOX_HOST.TOP        ] = _top;

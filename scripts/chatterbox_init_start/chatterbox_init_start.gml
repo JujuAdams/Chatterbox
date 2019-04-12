@@ -116,5 +116,5 @@ global.__chatterbox_font_directory = _font_directory;
 global.__chatterbox_file_data      = ds_map_create();
 global.__chatterbox_data           = ds_map_create();
 global.__chatterbox_init_complete  = false;
-global.__chatterbox_open_file      = "";
+global.__chatterbox_default_file   = "";
 global.__chatterbox_indent_size    = 0;

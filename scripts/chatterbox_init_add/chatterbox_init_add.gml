@@ -28,7 +28,7 @@ if (!is_string(_file))
     return undefined;
 }
 
-if (global.__chatterbox_open_file == "") global.__chatterbox_open_file = _file;
+if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _file;
 
 var _data;
 _data[ __CHATTERBOX_FILE.FILENAME ] = _file;

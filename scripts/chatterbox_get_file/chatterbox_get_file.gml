@@ -1,1 +1,0 @@
-return global.__chatterbox_open_file;
