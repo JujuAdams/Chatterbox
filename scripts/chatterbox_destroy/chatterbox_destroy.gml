@@ -2,9 +2,9 @@
 
 var _chatterbox = argument0;
 
-var _scribbles = _chatterbox[| __CHATTERBOX_HOST.SCRIBBLES ];
-var _buttons   = _chatterbox[| __CHATTERBOX_HOST.BUTTONS   ];
-var _instances = _chatterbox[| __CHATTERBOX_HOST.INSTANCES ];
+var _scribbles = _chatterbox[| __CHATTERBOX.SCRIBBLES ];
+var _buttons   = _chatterbox[| __CHATTERBOX.BUTTONS   ];
+var _instances = _chatterbox[| __CHATTERBOX.INSTANCES ];
 
 for(var _i = ds_list_size(_scribbles)-1; _i >= 0; _i--) scribble_destroy(_scribbles[| _i]);
 for(var _i = ds_list_size(_buttons  )-1; _i >= 0; _i--) scribble_destroy(  _buttons[| _i]);

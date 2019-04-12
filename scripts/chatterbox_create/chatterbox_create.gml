@@ -12,25 +12,25 @@ var _bottom = ((argument_count > 3) && (argument[3] != undefined))? argument[3] 
 
 var _list = ds_list_create();
 
-_list[| __CHATTERBOX_HOST.__SECTION0 ] = "-- Parameters --";
-_list[| __CHATTERBOX_HOST.FILENAME   ] = global.__chatterbox_default_file;
-_list[| __CHATTERBOX_HOST.TITLE      ] = undefined;
-_list[| __CHATTERBOX_HOST.LEFT       ] = _left;
-_list[| __CHATTERBOX_HOST.TOP        ] = _top;
-_list[| __CHATTERBOX_HOST.RIGHT      ] = _right;
-_list[| __CHATTERBOX_HOST.BOTTOM     ] = _bottom;
+_list[| __CHATTERBOX.__SECTION0 ] = "-- Parameters --";
+_list[| __CHATTERBOX.FILENAME   ] = global.__chatterbox_default_file;
+_list[| __CHATTERBOX.TITLE      ] = undefined;
+_list[| __CHATTERBOX.LEFT       ] = _left;
+_list[| __CHATTERBOX.TOP        ] = _top;
+_list[| __CHATTERBOX.RIGHT      ] = _right;
+_list[| __CHATTERBOX.BOTTOM     ] = _bottom;
 
-_list[| __CHATTERBOX_HOST.__SECTION1 ] = "-- State --";
-_list[| __CHATTERBOX_HOST.LINE       ] = undefined;
-_list[| __CHATTERBOX_HOST.INDENT     ] = undefined;
+_list[| __CHATTERBOX.__SECTION1 ] = "-- State --";
+_list[| __CHATTERBOX.LINE       ] = undefined;
+_list[| __CHATTERBOX.INDENT     ] = undefined;
 
-_list[| __CHATTERBOX_HOST.__SECTION2 ] = "-- Children --"
-_list[| __CHATTERBOX_HOST.SCRIBBLES  ] = ds_list_create();
-_list[| __CHATTERBOX_HOST.BUTTONS    ] = ds_list_create();
-_list[| __CHATTERBOX_HOST.INSTANCES  ] = ds_list_create();
+_list[| __CHATTERBOX.__SECTION2 ] = "-- Children --"
+_list[| __CHATTERBOX.SCRIBBLES  ] = ds_list_create();
+_list[| __CHATTERBOX.BUTTONS    ] = ds_list_create();
+_list[| __CHATTERBOX.INSTANCES  ] = ds_list_create();
 
-ds_list_mark_as_list(_list, __CHATTERBOX_HOST.SCRIBBLES);
-ds_list_mark_as_list(_list, __CHATTERBOX_HOST.BUTTONS  );
-ds_list_mark_as_list(_list, __CHATTERBOX_HOST.INSTANCES);
+ds_list_mark_as_list(_list, __CHATTERBOX.SCRIBBLES);
+ds_list_mark_as_list(_list, __CHATTERBOX.BUTTONS  );
+ds_list_mark_as_list(_list, __CHATTERBOX.INSTANCES);
 
 return _list;

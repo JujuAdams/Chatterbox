@@ -21,11 +21,11 @@ if (argument_count > 2)
         return undefined;
     }
     
-    _chatterbox[| __CHATTERBOX_HOST.FILENAME ] = _filename;
+    _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
 }
 else
 {
-    _filename = _chatterbox[| __CHATTERBOX_HOST.FILENAME ];
+    _filename = _chatterbox[| __CHATTERBOX.FILENAME ];
 }
 
 var _title_map = global.__chatterbox_data[? _filename ];
@@ -48,8 +48,8 @@ if (!ds_exists(_instruction_list, ds_type_list))
     return false;
 }
 
-_chatterbox[| __CHATTERBOX_HOST.TITLE    ] = _node_title;
-_chatterbox[| __CHATTERBOX_HOST.FILENAME ] = _filename;
+_chatterbox[| __CHATTERBOX.TITLE    ] = _node_title;
+_chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
 
 if (ds_list_size(_instruction_list) == 0)
 {
@@ -61,10 +61,10 @@ var _indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
 var _type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
 var _content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
 
-_chatterbox[| __CHATTERBOX_HOST.LINE   ] = 0;
-_chatterbox[| __CHATTERBOX_HOST.INDENT ] = _indent;
+_chatterbox[| __CHATTERBOX.LINE   ] = 0;
+_chatterbox[| __CHATTERBOX.INDENT ] = _indent;
 
 if (_type == __CHATTERBOX_VM_TEXT)
 {
-    ds_list_insert(_chatterbox[| __CHATTERBOX_HOST.SCRIBBLES ], 0, scribble_create(_content));
+    ds_list_insert(_chatterbox[| __CHATTERBOX.SCRIBBLES ], 0, scribble_create(_content));
 }

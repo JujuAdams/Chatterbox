@@ -31,7 +31,7 @@ enum __CHATTERBOX_INSTRUCTION
     __SIZE        // 0
 }
 
-enum __CHATTERBOX_HOST
+enum __CHATTERBOX
 {
     __SECTION0,       // 0
     LEFT,             // 1
