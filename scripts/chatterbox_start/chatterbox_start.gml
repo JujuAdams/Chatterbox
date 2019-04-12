@@ -57,9 +57,9 @@ if (ds_list_size(_instruction_list) == 0)
 }
 
 var _instruction_array = _instruction_list[| 0];
-var _indent  = _instruction_array[ __CHATTERBOX_DATA.INDENT  ];
-var _type    = _instruction_array[ __CHATTERBOX_DATA.TYPE    ];
-var _content = _instruction_array[ __CHATTERBOX_DATA.CONTENT ];
+var _indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+var _type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
+var _content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
 
 _chatterbox[| __CHATTERBOX_HOST.LINE   ] = 0;
 _chatterbox[| __CHATTERBOX_HOST.INDENT ] = _indent;

@@ -22,7 +22,7 @@ enum __CHATTERBOX_FILE
     __SIZE        // 2
 }
 
-enum __CHATTERBOX_DATA
+enum __CHATTERBOX_INSTRUCTION
 {
     TYPE,
     INDENT,
@@ -40,18 +40,17 @@ enum __CHATTERBOX_HOST
     BOTTOM,           // 4
     FILENAME,         // 5
     TITLE,            // 6
-    BODY,             // 7
     
-    __SECTION1,       // 8
-    LINE,             // 9
-    INDENT,           //10
+    __SECTION1,       // 7
+    LINE,             // 8
+    INDENT,           // 9
     
-    __SECTION2,       //11
-    SCRIBBLES,        //12
-    BUTTONS,          //13
-    INSTANCES,        //14
+    __SECTION2,       //10
+    SCRIBBLES,        //11
+    BUTTONS,          //12
+    INSTANCES,        //13
     
-    __SIZE            //15
+    __SIZE            //14
 }
 
 //enum __CHATTERBOX_VM
@@ -67,6 +66,7 @@ enum __CHATTERBOX_HOST
 //    __SIZE
 //}
 
+#macro __CHATTERBOX_VM_UNKNOWN  "unknown"
 #macro __CHATTERBOX_VM_TEXT     "text"
 #macro __CHATTERBOX_VM_SHORTCUT "shortcut"
 #macro __CHATTERBOX_VM_OPTION   "option"
@@ -76,11 +76,6 @@ enum __CHATTERBOX_HOST
 #macro __CHATTERBOX_VM_ELSE     "else"
 #macro __CHATTERBOX_VM_ELSEIF   "elseif"
 #macro __CHATTERBOX_VM_IF_END   "end"
-
-enum __CHATTERBOX
-{
-    __SIZE        // 0
-}
 
 #endregion
 
