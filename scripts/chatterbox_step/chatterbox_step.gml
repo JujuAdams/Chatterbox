@@ -60,7 +60,7 @@ else
                 _button_type   = _button_array[ __CHATTERBOX_INSTRUCTION.TYPE   ];
                 _button_indent = _button_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
             
-            show_debug_message("Chatterbox: Selected option " + string(_i));
+            show_debug_message("Chatterbox: Selected option " + string(_i) + " at instruction=" + string(_instruction));
             
             switch(_button_type)
             {
@@ -142,7 +142,7 @@ if (_evaluate)
                 case __CHATTERBOX_VM_IF:
                 case __CHATTERBOX_VM_ELSEIF:
                     //Only evaluate the if-statement if we passed the previous check
-                    if (_instruction_type == __CHATTERBOX_VM_ELSEIF)
+                    if (_instruction_type == __CHATTERBOX_VM_IF)
                     {
                         if (!_if_stack[| 0])
                         {
@@ -284,7 +284,11 @@ if (_evaluate)
             #endregion
         }
         
-        if (_break) break;
+        if (_break)
+        {
+            show_debug_message("Chatterbox: Breaking at instruction " + string(_instruction));
+            break;
+        }
         
         _instruction++;
     }
