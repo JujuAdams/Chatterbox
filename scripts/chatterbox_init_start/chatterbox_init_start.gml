@@ -44,10 +44,11 @@ enum __CHATTERBOX
     INITIALISED, // 8
     INSTRUCTION, // 9
     INDENT,      //10
+    IF_STACK,    //11
     
-    __SECTION2,  //11
-    TEXTS,       //12
-    BUTTONS,     //13
+    __SECTION2,  //12
+    TEXTS,       //13
+    BUTTONS,     //14
     
     __SIZE       //14
 }

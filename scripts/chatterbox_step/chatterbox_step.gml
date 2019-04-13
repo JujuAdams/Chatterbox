@@ -10,6 +10,7 @@ var _node_title  = _chatterbox[| __CHATTERBOX.TITLE    ];
 var _filename    = _chatterbox[| __CHATTERBOX.FILENAME ];
 var _text_list   = _chatterbox[| __CHATTERBOX.TEXTS    ];
 var _button_list = _chatterbox[| __CHATTERBOX.BUTTONS  ];
+var _if_stack    = _chatterbox[| __CHATTERBOX.IF_STACK ];   
 
 if (_node_title == undefined)
 {
@@ -108,6 +109,8 @@ if (_evaluate)
     var _break = false;
     repeat(9999)
     {
+        var _continue = false;
+        
         var _instruction_array   = _instruction_list[| _instruction ];
         var _instruction_type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
         var _instruction_indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
@@ -118,8 +121,7 @@ if (_evaluate)
             if (!_found_text)
             {
                 _indent = _instruction_indent;
-                _instruction++;
-                continue;
+                _continue = true;
             }
             else
             {
@@ -128,11 +130,71 @@ if (_evaluate)
         }
         else if (_instruction_indent > _indent)
         {
-            _instruction++;
-            continue;
+            _continue = true;
         }
         
-        if (!_break)
+        if (!_break && !_continue)
+        {
+            #region Handle branches
+            
+            switch(_instruction_type)
+            {
+                case __CHATTERBOX_VM_IF:
+                case __CHATTERBOX_VM_ELSEIF:
+                    //Only evaluate the if-statement if we passed the previous check
+                    if (_instruction_type == __CHATTERBOX_VM_ELSEIF)
+                    {
+                        if (!_if_stack[| 0])
+                        {
+                            ds_list_insert(_if_stack, 0, false);
+                            _continue = true;
+                            break;
+                        }
+                    }
+                    
+                    //Only evaluate the if-statement if we failed the previous check
+                    if (_instruction_type == __CHATTERBOX_VM_ELSEIF)
+                    {
+                        if (_if_stack[| 0])
+                        {
+                            _if_stack[| 0] = false;
+                            _continue = true;
+                            break;
+                        }
+                        
+                        //Pop the top result from the stack - we'll replace it shortly
+                        ds_list_delete(_if_stack, 0);
+                    }
+                    
+                    var _target_value = _instruction_content[3];
+                    var _if_result = !_target_value;
+                    
+                    //Push the result to the top of the stack
+                    ds_list_insert(_if_stack, 0, _if_result);
+                break;
+                
+                case __CHATTERBOX_VM_ELSE:
+                    //Invert the value on the top of the stack
+                    _if_stack[| 0] = !_if_stack[| 0];
+                break;
+                
+                case __CHATTERBOX_VM_IF_END:
+                    //Pop the top result from the stack
+                    ds_list_delete(_if_stack, 0);
+                    _continue = true;
+                break;
+            }
+            
+            #endregion
+        }
+        
+        if (!_break && !_continue)
+        {
+            //If we're inside a branch that has been evaluated as <false> then keep skipping until we close the branch
+            if (!_if_stack[| 0]) _continue = true;
+        }
+        
+        if (!_break && !_continue)
         {
             var _new_button      = false;
             var _new_button_text = "";
@@ -180,47 +242,47 @@ if (_evaluate)
                     }
                 break;
             }
-        }
         
-        #region Create a new button from SHORTCUT and OPTION instructions
-        if (_new_button)
-        {
-            _new_button = false;
-            var _button = scribble_create(_new_button_text);
-            
-            if (ds_list_size(_button_list) <= 0)
+            #region Create a new button from SHORTCUT and OPTION instructions
+            if (_new_button)
             {
-                if (ds_list_size(_text_list) <= 0)
+                _new_button = false;
+                var _button = scribble_create(_new_button_text);
+                
+                if (ds_list_size(_button_list) <= 0)
                 {
-                    var _y_offset = 0;
+                    if (ds_list_size(_text_list) <= 0)
+                    {
+                        var _y_offset = 0;
+                    }
+                    else
+                    {
+                        var _primary_text = _text_list[| 0];
+                        var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
+                    }
+                
+                    _button[| __SCRIBBLE.LEFT   ] += 10;
+                    _button[| __SCRIBBLE.TOP    ] += _y_offset;
+                    _button[| __SCRIBBLE.RIGHT  ] += 10;
+                    _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
+                    _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
                 }
                 else
                 {
-                    var _primary_text = _text_list[| 0];
-                    var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
+                    var _prev_button = _button_list[| ds_list_size(_button_list)-1];
+                    var _x_offset = _prev_button[| __SCRIBBLE.LEFT ] - _button[| __SCRIBBLE.LEFT ];
+                    var _y_offset = _prev_button[| __SCRIBBLE.TOP ] + _prev_button[| __SCRIBBLE.HEIGHT ] + 5;
+                    _button[| __SCRIBBLE.LEFT   ] += _x_offset;
+                    _button[| __SCRIBBLE.TOP    ] += _y_offset;
+                    _button[| __SCRIBBLE.RIGHT  ] += _x_offset;
+                    _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
+                    _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
                 }
                 
-                _button[| __SCRIBBLE.LEFT   ] += 10;
-                _button[| __SCRIBBLE.TOP    ] += _y_offset;
-                _button[| __SCRIBBLE.RIGHT  ] += 10;
-                _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
-                _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
+                ds_list_add(_button_list, _button);
             }
-            else
-            {
-                var _prev_button = _button_list[| ds_list_size(_button_list)-1];
-                var _x_offset = _prev_button[| __SCRIBBLE.LEFT ] - _button[| __SCRIBBLE.LEFT ];
-                var _y_offset = _prev_button[| __SCRIBBLE.TOP ] + _prev_button[| __SCRIBBLE.HEIGHT ] + 5;
-                _button[| __SCRIBBLE.LEFT   ] += _x_offset;
-                _button[| __SCRIBBLE.TOP    ] += _y_offset;
-                _button[| __SCRIBBLE.RIGHT  ] += _x_offset;
-                _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
-                _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
-            }
-            
-            ds_list_add(_button_list, _button);
+            #endregion
         }
-        #endregion
         
         if (_break) break;
         
