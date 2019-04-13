@@ -62,7 +62,14 @@ _chatterbox[| __CHATTERBOX.INITIALISED ] = false;
 _chatterbox[| __CHATTERBOX.INSTRUCTION ] = 0;
 
 var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
-_variables_map[? "visited(" + _filename + CHATTERBOX_VISITED_SEPARATOR + _node_title + ")" ] = true;
+if (CHATTERBOX_VISITED_NO_FILENAME)
+{
+    _variables_map[? "visited(" + _node_title + ")" ] = true;
+}
+else
+{
+    _variables_map[? "visited(" + _filename + CHATTERBOX_VISITED_SEPARATOR + _node_title + ")" ] = true;
+}
 
 chatterbox_step(_chatterbox);
 return true;
