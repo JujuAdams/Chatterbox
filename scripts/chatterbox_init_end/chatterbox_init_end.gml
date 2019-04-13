@@ -209,13 +209,13 @@ repeat(_font_count)
                                     {
                                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
                                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 7), true)];
+                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                     }
                                     else if (_content[0] == "set")
                                     {
                                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SET;
                                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 4), true)];
+                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                     }
                                 }
                                 else if (_string == "endif")
