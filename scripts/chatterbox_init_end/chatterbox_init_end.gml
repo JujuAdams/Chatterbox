@@ -119,7 +119,7 @@ repeat(_font_count)
                     
                     if (_line_char_prev == _line_char)
                     && (  ( _in_option && (_line_char == CHATTERBOX_OPTION_CLOSE_DELIMITER))
-                       || ( _in_action && (_line_char == CHATTERBOX_OPTION_CLOSE_DELIMITER))
+                       || ( _in_action && (_line_char == CHATTERBOX_ACTION_CLOSE_DELIMITER))
                        || (!_in_option && (_line_char == CHATTERBOX_OPTION_OPEN_DELIMITER))
                        || (!_in_action && (_line_char == CHATTERBOX_ACTION_OPEN_DELIMITER))  )
                     {
