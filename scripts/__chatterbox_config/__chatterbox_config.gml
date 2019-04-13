@@ -16,7 +16,7 @@
 #macro CHATTERBOX_TAB_INDENT_SIZE   4
 #macro CHATTERBOX_ROUND_UP_INDENTS  true
 
-#macro CHATTERBOX_DEFAULT_STEP_SIZE  SCRIBBLE_DEFAULT_STEP_SIZE
+#macro CHATTERBOX_DEFAULT_STEP_SIZE  SCRIBBLE_DEFAULT_STEP_SIZE  //The default step size. "(delta_time/16667)" assumes that the game is running at 60FPS and will delta time effects accordingly
 
 //Supported variable prefixes for if-statements:
 // 
@@ -34,9 +34,9 @@
 // 
 // The $ prefix is what's specified in the Yarn documentation
 
-#macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false
-#macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true
-#macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false
+#macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false  //Throw an error if a variable (in any scope) is missing
+#macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
+#macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false  //Throw an error when two values of different datatypes are being compared
 
 #macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE     CHATTERBOX_SCOPE.INTERNAL   //If a variable starts if a $, what scope should it take?
 #macro CHATTERBOX_NAKED_VARIABLE_SCOPE      CHATTERBOX_SCOPE.GML_LOCAL  //If a variable has no prefix, what scope should it take?
@@ -44,3 +44,10 @@
 
 #macro CHATTERBOX_VISITED_SEPARATOR    ":"   //Single character only. If you're using complex internal variable names and are getting errors when using "visited()", change this character to be one that you never use
 #macro CHATTERBOX_VISITED_NO_FILENAME  false //Set to <true> if you want all "visited()" flags to be stored without their filename
+
+//These variables control which delimiters to use for [[options]] and <<actions>>
+//For compatibility with Yarn editors you probably don't want to change these
+#macro CHATTERBOX_OPTION_OPEN_DELIMITER   "["
+#macro CHATTERBOX_OPTION_CLOSE_DELIMITER  "]"
+#macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
+#macro CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
