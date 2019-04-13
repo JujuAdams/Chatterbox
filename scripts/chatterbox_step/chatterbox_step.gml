@@ -28,13 +28,12 @@ for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_step(_button_
 var _title_map = global.__chatterbox_data[? _filename ];
 var _instruction_list = _title_map[? _node_title ];
 
-var _button_type   = __CHATTERBOX_VM_UNKNOWN;
-var _button_indent = undefined;
 var _indent        = 0;
 
 var _evaluate = false;
 if (!_chatterbox[| __CHATTERBOX.INITIALISED])
 {
+    #region Handle chatterboxes that haven't been initialised yet
     _chatterbox[| __CHATTERBOX.INITIALISED] = true;
     
     //If this chatterbox hasn't been initialised skip straight to evaluation
@@ -46,6 +45,8 @@ if (!_chatterbox[| __CHATTERBOX.INITIALISED])
         
     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
+    
+    #endregion
 }
 else
 {
@@ -55,15 +56,17 @@ else
     {
         if (keyboard_check_pressed(ord(string(_i+1))))
         {
-            show_debug_message("Chatterbox: Selected option " + string(_i));
             
             var _button = _button_list[| _i ];
             var _instruction = _button[| __SCRIBBLE.__SIZE ]; //Read the instruction index from a borrowed slot in the Scribble data structure
-            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
             
-            var _button_array  = _instruction_list[| _instruction];
-                _button_type   = _button_array[ __CHATTERBOX_INSTRUCTION.TYPE   ];
-                _button_indent = _button_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+            var _button_array   = _instruction_list[| _instruction];
+            var _button_type    = _button_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
+            var _button_indent  = _button_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+            var _button_content = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+                
+            show_debug_message("Chatterbox: Selected option " + string(_i) + ", \"" + string(_button_content[0]) + "\"");
+            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
             
             switch(_button_type)
             {
@@ -111,6 +114,7 @@ if (_evaluate)
     
     var _if_state = true;
     var _found_text = false;
+    var _permit_greater_indent = false;
     
     var _break = false;
     repeat(9999)
@@ -125,8 +129,7 @@ if (_evaluate)
         
         if (_instruction_indent < _indent)
         {
-            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     " + string(_instruction_indent) + " < " + string(_indent));
-            
+            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction indent " + string(_instruction_indent) + " < indent " + string(_indent));
             if (!_found_text)
             {
                 _indent = _instruction_indent;
@@ -140,19 +143,22 @@ if (_evaluate)
         }
         else if (_instruction_indent > _indent)
         {
-            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     " + string(_instruction_indent) + " > " + string(_indent));
-            
-            if (!_found_text)
+            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction indent " + string(_instruction_indent) + " > indent " + string(_indent));
+            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       _permit_greater_indent=" + string(_permit_greater_indent));
+            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       indent difference=" + string(_instruction_indent - _indent));
+            if (_permit_greater_indent && ((_instruction_indent - _indent) <= CHATTERBOX_TAB_INDENT_SIZE))
             {
                 _indent = _instruction_indent;
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set indent = " + string(_indent));
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":         Set indent = " + string(_indent));
             }
             else
             {
                 _continue = true;
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":         Continue");
             }
         }
+        
+        _permit_greater_indent = false;
         
         if (!_break && !_continue)
         {
@@ -190,7 +196,13 @@ if (_evaluate)
                     
                     var _target_value = _instruction_content[3];
                     var _if_state = !_target_value;
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _if_state = " + string(_if_state));
+                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   Set _if_state = " + string(_if_state));
+                    
+                    if (_if_state)
+                    {
+                        _permit_greater_indent = true;
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   Set _permit_greater_indent = " + string(_permit_greater_indent));
+                    }
                 break;
                 
                 case __CHATTERBOX_VM_ELSE:
