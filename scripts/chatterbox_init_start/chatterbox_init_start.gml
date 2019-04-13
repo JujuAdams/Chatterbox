@@ -9,9 +9,8 @@
 
 #macro __CHATTERBOX_VERSION       "0.0.1"
 #macro __CHATTERBOX_DATE          "2019/04/13"
-#macro __CHATTERBOX_DEBUG         true
-#macro __CHATTERBOX_DEBUG_PARSER  true
-#macro __CHATTERBOX_DEBUG_VM      true
+#macro __CHATTERBOX_DEBUG_PARSER  false
+#macro __CHATTERBOX_DEBUG_VM      false
 
 #macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
 #macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
@@ -19,17 +18,17 @@
 
 enum __CHATTERBOX_FILE
 {
-    FILENAME,     // 0
-    NAME,         // 1
-    __SIZE        // 2
+    FILENAME, // 0
+    NAME,     // 1
+    __SIZE    // 2
 }
 
 enum __CHATTERBOX_INSTRUCTION
 {
-    TYPE,
-    INDENT,
-    CONTENT,
-    __SIZE        // 0
+    TYPE,    //0
+    INDENT,  //1
+    CONTENT, //2
+    __SIZE   //3
 }
 
 enum __CHATTERBOX
@@ -57,23 +56,27 @@ enum __CHATTERBOX
 
 enum CHATTERBOX_SCOPE
 {
-    INTERNAL,
-    GML_LOCAL,
-    GML_GLOBAL,
-    __SIZE
+    INTERNAL,   //0
+    GML_LOCAL,  //1
+    GML_GLOBAL, //2
+    __SIZE      //3
 }
 
 //enum __CHATTERBOX_VM
 //{
-//    PORTRAIT,
-//    TEXT,
-//    DELAY,
-//    WAIT,
-//    OPTION,
-//    REDIRECT,
-//    ACTION,
-//    VARIABLE_SET,
-//    __SIZE
+//    UNKNOWN,  // 0
+//    TEXT,     // 1
+//    SHORTCUT, // 2
+//    OPTION,   // 3
+//    REDIRECT, // 4
+//    ACTION,   // 5
+//    IF,       // 6
+//    ELSE,     // 7
+//    ELSEIF,   // 8
+//    IF_END,   // 9
+//    SET,      //10
+//    STOP,     //11
+//    __SIZE    //12
 //}
 
 #macro __CHATTERBOX_VM_UNKNOWN  "unknown"
