@@ -168,7 +168,7 @@ repeat(_font_count)
             var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
             _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_UNKNOWN;
             _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = 0;
-            _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = "";
+            _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = undefined;
             
             switch(_close_type)
             {
@@ -177,13 +177,13 @@ repeat(_font_count)
                     {
                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SHORTCUT;
                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = __chatterbox_remove_whitespace(string_delete(_string, 1, 2), true);
+                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)];
                     }
                     else
                     {
                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_TEXT;
                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _string;
+                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                     }
                     
                     if (_read_char != "\n") _fresh_newline = false;
@@ -195,22 +195,21 @@ repeat(_font_count)
                     {
                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_REDIRECT;
                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _string;
+                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                     }
                     else
                     {
                         var _content = [ __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
                                          __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true) ];
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE      ] = __CHATTERBOX_VM_OPTION;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT    ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT   ] = _content;
+                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_OPTION;
+                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                     }
                 break;
                 
                 case __CHATTERBOX_VM_ACTION:
                     if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ")
                     {
-                        var _in_string = _string;
                         var _content = [];
                         repeat(9999)
                         {
@@ -247,7 +246,7 @@ repeat(_font_count)
                         {
                             _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
                             _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                            _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = __chatterbox_remove_whitespace(string_delete(_string, 1, 7), true);
+                            _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 7), true)];
                         }
                     }
                     else if (_string == "endif")
@@ -269,7 +268,7 @@ repeat(_font_count)
                     {
                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ACTION;
                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _string;
+                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                     }
                 break;
             }
@@ -284,7 +283,7 @@ repeat(_font_count)
         var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
         _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
         _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = 0;
-        _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = "";
+        _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = undefined;
         ds_list_add(_instruction_list, _array);
         
         
@@ -298,12 +297,11 @@ repeat(_font_count)
                 var _array = _instruction_list[| _i];
                 _string = "";
                 
-                var _j = 0;
-                repeat(array_length_1d(_array))
+                var _size = array_length_1d(_array);
+                for(var _j = 0; _j < _size; _j++)
                 {
-                    var _value = _array[_j];
-                    if (is_string(_value)) _string += "\"" + _array[_j] + "\", " else _string += string(_array[_j]) + ", ";
-                    _j++;
+                    _string += string(_array[_j]);
+                    if (_j < _size-1) _string += ", ";
                 }
                 show_debug_message("Chatterbox:       " + _string);
                 

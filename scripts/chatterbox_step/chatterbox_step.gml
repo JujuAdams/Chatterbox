@@ -108,10 +108,10 @@ if (_evaluate)
     var _break = false;
     repeat(9999)
     {
-        var _instruction_array     = _instruction_list[| _instruction ];
-        var _instruction_type      = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
-        var _instruction_indent    = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
-        var _instruction_content   = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+        var _instruction_array   = _instruction_list[| _instruction ];
+        var _instruction_type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
+        var _instruction_indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+        var _instruction_content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
         
         if (_instruction_indent < _indent)
         {
@@ -145,18 +145,18 @@ if (_evaluate)
                         break;
                     }
                     
-                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " TEXT = \"" + string(_instruction_content) + "\"");
+                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " TEXT = \"" + string(_instruction_content[0]) + "\"");
                     _found_text = true;
                     
-                    var _text = scribble_create(_instruction_content);
+                    var _text = scribble_create(_instruction_content[0]);
                     ds_list_insert(_text_list, 0, _text);
                 break;
                 
                 case __CHATTERBOX_VM_SHORTCUT:
                     if (!_found_text) break;
-                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + ", indent=" + string(_indent) + ", SHORTCUT = \"" + string(_instruction_content) + "\"");
+                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + ", indent=" + string(_indent) + ", SHORTCUT = \"" + string(_instruction_content[0]) + "\"");
                     _new_button = true;
-                    _new_button_text = _instruction_content;
+                    _new_button_text = _instruction_content[0];
                 break;
                 
                 case __CHATTERBOX_VM_OPTION:
