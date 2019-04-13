@@ -80,201 +80,214 @@ repeat(_font_count)
         
         #region Parse the body text for this node
         
-        var _read = 0;
-        var _read_prev = 1;
-        var _read_char = "";
-        var _read_char_prev = "";
-        var _string = "";
-        var _close_type = __CHATTERBOX_VM_TEXT;
-        var _open_type  = __CHATTERBOX_VM_TEXT;
-        
-        var _fresh_newline = true;
-        var _indent      = 0;
-        var _indent_prev = 0;
+        var _body_read = 0;
+        var _body_read_prev = 1;
         repeat(string_length(_body))
         {
-            _read++;
-            _read_char_prev = _read_char;
-            _read_char = string_char_at(_body, _read);
+            _body_read++;
+            var _body_char = string_char_at(_body, _body_read);
             
-            _string = "";
-            
-            if (_read_char == "\n")
+            if (_body_char == "\n")
             {
-                _string = string_copy(_body, _read_prev, _read - _read_prev);
-                _read_prev = _read+1;
+                var _line_string = string_copy(_body, _body_read_prev, _body_read - _body_read_prev);
+                _body_read_prev = _body_read+1;
                 
-                if (_open_type == __CHATTERBOX_VM_TEXT) _close_type = __CHATTERBOX_VM_TEXT;
-                _fresh_newline = true;
-            }
-            else if (_read_char == _read_char_prev)
-            {
-                if (_read_char == "[")
+                //Strip whitespace from the start of the string
+                _line_string = __chatterbox_remove_whitespace(_line_string, true);
+                var _indent = global.__chatterbox_indent_size;
+                if (CHATTERBOX_ROUND_UP_INDENTS) _indent = CHATTERBOX_TAB_INDENT_SIZE*ceil(_indent/CHATTERBOX_TAB_INDENT_SIZE);
+                if (_line_string == "") continue;
+                
+                //Strip whitespace from the end of the string
+                _line_string = __chatterbox_remove_whitespace(_line_string, false);
+                
+                var _in_option = false;
+                var _in_action = false;
+                var _first_token = true;
+                var _line_read = 0;
+                var _line_char = "";
+                var _line_read_prev = 1;
+                var _line_char_prev = "";
+                var _length = string_length(_line_string);
+                repeat(_length)
                 {
-                    _string = string_copy(_body, _read_prev, _read - _read_prev - 1);
-                    _read_prev = _read+1;
-                
-                    if (_open_type == __CHATTERBOX_VM_TEXT)
+                    _line_read++;
+                    var _string = "";
+                    
+                    _line_char_prev = _line_char;
+                    var _line_char = string_char_at(_line_string, _line_read);
+                    
+                    if (_in_option)
                     {
-                        _close_type = __CHATTERBOX_VM_TEXT;
-                        _open_type  = __CHATTERBOX_VM_OPTION;
+                        if (_line_char_prev == "]") && (_line_char == "]")
+                        {
+                            _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
+                            _line_read_prev = _line_read+1;
+                        }
                     }
-                }
-                else if (_read_char == "]")
-                {
-                    _string = string_copy(_body, _read_prev, _read - _read_prev - 1);
-                    _read_prev = _read+1;
-                
-                    if (_open_type == __CHATTERBOX_VM_OPTION)
+                    else if (_in_action)
                     {
-                        _close_type = __CHATTERBOX_VM_OPTION;
-                        _open_type  = __CHATTERBOX_VM_TEXT;
+                        if (_line_char_prev == ">") && (_line_char == ">")
+                        {
+                            _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
+                            _line_read_prev = _line_read+1;
+                        }
                     }
-                }
-                else if (_read_char == "<")
-                {
-                    _string = string_copy(_body, _read_prev, _read - _read_prev - 1);
-                    _read_prev = _read+1;
-                
-                    if (_open_type == __CHATTERBOX_VM_TEXT)
+                    else if (_line_char_prev == "[") && (_line_char == "[")
                     {
-                        _close_type = __CHATTERBOX_VM_TEXT;
-                        _open_type  = __CHATTERBOX_VM_ACTION;
+                        _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
+                        _line_read_prev = _line_read+1;
                     }
-                }
-                else if (_read_char == ">")
-                {
-                    _string = string_copy(_body, _read_prev, _read - _read_prev - 1);
-                    _read_prev = _read+1;
-                
-                    if (_open_type == __CHATTERBOX_VM_ACTION)
+                    else if (_line_char_prev == "<") && (_line_char == "<")
                     {
-                        _close_type = __CHATTERBOX_VM_ACTION;
-                        _open_type  = __CHATTERBOX_VM_TEXT;
+                        _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
+                        _line_read_prev = _line_read+1;
                     }
-                }
-            }
-            
-            //If we haven't found a string to handle, or we've found a load of whitespace, do another iteration
-            if (_string == "") continue;
-            
-            //Strip whitespace from both ends of the string
-            _string = __chatterbox_remove_whitespace(_string, false);
-            if (_string == "") continue;
-            _string = __chatterbox_remove_whitespace(_string, true);
-            _indent = global.__chatterbox_indent_size;
-            if (CHATTERBOX_ROUND_UP_INDENTS) _indent = CHATTERBOX_TAB_INDENT_SIZE*ceil(_indent/CHATTERBOX_TAB_INDENT_SIZE);
-            
-            var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
-            _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_UNKNOWN;
-            _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = 0;
-            _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = undefined;
-            
-            switch(_close_type)
-            {
-                case __CHATTERBOX_VM_TEXT:
-                    if (string_copy(_string, 1, 2) == "->")
+                    else if (_line_read == _length)
                     {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SHORTCUT;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)];
-                    }
-                    else
-                    {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_TEXT;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
+                        _string = string_copy(_line_string, _line_read_prev, 1 + _line_read - _line_read_prev);
                     }
                     
-                    if (_read_char != "\n") _fresh_newline = false;
-                break;
-                
-                case __CHATTERBOX_VM_OPTION:
-                    var _pos = string_pos("|", _string);
-                    if (_pos < 1)
+                    if (_string != "")
                     {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_REDIRECT;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
-                    }
-                    else
-                    {
-                        var _content = [ __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
-                                         __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true) ];
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_OPTION;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
-                    }
-                break;
-                
-                case __CHATTERBOX_VM_ACTION:
-                    if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ")
-                    {
-                        var _content = [];
-                        repeat(9999)
+                        _string = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false);
+                        if (_string != "")
                         {
-                            var _pos = string_pos(" ", _string);
-                            if (_pos <= 0) _pos = string_length(_string)+1;
-                            _content[ array_length_1d(_content) ] = string_copy(_string, 1, _pos-1);
-                            _string = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
-                            if (_string == "") break;
-                        }
-                        
-                        if (_content[0] == "if")
-                        {
-                            if (_fresh_newline)
+                            var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
+                            _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_UNKNOWN;
+                            _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = 0;
+                            _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = undefined;
+                            
+                            if (_in_option)
                             {
-                                _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                                _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                                _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                _in_option = false;
+                        
+                                #region [[option]]
+                        
+                                var _pos = string_pos("|", _string);
+                                if (_pos < 1)
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_REDIRECT;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
+                                }
+                                else
+                                {
+                                    var _content = [ __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
+                                                     __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true) ];
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_OPTION;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                }
+                        
+                                #endregion
+                            }
+                            else if (_in_action)
+                            {
+                                _in_action = false;
+                        
+                                #region <<action>>
+                        
+                                if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ")
+                                {
+                                    var _content = [];
+                                    repeat(9999)
+                                    {
+                                        var _pos = string_pos(" ", _string);
+                                        if (_pos <= 0) _pos = string_length(_string)+1;
+                                        _content[ array_length_1d(_content) ] = string_copy(_string, 1, _pos-1);
+                                        _string = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
+                                        if (_string == "") break;
+                                    }
+                            
+                                    if (_content[0] == "if")
+                                    {
+                                        if (_first_token)
+                                        {
+                                            //If-statement on its own on a line
+                                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
+                                            _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                            _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                        }
+                                        else
+                                        {
+                                            //If-statement suffixed to another token
+                                            var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
+                                            _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
+                                            _insert_array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                            _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                            ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
+                                    
+                                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
+                                            _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                        }
+                                    }
+                                    else if (_content[0] == "elseif")
+                                    {
+                                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
+                                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 7), true)];
+                                    }
+                                }
+                                else if (_string == "endif")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                }
+                                else if (_string == "else")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_ELSE;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                }
+                                else if (_string == "stop")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                }
+                                else
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ACTION;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
+                                }
+                        
+                                #endregion
                             }
                             else
                             {
-                                _indent = _indent_prev;
-                            
-                                var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
-                                _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                                _insert_array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                                _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
-                                ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
-                            
-                                _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
-                                _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                #region Text
+                        
+                                if (string_copy(_string, 1, 2) == "->")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SHORTCUT;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)];
+                                }
+                                else
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_TEXT;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
+                                }
+                        
+                                #endregion
                             }
-                        }
-                        else if (_content[0] == "elseif")
-                        {
-                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
-                            _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                            _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 7), true)];
+                            
+                            ds_list_add(_instruction_list, _array);
+                            _first_token = false;
                         }
                     }
-                    else if (_string == "endif")
+                    
+                    if (_line_char_prev == "[") && (_line_char == "[")
                     {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                        _in_option = true;
                     }
-                    else if (_string == "else")
+                    else if (_line_char_prev == "<") && (_line_char == "<")
                     {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_ELSE;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                        _in_action = true;
                     }
-                    else if (_string == "stop")
-                    {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                    }
-                    else
-                    {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ACTION;
-                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
-                    }
-                break;
+                }
             }
-            ds_list_add(_instruction_list, _array);
-            
-            _indent_prev = _indent;
         }
         
         #endregion
