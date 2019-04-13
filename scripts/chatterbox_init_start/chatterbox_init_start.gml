@@ -56,7 +56,6 @@ enum __CHATTERBOX
 
 enum CHATTERBOX_SCOPE
 {
-    IGNORE,
     INTERNAL,
     GML_LOCAL,
     GML_GLOBAL,
