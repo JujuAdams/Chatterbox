@@ -6,10 +6,11 @@ var _step_size = ((argument_count > 1) && (argument_count[1] != undefined))? arg
 
 
 
-var _node_title  = _chatterbox[| __CHATTERBOX.TITLE    ];
-var _filename    = _chatterbox[| __CHATTERBOX.FILENAME ];
-var _text_list   = _chatterbox[| __CHATTERBOX.TEXTS    ];
-var _button_list = _chatterbox[| __CHATTERBOX.BUTTONS  ];
+var _node_title    = _chatterbox[| __CHATTERBOX.TITLE     ];
+var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
+var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+var _text_list     = _chatterbox[| __CHATTERBOX.TEXTS     ];
+var _button_list   = _chatterbox[| __CHATTERBOX.BUTTONS   ];
 
 if (_node_title == undefined)
 {
@@ -334,7 +335,7 @@ if (_evaluate)
                                             break;
                                             
                                             case CHATTERBOX_SCOPE.INTERNAL:
-                                                if (!ds_map_exists(global.__chatterbox_variable_map, _value))
+                                                if (!ds_map_exists(_variables_map, _value))
                                                 {
                                                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                                                     {
@@ -349,7 +350,7 @@ if (_evaluate)
                                                 }
                                                 else
                                                 {
-                                                    _value = global.__chatterbox_variable_map[? _value ];
+                                                    _value = _variables_map[? _value ];
                                                 }
                                             break;
                                             

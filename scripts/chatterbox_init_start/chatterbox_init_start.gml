@@ -45,7 +45,7 @@ enum __CHATTERBOX
     __SECTION1,  // 7
     INITIALISED, // 8
     INSTRUCTION, // 9
-    INDENT,      //10
+    VARIABLES,   //10
     
     __SECTION2,  //11
     TEXTS,       //12
@@ -86,6 +86,7 @@ enum CHATTERBOX_SCOPE
 #macro __CHATTERBOX_VM_ELSE     "else"
 #macro __CHATTERBOX_VM_ELSEIF   "elseif"
 #macro __CHATTERBOX_VM_IF_END   "end"
+#macro __CHATTERBOX_VM_SET      "set"
 #macro __CHATTERBOX_VM_STOP     "stop"
 
 #endregion
@@ -129,4 +130,3 @@ global.__chatterbox_data           = ds_map_create();
 global.__chatterbox_init_complete  = false;
 global.__chatterbox_default_file   = "";
 global.__chatterbox_indent_size    = 0;
-global.__chatterbox_variable_map   = ds_map_create();

@@ -58,10 +58,11 @@ if (ds_list_size(_instruction_list) == 0)
 
 show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
 
-var _instruction_array = _instruction_list[| 0];
 _chatterbox[| __CHATTERBOX.INITIALISED ] = false;
 _chatterbox[| __CHATTERBOX.INSTRUCTION ] = 0;
-_chatterbox[| __CHATTERBOX.INDENT      ] = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+
+var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+_variables_map[? "visited(" + _filename + CHATTERBOX_VISITED_SEPARATOR + _node_title + ")" ] = true;
 
 chatterbox_step(_chatterbox);
 return true;

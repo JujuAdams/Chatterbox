@@ -170,8 +170,8 @@ repeat(_font_count)
                                 _in_action = false;
                         
                                 #region <<action>>
-                        
-                                if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ")
+                                
+                                if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ") || (string_copy(_string, 1, 4) == "set ")
                                 {
                                     var _content = [];
                                     repeat(9999)
@@ -210,6 +210,12 @@ repeat(_font_count)
                                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
                                         _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                         _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 7), true)];
+                                    }
+                                    else if (_content[0] == "set")
+                                    {
+                                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SET;
+                                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 4), true)];
                                     }
                                 }
                                 else if (_string == "endif")
