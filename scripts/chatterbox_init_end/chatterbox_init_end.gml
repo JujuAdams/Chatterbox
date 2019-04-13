@@ -223,6 +223,7 @@ repeat(_font_count)
                             _insert_array[ __CHATTERBOX_INSTRUCTION.INDENT    ] = _indent;
                             _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT   ] = __chatterbox_remove_whitespace(string_delete(_string, 1, 3), true);
                             _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT_2 ] = "";
+                            ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
                             
                             _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
                             _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
