@@ -34,24 +34,25 @@ enum __CHATTERBOX_INSTRUCTION
 
 enum __CHATTERBOX
 {
-    __SECTION0,  // 0
-    LEFT,        // 1
-    TOP,         // 2
-    RIGHT,       // 3
-    BOTTOM,      // 4
-    FILENAME,    // 5
-    TITLE,       // 6
+    __SECTION0,   // 0
+    LEFT,         // 1
+    TOP,          // 2
+    RIGHT,        // 3
+    BOTTOM,       // 4
+    FILENAME,     // 5
+    TITLE,        // 6
     
-    __SECTION1,  // 7
-    INITIALISED, // 8
-    INSTRUCTION, // 9
-    VARIABLES,   //10
+    __SECTION1,   // 7
+    INITIALISED,  // 8
+    INSTRUCTION,  // 9
+    VARIABLES,    //10
+    EXECUTED_MAP, //11
     
-    __SECTION2,  //11
-    TEXTS,       //12
-    BUTTONS,     //13
+    __SECTION2,   //11
+    TEXTS,        //12
+    BUTTONS,      //13
     
-    __SIZE       //14
+    __SIZE        //14
 }
 
 enum CHATTERBOX_SCOPE

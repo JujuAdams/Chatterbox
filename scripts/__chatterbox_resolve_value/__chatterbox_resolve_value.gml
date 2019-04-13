@@ -85,9 +85,9 @@ else
     if (_variable)
     {
         #region Find the variable's scope based on prefix
-                                        
+        
         var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
-                                        
+        
         if (string_char_at(_value, 1) == "$")
         {
             _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
@@ -126,7 +126,7 @@ else
         else if (string_copy(_value, 1, 8) == "visited(")
         {
             _scope = CHATTERBOX_SCOPE.INTERNAL;
-                                            
+            
             if (!CHATTERBOX_VISITED_NO_FILENAME)
             {
                 //Make sure this visited() call has a filename attached to it
@@ -134,11 +134,11 @@ else
                 if (_pos <= 0) _value = string_insert(_filename + CHATTERBOX_VISITED_SEPARATOR, _value, 8);
             }
         }
-                                        
+        
         #endregion
-                                        
+        
         #region Collect variable value depending on scope and check its datatype
-                                        
+        
         switch(_scope)
         {                   
             case CHATTERBOX_SCOPE.INTERNAL:
@@ -160,7 +160,7 @@ else
                     _value = _variables_map[? _value ];
                 }
             break;
-                                            
+            
             case CHATTERBOX_SCOPE.GML_LOCAL:
                 if (!variable_instance_exists(id, _value))
                 {
@@ -180,7 +180,7 @@ else
                     _value = variable_instance_get(id, _value);
                 }
             break;
-                                            
+            
             case CHATTERBOX_SCOPE.GML_GLOBAL:
                 if (!variable_global_exists(_value))
                 {
@@ -201,7 +201,7 @@ else
                 }
             break;
         }
-                                        
+        
         var _typeof = typeof(_value);
         if (_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4")
         {
@@ -213,10 +213,10 @@ else
             {
                 show_debug_message("Chatterbox: WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
             }
-                                            
+            
             _value = string(_value);
         }
-                                        
+        
         if (_typeof == "bool") || (_typeof == "int32") || (_typeof == "int64")
         {
             _value = real(_value);

@@ -6,10 +6,12 @@ var _step_size = ((argument_count > 1) && (argument_count[1] != undefined))? arg
 
 
 
-var _node_title    = _chatterbox[| __CHATTERBOX.TITLE     ];
-var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
-var _text_list     = _chatterbox[| __CHATTERBOX.TEXTS     ];
-var _button_list   = _chatterbox[| __CHATTERBOX.BUTTONS   ];
+var _node_title    = _chatterbox[| __CHATTERBOX.TITLE        ];
+var _filename      = _chatterbox[| __CHATTERBOX.FILENAME     ];
+var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES    ];
+var _text_list     = _chatterbox[| __CHATTERBOX.TEXTS        ];
+var _button_list   = _chatterbox[| __CHATTERBOX.BUTTONS      ];
+var _executed_map  = _chatterbox[| __CHATTERBOX.EXECUTED_MAP ];
 
 if (_node_title == undefined)
 {
@@ -28,7 +30,7 @@ for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_step(_button_
 var _title_map = global.__chatterbox_data[? _filename ];
 var _instruction_list = _title_map[? _node_title ];
 
-var _indent        = 0;
+var _indent = 0;
 
 var _evaluate = false;
 if (!_chatterbox[| __CHATTERBOX.INITIALISED])
@@ -399,6 +401,108 @@ if (_evaluate)
                     _new_button = true;
                     _new_button_text = _instruction_content[0];
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       New button \"" + string(_new_button_text) + "\"");
+                break;
+                
+                case __CHATTERBOX_VM_SET:
+                    if (!ds_map_exists(_executed_map, _instruction))
+                    {
+                        _executed_map[? _instruction ] = true;
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
+                        
+                        #region Evaluation
+                    
+                        var _result = false;
+                        if (array_length_1d(_instruction_content) != 4)
+                        {
+                            show_error("Chatterbox:\nOnly simple set-statements are supported e.g.\n\"set $variable = 42\"\n ", false);
+                        }
+                        else if (_instruction_content[2] != "to") && (_instruction_content[2] != "=")
+                        {
+                            show_error("Chatterbox:\nOnly simple set-statements are supported e.g.\n\"set $variable = 42\"\n ", false);
+                        }
+                        else
+                        {
+                            var _variable = _instruction_content[1]; //variable
+                            var _value    = __chatterbox_resolve_value(_chatterbox, _instruction_content[3]); //value
+                            
+                            #region Find the variable's scope based on prefix
+                            
+                            var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
+                            
+                            if (string_char_at(_variable, 1) == "$")
+                            {
+                                _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
+                                _variable = string_delete(_variable, 1, 1);
+                            }
+                            else if (string_copy(_variable, 1, 2) == "g.")
+                            {
+                                _scope = CHATTERBOX_SCOPE.GML_GLOBAL;
+                                _variable = string_delete(_variable, 1, 2);
+                            }
+                            else if (string_copy(_variable, 1, 7) == "global.")
+                            {
+                                _scope = CHATTERBOX_SCOPE.GML_GLOBAL;
+                                _variable = string_delete(_variable, 1, 7);
+                            }
+                            else if (string_copy(_variable, 1, 2) == "l.")
+                            {
+                                _scope = CHATTERBOX_SCOPE.GML_LOCAL;
+                                _variable = string_delete(_variable, 1, 2);
+                            }
+                            else if (string_copy(_variable, 1, 6) == "local.")
+                            {
+                                _scope = CHATTERBOX_SCOPE.GML_LOCAL;
+                                _variable = string_delete(_variable, 1, 6);
+                            }
+                            else if (string_copy(_variable, 1, 2) == "i.")
+                            {
+                                _scope = CHATTERBOX_SCOPE.INTERNAL;
+                                _variable = string_delete(_variable, 1, 2);
+                            }
+                            else if (string_copy(_variable, 1, 9) == "internal.")
+                            {
+                                _scope = CHATTERBOX_SCOPE.INTERNAL;
+                                _variable = string_delete(_variable, 1, 9);
+                            }
+                            else if (string_copy(_variable, 1, 8) == "visited(")
+                            {
+                                _scope = CHATTERBOX_SCOPE.INTERNAL;
+                                
+                                if (!CHATTERBOX_VISITED_NO_FILENAME)
+                                {
+                                    //Make sure this visited() call has a filename attached to it
+                                    var _pos = string_pos(CHATTERBOX_VISITED_SEPARATOR, _variable);
+                                    if (_pos <= 0) _variable = string_insert(_filename + CHATTERBOX_VISITED_SEPARATOR, _variable, 8);
+                                }
+                            }
+                            
+                            #endregion
+                            
+                            switch(_scope)
+                            {                   
+                                case CHATTERBOX_SCOPE.INTERNAL:
+                                    _variables_map[? _variable ] = _value;
+                                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as internal variable");
+                                break;
+                                
+                                case CHATTERBOX_SCOPE.GML_LOCAL:
+                                    variable_instance_set(id, _variable, _value);
+                                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as local variable");
+                                break;
+                                
+                                case CHATTERBOX_SCOPE.GML_GLOBAL:
+                                    variable_global_set(_variable, _value);
+                                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as global variable");
+                                break;
+                            }
+                        }
+                        
+                        #endregion
+                    }
+                    else
+                    {
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     not executed before, ignoring");
+                    }
                 break;
                 
                 case __CHATTERBOX_VM_STOP:
