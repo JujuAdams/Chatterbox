@@ -57,7 +57,7 @@ if (!global.__scribble_init_complete)
     exit;
 }
 
-var _timer = get_timer();
+
 
 var _str              = argument[0];
 var _line_min_height  = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : -1;
@@ -1209,7 +1209,5 @@ ds_map_destroy(_texture_to_vbuff_map);
 #endregion
 
 
-
-//show_debug_message("Scribble: scribble_create() took " + string((get_timer() - _timer)/1000) + "ms");
 
 return _json;

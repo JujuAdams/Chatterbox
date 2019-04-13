@@ -11,7 +11,6 @@
 #macro CHATTERBOX_DEFAULT_RIGHT  950
 #macro CHATTERBOX_DEFAULT_BOTTOM 530
 
-#macro CHATTERBOX_HASH_NEWLINE      true  //Replaces hashes (#) with newlines (ASCII chr10) to emulate GMS1 behaviour
 #macro CHATTERBOX_TAB_INDENT_SIZE   4
 #macro CHATTERBOX_ROUND_UP_INDENTS  true
 

@@ -26,12 +26,10 @@ _list[| __CHATTERBOX.INSTRUCTION ] = undefined;
 _list[| __CHATTERBOX.INDENT      ] = undefined;
 
 _list[| __CHATTERBOX.__SECTION2  ] = "-- Children --"
-_list[| __CHATTERBOX.SCRIBBLES   ] = ds_list_create();
+_list[| __CHATTERBOX.TEXTS       ] = ds_list_create();
 _list[| __CHATTERBOX.BUTTONS     ] = ds_list_create();
-_list[| __CHATTERBOX.INSTANCES   ] = ds_list_create();
 
-ds_list_mark_as_list(_list, __CHATTERBOX.SCRIBBLES);
-ds_list_mark_as_list(_list, __CHATTERBOX.BUTTONS  );
-ds_list_mark_as_list(_list, __CHATTERBOX.INSTANCES);
+ds_list_mark_as_list(_list, __CHATTERBOX.TEXTS  );
+ds_list_mark_as_list(_list, __CHATTERBOX.BUTTONS);
 
 return _list;
