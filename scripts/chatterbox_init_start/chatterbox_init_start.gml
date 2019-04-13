@@ -54,6 +54,15 @@ enum __CHATTERBOX
     __SIZE       //14
 }
 
+enum CHATTERBOX_SCOPE
+{
+    IGNORE,
+    INTERNAL,
+    GML_LOCAL,
+    GML_GLOBAL,
+    __SIZE
+}
+
 //enum __CHATTERBOX_VM
 //{
 //    PORTRAIT,
@@ -120,3 +129,4 @@ global.__chatterbox_data           = ds_map_create();
 global.__chatterbox_init_complete  = false;
 global.__chatterbox_default_file   = "";
 global.__chatterbox_indent_size    = 0;
+global.__chatterbox_variable_map   = ds_map_create();

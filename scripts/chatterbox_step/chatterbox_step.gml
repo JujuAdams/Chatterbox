@@ -194,8 +194,353 @@ if (_evaluate)
                         }
                     }
                     
-                    var _target_value = _instruction_content[3];
-                    var _if_state = !_target_value;
+                    #region If-statement evaluation
+                    
+                    var _result = false;
+                    if (array_length_1d(_instruction_content) != 4)
+                    {
+                        show_error("Chatterbox:\nOnly simple if-statements are supported e.g.\n\"if $variable == 42\"\n ", false);
+                    }
+                    else
+                    {
+                        var _array = array_create(3);
+                        _array[0] = _instruction_content[1]; //A
+                        _array[1] = _instruction_content[2]; //comparator
+                        _array[2] = _instruction_content[3]; //B
+                        
+                        var _auto_fail = false;
+                        
+                        for(var _i = 0; _i < 3; _i++)
+                        {
+                            if (_i == 0) || (_i == 2)
+                            {
+                                var _value = _array[_i];
+                                
+                                //Look for a prefixed ! to indicate negation
+                                var _negate = false;
+                                if (string_char_at(_value, 1) == "!")
+                                {
+                                    _negate = true;
+                                    _value = string_delete(_value, 1, 1);
+                                }
+                                
+                                if (string_char_at(_value, 1) == "\"") && (string_char_at(_value, string_length(_value)) == "\"")
+                                {
+                                    //It's a string!
+                                    _value = string_copy(_value, 2, string_length(_value)-2);
+                                }
+                                else
+                                {
+                                    var _variable = false;
+                                    
+                                    #region Figure out if this value is a real
+                                    
+                                    var _hit_number = false;
+                                    var _i = string_length(_value);
+                                    repeat(string_length(_value))
+                                    {
+                                        var _character = string_char_at(_value, _i);
+                                        if (_character == "0") || (_character == "1") || (_character == "2") || (_character == "3")
+                                        || (_character == "4") || (_character == "5") || (_character == "6") || (_character == "7")
+                                        || (_character == "8") || (_character == "9") || (_character == ".") || (_character == "-")
+                                        {
+                                            _hit_number = true;
+                                        }
+                                        else
+                                        {
+                                            _variable = true;
+                                            break;
+                                        }
+                                        _i--;
+                                    }
+                                    
+                                    if (!_variable)
+                                    {
+                                        if (string_count("-", _value) > 1) _variable = true;
+                                        if (string_count(".", _value) > 1) _variable = true;
+                                        
+                                        var _negative_pos = string_pos("-", _value);
+                                        if (_negative_pos > 1) _variable = true;
+                                        if (string_pos(".", _value) == (1+_negative_pos)) _variable = true;
+                                        
+                                        if (!_variable) _value = real(_value);
+                                    }
+                                    
+                                    #endregion
+                                    
+                                    #region Figure out if this value is undefined (or null)
+                                    
+                                    if (_variable)
+                                    {
+                                        if (_value == "null") || (_value == "undefined")
+                                        {
+                                            _value = undefined;
+                                            _variable = false;
+                                        }
+                                    }
+                                    
+                                    #endregion
+                                    
+                                    if (_variable)
+                                    {
+                                        #region Find the variable's scope based on prefix
+                                        
+                                        var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
+                                        
+                                        if (string_char_at(_value, 1) == "$")
+                                        {
+                                            _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
+                                            _value = string_delete(_value, 1, 1);
+                                        }
+                                        else if (string_copy(_value, 1, 2) == "g.")
+                                        {
+                                            _scope = CHATTERBOX_SCOPE.GML_GLOBAL;
+                                            _value = string_delete(_value, 1, 2);
+                                        }
+                                        else if (string_copy(_value, 1, 7) == "global.")
+                                        {
+                                            _scope = CHATTERBOX_SCOPE.GML_GLOBAL;
+                                            _value = string_delete(_value, 1, 7);
+                                        }
+                                        else if (string_copy(_value, 1, 2) == "l.")
+                                        {
+                                            _scope = CHATTERBOX_SCOPE.GML_LOCAL;
+                                            _value = string_delete(_value, 1, 2);
+                                        }
+                                        else if (string_copy(_value, 1, 6) == "local.")
+                                        {
+                                            _scope = CHATTERBOX_SCOPE.GML_LOCAL;
+                                            _value = string_delete(_value, 1, 6);
+                                        }
+                                        else if (string_copy(_value, 1, 2) == "i.")
+                                        {
+                                            _scope = CHATTERBOX_SCOPE.INTERNAL;
+                                            _value = string_delete(_value, 1, 2);
+                                        }
+                                        else if (string_copy(_value, 1, 9) == "internal.")
+                                        {
+                                            _scope = CHATTERBOX_SCOPE.INTERNAL;
+                                            _value = string_delete(_value, 1, 9);
+                                        }
+                                        
+                                        #endregion
+                                        
+                                        #region Collect variable value depending on scope and check its datatype
+                                        
+                                        switch(_scope)
+                                        {
+                                            case CHATTERBOX_SCOPE.IGNORE:
+                                                _auto_fail = true;
+                                            break;
+                                            
+                                            case CHATTERBOX_SCOPE.INTERNAL:
+                                                if (!ds_map_exists(global.__chatterbox_variable_map, _value))
+                                                {
+                                                    if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
+                                                    {
+                                                        show_error("Chatterbox:\nInternal variable \"" + _value + "\" doesn't exist!\n ", false);
+                                                    }
+                                                    else
+                                                    {
+                                                        show_debug_message("Chatterbox: WARNING! Internal variable \"" + _value + "\" doesn't exist!");
+                                                    }
+                                                    
+                                                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
+                                                }
+                                                else
+                                                {
+                                                    _value = global.__chatterbox_variable_map[? _value ];
+                                                }
+                                            break;
+                                            
+                                            case CHATTERBOX_SCOPE.GML_LOCAL:
+                                                if (!variable_instance_exists(id, _value))
+                                                {
+                                                    if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
+                                                    {
+                                                        show_error("Chatterbox:\nLocal variable \"" + _value + "\" doesn't exist!\n ", false);
+                                                    }
+                                                    else
+                                                    {
+                                                        show_debug_message("Chatterbox: WARNING! Local variable \"" + _value + "\" doesn't exist!");
+                                                    }
+                                                    
+                                                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
+                                                }
+                                                else
+                                                {
+                                                    _value = variable_instance_get(id, _value);
+                                                }
+                                            break;
+                                            
+                                            case CHATTERBOX_SCOPE.GML_GLOBAL:
+                                                if (!variable_global_exists(_value))
+                                                {
+                                                    if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
+                                                    {
+                                                        show_error("Chatterbox:\nGlobal variable \"" + _value + "\" doesn't exist!\n ", false);
+                                                    }
+                                                    else
+                                                    {
+                                                        show_debug_message("Chatterbox: WARNING! Global variable \"" + _value + "\" doesn't exist!");
+                                                    }
+                                                    
+                                                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
+                                                }
+                                                else
+                                                {
+                                                    _value = variable_global_get(_value);
+                                                }
+                                            break;
+                                        }
+                                        
+                                        var _typeof = typeof(_value);
+                                        if (_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4")
+                                        {
+                                            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
+                                            {
+                                                show_error("Chatterbox:\nVariable \"" + _value + "\" doesn't exist!\n ", false);
+                                            }
+                                            else
+                                            {
+                                                show_debug_message("Chatterbox: WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
+                                            }
+                                            
+                                            _value = string(_value);
+                                        }
+                                        
+                                        if (_typeof == "bool") || (_typeof == "int32") || (_typeof == "int64")
+                                        {
+                                            _value = real(_value);
+                                        }
+                                        
+                                        #endregion
+                                    }
+                                }
+                                
+                                if (_negate)
+                                {
+                                    if (is_real(_value))
+                                    {
+                                        _value = !_value;
+                                    }
+                                    else if (is_string(_value))
+                                    {
+                                        _value = "";
+                                    }
+                                }
+                                
+                                _array[_i] = _value;
+                            }
+                            else if (_i == 1)
+                            {
+                                #region Handle comparator variations
+                                
+                                var _comparator = _array[_i];
+                                switch(_comparator)
+                                {
+                                    //case "and": _comparator = "&&"; break;
+                                    //case "&"  : _comparator = "&&"; break;
+                                    case "le" : _comparator = "<";  break;
+                                    case "gt" : _comparator = ">";  break;
+                                    //case "or" : _comparator = "||"; break;
+                                    //case "`"  : _comparator = "||"; break;
+                                    //case "|"  : _comparator = "||"; break;
+                                    case "leq": _comparator = "<="; break;
+                                    case "geq": _comparator = ">="; break;
+                                    case "eq" : _comparator = "=="; break;
+                                    case "is" : _comparator = "=="; break;
+                                    case "neq": _comparator = "!="; break;
+                                }
+                                
+                                _array[_i] = _comparator;
+                                
+                                #endregion
+                            }
+                        }
+                        
+                        if (!_auto_fail)
+                        {
+                            #region Resolve the comparison
+                            
+                            var _value_a    = _array[1];
+                            var _comparator = _array[2];
+                            var _value_b    = _array[3];
+                            
+                            var _less    = false;
+                            var _equal   = false;
+                            var _greater = false;
+                            
+                            #region Check if A is less than B
+                            
+                            if (is_real(_value_a) && is_real(_value_b))
+                            {
+                                _less = (_value_a < _value_b);
+                            }
+                            else 
+                            {
+                                _less = false;
+                            }
+                            
+                            #endregion
+                            
+                            #region Check if the two values are equal
+                            
+                            if (is_undefined(_value_a))
+                            {
+                                _equal = is_undefined(_value_b); //If B isn't <undefined>, the result is always <false>
+                            }
+                            else if (is_undefined(_value_b))
+                            {
+                                _equal = false; //A isn't undefined but B is, so the result is <false>
+                            }
+                            else if (is_string(_value_a) || is_string(_value_b)) //If either A or B is a string, compare the two variables as strings
+                            {
+                                _equal = (string(_value_a) == string(_value_b));
+                            }
+                            else //A and B are both reals so let's do a straight comparison
+                            {
+                                _equal = (_value_a == _value_b);
+                            }
+                            
+                            #endregion
+                            
+                            #region Check if A is greater than B
+                            
+                            if (is_real(_value_a) && is_real(_value_b))
+                            {
+                                _greater = (_value_a > _value_b);
+                            }
+                            else 
+                            {
+                                _greater = false;
+                            }
+                            
+                            #endregion
+                            
+                            switch(_comparator)
+                            {
+                                case "==": _result =  _equal;             break;
+                                case "!=": _result = !_equal;             break;
+                                case "<" : _result =  _less;              break;
+                                case ">" : _result =  _greater;           break;
+                                case "<=": _result =  _equal || _less;    break;
+                                case ">=": _result =  _equal || _greater; break;
+                            }
+                            
+                            #endregion
+                        }
+                        else
+                        {
+                            _result = false;
+                        }
+                        
+                        #endregion
+                    }
+                    
+                    #endregion
+                    
+                    var _if_state = _result;
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   Set _if_state = " + string(_if_state));
                     
                     if (_if_state)
