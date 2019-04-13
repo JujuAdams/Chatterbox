@@ -340,6 +340,12 @@ if (_evaluate)
                 case __CHATTERBOX_VM_ELSE:
                     _if_state = !_if_state;
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Invert _if_state = " + string(_if_state));
+                    
+                    if (_if_state)
+                    {
+                        _permit_greater_indent = true;
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _permit_greater_indent = " + string(_permit_greater_indent));
+                    }
                 break;
                 
                 case __CHATTERBOX_VM_IF_END:
