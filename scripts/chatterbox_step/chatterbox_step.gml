@@ -237,10 +237,10 @@ if (_evaluate)
                                     #region Figure out if this value is a real
                                     
                                     var _hit_number = false;
-                                    var _i = string_length(_value);
+                                    var _j = string_length(_value);
                                     repeat(string_length(_value))
                                     {
-                                        var _character = string_char_at(_value, _i);
+                                        var _character = string_char_at(_value, _j);
                                         if (_character == "0") || (_character == "1") || (_character == "2") || (_character == "3")
                                         || (_character == "4") || (_character == "5") || (_character == "6") || (_character == "7")
                                         || (_character == "8") || (_character == "9") || (_character == ".") || (_character == "-")
@@ -252,7 +252,7 @@ if (_evaluate)
                                             _variable = true;
                                             break;
                                         }
-                                        _i--;
+                                        _j--;
                                     }
                                     
                                     if (!_variable)
@@ -269,11 +269,21 @@ if (_evaluate)
                                     
                                     #endregion
                                     
-                                    #region Figure out if this value is undefined (or null)
+                                    #region Figure out if this value is a keyword: true / false / undefined / null
                                     
                                     if (_variable)
                                     {
-                                        if (_value == "null") || (_value == "undefined")
+                                        if (_value == "true")
+                                        {
+                                            _value = true;
+                                            _variable = false;
+                                        }
+                                        else if (_value == "false")
+                                        {
+                                            _value = false;
+                                            _variable = false;
+                                        }
+                                        else if (_value == "undefined") || (_value == "null")
                                         {
                                             _value = undefined;
                                             _variable = false;
@@ -350,11 +360,11 @@ if (_evaluate)
                                                 {
                                                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                                                     {
-                                                        show_error("Chatterbox:\nInternal variable \"" + _value + "\" doesn't exist!\n ", false);
+                                                        show_error("Chatterbox:\nInternal variable \"" + _value + "\" doesn't exist\n ", false);
                                                     }
                                                     else
                                                     {
-                                                        show_debug_message("Chatterbox: WARNING! Internal variable \"" + _value + "\" doesn't exist!");
+                                                        show_debug_message("Chatterbox: WARNING! Internal variable \"" + _value + "\" doesn't exist");
                                                     }
                                                     
                                                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -370,11 +380,11 @@ if (_evaluate)
                                                 {
                                                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                                                     {
-                                                        show_error("Chatterbox:\nLocal variable \"" + _value + "\" doesn't exist!\n ", false);
+                                                        show_error("Chatterbox:\nLocal variable \"" + _value + "\" doesn't exist\n ", false);
                                                     }
                                                     else
                                                     {
-                                                        show_debug_message("Chatterbox: WARNING! Local variable \"" + _value + "\" doesn't exist!");
+                                                        show_debug_message("Chatterbox: WARNING! Local variable \"" + _value + "\" doesn't exist");
                                                     }
                                                     
                                                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -394,7 +404,7 @@ if (_evaluate)
                                                     }
                                                     else
                                                     {
-                                                        show_debug_message("Chatterbox: WARNING! Global variable \"" + _value + "\" doesn't exist!");
+                                                        show_debug_message("Chatterbox: WARNING! Global variable \"" + _value + "\" doesn't exist");
                                                     }
                                                     
                                                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -411,7 +421,7 @@ if (_evaluate)
                                         {
                                             if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
                                             {
-                                                show_error("Chatterbox:\nVariable \"" + _value + "\" doesn't exist!\n ", false);
+                                                show_error("Chatterbox:\nVariable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")\n ", false);
                                             }
                                             else
                                             {
@@ -475,9 +485,21 @@ if (_evaluate)
                         {
                             #region Resolve the comparison
                             
-                            var _value_a    = _array[1];
-                            var _comparator = _array[2];
-                            var _value_b    = _array[3];
+                            var _value_a    = _array[0];
+                            var _comparator = _array[1];
+                            var _value_b    = _array[2];
+                            
+                            if (typeof(_value_a) != typeof(_value_b))
+                            {
+                                if (CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE)
+                                {
+                                    show_error("Chatterbox:\nVariable datatypes do not match", false);
+                                }
+                                else
+                                {
+                                    show_debug_message("Chatterbox: WARNING! Variable datatypes do not match");
+                                }
+                            }
                             
                             var _less    = false;
                             var _equal   = false;

@@ -34,9 +34,9 @@
 // 
 // The $ prefix is what's specified in the Yarn documentation
 
-#macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     true
+#macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true
-#macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  true
+#macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false
 
 #macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE     CHATTERBOX_SCOPE.INTERNAL   //If a variable starts if a $, what scope should it take?
 #macro CHATTERBOX_NAKED_VARIABLE_SCOPE      CHATTERBOX_SCOPE.GML_LOCAL  //If a variable has no prefix, what scope should it take?
