@@ -69,7 +69,7 @@ repeat(_font_count)
         _body = string_replace_all(_body, "\n\r", "\n");
         _body = string_replace_all(_body, "\r\n", "\n");
         _body = string_replace_all(_body, "\r"  , "\n");
-        if (__CHATTERBOX_DEBUG)
+        if (__CHATTERBOX_DEBUG_PARSER)
         {
             if (_node == 0) show_debug_message("Chatterbox:");
             show_debug_message("Chatterbox:     \"" + string(_title) + "\" : \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
@@ -302,7 +302,7 @@ repeat(_font_count)
         
         
         //Debug output that enumerates all instructions for this node
-        if (__CHATTERBOX_DEBUG)
+        if (__CHATTERBOX_DEBUG_PARSER)
         {
             var _i = 0;
             repeat(ds_list_size(_instruction_list))

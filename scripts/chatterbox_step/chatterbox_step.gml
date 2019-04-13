@@ -251,6 +251,8 @@ if (_evaluate)
                     var _text = scribble_create(_instruction_content[0]);
                     ds_list_insert(_text_list, 0, _text);
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Created text");
+                    
+                    var _text_instruction = _instruction; //Record the instruction position of the text
                 break;
                 
                 case __CHATTERBOX_VM_SHORTCUT:
@@ -351,7 +353,7 @@ if (_evaluate)
         _button[| __SCRIBBLE.TOP    ] += _y_offset;
         _button[| __SCRIBBLE.RIGHT  ] += 10;
         _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
-        _button[| __SCRIBBLE.__SIZE ]  = _instruction-1; //Borrow a slot in the Scribble data structure to store the instruction index
+        _button[| __SCRIBBLE.__SIZE ]  = _text_instruction; //Borrow a slot in the Scribble data structure to store the instruction index
         ds_list_add(_button_list, _button);
     }
     
