@@ -27,7 +27,6 @@ enum __CHATTERBOX_INSTRUCTION
     TYPE,
     INDENT,
     CONTENT,
-    CONTENT_2,
     __SIZE        // 0
 }
 

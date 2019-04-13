@@ -1,5 +1,7 @@
 /// Adds a Yarn .json file definition to Chatterbox
 ///
+/// https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
+///
 /// @param fileName       Name of the Yarn .json file to add
 
 if ( !variable_global_exists("__chatterbox_init_complete") )

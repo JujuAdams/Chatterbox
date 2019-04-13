@@ -19,15 +19,14 @@ if (_node_title == undefined)
 
 
 
-var _title_map = global.__chatterbox_data[? _filename ];
-var _instruction_list = _title_map[? _node_title ];
-
-
-
 //Perform a step for all nested Scribble data structures
 for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_step(_text_list[|   _i], _step_size);
 for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_step(_button_list[| _i], _step_size);
 
+
+
+var _title_map = global.__chatterbox_data[? _filename ];
+var _instruction_list = _title_map[? _node_title ];
 
 var _button_type   = __CHATTERBOX_VM_UNKNOWN;
 var _button_indent = undefined;
@@ -81,7 +80,8 @@ else
                 
                 case __CHATTERBOX_VM_OPTION:
                     //Jump out to another node
-                    chatterbox_start(_chatterbox, _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT_2 ]);
+                    var _content = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+                    chatterbox_start(_chatterbox, _content[1]);
                     exit;
                 break;
             }
@@ -109,10 +109,9 @@ if (_evaluate)
     repeat(9999)
     {
         var _instruction_array     = _instruction_list[| _instruction ];
-        var _instruction_type      = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE      ];
-        var _instruction_indent    = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT    ];
-        var _instruction_content   = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT   ];
-        var _instruction_content_2 = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT_2 ];
+        var _instruction_type      = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
+        var _instruction_indent    = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+        var _instruction_content   = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
         
         if (_instruction_indent < _indent)
         {
@@ -135,7 +134,8 @@ if (_evaluate)
         
         if (!_break)
         {
-            var _new_button = false;
+            var _new_button      = false;
+            var _new_button_text = "";
             switch(_instruction_type)
             {
                 case __CHATTERBOX_VM_TEXT:
@@ -156,12 +156,14 @@ if (_evaluate)
                     if (!_found_text) break;
                     show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + ", indent=" + string(_indent) + ", SHORTCUT = \"" + string(_instruction_content) + "\"");
                     _new_button = true;
+                    _new_button_text = _instruction_content;
                 break;
                 
                 case __CHATTERBOX_VM_OPTION:
                     if (!_found_text) break;
-                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " OPTION = \"" + string(_instruction_content) + "\" -> \"" + string(_instruction_content_2) + "\"");
+                    show_debug_message("Chatterbox: " + _node_title + ":" + string(_instruction) + " OPTION = \"" + string(_instruction_content[0]) + "\" -> \"" + string(_instruction_content[1]) + "\"");
                     _new_button = true;
+                    _new_button_text = _instruction_content[0];
                 break;
                 
                 case __CHATTERBOX_VM_STOP:
@@ -184,7 +186,7 @@ if (_evaluate)
         if (_new_button)
         {
             _new_button = false;
-            var _button = scribble_create(_instruction_content);
+            var _button = scribble_create(_new_button_text);
             
             if (ds_list_size(_button_list) <= 0)
             {
