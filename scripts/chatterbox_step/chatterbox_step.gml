@@ -67,27 +67,21 @@ else
                 case __CHATTERBOX_VM_TEXT:
                     //Advance to the next instruction
                     _instruction++;
+                    //Use the ident value of the text itself
                     _indent = _button_indent;
                 break;
                 
                 case __CHATTERBOX_VM_SHORTCUT:
                     //Advance to the next instruction
                     _instruction++;
+                    //Use the ident value of the next instruction
                     var _instruction_array = _instruction_list[| _instruction ];
                         _indent            = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
                 break;
                 
                 case __CHATTERBOX_VM_OPTION:
-                    var _instruction_content_2 = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT_2 ];
-                    
-                    //Wipe all the old text and buttons
-                    for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_destroy(_text_list[|   _i]);
-                    for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_destroy(_button_list[| _i]);
-                    ds_list_clear(_text_list);
-                    ds_list_clear(_button_list);
-                    
                     //Jump out to another node
-                    chatterbox_start(_chatterbox, _instruction_content_2);
+                    chatterbox_start(_chatterbox, _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT_2 ]);
                     exit;
                 break;
             }
@@ -96,19 +90,17 @@ else
         }
     }
     
-    if (_evaluate)
-    {
-        for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_destroy(_text_list[|   _i]);
-        for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_destroy(_button_list[| _i]);
-        ds_list_clear(_text_list);
-        ds_list_clear(_button_list);
-    }
-    
     #endregion
 }
 
 if (_evaluate)
 {
+    //Wipe all the old text and buttons
+    for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_destroy(_text_list[|   _i]);
+    for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_destroy(_button_list[| _i]);
+    ds_list_clear(_text_list);
+    ds_list_clear(_button_list);
+    
     #region Evaluate Yarn virtual machine
     
     var _found_text = false;
@@ -188,7 +180,7 @@ if (_evaluate)
             }
         }
         
-        #region Create a new button
+        #region Create a new button from SHORTCUT and OPTION instructions
         if (_new_button)
         {
             _new_button = false;
@@ -196,8 +188,16 @@ if (_evaluate)
             
             if (ds_list_size(_button_list) <= 0)
             {
-                var _primary_text = _text_list[| 0];
-                var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
+                if (ds_list_size(_text_list) <= 0)
+                {
+                    var _y_offset = 0;
+                }
+                else
+                {
+                    var _primary_text = _text_list[| 0];
+                    var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
+                }
+                
                 _button[| __SCRIBBLE.LEFT   ] += 10;
                 _button[| __SCRIBBLE.TOP    ] += _y_offset;
                 _button[| __SCRIBBLE.RIGHT  ] += 10;
@@ -225,11 +225,21 @@ if (_evaluate)
         _instruction++;
     }
     
+    #region Create a new button from a TEXT instruction if no option or shortcut was found
+    
     if (ds_list_size(_button_list) <= 0)
     {
-        var _primary_text = _text_list[| 0];
-        var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
-        var _button = scribble_create("CLICK TO CONTINUE");
+        if (ds_list_size(_text_list) <= 0)
+        {
+            var _y_offset = 0;
+        }
+        else
+        {
+            var _primary_text = _text_list[| 0];
+            var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
+        }
+        
+        var _button = scribble_create(CHATTERBOX_CONTINUE_TEXT);
         _button[| __SCRIBBLE.LEFT   ] += 10;
         _button[| __SCRIBBLE.TOP    ] += _y_offset;
         _button[| __SCRIBBLE.RIGHT  ] += 10;
@@ -237,6 +247,8 @@ if (_evaluate)
         _button[| __SCRIBBLE.__SIZE ]  = _instruction-1; //Borrow a slot in the Scribble data structure to store the instruction index
         ds_list_add(_button_list, _button);
     }
+    
+    #endregion
     
     #endregion
 }
