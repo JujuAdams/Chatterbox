@@ -7,9 +7,10 @@
 
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.0.0"
-#macro __CHATTERBOX_DATE     "2019/04/12"
-#macro __CHATTERBOX_DEBUG    true
+#macro __CHATTERBOX_VERSION   "0.0.0"
+#macro __CHATTERBOX_DATE      "2019/04/12"
+#macro __CHATTERBOX_DEBUG     true
+#macro __CHATTERBOX_DEBUG_VM  true
 
 #macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
 #macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
