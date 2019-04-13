@@ -534,8 +534,6 @@ if (_evaluate)
                         {
                             _result = false;
                         }
-                        
-                        #endregion
                     }
                     
                     #endregion
