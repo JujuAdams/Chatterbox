@@ -24,17 +24,12 @@ _list[| __CHATTERBOX.__SECTION1  ] = "-- State --";
 _list[| __CHATTERBOX.INITIALISED ] = false;
 _list[| __CHATTERBOX.INSTRUCTION ] = undefined;
 _list[| __CHATTERBOX.INDENT      ] = undefined;
-_list[| __CHATTERBOX.IF_STACK    ] = ds_list_create();
 
 _list[| __CHATTERBOX.__SECTION2  ] = "-- Children --"
 _list[| __CHATTERBOX.TEXTS       ] = ds_list_create();
 _list[| __CHATTERBOX.BUTTONS     ] = ds_list_create();
 
-ds_list_mark_as_list(_list, __CHATTERBOX.IF_STACK);
 ds_list_mark_as_list(_list, __CHATTERBOX.TEXTS   );
 ds_list_mark_as_list(_list, __CHATTERBOX.BUTTONS );
-
-var _if_stack = _list[| __CHATTERBOX.IF_STACK ];
-_if_stack[| 0] = true;
 
 return _list;

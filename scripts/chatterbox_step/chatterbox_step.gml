@@ -10,7 +10,6 @@ var _node_title  = _chatterbox[| __CHATTERBOX.TITLE    ];
 var _filename    = _chatterbox[| __CHATTERBOX.FILENAME ];
 var _text_list   = _chatterbox[| __CHATTERBOX.TEXTS    ];
 var _button_list = _chatterbox[| __CHATTERBOX.BUTTONS  ];
-var _if_stack    = _chatterbox[| __CHATTERBOX.IF_STACK ];   
 
 if (_node_title == undefined)
 {
@@ -104,6 +103,7 @@ if (_evaluate)
     
     #region Evaluate Yarn virtual machine
     
+    var _if_state = true;
     var _found_text = false;
     
     var _break = false;
@@ -130,6 +130,7 @@ if (_evaluate)
         }
         else if (_instruction_indent > _indent)
         {
+            if (!_found_text) _indent = _instruction_indent;
             _continue = true;
         }
         
@@ -144,43 +145,34 @@ if (_evaluate)
                     //Only evaluate the if-statement if we passed the previous check
                     if (_instruction_type == __CHATTERBOX_VM_IF)
                     {
-                        if (!_if_stack[| 0])
+                        if (!_if_state)
                         {
-                            ds_list_insert(_if_stack, 0, false);
                             _continue = true;
                             break;
                         }
                     }
                     
-                    //Only evaluate the if-statement if we failed the previous check
+                    //Only evaluate the elseif-statement if we failed the previous check
                     if (_instruction_type == __CHATTERBOX_VM_ELSEIF)
                     {
-                        if (_if_stack[| 0])
+                        if (_if_state)
                         {
-                            _if_stack[| 0] = false;
+                            _if_state = false;
                             _continue = true;
                             break;
                         }
-                        
-                        //Pop the top result from the stack - we'll replace it shortly
-                        ds_list_delete(_if_stack, 0);
                     }
                     
                     var _target_value = _instruction_content[3];
-                    var _if_result = !_target_value;
-                    
-                    //Push the result to the top of the stack
-                    ds_list_insert(_if_stack, 0, _if_result);
+                    var _if_state = !_target_value;
                 break;
                 
                 case __CHATTERBOX_VM_ELSE:
-                    //Invert the value on the top of the stack
-                    _if_stack[| 0] = !_if_stack[| 0];
+                    _if_state = !_if_state;
                 break;
                 
                 case __CHATTERBOX_VM_IF_END:
-                    //Pop the top result from the stack
-                    ds_list_delete(_if_stack, 0);
+                    _if_state = true;
                     _continue = true;
                 break;
             }
@@ -191,7 +183,7 @@ if (_evaluate)
         if (!_break && !_continue)
         {
             //If we're inside a branch that has been evaluated as <false> then keep skipping until we close the branch
-            if (!_if_stack[| 0]) _continue = true;
+            if (!_if_state) _continue = true;
         }
         
         if (!_break && !_continue)
@@ -284,11 +276,7 @@ if (_evaluate)
             #endregion
         }
         
-        if (_break)
-        {
-            show_debug_message("Chatterbox: Breaking at instruction " + string(_instruction));
-            break;
-        }
+        if (_break) break;
         
         _instruction++;
     }
