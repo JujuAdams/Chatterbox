@@ -12,10 +12,6 @@
 #macro __CHATTERBOX_DEBUG_PARSER  false
 #macro __CHATTERBOX_DEBUG_VM      false
 
-#macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
-#macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
-#macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
-
 enum __CHATTERBOX_FILE
 {
     FILENAME, // 0
@@ -91,6 +87,10 @@ enum CHATTERBOX_SCOPE
 #macro __CHATTERBOX_VM_IF_END   "end"
 #macro __CHATTERBOX_VM_SET      "set"
 #macro __CHATTERBOX_VM_STOP     "stop"
+
+#macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
+#macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
+#macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
 #endregion
 
