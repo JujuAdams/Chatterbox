@@ -117,31 +117,14 @@ repeat(_font_count)
                     _line_char_prev = _line_char;
                     var _line_char = string_char_at(_line_string, _line_read);
                     
-                    if (_in_option)
+                    if (_line_char_prev == _line_char)
+                    && (  ( _in_option && (_line_char == "]"))
+                       || ( _in_action && (_line_char == ">"))
+                       || (!_in_option && (_line_char == "["))
+                       || (!_in_action && (_line_char == "<"))  )
                     {
-                        if (_line_char_prev == "]") && (_line_char == "]")
-                        {
                             _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
                             _line_read_prev = _line_read+1;
-                        }
-                    }
-                    else if (_in_action)
-                    {
-                        if (_line_char_prev == ">") && (_line_char == ">")
-                        {
-                            _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
-                            _line_read_prev = _line_read+1;
-                        }
-                    }
-                    else if (_line_char_prev == "[") && (_line_char == "[")
-                    {
-                        _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
-                        _line_read_prev = _line_read+1;
-                    }
-                    else if (_line_char_prev == "<") && (_line_char == "<")
-                    {
-                        _string = string_copy(_line_string, _line_read_prev, _line_read-1 - _line_read_prev);
-                        _line_read_prev = _line_read+1;
                     }
                     else if (_line_read == _length)
                     {
