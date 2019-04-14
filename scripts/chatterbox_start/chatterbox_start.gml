@@ -64,13 +64,13 @@ _chatterbox[| __CHATTERBOX.INSTRUCTION ] = 0;
 var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
 if (CHATTERBOX_VISITED_NO_FILENAME)
 {
-    _variables_map[? "visited(\"" + _node_title + "\")" ] = true;
-    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(\"" + _node_title + "\")\" to <true>");
+    _variables_map[? "visited(" + _node_title + ")" ] = true;
+    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _node_title + ")\" to <true>");
 }
 else
 {
-    _variables_map[? "visited(" + _filename + CHATTERBOX_VISITED_SEPARATOR + "\""+ _node_title + "\")" ] = true;
-    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _filename + CHATTERBOX_VISITED_SEPARATOR + "\""+ _node_title + "\")\" to <true>");
+    _variables_map[? "visited(" + _filename + ":" + _node_title + ")" ] = true;
+    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _filename + ":" + _node_title + ")\" to <true>");
 }
 
 chatterbox_step(_chatterbox);

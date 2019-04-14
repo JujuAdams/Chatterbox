@@ -5,6 +5,7 @@ var _chatterbox = argument0;
 var _content    = argument1;
 
 var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
 
 var _resolved_array = array_create(array_length_1d(_content), pointer_null); //Copy the array
 
@@ -42,23 +43,68 @@ repeat(9999)
         
         if (_fully_resolved)
         {
-            if (_element[1] == "()")
+            if ((_element_length >= 2) && (_resolved_array[_element[1]] == "()"))
             {
                 //Function execution
-                
+                var _result = undefined;
                 var _function = _resolved_array[_element[0]];
+                
+                var _function_args = array_create(_element_length-2);
+                for(var _i = 2; _i < _element_length; _i++) _function_args[_i-2] = __chatterbox_resolve_value(_chatterbox, _resolved_array[_element[_i]]);
+                
                 if (_function == "visited")
                 {
-                    
+                    if (_element_length == 3) _function_args[1] = _filename;
+                    _result = _variables_map[? "visited(" + _function_args[1] + ":" + _function_args[0] + ")" ];
+                    _result = (_result == undefined)? false : _result;
                 }
                 else
                 {
-                    
+                    _function = global.__chatterbox_actions[? _function ];
+                    if (_function != undefined)
+                    {
+                        _result = script_execute(_function, _function_args);
+        
+                        var _typeof = typeof(_result);
+                        if (_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4")
+                        {
+                            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
+                            {
+                                show_error("Chatterbox:\nVariable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")\n ", false);
+                            }
+                            else
+                            {
+                                show_debug_message("Chatterbox: WARNING! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
+                            }
+                            
+                            _result = string(_result);
+                        }
+                        
+                        if (_typeof == "bool") || (_typeof == "int32") || (_typeof == "int64")
+                        {
+                            _result = real(_result);
+                        }
+                    }
+                    else
+                    {
+                        //Error!
+                    }
                 }
+                
+                _resolved_array[_element_index] = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
             }
             else if (_element_length == 1)
             {
-                _resolved_array[_element_index] = _element[0];
+                var _result = undefined;
+                var _element_value = _element[0];
+                if (is_real(_element_value))
+                {
+                    _resolved_array[_element_index] = _resolved_array[_element[0]];
+                }
+                else
+                {
+                    _resolved_array[_element_index] = _element[0];
+                }
             }
             else if (_element_length == 2)
             {

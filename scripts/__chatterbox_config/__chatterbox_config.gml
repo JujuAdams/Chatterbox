@@ -44,7 +44,6 @@
 #macro CHATTERBOX_NAKED_VARIABLE_SCOPE      CHATTERBOX_SCOPE.GML_LOCAL  //If a variable has no prefix, what scope should it take?
 #macro CHATTERBOX_DEFAULT_VARIABLE_VALUE    0                           //Default value if a variable cannot be found
 
-#macro CHATTERBOX_VISITED_SEPARATOR    ":"   //Single character only. If you're using complex internal variable names and are getting errors when using "visited()", change this character to be one that you never use
 #macro CHATTERBOX_VISITED_NO_FILENAME  false //Set to <true> if you want all "visited()" flags to be stored without their filename
 
 //These variables control which delimiters to use for [[options]] and <<actions>>
