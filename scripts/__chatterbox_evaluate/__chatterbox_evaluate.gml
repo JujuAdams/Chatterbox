@@ -42,7 +42,21 @@ repeat(9999)
         
         if (_fully_resolved)
         {
-            if (_element_length == 1)
+            if (_element[1] == "()")
+            {
+                //Function execution
+                
+                var _function = _resolved_array[_element[0]];
+                if (_function == "visited")
+                {
+                    
+                }
+                else
+                {
+                    
+                }
+            }
+            else if (_element_length == 1)
             {
                 _resolved_array[_element_index] = _element[0];
             }

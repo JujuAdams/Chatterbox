@@ -192,7 +192,7 @@ repeat(_font_count)
                                 
                                 #region Break down string into tokens
                                 
-                                show_debug_message("Working on \"" + _string + "\"");
+                                //show_debug_message("Working on \"" + _string + "\"");
                                 
                                 var _in_string = false;
                                 var _in_symbol = false;
@@ -219,7 +219,7 @@ repeat(_font_count)
                                             _read_add_char = 1; //Make sure we get the quote mark in the string
                                             _in_string = false;
                                             _read = true;
-                                            show_debug_message("  found closing quote mark");
+                                            //show_debug_message("  found closing quote mark");
                                         }
                                     }
                                     else if (_work_char == "\"") && (_work_char_prev != "\\")
@@ -227,7 +227,7 @@ repeat(_font_count)
                                         //If we've got an unescaped quote mark, start a string
                                         _in_string = true;
                                         _read = true;
-                                        show_debug_message("  found open quote mark");
+                                        //show_debug_message("  found open quote mark");
                                     }
                                     else if (_work_char == "!")
                                          || (_work_char == "=")
@@ -247,7 +247,7 @@ repeat(_font_count)
                                             //If we've found an operator symbol then do a standard read and begin reading a symbol
                                             _in_symbol = true;
                                             _read = true;
-                                            show_debug_message("  found symbol start");
+                                            //show_debug_message("  found symbol start");
                                         }
                                     }
                                     else if (_in_symbol)
@@ -256,32 +256,32 @@ repeat(_font_count)
                                         _in_symbol = false;
                                         _read = true;
                                         _read_parse_operator = true;
-                                        show_debug_message("  found symbol end");
+                                        //show_debug_message("  found symbol end");
                                     }
                                     else if (_work_char == " ")
                                          || (_work_char == ",")
                                     {
                                         //Always read at spaces and commas
                                         _read = true;
-                                        show_debug_message("  found space or comma");
+                                        //show_debug_message("  found space or comma");
                                     }
                                     else if (_work_char == "(") || (_work_char == ")")
                                     {
                                         //Always read at brackets
                                         _read = true;
-                                        show_debug_message("  found bracket");
+                                        //show_debug_message("  found bracket");
                                     }
                                     else if (_work_char_prev == "(") || (_work_char_prev == ")")
                                     {
                                         //Always read at brackets
                                         _read = true;
-                                        show_debug_message("  found bracket pt.2");
+                                        //show_debug_message("  found bracket pt.2");
                                     }
                                     
                                     if (_read)
                                     {
                                         var _out_string = string_copy(_string, _work_read_prev, _work_read + _read_add_char - _work_read_prev);
-                                        show_debug_message("    copied \"" + _out_string + "\"");
+                                        //show_debug_message("    copied \"" + _out_string + "\"");
                                         
                                             _out_string = __chatterbox_remove_whitespace(_out_string, true);
                                             _out_string = __chatterbox_remove_whitespace(_out_string, false);
@@ -311,7 +311,11 @@ repeat(_font_count)
                                         if (_out_string != "")
                                         {
                                             _content[array_length_1d(_content)] = _out_string;
-                                            if (array_length_1d(_content) == 1) _content[1] = undefined; //Reserve a slot for the top-level node in the evaluation tree
+                                            if (array_length_1d(_content) == 1)
+                                            {
+                                                _content[1] = undefined; //Reserve a slot for the top-level node in the evaluation tree
+                                                _content[2] = "()";      //Reserve a slot for the generic function token
+                                            }
                                         }
                                         
                                         _work_read_prev = _work_read + _read_add_char;
@@ -323,9 +327,10 @@ repeat(_font_count)
                                 #region Collect tokens together to make an evaluation tree
                                 
                                 var _content_length = array_length_1d(_content);
-                                var _eval_tree_root = array_create(_content_length-2);
-                                for(var _i = 2; _i < _content_length; _i++) _eval_tree_root[_i-2] = _i;
+                                var _eval_tree_root = array_create(_content_length-3);
+                                for(var _i = 3; _i < _content_length; _i++) _eval_tree_root[_i-3] = _i;
                                 _content[1] = _eval_tree_root;
+                                _content[2] = "()";
                                 
                                 var _queue = ds_list_create();
                                 ds_list_add(_queue, 1);
@@ -342,13 +347,14 @@ repeat(_font_count)
                                     var _element_length = array_length_1d(_element);
                                     
                                     var _break = false;
-                                    for(var _op = 0; _op < 10; _op++)
+                                    for(var _op = 0; _op < global.__chatterbox_op_count; _op++)
                                     {
                                         var _operator = global.__chatterbox_op_list[| _op ];
                                         
                                         for(var _e = _element_length-1; _e > 0; _e--) //Go backwards. This solves issues with nested brackets
                                         {
                                             var _value = _content[_element[_e]];
+                                            
                                             if (_value == _operator)
                                             {
                                                 if (_operator == "(")
@@ -360,19 +366,49 @@ repeat(_font_count)
                                                     
                                                     if (_f < _element_length)
                                                     {
-                                                        var _new_element = [];
-                                                        array_copy(_new_element, 0,   _element, _e+1, _f-_e-1);
+                                                        var _function = undefined;
+                                                        if (_e > 0)
+                                                        {
+                                                            _function = _content[_element[_e-1]];
+                                                            if (!is_string(_function) || (_function == "()") || (ds_list_find_index(global.__chatterbox_op_list, _function) >= 0)) _function = undefined;
+                                                        }
                                                         
-                                                        _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
-                                                        ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
-                                                        
-                                                        _replacement_element = array_create(_element_length + _e - _f); //Create a new element array
-                                                        array_copy(_replacement_element, 0,   _element, 0, _e);
-                                                        _replacement_element[_e] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
-                                                        array_copy(_replacement_element, _e+1,   _element, _f+1, _element_length-_f);
-                                                        
-                                                        _content[_element_index] = _replacement_element;
-                                                        ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
+                                                        if (_function == undefined)
+                                                        {
+                                                            //Standard "structural" bracket
+                                                            
+                                                            var _new_element = [];
+                                                            array_copy(_new_element, 0,   _element, _e+1, _f-_e-1);
+                                                            
+                                                            _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
+                                                            ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
+                                                            
+                                                            _replacement_element = array_create(_element_length + _e - _f); //Create a new element array
+                                                            array_copy(_replacement_element, 0,   _element, 0, _e);
+                                                            _replacement_element[_e] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
+                                                            array_copy(_replacement_element, _e+1,   _element, _f+1, _element_length-_f);
+                                                            
+                                                            _content[_element_index] = _replacement_element;
+                                                            ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
+                                                        }
+                                                        else
+                                                        {
+                                                            //Function call
+                                                            
+                                                            var _new_element = [_element[_e-1], 2];
+                                                            array_copy(_new_element, 2,   _element, _e+1, _f-_e-1);
+                                                            
+                                                            _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
+                                                            ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
+                                                            
+                                                            _replacement_element = array_create(_element_length - 1 + _e - _f); //Create a new element array
+                                                            array_copy(_replacement_element, 0,   _element, 0, _e-1);
+                                                            _replacement_element[_e-1] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
+                                                            array_copy(_replacement_element, _e+1,   _element, _f+1, _element_length-_f);
+                                                            
+                                                            _content[_element_index] = _replacement_element;
+                                                            ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
+                                                        }
                                                     }
                                                     else
                                                     {

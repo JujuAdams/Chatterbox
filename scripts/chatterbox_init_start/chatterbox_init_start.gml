@@ -9,7 +9,7 @@
 
 #macro __CHATTERBOX_VERSION       "0.0.1"
 #macro __CHATTERBOX_DATE          "2019/04/13"
-#macro __CHATTERBOX_DEBUG_PARSER  false
+#macro __CHATTERBOX_DEBUG_PARSER  true
 #macro __CHATTERBOX_DEBUG_VM      true
 
 enum __CHATTERBOX_FILE
@@ -148,7 +148,7 @@ global.__chatterbox_op_list[|  5 ] = "*";
 global.__chatterbox_op_list[|  6 ] = "+"; 
 global.__chatterbox_op_list[|  7 ] = "+=";
 global.__chatterbox_op_list[|  8 ] = "-"; 
-global.__chatterbox_op_list[|  9 ] = "-";  //Negative sign
+global.__chatterbox_op_list[|  9 ] = "-";  global.__chatterbox_negative_op_index = 9;
 global.__chatterbox_op_list[| 10 ] = "-=";
 global.__chatterbox_op_list[| 11 ] = "||";
 global.__chatterbox_op_list[| 12 ] = "&&";
@@ -158,5 +158,5 @@ global.__chatterbox_op_list[| 15 ] = ">";
 global.__chatterbox_op_list[| 16 ] = "<"; 
 global.__chatterbox_op_list[| 17 ] = "!=";
 global.__chatterbox_op_list[| 18 ] = "==";
-global.__chatterbox_op_list[| 19 ] = "="; 
-global.__chatterbox_negative_op_index = 9;
+global.__chatterbox_op_list[| 19 ] = "=";
+global.__chatterbox_op_count = ds_list_size(global.__chatterbox_op_list);
