@@ -45,7 +45,8 @@ repeat(9999)
         {
             if ((_element_length >= 2) && (_resolved_array[_element[1]] == "()"))
             {
-                //Function execution
+                #region Function execution
+                
                 var _result = undefined;
                 var _function = _resolved_array[_element[0]];
                 
@@ -92,6 +93,8 @@ repeat(9999)
                 }
                 
                 _resolved_array[_element_index] = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
+                
+                #endregion
             }
             else if (_element_length == 1)
             {
