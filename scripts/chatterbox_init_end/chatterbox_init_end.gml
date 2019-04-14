@@ -157,7 +157,7 @@ repeat(_font_count)
                         {
                             var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
                             _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_UNKNOWN;
-                            _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = 0;
+                            _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                             _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = undefined;
                             
                             if (_in_option)
@@ -170,7 +170,6 @@ repeat(_font_count)
                                 if (_pos < 1)
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_REDIRECT;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                                 }
                                 else
@@ -178,7 +177,6 @@ repeat(_font_count)
                                     var _content = [ __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
                                                      __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true) ];
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_OPTION;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                 }
                         
@@ -219,7 +217,6 @@ repeat(_font_count)
                                         {
                                             //If-statement on its own on a line
                                             _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                                            _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                             _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                         }
                                         else
@@ -227,52 +224,43 @@ repeat(_font_count)
                                             //If-statement suffixed to another token
                                             var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
                                             _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                                            _insert_array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                             _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                             ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
                                     
-                                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
-                                            _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_IF_END;
                                         }
                                     }
                                     else if (_content[0] == "elseif")
                                     {
                                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
-                                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                         _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                     }
                                     else if (_content[0] == "set")
                                     {
                                         _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SET;
-                                        _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                         _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                     }
                                 }
                                 else if (_string == "endif")
                                 {
-                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_IF_END;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_IF_END;
                                 }
                                 else if (_string == "else")
                                 {
-                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_ELSE;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ELSE;
                                 }
                                 else if (_string == "stop")
                                 {
-                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_STOP;
                                 }
                                 else if (ds_map_exists(global.__chatterbox_actions, _content[0]))
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_CUSTOM_ACTION;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                 }
                                 else
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_GENERIC_ACTION;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                                 }
                         
@@ -285,13 +273,11 @@ repeat(_font_count)
                                 if (string_copy(_string, 1, 2) == "->")
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SHORTCUT;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)];
                                 }
                                 else
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_TEXT;
-                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                                 }
                         

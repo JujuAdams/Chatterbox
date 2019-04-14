@@ -9,7 +9,7 @@
 
 #macro __CHATTERBOX_VERSION       "0.0.1"
 #macro __CHATTERBOX_DATE          "2019/04/13"
-#macro __CHATTERBOX_DEBUG_PARSER  true
+#macro __CHATTERBOX_DEBUG_PARSER  false
 #macro __CHATTERBOX_DEBUG_VM      false
 
 enum __CHATTERBOX_FILE
