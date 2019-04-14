@@ -13,6 +13,8 @@
 #macro CHATTERBOX_DEFAULT_BOTTOM 530
 #macro CHATTERBOX_CONTINUE_TEXT  "CLICK TO CONTINUE"
 
+#macro CHATTERBOX_DEBUG  true
+
 #macro CHATTERBOX_TAB_INDENT_SIZE   4
 #macro CHATTERBOX_ROUND_UP_INDENTS  true
 
@@ -30,7 +32,7 @@
 // <<if i.variable == 42>>         :  Internal Chatterbox variable
 // 
 // Internal Chatterbox variables are, in reality, key:value pairs in a ds_map
-// Use chatterbox_variables_export() and chatterbox_variables_import() to handle these variables
+// Use chatterbox_variable_export() and chatterbox_variable_import() to handle these variables
 // 
 // The $ prefix is what's specified in the Yarn documentation
 
