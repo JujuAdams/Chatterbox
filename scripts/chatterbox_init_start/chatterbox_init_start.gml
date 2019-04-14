@@ -10,7 +10,8 @@
 #macro __CHATTERBOX_VERSION       "0.0.1"
 #macro __CHATTERBOX_DATE          "2019/04/13"
 #macro __CHATTERBOX_DEBUG_PARSER  false
-#macro __CHATTERBOX_DEBUG_VM      false
+#macro __CHATTERBOX_DEBUG_VM      true
+#macro __CHATTERBOX_DEBUG_EVAL    false
 
 enum __CHATTERBOX_FILE
 {
@@ -52,10 +53,11 @@ enum __CHATTERBOX
 
 enum CHATTERBOX_SCOPE
 {
-    INTERNAL,   //0
-    GML_LOCAL,  //1
-    GML_GLOBAL, //2
-    __SIZE      //3
+    __INVALID,  //0
+    INTERNAL,   //1
+    GML_LOCAL,  //2
+    GML_GLOBAL, //3
+    __SIZE      //4
 }
 
 //enum __CHATTERBOX_VM
@@ -128,10 +130,34 @@ if ( !directory_exists(_font_directory) )
 }
 
 //Declare global variables
-global.__chatterbox_font_directory = _font_directory;
-global.__chatterbox_file_data      = ds_map_create();
-global.__chatterbox_data           = ds_map_create();
-global.__chatterbox_init_complete  = false;
-global.__chatterbox_default_file   = "";
-global.__chatterbox_indent_size    = 0;
-global.__chatterbox_actions        = ds_map_create();
+global.__chatterbox_font_directory    = _font_directory;
+global.__chatterbox_file_data         = ds_map_create();
+global.__chatterbox_data              = ds_map_create();
+global.__chatterbox_init_complete     = false;
+global.__chatterbox_default_file      = "";
+global.__chatterbox_indent_size       = 0;
+global.__chatterbox_actions           = ds_map_create();
+
+//Big ol' list of operator dipthongs
+global.__chatterbox_op_list        = ds_list_create();
+global.__chatterbox_op_list[|  0 ] = "("; 
+global.__chatterbox_op_list[|  1 ] = "!"; 
+global.__chatterbox_op_list[|  2 ] = "/=";
+global.__chatterbox_op_list[|  3 ] = "/"; 
+global.__chatterbox_op_list[|  4 ] = "*=";
+global.__chatterbox_op_list[|  5 ] = "*"; 
+global.__chatterbox_op_list[|  6 ] = "+"; 
+global.__chatterbox_op_list[|  7 ] = "+=";
+global.__chatterbox_op_list[|  8 ] = "-"; 
+global.__chatterbox_op_list[|  9 ] = "-";  //Negative sign
+global.__chatterbox_op_list[| 10 ] = "-=";
+global.__chatterbox_op_list[| 11 ] = "||";
+global.__chatterbox_op_list[| 12 ] = "&&";
+global.__chatterbox_op_list[| 13 ] = ">=";
+global.__chatterbox_op_list[| 14 ] = "<=";
+global.__chatterbox_op_list[| 15 ] = ">"; 
+global.__chatterbox_op_list[| 16 ] = "<"; 
+global.__chatterbox_op_list[| 17 ] = "!=";
+global.__chatterbox_op_list[| 18 ] = "==";
+global.__chatterbox_op_list[| 19 ] = "="; 
+global.__chatterbox_negative_op_index = 9;

@@ -188,14 +188,16 @@ repeat(_font_count)
                         
                                 #region <<action>>
                                 
+                                var _content = [];
+                                
                                 #region Break down string into tokens
                                 
-                                var _content = [];
+                                show_debug_message("Working on \"" + _string + "\"");
+                                
                                 var _in_string = false;
                                 var _in_symbol = false;
                                 
-                                //show_debug_message("Working on \"" + _string + "\"");
-                                
+                                _string += " ";
                                 var _work_length = string_length(_string);
                                 var _work_char = "";
                                 var _work_char_prev = "";
@@ -217,7 +219,7 @@ repeat(_font_count)
                                             _read_add_char = 1; //Make sure we get the quote mark in the string
                                             _in_string = false;
                                             _read = true;
-                                            //show_debug_message("  found closing quote mark");
+                                            show_debug_message("  found closing quote mark");
                                         }
                                     }
                                     else if (_work_char == "\"") && (_work_char_prev != "\\")
@@ -225,7 +227,7 @@ repeat(_font_count)
                                         //If we've got an unescaped quote mark, start a string
                                         _in_string = true;
                                         _read = true;
-                                        //show_debug_message("  found open quote mark");
+                                        show_debug_message("  found open quote mark");
                                     }
                                     else if (_work_char == "!")
                                          || (_work_char == "=")
@@ -238,13 +240,14 @@ repeat(_font_count)
                                          || (_work_char == "&")
                                          || (_work_char == "|")
                                          || (_work_char == "^")
+                                         || (_work_char == "`")
                                     {
                                         if (!_in_symbol)
                                         {
                                             //If we've found an operator symbol then do a standard read and begin reading a symbol
                                             _in_symbol = true;
                                             _read = true;
-                                            //show_debug_message("  found symbol start");
+                                            show_debug_message("  found symbol start");
                                         }
                                     }
                                     else if (_in_symbol)
@@ -255,27 +258,30 @@ repeat(_font_count)
                                         _read_parse_operator = true;
                                         show_debug_message("  found symbol end");
                                     }
-                                    else if (_work_char == " ") || (_work_char == ",")
+                                    else if (_work_char == " ")
+                                         || (_work_char == ",")
                                     {
                                         //Always read at spaces and commas
                                         _read = true;
-                                        //show_debug_message("  found space or comma");
+                                        show_debug_message("  found space or comma");
                                     }
-                                    
-                                    if (!_read)
+                                    else if (_work_char == "(") || (_work_char == ")")
                                     {
-                                        if (_work_read >= _work_length)
-                                        {
-                                            _work_read++; //Make sure we get the last character
-                                            _read = true;
-                                            //show_debug_message("  found end of string");
-                                        }
+                                        //Always read at brackets
+                                        _read = true;
+                                        show_debug_message("  found bracket");
+                                    }
+                                    else if (_work_char_prev == "(") || (_work_char_prev == ")")
+                                    {
+                                        //Always read at brackets
+                                        _read = true;
+                                        show_debug_message("  found bracket pt.2");
                                     }
                                     
                                     if (_read)
                                     {
                                         var _out_string = string_copy(_string, _work_read_prev, _work_read + _read_add_char - _work_read_prev);
-                                        //show_debug_message("    copied \"" + _out_string + "\"");
+                                        show_debug_message("    copied \"" + _out_string + "\"");
                                         
                                             _out_string = __chatterbox_remove_whitespace(_out_string, true);
                                             _out_string = __chatterbox_remove_whitespace(_out_string, false);
@@ -298,14 +304,185 @@ repeat(_font_count)
                                                 case "is" : _out_string = "=="; break;
                                                 case "neq": _out_string = "!="; break;
                                                 case "to" : _out_string = "=";  break;
+                                                case "not": _out_string = "!";  break;
                                             }
                                         }
                                         
-                                        if (_out_string != "") _content[array_length_1d(_content)] = _out_string;
+                                        if (_out_string != "")
+                                        {
+                                            _content[array_length_1d(_content)] = _out_string;
+                                            if (array_length_1d(_content) == 1) _content[1] = undefined; //Reserve a slot for the top-level node in the evaluation tree
+                                        }
                                         
                                         _work_read_prev = _work_read + _read_add_char;
                                     }
                                 }
+                                
+                                #endregion
+                                
+                                #region Collect tokens together to make an evaluation tree
+                                
+                                var _content_length = array_length_1d(_content);
+                                var _eval_tree_root = array_create(_content_length-2);
+                                for(var _i = 2; _i < _content_length; _i++) _eval_tree_root[_i-2] = _i;
+                                _content[1] = _eval_tree_root;
+                                
+                                var _queue = ds_list_create();
+                                ds_list_add(_queue, 1);
+                                
+                                repeat(9999)
+                                {
+                                    if (ds_list_empty(_queue)) break;
+                                    
+                                    var _element_index = _queue[| 0];
+                                    ds_list_delete(_queue, 0);
+                                    
+                                    var _element = _content[_element_index];
+                                    if (!is_array(_element)) continue;
+                                    var _element_length = array_length_1d(_element);
+                                    
+                                    var _break    = false;
+                                    for(var _op = 0; _op < 10; _op++)
+                                    {
+                                        var _operator = global.__chatterbox_op_list[| _op ];
+                                        
+                                        for(var _e = _element_length-1; _e > 0; _e--) //Go backwards. This solves issues with nested brackets
+                                        {
+                                            var _value = _content[_element[_e]];
+                                            if (_value == _operator)
+                                            {
+                                                if (_operator == "(")
+                                                {
+                                                    #region Split up bracketed expressions
+                                                    
+                                                    //Find the first close bracket token
+                                                    for(var _f = _e+1; _f < _element_length; _f++) if (_content[_element[_f]] == ")") break;
+                                                    
+                                                    if (_f < _element_length)
+                                                    {
+                                                        var _new_element = [];
+                                                        array_copy(_new_element, 0,   _element, _e+1, _f-_e-1);
+                                                        
+                                                        _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
+                                                        ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
+                                                        
+                                                        _replacement_element = array_create(_element_length + _e - _f); //Create a new element array
+                                                        array_copy(_replacement_element, 0,   _element, 0, _e);
+                                                        _replacement_element[_e] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
+                                                        array_copy(_replacement_element, _e+1,   _element, _f+1, _element_length-_f);
+                                                        
+                                                        _content[_element_index] = _replacement_element;
+                                                        ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
+                                                    }
+                                                    else
+                                                    {
+                                                        //Error!
+                                                        show_error("Chatterbox:\nSyntax error\n ", false);
+                                                        _content[_element_index] = undefined;
+                                                    }
+                                                    
+                                                    #endregion
+                                                }
+                                                else if (_operator == "!") || ((_operator == "-") && (_op == global.__chatterbox_negative_op_index))
+                                                {
+                                                    #region Unary operators
+                                                    
+                                                    if (_e < _element_length-1) //For a unary operator, we cannot be the last element
+                                                    {
+                                                        var _new_element = [];
+                                                        array_copy(_new_element, 0,   _element, _e, 2);
+                                                        
+                                                        _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
+                                                        ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
+                                                        
+                                                        _replacement_element = array_create(_element_length-1); //Create a new element array
+                                                        array_copy(_replacement_element, 0,   _element, 0, _e);
+                                                        _replacement_element[_e] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
+                                                        array_copy(_replacement_element, _e+1,   _element, _e+2, _element_length-(_e+2));
+                                                        
+                                                        _content[_element_index] = _replacement_element;
+                                                        ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
+                                                    }
+                                                    else
+                                                    {
+                                                        //Error!
+                                                        show_error("Chatterbox:\nSyntax error\n ", false);
+                                                        _content[_element_index] = undefined;
+                                                    }
+                                                    
+                                                    #endregion
+                                                }
+                                                else
+                                                {
+                                                    #region Binary operators
+                                                    
+                                                    if (_element_length < 3) //For a binary operator, we need at least three tokens in the array
+                                                    {
+                                                        if !((_operator == "-") && (_op == 8) && (_e == 0)) //Don't report this error if the subtraction sign might be a negative sign
+                                                        {
+                                                            //Error!
+                                                            show_error("Chatterbox:\nSyntax error\n ", false);
+                                                            _content[_element_index] = undefined;
+                                                        }
+                                                    }
+                                                    else if (_e <= 0) || (_e >= _element_length-1) //A binary operator must be in-between two tokens
+                                                    {
+                                                        if !((_operator == "-") && (_op == 8) && (_e == 0)) //Don't report this error if the subtraction sign might be a negative sign
+                                                        {
+                                                            //Error!
+                                                            show_error("Chatterbox:\nSyntax error\n ", false);
+                                                            _content[_element_index] = undefined;
+                                                        }
+                                                    }
+                                                    else if (_element_length > 3)
+                                                    {
+                                                        var _replacement_element = [_element[0],
+                                                                                    _element[_e],
+                                                                                    _element[_element_length-1]];
+                                                        
+                                                        //Split up the left-hand side of the array
+                                                        if (_e > 1)
+                                                        {
+                                                            var _new_element = [];
+                                                            array_copy(_new_element, 0,   _element, 0, _e);
+                                                            
+                                                            _content[array_length_1d(_content)] = _new_element;    //Add the new sub-array to the overall content array
+                                                            ds_list_add(_queue, array_length_1d(_content)-1);      //Add the index of the new sub-array to the processing queue
+                                                            _replacement_element[0] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
+                                                        }
+                                                        
+                                                        //Split up the right-hand side of the array
+                                                        if (_e < _element_length-2)
+                                                        {
+                                                            
+                                                            var _new_element = [];
+                                                            array_copy(_new_element, 0,   _element, _e+1, _element_length-_e-1);
+                                                            
+                                                            _content[array_length_1d(_content)] = _new_element;    //Add the new sub-array to the overall content array
+                                                            ds_list_add(_queue, array_length_1d(_content)-1);      //Add the index of the new sub-array to the processing queue
+                                                            _replacement_element[2] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
+                                                        }
+                                                        
+                                                        _content[_element_index] = _replacement_element;
+                                                    }
+                                                    else
+                                                    {
+                                                        //No action needed
+                                                    }
+                                                    
+                                                    #endregion
+                                                }
+                                                
+                                                _break = true;
+                                                break;
+                                            }
+                                        }
+                                        
+                                        if (_break) break;
+                                    }
+                                }
+                                
+                                ds_list_destroy(_queue);
                                 
                                 #endregion
                                 

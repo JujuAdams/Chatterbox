@@ -198,98 +198,151 @@ if (_evaluate)
                     
                     #region If-statement evaluation
                     
-                    var _result = false;
-                    if (array_length_1d(_instruction_content) != 4)
+                    var _resolved_array = array_create(array_length_1d(_instruction_content), pointer_null); //Copy the array
+                    
+                    var _queue = ds_list_create();
+                    ds_list_add(_queue, 1);
+                    repeat(9999)
                     {
-                        show_error("Chatterbox:\nOnly simple if-statements are supported e.g.\n\"if $variable == 42\"\n ", false);
-                    }
-                    else
-                    {
-                        #region Resolve the comparison
+                        if (ds_list_empty(_queue)) break;
                         
-                        var _value_a    = __chatterbox_resolve_value(_chatterbox, _instruction_content[1]);
-                        var _comparator = _instruction_content[2];
-                        var _value_b    = __chatterbox_resolve_value(_chatterbox, _instruction_content[3]);
+                        var _element_index = _queue[| 0];
+                        var _element = _instruction_content[_element_index];
                         
-                        if (typeof(_value_a) != typeof(_value_b))
+                        if (!is_array(_element))
                         {
-                            if (CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE)
+                            _resolved_array[_element_index] = _element;
+                            ds_list_delete(_queue, 0);
+                        }
+                        else
+                        {
+                            #region Check if all elements have been resolved
+                            
+                            var _fully_resolved = true;
+                            var _element_length = array_length_1d(_element);
+                            for(var _i = 0; _i < _element_length; _i++)
                             {
-                                show_error("Chatterbox:\nVariable datatypes do not match", false);
+                                var _child_index = _element[_i];
+                                if (_resolved_array[_child_index] == pointer_null)
+                                {
+                                    _fully_resolved = false;
+                                    ds_list_insert(_queue, 0, _child_index);
+                                }
                             }
-                            else
+                            
+                            #endregion
+                            
+                            if (_fully_resolved)
                             {
-                                show_debug_message("Chatterbox: WARNING! Variable datatypes do not match");
+                                if (_element_length == 1)
+                                {
+                                    show_debug_message("Chatterbox: WARNING! 1-length evaluation element");
+                                    _resolved_array[_element_index] = _element[0];
+                                }
+                                else if (_element_length == 2)
+                                {
+                                    #region Resolve unary operators (!variable / -variable)
+                                    
+                                    var _operator = _resolved_array[_element[0]];
+                                    var _value    = _resolved_array[_element[1]];
+                                    
+                                    if (_operator == "!")
+                                    {
+                                        _resolved_array[_element_index] = !_value;
+                                    }
+                                    else if (_operator == "-")
+                                    {
+                                        _resolved_array[_element_index] = -_value;
+                                    }
+                                    else
+                                    {
+                                        show_debug_message("Chatterbox: WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
+                                        _resolved_array[_element_index] = undefined;
+                                    }
+                                    
+                                    #endregion
+                                }
+                                else if (_element_length == 3)
+                                {
+                                    #region Figure out datatypes and grab variable values
+                                    
+                                    var _a        = _resolved_array[_element[0]];
+                                    var _operator = _resolved_array[_element[1]];
+                                    var _b        = _resolved_array[_element[2]];
+                                    
+                                    var _a_value = __chatterbox_resolve_value(_chatterbox, _a);
+                                    var _a_typeof = typeof(_a_value);
+                                    var _a_scope = global.__chatterbox_scope;
+                                    global.__chatterbox_scope = CHATTERBOX_SCOPE.__INVALID;
+                                    var _b_value = __chatterbox_resolve_value(_chatterbox, _b);
+                                    var _b_typeof = typeof(_b_value);
+                                    
+                                    var _pair_typeof = _a_typeof + ":" + _b_typeof;
+                                    
+                                    #endregion
+                                    
+                                    #region Resolve binary operators
+                                    
+                                    var _result = undefined;
+                                    var _set = false;
+                                    
+                                    switch(_operator)
+                                    {
+                                        case "/": if (_pair_typeof == "real:real") _result = _a_value / _b_value; break;
+                                        case "*": if (_pair_typeof == "real:real") _result = _a_value * _b_value; break;
+                                        case "-": if (_pair_typeof == "real:real") _result = _a_value - _b_value; break;
+                                        case "+": if (!is_undefined(_a_value) && !is_undefined(_b_value)) _result = string(_a_value) + string(_b_value); break;
+                                        
+                                        case "/=": _set = true; if (_pair_typeof == "real:real") _result = _a_value / _b_value; break;
+                                        case "*=": _set = true; if (_pair_typeof == "real:real") _result = _a_value * _b_value; break;
+                                        case "-=": _set = true; if (_pair_typeof == "real:real") _result = _a_value - _b_value; break;
+                                        case "=":  _set = true;                                  _result =            _b_value; break;
+                                        case "+=": _set = true; if (!is_undefined(_a_value) && !is_undefined(_b_value)) _result = string(_a_value) + string(_b_value); break;
+                                        
+                                        case "||": _result = (_pair_typeof == "real:real")? (_a_value || _b_value) : false; break;
+                                        case "&&": _result = (_pair_typeof == "real:real")? (_a_value && _b_value) : false; break;
+                                        case ">=": _result = (_pair_typeof == "real:real")? (_a_value >= _b_value) : false; break;
+                                        case "<=": _result = (_pair_typeof == "real:real")? (_a_value <= _b_value) : false; break;
+                                        case ">":  _result = (_pair_typeof == "real:real")? (_a_value >  _b_value) : false; break;
+                                        case "<":  _result = (_pair_typeof == "real:real")? (_a_value <  _b_value) : false; break;
+                                        case "!=": _result = (_a_typeof == _b_typeof)?      (_a_value != _b_value) : true;  break;
+                                        case "==": _result = (_a_typeof == _b_typeof)?      (_a_value == _b_value) : false; break;
+                                    }
+                                    
+                                    if (_set)
+                                    {
+                                        switch(_a_scope)
+                                        {                   
+                                            case CHATTERBOX_SCOPE.INTERNAL:   _variables_map[? _a ] = _result;        break;
+                                            case CHATTERBOX_SCOPE.GML_LOCAL:  variable_instance_set(id, _a, _result); break;
+                                            case CHATTERBOX_SCOPE.GML_GLOBAL: variable_global_set(_a, _result);       break;
+                                        }
+                                    }
+                                    
+                                    _resolved_array[_element_index] = _result;
+                                    
+                                    #endregion
+                                }
+                                
+                                ds_list_delete(_queue, 0);
                             }
                         }
-                        
-                        var _less    = false;
-                        var _equal   = false;
-                        var _greater = false;
-                        
-                        #region Check if A is less than B
-                        
-                        if (is_real(_value_a) && is_real(_value_b))
-                        {
-                            _less = (_value_a < _value_b);
-                        }
-                        else 
-                        {
-                            _less = false;
-                        }
-                        
-                        #endregion
-                        
-                        #region Check if the two values are equal
-                        
-                        if (is_undefined(_value_a))
-                        {
-                            _equal = is_undefined(_value_b); //If B isn't <undefined>, the result is always <false>
-                        }
-                        else if (is_undefined(_value_b))
-                        {
-                            _equal = false; //A isn't undefined but B is, so the result is <false>
-                        }
-                        else if (is_string(_value_a) || is_string(_value_b)) //If either A or B is a string, compare the two variables as strings
-                        {
-                            _equal = (string(_value_a) == string(_value_b));
-                        }
-                        else //A and B are both reals so let's do a straight comparison
-                        {
-                            _equal = (_value_a == _value_b);
-                        }
-                        
-                        #endregion
-                        
-                        #region Check if A is greater than B
-                        
-                        if (is_real(_value_a) && is_real(_value_b))
-                        {
-                            _greater = (_value_a > _value_b);
-                        }
-                        else 
-                        {
-                            _greater = false;
-                        }
-                        
-                        #endregion
-                        
-                        switch(_comparator)
-                        {
-                            case "==": _result =  _equal;             break;
-                            case "!=": _result = !_equal;             break;
-                            case "<" : _result =  _less;              break;
-                            case ">" : _result =  _greater;           break;
-                            case "<=": _result =  _equal || _less;    break;
-                            case ">=": _result =  _equal || _greater; break;
-                        }
-                        
-                        #endregion
                     }
+                    
+                    ds_list_destroy(_queue);
                     
                     #endregion
                     
-                    var _if_state = _result;
+                    if (!is_bool(_resolved_array[0]) || !is_real(_resolved_array[0]))
+                    {
+                        show_debug_message("Chatterbox: WARNING! Expression evaluator returned an invalid datatype (" + typeof(_resolved_array[0]) + ")");
+                        var _if_state = false;
+                    }
+                    else
+                    {
+                        var _if_state = _resolved_array[0];
+                    }
+                    
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   Set _if_state = " + string(_if_state));
                     
                     if (_if_state)
@@ -372,6 +425,8 @@ if (_evaluate)
                 break;
                 
                 case __CHATTERBOX_VM_SET:
+                    if (false)
+                    {
                     if (!ds_map_exists(_executed_map, _instruction))
                     {
                         _executed_map[? _instruction ] = true;
@@ -470,6 +525,7 @@ if (_evaluate)
                     else
                     {
                         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     not executed before, ignoring");
+                    }
                     }
                 break;
                 

@@ -215,6 +215,14 @@
             }
         },
         {
+            "Key": "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
+            "Value": {
+                "id": "18cbf52a-a901-405d-af93-d929197a4c15",
+                "resourcePath": "scripts\\__chatterbox_evaluate\\__chatterbox_evaluate.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "5b698267-e679-4285-95af-7d896e27c33e",
             "Value": {
                 "id": "3c53b923-f8b4-4066-b653-9a628d969aab",
@@ -824,6 +832,7 @@
         "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "60990149-1dae-4f22-88d9-53025cbd7878",
+        "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
         "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",

@@ -1,19 +1,13 @@
 /// @param chatterbox
 /// @param value
 
+global.__chatterbox_scope = CHATTERBOX_SCOPE.__INVALID;
+
 var _chatterbox = argument0;
 var _value      = argument1;
 
 var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
 var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
-
-//Look for a prefixed ! to indicate negation
-var _negate = false;
-if (string_char_at(_value, 1) == "!")
-{
-    _negate = true;
-    _value = string_delete(_value, 1, 1);
-}
                                 
 if (string_char_at(_value, 1) == "\"") && (string_char_at(_value, string_length(_value)) == "\"")
 {
@@ -135,6 +129,8 @@ else
             }
         }
         
+        global.__chatterbox_scope = _scope;
+        
         #endregion
         
         #region Collect variable value depending on scope and check its datatype
@@ -223,18 +219,6 @@ else
         }
                                         
         #endregion
-    }
-}
-                                
-if (_negate)
-{
-    if (is_real(_value))
-    {
-        _value = !_value;
-    }
-    else if (is_string(_value))
-    {
-        _value = "";
     }
 }
 
