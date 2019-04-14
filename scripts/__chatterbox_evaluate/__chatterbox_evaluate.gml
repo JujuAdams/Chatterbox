@@ -148,8 +148,6 @@ repeat(9999)
                     case "==": _result = (_a_typeof == _b_typeof)?          (_a_value == _b_value) : false; break;
                 }
                 
-                _result = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
-                
                 if (_set)
                 {
                     switch(_a_scope)
@@ -160,7 +158,7 @@ repeat(9999)
                     }
                 }
                 
-                _resolved_array[_element_index] = _result;
+                _resolved_array[_element_index] = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
                 
                 #endregion
             }
