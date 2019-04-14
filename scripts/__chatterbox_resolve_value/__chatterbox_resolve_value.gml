@@ -8,8 +8,12 @@ var _value      = argument1;
 
 var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
 var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
-                                
-if (string_char_at(_value, 1) == "\"") && (string_char_at(_value, string_length(_value)) == "\"")
+
+if (is_real(_value))
+{
+    //It's a real!
+}
+else if (string_char_at(_value, 1) == "\"") && (string_char_at(_value, string_length(_value)) == "\"")
 {
     //It's a string!
     _value = string_copy(_value, 2, string_length(_value)-2);

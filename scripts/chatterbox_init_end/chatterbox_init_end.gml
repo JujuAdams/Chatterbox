@@ -341,7 +341,7 @@ repeat(_font_count)
                                     if (!is_array(_element)) continue;
                                     var _element_length = array_length_1d(_element);
                                     
-                                    var _break    = false;
+                                    var _break = false;
                                     for(var _op = 0; _op < 10; _op++)
                                     {
                                         var _operator = global.__chatterbox_op_list[| _op ];
@@ -490,13 +490,6 @@ repeat(_font_count)
                                 
                                 if (_content[0] == "if")
                                 {
-                                    if (array_length_1d(_content) == 2)
-                                    {
-                                        if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       \"" + _content[0] + "\" action had too few token. Assuming \"== true\" was intended");
-                                        _content[3] = "true";
-                                        _content[2] = "==";
-                                    }
-                                    
                                     if (_first_token)
                                     {
                                         //If-statement on its own on a line
@@ -516,13 +509,6 @@ repeat(_font_count)
                                 }
                                 else if (_content[0] == "elseif")
                                 {
-                                    if (array_length_1d(_content) == 2)
-                                    {
-                                        if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       \"" + _content[0] + "\" action had too few token. Assuming \"== true\" was intended");
-                                        _content[3] = "true";
-                                        _content[2] = "==";
-                                    }
-                                    
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                 }

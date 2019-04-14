@@ -2,7 +2,7 @@
 	{
 		"title": "Start",
 		"tags": "Test1, Test2, Test3",
-		"body": "\n<<if variabel==(1+(-2+3))>>This is the starting node.\n\nCalling visited(\"Start\") should return True now, since we have visited this node.\n\n<<if visited(\"Start\")>>\n    Called visited(\"Start\") and confirmed that we've visited Start!\n<<endif>>\n\nCalling visited(\"Node4\") should return False, because we haven't been there yet.\n\n<<if visited(\"Node4\")>>\n    Our validation is broken! Oh no!\n<<endif>>\n\n<<set $variable1 to true>>\n\nA variable named \"variable1\" is now set to True, and the debug log should reflect this.\n\nWe are auto-advancing to the next node, \"Node1\".\n\n[[Node1]]\n\n",
+		"body": "\n<<if variabel==(1+(-2+3))>><<endif>>This is the starting node.\n\nCalling visited(\"Start\") should return True now, since we have visited this node.\n\n<<if visited(\"Start\")>>\n    Called visited(\"Start\") and confirmed that we've visited Start!\n<<endif>>\n\nCalling visited(\"Node4\") should return False, because we haven't been there yet.\n\n<<if visited(\"Node4\")>>\n    Our validation is broken! Oh no!\n<<endif>>\n\n<<set $variable1 to true>>\n\nA variable named \"variable1\" is now set to True, and the debug log should reflect this.\n\nWe are auto-advancing to the next node, \"Node1\".\n\n[[Node1]]\n\n",
 		"position": {
 			"x": 534,
 			"y": 350
