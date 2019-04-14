@@ -188,16 +188,67 @@ repeat(_font_count)
                         
                                 #region <<action>>
                                 
-                                var _work_string = _string;
+                                #region Break down string into tokens
+                                
                                 var _content = [];
-                                repeat(9999)
+                                var _in_string = false;
+                                var _in_symbol = false;
+                                var _read = false;
+                                
+                                var _work_read = 0;
+                                var _work_char = "";
+                                var _work_read_prev = 1;
+                                var _work_char_prev = "";
+                                repeat(string_length(_string))
                                 {
-                                    var _pos = string_pos(" ", _work_string);
-                                    if (_pos <= 0) _pos = string_length(_work_string)+1;
-                                    _content[ array_length_1d(_content) ] = string_copy(_work_string, 1, _pos-1);
-                                    _work_string = __chatterbox_remove_whitespace(string_delete(_work_string, 1, _pos), true);
-                                    if (_work_string == "") break;
+                                    _work_read++;
+                                    _work_char_prev = _work_char;
+                                    var _work_char = string_char_at(_string, _work_read);
+                                    
+                                    if (_in_string)
+                                    {
+                                        //Ignore all behaviours until we hit a quote mark
+                                        if (_work_char == "\"") && (_work_char_prev != "\\")
+                                        {
+                                            _in_string = false;
+                                            _read = true;
+                                        }
+                                    }
+                                    else if (_work_char == "\"") && (_work_char_prev != "\\")
+                                    {
+                                        //If we've got an unescaped quote mark, start a string
+                                        _in_string = true;
+                                        _read = true;
+                                    }
+                                    else if (_work_char == "!") || (_work_char_prev == "=") || (_work_char_prev == "<") || (_work_char_prev == ">")
+                                    {
+                                        if (!_in_symbol)
+                                        {
+                                            //If we've found an operator symbol then do a standard read and begin reading a symbol
+                                            _in_symbol = true;
+                                            _read = true;
+                                        }
+                                    }
+                                    else if (_in_symbol)
+                                    {
+                                        //If we're reading a symbol but this character *isn't* a symbol character, do a read
+                                        _in_symbol = false;
+                                        _read = true;
+                                    }
+                                    else if (_work_char == " ")
+                                    {
+                                        _read = true;
+                                    }
+                                    
+                                    if (_read)
+                                    {
+                                        _read = false;
+                                        _content[array_length_1d(_content)] = string_copy(_string, _work_read_prev, _work_read - _work_read_prev);
+                                        _work_read_prev = _work_read+1;
+                                    }
                                 }
+                                
+                                #endregion
                                 
                                 if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ") || (string_copy(_string, 1, 4) == "set ")
                                 {
