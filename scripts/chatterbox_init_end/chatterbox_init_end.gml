@@ -193,15 +193,19 @@ repeat(_font_count)
                                 var _content = [];
                                 var _in_string = false;
                                 var _in_symbol = false;
-                                var _read = false;
                                 
-                                var _work_read = 0;
+                                //show_debug_message("Working on \"" + _string + "\"");
+                                
+                                var _work_length = string_length(_string);
                                 var _work_char = "";
-                                var _work_read_prev = 1;
                                 var _work_char_prev = "";
-                                repeat(string_length(_string))
+                                var _work_read_prev = 1;
+                                for(var _work_read = 1; _work_read <= _work_length; _work_read++)
                                 {
-                                    _work_read++;
+                                    var _read = false;
+                                    var _read_add_char = 0;
+                                    var _read_parse_operator = false;
+                                    
                                     _work_char_prev = _work_char;
                                     var _work_char = string_char_at(_string, _work_read);
                                     
@@ -210,8 +214,10 @@ repeat(_font_count)
                                         //Ignore all behaviours until we hit a quote mark
                                         if (_work_char == "\"") && (_work_char_prev != "\\")
                                         {
+                                            _read_add_char = 1; //Make sure we get the quote mark in the string
                                             _in_string = false;
                                             _read = true;
+                                            //show_debug_message("  found closing quote mark");
                                         }
                                     }
                                     else if (_work_char == "\"") && (_work_char_prev != "\\")
@@ -219,14 +225,26 @@ repeat(_font_count)
                                         //If we've got an unescaped quote mark, start a string
                                         _in_string = true;
                                         _read = true;
+                                        //show_debug_message("  found open quote mark");
                                     }
-                                    else if (_work_char == "!") || (_work_char_prev == "=") || (_work_char_prev == "<") || (_work_char_prev == ">")
+                                    else if (_work_char == "!")
+                                         || (_work_char == "=")
+                                         || (_work_char == "<")
+                                         || (_work_char == ">")
+                                         || (_work_char == "+")
+                                         || (_work_char == "-")
+                                         || (_work_char == "*")
+                                         || (_work_char == "/")
+                                         || (_work_char == "&")
+                                         || (_work_char == "|")
+                                         || (_work_char == "^")
                                     {
                                         if (!_in_symbol)
                                         {
                                             //If we've found an operator symbol then do a standard read and begin reading a symbol
                                             _in_symbol = true;
                                             _read = true;
+                                            //show_debug_message("  found symbol start");
                                         }
                                     }
                                     else if (_in_symbol)
@@ -234,73 +252,117 @@ repeat(_font_count)
                                         //If we're reading a symbol but this character *isn't* a symbol character, do a read
                                         _in_symbol = false;
                                         _read = true;
+                                        _read_parse_operator = true;
+                                        show_debug_message("  found symbol end");
                                     }
-                                    else if (_work_char == " ")
+                                    else if (_work_char == " ") || (_work_char == ",")
                                     {
+                                        //Always read at spaces and commas
                                         _read = true;
+                                        //show_debug_message("  found space or comma");
+                                    }
+                                    
+                                    if (!_read)
+                                    {
+                                        if (_work_read >= _work_length)
+                                        {
+                                            _work_read++; //Make sure we get the last character
+                                            _read = true;
+                                            //show_debug_message("  found end of string");
+                                        }
                                     }
                                     
                                     if (_read)
                                     {
-                                        _read = false;
-                                        _content[array_length_1d(_content)] = string_copy(_string, _work_read_prev, _work_read - _work_read_prev);
-                                        _work_read_prev = _work_read+1;
+                                        var _out_string = string_copy(_string, _work_read_prev, _work_read + _read_add_char - _work_read_prev);
+                                        //show_debug_message("    copied \"" + _out_string + "\"");
+                                        
+                                            _out_string = __chatterbox_remove_whitespace(_out_string, true);
+                                            _out_string = __chatterbox_remove_whitespace(_out_string, false);
+                                            _out_string = string_replace_all(_out_string, "\\\"", "\""); //Replace \" with "
+                                        
+                                        if (_read_parse_operator)
+                                        {
+                                            switch(_out_string)
+                                            {
+                                                case "and": _out_string = "&&"; break;
+                                                case "&"  : _out_string = "&&"; break;
+                                                case "le" : _out_string = "<";  break;
+                                                case "gt" : _out_string = ">";  break;
+                                                case "or" : _out_string = "||"; break;
+                                                case "`"  : _out_string = "||"; break;
+                                                case "|"  : _out_string = "||"; break;
+                                                case "leq": _out_string = "<="; break;
+                                                case "geq": _out_string = ">="; break;
+                                                case "eq" : _out_string = "=="; break;
+                                                case "is" : _out_string = "=="; break;
+                                                case "neq": _out_string = "!="; break;
+                                                case "to" : _out_string = "=";  break;
+                                            }
+                                        }
+                                        
+                                        if (_out_string != "") _content[array_length_1d(_content)] = _out_string;
+                                        
+                                        _work_read_prev = _work_read + _read_add_char;
                                     }
                                 }
                                 
                                 #endregion
                                 
-                                if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ") || (string_copy(_string, 1, 4) == "set ")
+                                #region Add instruction based on content array
+                                
+                                if (_content[0] == "if")
                                 {
-                                    if (_content[0] == "if") || (_content[0] == "elseif")
+                                    if (array_length_1d(_content) == 2)
                                     {
-                                        if (array_length_1d(_content) == 2)
-                                        {
-                                            if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       \"" + _content[0] + "\" action had too few token. Assuming \"== true\" was intended");
-                                            _content[3] = "true";
-                                            _content[2] = "==";
-                                        }
+                                        if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       \"" + _content[0] + "\" action had too few token. Assuming \"== true\" was intended");
+                                        _content[3] = "true";
+                                        _content[2] = "==";
                                     }
                                     
-                                    if (_content[0] == "if")
+                                    if (_first_token)
                                     {
-                                        if (_first_token)
-                                        {
-                                            //If-statement on its own on a line
-                                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                                            _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
-                                        }
-                                        else
-                                        {
-                                            //If-statement suffixed to another token
-                                            var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
-                                            _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                                            _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
-                                            ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
-                                    
-                                            _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_IF_END;
-                                        }
-                                    }
-                                    else if (_content[0] == "elseif")
-                                    {
-                                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
+                                        //If-statement on its own on a line
+                                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
                                         _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                     }
-                                    else if (_content[0] == "set")
+                                    else
                                     {
-                                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SET;
-                                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                        //If-statement suffixed to another token
+                                        var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
+                                        _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
+                                        _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                        ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
+                                        
+                                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_IF_END;
                                     }
                                 }
-                                else if (_string == "endif")
+                                else if (_content[0] == "elseif")
+                                {
+                                    if (array_length_1d(_content) == 2)
+                                    {
+                                        if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       \"" + _content[0] + "\" action had too few token. Assuming \"== true\" was intended");
+                                        _content[3] = "true";
+                                        _content[2] = "==";
+                                    }
+                                    
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                }
+                                else if (_content[0] == "set")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SET;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                }
+                                else if (_content[0] == "endif")
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_IF_END;
                                 }
-                                else if (_string == "else")
+                                else if (_content[0] == "else")
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ELSE;
                                 }
-                                else if (_string == "stop")
+                                else if (_content[0] == "stop")
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_STOP;
                                 }
@@ -314,6 +376,8 @@ repeat(_font_count)
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_GENERIC_ACTION;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                                 }
+                                
+                                #endregion
                         
                                 #endregion
                             }
@@ -375,8 +439,12 @@ repeat(_font_count)
                 var _size = array_length_1d(_array);
                 for(var _j = 0; _j < _size; _j++)
                 {
-                    _string += string(_array[_j]);
-                    if (_j < _size-1) _string += ", ";
+                    var _value = _array[_j];
+                    if (_value != undefined)
+                    {
+                        if (_j > 0) _string += ", ";
+                        _string += string(_value);
+                    }
                 }
                 show_debug_message("Chatterbox:       " + _string);
                 

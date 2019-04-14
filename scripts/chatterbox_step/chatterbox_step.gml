@@ -205,49 +205,11 @@ if (_evaluate)
                     }
                     else
                     {
-                        var _array = array_create(3);
-                        _array[0] = _instruction_content[1]; //A
-                        _array[1] = _instruction_content[2]; //comparator
-                        _array[2] = _instruction_content[3]; //B
-                        
-                        for(var _i = 0; _i < 3; _i++)
-                        {
-                            if (_i == 0) || (_i == 2)
-                            {
-                                _array[_i] = __chatterbox_resolve_value(_chatterbox, _array[_i]);
-                            }
-                            else if (_i == 1)
-                            {
-                                #region Handle comparator variations
-                                
-                                var _comparator = _array[_i];
-                                switch(_comparator)
-                                {
-                                    //case "and": _comparator = "&&"; break;
-                                    //case "&"  : _comparator = "&&"; break;
-                                    case "le" : _comparator = "<";  break;
-                                    case "gt" : _comparator = ">";  break;
-                                    //case "or" : _comparator = "||"; break;
-                                    //case "`"  : _comparator = "||"; break;
-                                    //case "|"  : _comparator = "||"; break;
-                                    case "leq": _comparator = "<="; break;
-                                    case "geq": _comparator = ">="; break;
-                                    case "eq" : _comparator = "=="; break;
-                                    case "is" : _comparator = "=="; break;
-                                    case "neq": _comparator = "!="; break;
-                                }
-                                
-                                _array[_i] = _comparator;
-                                
-                                #endregion
-                            }
-                        }
-                        
                         #region Resolve the comparison
                         
-                        var _value_a    = _array[0];
-                        var _comparator = _array[1];
-                        var _value_b    = _array[2];
+                        var _value_a    = __chatterbox_resolve_value(_chatterbox, _instruction_content[1]);
+                        var _comparator = _instruction_content[2];
+                        var _value_b    = __chatterbox_resolve_value(_chatterbox, _instruction_content[3]);
                         
                         if (typeof(_value_a) != typeof(_value_b))
                         {
