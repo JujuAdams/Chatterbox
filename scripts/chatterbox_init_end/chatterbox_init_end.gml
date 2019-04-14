@@ -50,6 +50,7 @@ repeat(_font_count)
     if (_node_list == undefined)
     {
         show_error("Chatterbox:\nJSON format for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.\n ", false);
+        _name = ds_map_find_next(global.__chatterbox_file_data, _name);
         continue;
     }
     
@@ -334,6 +335,7 @@ repeat(_font_count)
     //Debug output that displays all the nodes in a file
     show_debug_message(_title_string);
     
+    _name = ds_map_find_next(global.__chatterbox_file_data, _name);
     ds_map_destroy(_yarn_json);
 }
 
