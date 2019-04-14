@@ -511,6 +511,30 @@ if (_evaluate)
                     }
                 break;
                 
+                case __CHATTERBOX_VM_CUSTOM_ACTION:
+                    if (!ds_map_exists(_executed_map, _instruction))
+                    {
+                        _executed_map[? _instruction ] = true;
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
+                        
+                        var _argument_array = array_create(array_length_1d(_instruction_content)-1);
+                        array_copy(_argument_array, 0, _instruction_content, 1, array_length_1d(_instruction_content)-1);
+                        
+                        var _i = 0;
+                        repeat(array_length_1d(_argument_array))
+                        {
+                            _argument_array[_i] = __chatterbox_resolve_value(_chatterbox, _argument_array[_i]);
+                            _i++;
+                        }
+                        
+                        script_execute(global.__chatterbox_actions[? _instruction_content[0] ], _argument_array);
+                    }
+                    else
+                    {
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     not executed before, ignoring");
+                    }
+                break;
+                
                 case __CHATTERBOX_VM_STOP:
                     if (!_found_text)
                     {

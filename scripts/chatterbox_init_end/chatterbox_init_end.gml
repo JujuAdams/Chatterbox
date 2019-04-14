@@ -190,18 +190,19 @@ repeat(_font_count)
                         
                                 #region <<action>>
                                 
+                                var _work_string = _string;
+                                var _content = [];
+                                repeat(9999)
+                                {
+                                    var _pos = string_pos(" ", _work_string);
+                                    if (_pos <= 0) _pos = string_length(_work_string)+1;
+                                    _content[ array_length_1d(_content) ] = string_copy(_work_string, 1, _pos-1);
+                                    _work_string = __chatterbox_remove_whitespace(string_delete(_work_string, 1, _pos), true);
+                                    if (_work_string == "") break;
+                                }
+                                
                                 if (string_copy(_string, 1, 3) == "if ") || (string_copy(_string, 1, 7) == "elseif ") || (string_copy(_string, 1, 4) == "set ")
                                 {
-                                    var _content = [];
-                                    repeat(9999)
-                                    {
-                                        var _pos = string_pos(" ", _string);
-                                        if (_pos <= 0) _pos = string_length(_string)+1;
-                                        _content[ array_length_1d(_content) ] = string_copy(_string, 1, _pos-1);
-                                        _string = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
-                                        if (_string == "") break;
-                                    }
-                                    
                                     if (_content[0] == "if") || (_content[0] == "elseif")
                                     {
                                         if (array_length_1d(_content) == 2)
@@ -262,9 +263,15 @@ repeat(_font_count)
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
                                     _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                 }
+                                else if (ds_map_exists(global.__chatterbox_actions, _content[0]))
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_CUSTOM_ACTION;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                                }
                                 else
                                 {
-                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ACTION;
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_GENERIC_ACTION;
                                     _array[@ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                     _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
                                 }

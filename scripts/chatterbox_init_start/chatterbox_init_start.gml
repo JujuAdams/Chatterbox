@@ -9,7 +9,7 @@
 
 #macro __CHATTERBOX_VERSION       "0.0.1"
 #macro __CHATTERBOX_DATE          "2019/04/13"
-#macro __CHATTERBOX_DEBUG_PARSER  false
+#macro __CHATTERBOX_DEBUG_PARSER  true
 #macro __CHATTERBOX_DEBUG_VM      false
 
 enum __CHATTERBOX_FILE
@@ -75,18 +75,19 @@ enum CHATTERBOX_SCOPE
 //    __SIZE    //12
 //}
 
-#macro __CHATTERBOX_VM_UNKNOWN  "unknown"
-#macro __CHATTERBOX_VM_TEXT     "text"
-#macro __CHATTERBOX_VM_SHORTCUT "shortcut"
-#macro __CHATTERBOX_VM_OPTION   "option"
-#macro __CHATTERBOX_VM_REDIRECT "redirect"
-#macro __CHATTERBOX_VM_ACTION   "action"
-#macro __CHATTERBOX_VM_IF       "if begin"
-#macro __CHATTERBOX_VM_ELSE     "else"
-#macro __CHATTERBOX_VM_ELSEIF   "elseif"
-#macro __CHATTERBOX_VM_IF_END   "end"
-#macro __CHATTERBOX_VM_SET      "set"
-#macro __CHATTERBOX_VM_STOP     "stop"
+#macro __CHATTERBOX_VM_UNKNOWN         "unknown"
+#macro __CHATTERBOX_VM_TEXT            "text"
+#macro __CHATTERBOX_VM_SHORTCUT        "shortcut"
+#macro __CHATTERBOX_VM_OPTION          "option"
+#macro __CHATTERBOX_VM_REDIRECT        "redirect"
+#macro __CHATTERBOX_VM_GENERIC_ACTION  "generic action"
+#macro __CHATTERBOX_VM_IF              "if begin"
+#macro __CHATTERBOX_VM_ELSE            "else"
+#macro __CHATTERBOX_VM_ELSEIF          "elseif"
+#macro __CHATTERBOX_VM_IF_END          "end"
+#macro __CHATTERBOX_VM_SET             "set"
+#macro __CHATTERBOX_VM_STOP            "stop"
+#macro __CHATTERBOX_VM_CUSTOM_ACTION   "custom action"
 
 #macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
 #macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
@@ -133,3 +134,4 @@ global.__chatterbox_data           = ds_map_create();
 global.__chatterbox_init_complete  = false;
 global.__chatterbox_default_file   = "";
 global.__chatterbox_indent_size    = 0;
+global.__chatterbox_actions        = ds_map_create();

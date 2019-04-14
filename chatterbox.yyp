@@ -183,6 +183,14 @@
             }
         },
         {
+            "Key": "5035acc2-d809-4bf5-b251-ea72c52874d4",
+            "Value": {
+                "id": "02a7e685-e9b7-4ca2-aa6e-db0838d3d3a7",
+                "resourcePath": "scripts\\custom_action_example\\custom_action_example.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "503cf607-27a8-45bf-a70c-c4f6011d4644",
             "Value": {
                 "id": "2e664e4e-8780-406d-a7c5-9db63c8ff808",
@@ -607,6 +615,14 @@
             }
         },
         {
+            "Key": "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
+            "Value": {
+                "id": "783aa4a9-4159-4f86-a98a-173f517bfbc6",
+                "resourcePath": "scripts\\chatterbox_init_add_action\\chatterbox_init_add_action.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "d31795bd-3e13-4c6b-bec6-ccf6cfdf0bce",
             "Value": {
                 "id": "897c9eeb-3a61-4efe-bf6f-c17ad23d001f",
@@ -808,12 +824,14 @@
         "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "60990149-1dae-4f22-88d9-53025cbd7878",
+        "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
         "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
         "577c1e55-1029-42ec-a0ed-1d0641d30f22",
         "a418e576-739d-42c4-912f-344270e5899c",
-        "00fbc8f9-0e51-458c-8834-69a5cbc5e94b"
+        "00fbc8f9-0e51-458c-8834-69a5cbc5e94b",
+        "5035acc2-d809-4bf5-b251-ea72c52874d4"
     ],
     "tutorial": ""
 }
