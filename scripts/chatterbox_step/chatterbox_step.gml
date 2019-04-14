@@ -488,17 +488,17 @@ if (_evaluate)
                             {                   
                                 case CHATTERBOX_SCOPE.INTERNAL:
                                     _variables_map[? _variable ] = _value;
-                                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as internal variable");
+                                    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as internal variable");
                                 break;
                                 
                                 case CHATTERBOX_SCOPE.GML_LOCAL:
                                     variable_instance_set(id, _variable, _value);
-                                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as local variable");
+                                    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as local variable");
                                 break;
                                 
                                 case CHATTERBOX_SCOPE.GML_GLOBAL:
                                     variable_global_set(_variable, _value);
-                                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as global variable");
+                                    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: " + string(_instruction) + ":       set \"" + _instruction_content[1] + "\" to <" + string(_value) + "> as global variable");
                                 break;
                             }
                         }
