@@ -8,7 +8,6 @@ var _step_size = ((argument_count > 1) && (argument_count[1] != undefined))? arg
 
 var _node_title    = _chatterbox[| __CHATTERBOX.TITLE        ];
 var _filename      = _chatterbox[| __CHATTERBOX.FILENAME     ];
-var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES    ];
 var _text_list     = _chatterbox[| __CHATTERBOX.TEXTS        ];
 var _button_list   = _chatterbox[| __CHATTERBOX.BUTTONS      ];
 var _executed_map  = _chatterbox[| __CHATTERBOX.EXECUTED_MAP ];
