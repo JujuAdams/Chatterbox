@@ -31,7 +31,7 @@ repeat(9999)
         for(var _i = 0; _i < _element_length; _i++)
         {
             var _child_index = _element[_i];
-            if (_resolved_array[_child_index] == pointer_null)
+            if (is_ptr(_resolved_array[_child_index]) && (_resolved_array[_child_index] == pointer_null))
             {
                 _fully_resolved = false;
                 ds_list_insert(_queue, 0, _child_index);
@@ -52,20 +52,26 @@ repeat(9999)
                 
                 var _operator = _resolved_array[_element[0]];
                 var _value    = _resolved_array[_element[1]];
+                    _value    = __chatterbox_resolve_value(_chatterbox, _value);
                 
-                if (_operator == "!")
+                var _result = undefined;
+                if (is_real(_value))
                 {
-                    _resolved_array[_element_index] = !_value;
+                    if (_operator == "!")
+                    {
+                        _result = !_value;
+                    }
+                    else if (_operator == "-")
+                    {
+                        _result = -_value;
+                    }
+                    else
+                    {
+                        show_debug_message("Chatterbox: WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
+                    }
                 }
-                else if (_operator == "-")
-                {
-                    _resolved_array[_element_index] = -_value;
-                }
-                else
-                {
-                    show_debug_message("Chatterbox: WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
-                    _resolved_array[_element_index] = undefined;
-                }
+                
+                _resolved_array[_element_index] = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
                 
                 #endregion
             }
@@ -142,6 +148,8 @@ repeat(9999)
                     case "==": _result = (_a_typeof == _b_typeof)?          (_a_value == _b_value) : false; break;
                 }
                 
+                _result = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
+                
                 if (_set)
                 {
                     switch(_a_scope)
@@ -164,4 +172,4 @@ repeat(9999)
 
 ds_list_destroy(_queue);
 
-return _resolved_array[1];
+return __chatterbox_resolve_value(_chatterbox, _resolved_array[1]);

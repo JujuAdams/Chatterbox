@@ -198,14 +198,7 @@ if (_evaluate)
                     var _result = __chatterbox_evaluate(_chatterbox, _instruction_content);
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   Evaluator returned \"" + string(_result) + "\" (" + typeof(_result) + ")");
                     
-                    if (is_string(_result))
-                    {
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Attempting to resolve non-real result");
-                        _result = __chatterbox_resolve_value(_chatterbox, _result);
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Resolver returned \"" + string(_result) + "\"");
-                    }
-                    
-                    if (!is_bool(_result) || !is_real(_result))
+                    if (!is_bool(_result) && !is_real(_result))
                     {
                         show_debug_message("Chatterbox: WARNING! Expression evaluator returned an invalid datatype (" + typeof(_result) + ")");
                         var _if_state = false;
