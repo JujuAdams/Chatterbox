@@ -1,5 +1,5 @@
-//  Chatterbox v0.0.1
-//  2019/04/13
+//  Chatterbox v0.0.2
+//  2019/04/14
 //  @jujuadams
 //  With thanks to Els White
 //  
