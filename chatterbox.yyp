@@ -655,6 +655,14 @@
             }
         },
         {
+            "Key": "e7f86093-cebc-4ca5-ac72-b9e0a305ba95",
+            "Value": {
+                "id": "d8621315-20a6-44e4-a3a9-c6c3aa6982f2",
+                "resourcePath": "datafiles_yy\\Yarn\\Test2.json.yy",
+                "resourceType": "GMIncludedFile"
+            }
+        },
+        {
             "Key": "e9480819-6da8-4390-8deb-cc0446f16851",
             "Value": {
                 "id": "0c003888-265a-487d-b610-0ef0feee2dd4",

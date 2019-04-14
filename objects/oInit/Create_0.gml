@@ -31,7 +31,7 @@ scribble_set_glyph_property("sSpriteFont", "q", SCRIBBLE_GLYPH.SEPARATION, -1, t
 
 //Initialise Chatterbox
 chatterbox_init_start("Yarn");
-chatterbox_init_add("Test.json");
+chatterbox_init_add_json("Test.json");
 chatterbox_init_end();
 
 

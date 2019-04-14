@@ -34,7 +34,25 @@ repeat(_font_count)
     ds_map_add_map(global.__chatterbox_data, _filename, _chatterbox_map);
     
     var _yarn_json = json_decode(_string);
+    
+    //Test for JSON made by the standard Yarn editor
     var _node_list = _yarn_json[? "default" ];
+    if (_node_list != undefined) show_debug_message("Chatterbox:   File was made in standard Yarn editor");
+    
+    //Test for JSON made by Jacquard
+    if (_node_list == undefined)
+    {
+        var _node_list = _yarn_json[? "nodes" ];
+        if (_node_list != undefined) show_debug_message("Chatterbox:   File was made by Jacquard");
+    }
+    
+    //If both of these fail, it's some wacky JSON that we don't recognise
+    if (_node_list == undefined)
+    {
+        show_error("Chatterbox:\nJSON format for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.\n ", false);
+        continue;
+    }
+    
     var _node_count = ds_list_size(_node_list);
     var _title_string = "Chatterbox:     Found " + string(_node_count) + " titles: ";
     var _title_count = 0;

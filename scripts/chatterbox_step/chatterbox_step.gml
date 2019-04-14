@@ -470,7 +470,7 @@ if (_evaluate)
                                 _scope = CHATTERBOX_SCOPE.INTERNAL;
                                 _variable = string_delete(_variable, 1, 9);
                             }
-                            else if (string_copy(_variable, 1, 8) == "visited(")
+                            else if (string_copy(_variable, 1, 9) == "visited(\"")
                             {
                                 _scope = CHATTERBOX_SCOPE.INTERNAL;
                                 
@@ -478,7 +478,7 @@ if (_evaluate)
                                 {
                                     //Make sure this visited() call has a filename attached to it
                                     var _pos = string_pos(CHATTERBOX_VISITED_SEPARATOR, _variable);
-                                    if (_pos <= 0) _variable = string_insert(_filename + CHATTERBOX_VISITED_SEPARATOR, _variable, 8);
+                                    if (_pos <= 0) _variable = string_insert(_filename + CHATTERBOX_VISITED_SEPARATOR, _variable, 9);
                                 }
                             }
                             
