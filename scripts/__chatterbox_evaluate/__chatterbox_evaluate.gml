@@ -94,6 +94,21 @@ repeat(9999)
                 var _result = undefined;
                 var _set = false;
                 
+                if (_a_typeof != _b_typeof)
+                {
+                    if (_operator != "+") && (_operator != "+=") && (_operator != "==") && (_operator != "!=")
+                    {
+                        if (CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE)
+                        {
+                            show_error("Chatterbox:\nMismatched datatypes\n ", false);
+                        }
+                        else
+                        {
+                            show_debug_message("Chatterbox: WARNING! Mismatched datatypes");
+                        }
+                    }
+                }
+                
                 switch(_operator)
                 {
                     case "/": if (_pair_typeof == "real:real") _result = _a_value / _b_value; break;
