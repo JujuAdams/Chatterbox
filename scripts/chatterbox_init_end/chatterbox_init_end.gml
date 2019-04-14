@@ -201,7 +201,17 @@ repeat(_font_count)
                                         _string = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
                                         if (_string == "") break;
                                     }
-                            
+                                    
+                                    if (_content[0] == "if") || (_content[0] == "elseif")
+                                    {
+                                        if (array_length_1d(_content) == 2)
+                                        {
+                                            if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       \"" + _content[0] + "\" action had too few token. Assuming \"== true\" was intended");
+                                            _content[3] = "true";
+                                            _content[2] = "==";
+                                        }
+                                    }
+                                    
                                     if (_content[0] == "if")
                                     {
                                         if (_first_token)
