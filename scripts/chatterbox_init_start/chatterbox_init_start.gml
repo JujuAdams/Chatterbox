@@ -9,8 +9,8 @@
 
 #macro __CHATTERBOX_VERSION       "0.0.3"
 #macro __CHATTERBOX_DATE          "2019/04/15"
-#macro __CHATTERBOX_DEBUG_PARSER  false
-#macro __CHATTERBOX_DEBUG_VM      false
+#macro __CHATTERBOX_DEBUG_PARSER  true
+#macro __CHATTERBOX_DEBUG_VM      true
 
 enum __CHATTERBOX_FILE
 {
@@ -63,10 +63,10 @@ enum __CHATTERBOX
 #macro __CHATTERBOX_VM_OPTION          "option"
 #macro __CHATTERBOX_VM_REDIRECT        "redirect"
 #macro __CHATTERBOX_VM_GENERIC_ACTION  "generic action"
-#macro __CHATTERBOX_VM_IF              "if begin"
-#macro __CHATTERBOX_VM_ELSE            "else"
-#macro __CHATTERBOX_VM_ELSEIF          "elseif"
-#macro __CHATTERBOX_VM_IF_END          "end"
+#macro __CHATTERBOX_VM_IF              "IF"
+#macro __CHATTERBOX_VM_ELSE            "ELSE"
+#macro __CHATTERBOX_VM_ELSEIF          "ELSE IF"
+#macro __CHATTERBOX_VM_IF_END          "END"
 #macro __CHATTERBOX_VM_SET             "set"
 #macro __CHATTERBOX_VM_STOP            "stop"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "custom action"
