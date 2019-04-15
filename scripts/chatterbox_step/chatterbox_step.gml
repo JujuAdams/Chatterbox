@@ -25,6 +25,61 @@ if (_node_title == undefined)
 
 
 
+if (CHATTERBOX_AUTO_KEYBOARD)
+{
+    if (CHATTERBOX_AUTO_KEYBOARD_UP)   _highlighted_index--;
+    if (CHATTERBOX_AUTO_KEYBOARD_DOWN) _highlighted_index++;
+    _select = CHATTERBOX_AUTO_KEYBOARD_SELECT;
+    
+    _highlighted_index = clamp(_highlighted_index, 0, ds_list_size(_button_list)-1);
+    _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index;
+}
+
+if (CHATTERBOX_AUTO_MOUSE)
+{
+    var _count = ds_list_size(_button_list);
+    for(var _i = 0; _i < _count; _i++)
+    {
+        var _array = _button_list[| _i ];
+        var _scribble = _array[ __CHATTERBOX_BUTTON.TEXT ];
+        
+        var _meta_array = _button_meta_list[| _i ];
+        var _box = scribble_get_box(_scribble, 
+                                    _meta_array[ CHATTERBOX_PROPERTY.X      ], _meta_array[ CHATTERBOX_PROPERTY.Y      ],
+                                    -1, -1, -1, -1,
+                                    _meta_array[ CHATTERBOX_PROPERTY.XSCALE ], _meta_array[ CHATTERBOX_PROPERTY.YSCALE ],
+                                    _meta_array[ CHATTERBOX_PROPERTY.ANGLE  ]);
+        
+        var _mouse_x = CHATTERBOX_AUTO_MOUSE_X;
+        var _mouse_y = CHATTERBOX_AUTO_MOUSE_Y;
+        
+        if (point_in_triangle(_mouse_x, _mouse_y,
+                              _box[SCRIBBLE_BOX.X0], _box[SCRIBBLE_BOX.Y0],
+                              _box[SCRIBBLE_BOX.X1], _box[SCRIBBLE_BOX.Y1],
+                              _box[SCRIBBLE_BOX.X2], _box[SCRIBBLE_BOX.Y2]))
+        {
+            _highlighted_index = _i;
+            break;
+        }
+        else if (point_in_triangle(_mouse_x, _mouse_y,
+                                   _box[SCRIBBLE_BOX.X1], _box[SCRIBBLE_BOX.Y1],
+                                   _box[SCRIBBLE_BOX.X2], _box[SCRIBBLE_BOX.Y2],
+                                   _box[SCRIBBLE_BOX.X3], _box[SCRIBBLE_BOX.Y3]))
+        {
+            _highlighted_index = _i;
+            break;
+        }
+    }
+    
+    if (!CHATTERBOX_AUTO_KEYBOARD && (_i >= _count)) _highlighted_index = undefined;
+    _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index;
+    _select = ((_i < _count) && CHATTERBOX_AUTO_MOUSE_SELECT);
+}
+
+
+
+
+
 //Perform a step for all nested Scribble data structures
 for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_step(_text_list[|   _i], _step_size);
 for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--)
@@ -63,7 +118,7 @@ else
 {
     #region Detect if the player has progressed the dialogue
     
-    if (_select)
+    if (_select && (_highlighted_index != undefined))
     {
         _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
         

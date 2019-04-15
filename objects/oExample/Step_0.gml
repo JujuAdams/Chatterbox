@@ -1,14 +1,4 @@
-//Keyboard control
-if (keyboard_check_pressed(vk_up  )) chatterbox_set_highlighted(chatterbox, -1, true);
-if (keyboard_check_pressed(vk_down)) chatterbox_set_highlighted(chatterbox,  1, true);
-var _selected = keyboard_check_pressed(vk_space);
-
-//Mouse control
-var _highlighted = chatterbox_text_mouse_over(chatterbox, mouse_x, mouse_y);
-chatterbox_set_highlighted(chatterbox, _highlighted);
-if (_highlighted != undefined) _selected = mouse_check_button_released(mb_left);
-
-chatterbox_step(chatterbox, _selected);
+chatterbox_step(chatterbox);
 
 //Control position and colour of options
 var _x_offset = chatterbox_text_get(chatterbox, false, 0, CHATTERBOX_PROPERTY.X)

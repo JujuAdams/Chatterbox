@@ -23,11 +23,15 @@
 #macro CHATTERBOX_DEFAULT_BUTTON_ALPHA   1
 #macro CHATTERBOX_DEFAULT_BUTTON_PMA     false
 
-#macro CHATTERBOX_AUTO_KEYBOARD         true
-#macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || (keyboard_check_released(vk_pageup))
-#macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || (keyboard_check_released(vk_pagedown))
-#macro CHATTERBOX_AUTO_KEYBOARD_SELECT  (keyboard_check_released(vk_space) || (keyboard_check_released(vk_enter))
+#macro CHATTERBOX_AUTO_KEYBOARD         false
+#macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || keyboard_check_released(vk_pageup))
+#macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || keyboard_check_released(vk_pagedown))
+#macro CHATTERBOX_AUTO_KEYBOARD_SELECT  (keyboard_check_released(vk_space) || keyboard_check_released(vk_enter))
+
 #macro CHATTERBOX_AUTO_MOUSE            true
+#macro CHATTERBOX_AUTO_MOUSE_X          mouse_x
+#macro CHATTERBOX_AUTO_MOUSE_Y          mouse_y
+#macro CHATTERBOX_AUTO_MOUSE_SELECT     mouse_check_button_released(mb_left)
 
 #macro CHATTERBOX_DEBUG  true
 
