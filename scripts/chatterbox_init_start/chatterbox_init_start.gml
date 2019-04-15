@@ -11,7 +11,6 @@
 #macro __CHATTERBOX_DATE                "2019/04/15"
 #macro __CHATTERBOX_DEBUG_PARSER        true
 #macro __CHATTERBOX_DEBUG_VM            true
-#macro __CHATTERBOX_FILENAME_SEPARATOR  ":"
 
 enum __CHATTERBOX_FILE
 {

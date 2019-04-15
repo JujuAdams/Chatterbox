@@ -8,6 +8,7 @@
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
 #macro CHATTERBOX_OPTION_DEFAULT_TEXT  "..."
+#macro CHATTERBOX_FILENAME_SEPARATOR   ":"
 
 //Automatic helper behaviours
 #macro CHATTERBOX_AUTO_KEYBOARD         true

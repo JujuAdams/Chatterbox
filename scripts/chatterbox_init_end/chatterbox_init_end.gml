@@ -61,7 +61,7 @@ repeat(_font_count)
         var _body  = _node_map[? "body"  ];
         
         var _instruction_list = ds_list_create();
-        ds_map_add_list(global.__chatterbox_data, _filename + __CHATTERBOX_FILENAME_SEPARATOR + _title, _instruction_list);
+        ds_map_add_list(global.__chatterbox_data, _filename + CHATTERBOX_FILENAME_SEPARATOR + _title, _instruction_list);
         
         
         
