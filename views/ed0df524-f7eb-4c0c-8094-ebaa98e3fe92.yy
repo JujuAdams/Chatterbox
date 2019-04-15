@@ -12,7 +12,7 @@
         "a418e576-739d-42c4-912f-344270e5899c"
     ],
     "filterType": "GMScript",
-    "folderName": "Additional",
+    "folderName": "Additional Variable Handlers",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

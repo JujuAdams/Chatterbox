@@ -25,6 +25,8 @@ if (_node_title == undefined)
 
 
 
+#region Automatic option selection behaviours
+
 if (CHATTERBOX_AUTO_KEYBOARD)
 {
     if (CHATTERBOX_AUTO_KEYBOARD_UP)   _highlighted_index--;
@@ -76,7 +78,7 @@ if (CHATTERBOX_AUTO_MOUSE)
     _select = ((_i < _count) && CHATTERBOX_AUTO_MOUSE_SELECT);
 }
 
-
+#endregion
 
 
 
@@ -116,7 +118,7 @@ if (!_chatterbox[| __CHATTERBOX.INITIALISED])
 }
 else
 {
-    #region Detect if the player has progressed the dialogue
+    #region Advance to the next instruction if the player has selected an option
     
     if (_select && (_highlighted_index != undefined))
     {
@@ -435,59 +437,98 @@ if (_evaluate)
     
     #endregion
     
-    #region Make sure we have enough metadata slots laid out
-    
-    var _text_count = ds_list_size(_text_list);
-    var _text_meta_count = ds_list_size(_text_meta_list);
-    var _count = _text_count - _text_meta_count
-    repeat (_count)
-    {
-        var _x = 0;
-        var _y = 0;
-        
-        var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
-        _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
-        _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_DEFAULT_TEXT_XSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
-        _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
-        _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
-        _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
-        _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
-        ds_list_add(_text_meta_list, _new_array);
-    }
-    
-    var _button_count = ds_list_size(_button_list);
-    var _button_meta_count = ds_list_size(_button_meta_list);
-    var _count = _button_count - _button_meta_count
-    repeat (_count)
-    {
-        var _x = 0;
-        var _y = 0;
-        
-        var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
-        _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
-        _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_DEFAULT_TEXT_XSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
-        _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
-        _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
-        _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
-        _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
-        ds_list_add(_button_meta_list, _new_array);
-    }
-    
-    #endregion
-    
     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Waiting...");
     
     #endregion
 }
+    
+#region Make sure we have enough metadata slots laid out
+
+var _text_count = ds_list_size(_text_list);
+var _text_meta_count = ds_list_size(_text_meta_list);
+var _count = _text_count - _text_meta_count
+repeat (_count)
+{
+    var _x = 0;
+    var _y = 0;
+        
+    var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
+    _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
+    _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
+    _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
+    _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_DEFAULT_TEXT_XSCALE;
+    _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
+    _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
+    _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
+    _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
+    _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
+    _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
+    _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
+    _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
+    ds_list_add(_text_meta_list, _new_array);
+}
+
+var _button_count = ds_list_size(_button_list);
+var _button_meta_count = ds_list_size(_button_meta_list);
+var _count = _button_count - _button_meta_count
+repeat (_count)
+{
+    var _x = 0;
+    var _y = 0;
+    
+    var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
+    _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
+    _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
+    _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
+    _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_DEFAULT_TEXT_XSCALE;
+    _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
+    _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
+    _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
+    _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
+    _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
+    _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
+    _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
+    _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
+    ds_list_add(_button_meta_list, _new_array);
+}
+
+#endregion
+
+#region Automatic option position and colouring behaviours
+
+if (CHATTERBOX_AUTO_HIGHLIGHT)
+{
+    var _count = chatterbox_text_get_number(chatterbox, true);
+    for(var _i = 0; _i < _count; _i++)
+    {
+        var _highlighted = chatterbox_text_get(chatterbox, true, _i, CHATTERBOX_PROPERTY.HIGHLIGHTED);
+        var _colour = _highlighted? CHATTERBOX_AUTO_HIGHLIGHT_ON_COLOUR : CHATTERBOX_AUTO_HIGHLIGHT_OFF_COLOUR;
+        var _alpha  = _highlighted? CHATTERBOX_AUTO_HIGHLIGHT_ON_ALPHA  : CHATTERBOX_AUTO_HIGHLIGHT_OFF_ALPHA;
+        
+        chatterbox_text_set(chatterbox, true, _i, CHATTERBOX_PROPERTY.COLOUR, _colour);
+        chatterbox_text_set(chatterbox, true, _i, CHATTERBOX_PROPERTY.ALPHA , _alpha);
+    }
+}
+
+if (CHATTERBOX_AUTO_POSITION)
+{
+    //Control position and colour of options
+    var _x_offset = chatterbox_text_get(chatterbox, false, 0, CHATTERBOX_PROPERTY.X)
+                  + CHATTERBOX_AUTO_POSITION_OPTION_INDENT;
+    
+    var _y_offset = chatterbox_text_get(chatterbox, false, 0, CHATTERBOX_PROPERTY.Y)
+                  + chatterbox_text_get(chatterbox, false, 0, CHATTERBOX_PROPERTY.HEIGHT)
+                  + CHATTERBOX_AUTO_POSITION_TEXT_SEPARATION;
+    
+    var _count = chatterbox_text_get_number(chatterbox, true);
+    for(var _i = 0; _i < _count; _i++)
+    {
+        chatterbox_text_set(chatterbox, true, _i, CHATTERBOX_PROPERTY.XY, _x_offset, _y_offset );
+    
+        _y_offset = chatterbox_text_get(chatterbox, true, _i, CHATTERBOX_PROPERTY.Y)
+                  + chatterbox_text_get(chatterbox, true, _i, CHATTERBOX_PROPERTY.HEIGHT)
+                  + CHATTERBOX_AUTO_POSITION_OPTION_SEPARATION;
+    }
+}
+
+#endregion
