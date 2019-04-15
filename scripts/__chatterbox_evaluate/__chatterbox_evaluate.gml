@@ -98,6 +98,8 @@ repeat(9999)
             }
             else if (_element_length == 1)
             {
+                #region Resolve 1-length elements (usually a static value, but you never know)
+                
                 var _result = undefined;
                 var _element_value = _element[0];
                 if (is_real(_element_value))
@@ -108,6 +110,8 @@ repeat(9999)
                 {
                     _resolved_array[_element_index] = _element[0];
                 }
+                
+                #endregion
             }
             else if (_element_length == 2)
             {
