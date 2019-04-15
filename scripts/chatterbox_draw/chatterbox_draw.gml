@@ -15,7 +15,7 @@ for(var _i = ds_list_size(_text_list)-1; _i >= 0; _i--)
                   _meta_array[ CHATTERBOX_PROPERTY.X      ], _meta_array[ CHATTERBOX_PROPERTY.Y      ],
                   _meta_array[ CHATTERBOX_PROPERTY.XSCALE ], _meta_array[ CHATTERBOX_PROPERTY.YSCALE ],
                   _meta_array[ CHATTERBOX_PROPERTY.ANGLE  ],
-                  _meta_array[ CHATTERBOX_PROPERTY.COLOUR ], _meta_array[ CHATTERBOX_PROPERTY.ALPHA ],
+                  _meta_array[ CHATTERBOX_PROPERTY.BLEND  ], _meta_array[ CHATTERBOX_PROPERTY.ALPHA ],
                   _meta_array[ CHATTERBOX_PROPERTY.PMA    ]);
 }
 
@@ -28,6 +28,6 @@ for(var _i = ds_list_size(_button_list  )-1; _i >= 0; _i--)
                   _meta_array[ CHATTERBOX_PROPERTY.X      ], _meta_array[ CHATTERBOX_PROPERTY.Y      ],
                   _meta_array[ CHATTERBOX_PROPERTY.XSCALE ], _meta_array[ CHATTERBOX_PROPERTY.YSCALE ],
                   _meta_array[ CHATTERBOX_PROPERTY.ANGLE  ],
-                  _meta_array[ CHATTERBOX_PROPERTY.COLOUR ], _meta_array[ CHATTERBOX_PROPERTY.ALPHA ],
+                  _meta_array[ CHATTERBOX_PROPERTY.BLEND  ], _meta_array[ CHATTERBOX_PROPERTY.ALPHA ],
                   _meta_array[ CHATTERBOX_PROPERTY.PMA    ]);
 }

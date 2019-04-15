@@ -44,18 +44,22 @@ if (_is_button)
         var _y = 0;
         
         var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
-        _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
-        _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_XSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_YSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_ANGLE;
-        _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_BLEND;
-        _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_ALPHA;
-        _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_PMA;
-        _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Internal --";
+        _new_array[ CHATTERBOX_PROPERTY.X           ] = _x;
+        _new_array[ CHATTERBOX_PROPERTY.Y           ] = _y;
+        _new_array[ CHATTERBOX_PROPERTY.XY          ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_XSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_YSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_ANGLE;
+        _new_array[ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_BLEND;
+        _new_array[ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_ALPHA;
+        _new_array[ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_BUTTON_DRAW_DEFAULT_PMA;
+        _new_array[ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.__SECTION1  ] = "-- Read-Only Properties --";
+        _new_array[ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
         ds_list_add(_meta_list, _new_array);
     }
     
@@ -76,18 +80,22 @@ else
         var _y = 0;
         
         var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
-        _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
-        _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE;
-        _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
-        _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
-        _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
-        _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Internal --";
+        _new_array[ CHATTERBOX_PROPERTY.X           ] = _x;
+        _new_array[ CHATTERBOX_PROPERTY.Y           ] = _y;
+        _new_array[ CHATTERBOX_PROPERTY.XY          ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE;
+        _new_array[ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
+        _new_array[ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
+        _new_array[ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
+        _new_array[ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.__SECTION1  ] = "-- Read-Only Properties --";
+        _new_array[ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
         ds_list_add(_meta_list, _new_array);
     }
     
