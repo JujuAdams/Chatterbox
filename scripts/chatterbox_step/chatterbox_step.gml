@@ -14,7 +14,6 @@ var _text_list         = _chatterbox[| __CHATTERBOX.TEXTS        ];
 var _option_list       = _chatterbox[| __CHATTERBOX.OPTIONS      ];
 var _text_meta_list    = _chatterbox[| __CHATTERBOX.TEXTS_META   ];
 var _option_meta_list  = _chatterbox[| __CHATTERBOX.OPTIONS_META ];
-var _executed_map      = _chatterbox[| __CHATTERBOX.EXECUTED_MAP ];
 var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED  ];
 
 if (_node_title == undefined)
@@ -422,17 +421,8 @@ if (_evaluate)
                         break;
                     }
                     
-                    if (!ds_map_exists(_executed_map, _instruction))
-                    {
-                        _executed_map[? _instruction ] = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
-                        
-                        __chatterbox_evaluate(_chatterbox, _instruction_content);
-                    }
-                    else
-                    {
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     executed before, ignoring");
-                    }
+                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
+                    __chatterbox_evaluate(_chatterbox, _instruction_content);
                     
                     #endregion
                 break;
@@ -448,27 +438,19 @@ if (_evaluate)
                         break;
                     }
                     
-                    if (!ds_map_exists(_executed_map, _instruction))
+                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
+                    
+                    var _argument_array = array_create(array_length_1d(_instruction_content)-1);
+                    array_copy(_argument_array, 0, _instruction_content, 1, array_length_1d(_instruction_content)-1);
+                    
+                    var _i = 0;
+                    repeat(array_length_1d(_argument_array))
                     {
-                        _executed_map[? _instruction ] = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
-                        
-                        var _argument_array = array_create(array_length_1d(_instruction_content)-1);
-                        array_copy(_argument_array, 0, _instruction_content, 1, array_length_1d(_instruction_content)-1);
-                        
-                        var _i = 0;
-                        repeat(array_length_1d(_argument_array))
-                        {
-                            _argument_array[_i] = __chatterbox_resolve_value(_chatterbox, _argument_array[_i]);
-                            _i++;
-                        }
-                        
-                        script_execute(global.__chatterbox_actions[? _instruction_content[0] ], _argument_array);
+                        _argument_array[_i] = __chatterbox_resolve_value(_chatterbox, _argument_array[_i]);
+                        _i++;
                     }
-                    else
-                    {
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     not executed before, ignoring");
-                    }
+                    
+                    script_execute(global.__chatterbox_actions[? _instruction_content[0] ], _argument_array);
                     
                     #endregion
                 break;
