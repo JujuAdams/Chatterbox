@@ -175,6 +175,14 @@
             }
         },
         {
+            "Key": "463a38fe-5a07-4bc6-ba8b-52d0ff4cabb4",
+            "Value": {
+                "id": "71dc5de1-2eca-4649-8300-f2758ffd0336",
+                "resourcePath": "scripts\\__chatterbox_destroy_children\\__chatterbox_destroy_children.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "48de0644-428c-4f83-84dc-d8f4ed174f63",
             "Value": {
                 "id": "f4be7778-d50e-42c0-831f-be9b3eecc7ce",
@@ -833,6 +841,7 @@
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "60990149-1dae-4f22-88d9-53025cbd7878",
         "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
+        "463a38fe-5a07-4bc6-ba8b-52d0ff4cabb4",
         "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",

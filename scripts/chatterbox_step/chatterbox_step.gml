@@ -22,7 +22,11 @@ if (_node_title == undefined)
 
 //Perform a step for all nested Scribble data structures
 for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_step(_text_list[|   _i], _step_size);
-for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_step(_button_list[| _i], _step_size);
+for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--)
+{
+    var _button_array = _button_list[| _i];
+    scribble_step(_button_array[ __CHATTERBOX_BUTTON.TEXT ], _step_size);
+}
 
 
 
@@ -57,8 +61,8 @@ else
     {
         if (keyboard_check_pressed(ord(string(_i+1))))
         {
-            
-            var _button = _button_list[| _i ];
+            var _button_array = _button_list[| _i ];
+            var _button = _button_array[ __CHATTERBOX_BUTTON.TEXT ];
             var _instruction = _button[| __SCRIBBLE.__SIZE ]; //Read the instruction index from a borrowed slot in the Scribble data structure
             
             var _button_array   = _instruction_list[| _instruction];
@@ -105,11 +109,7 @@ else
 
 if (_evaluate)
 {
-    //Wipe all the old text and buttons
-    for(var _i = ds_list_size(_text_list  )-1; _i >= 0; _i--) scribble_destroy(_text_list[|   _i]);
-    for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--) scribble_destroy(_button_list[| _i]);
-    ds_list_clear(_text_list);
-    ds_list_clear(_button_list);
+    __chatterbox_destroy_children(_chatterbox);
     
     #region Evaluate Yarn virtual machine
     
@@ -127,6 +127,8 @@ if (_evaluate)
         var _instruction_indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
         var _instruction_content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   " + _instruction_type + ":   " + string(_instruction_indent) + ":   " + string(_instruction_content));
+        
+        #region Identation behaviours
         
         if (_instruction_indent < _indent)
         {
@@ -161,10 +163,12 @@ if (_evaluate)
         
         _permit_greater_indent = false;
         
+        #endregion
+        
+        #region Handle branches
+        
         if (!_break && !_continue)
         {
-            #region Handle branches
-            
             switch(_instruction_type)
             {
                 case __CHATTERBOX_VM_IF:
@@ -233,7 +237,6 @@ if (_evaluate)
                 break;
             }
             
-            #endregion
         }
         
         if (!_break && !_continue)
@@ -247,8 +250,12 @@ if (_evaluate)
             }
         }
         
+        #endregion
+        
         if (!_break && !_continue)
         {
+            #region Handle instructions
+            
             var _new_button      = false;
             var _new_button_text = "";
             switch(_instruction_type)
@@ -273,13 +280,6 @@ if (_evaluate)
                 break;
                 
                 case __CHATTERBOX_VM_SHORTCUT:
-                    if (!_found_text) break;
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _found_text == " + string(_found_text));
-                    _new_button = true;
-                    _new_button_text = _instruction_content[0];
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       New button \"" + string(_new_button_text) + "\"");
-                break;
-                
                 case __CHATTERBOX_VM_OPTION:
                     if (!_found_text) break;
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _found_text == " + string(_found_text));
@@ -342,8 +342,11 @@ if (_evaluate)
                     }
                 break;
             }
+            
+            #endregion
         
             #region Create a new button from SHORTCUT and OPTION instructions
+            
             if (_new_button)
             {
                 _new_button = false;
@@ -369,7 +372,8 @@ if (_evaluate)
                 }
                 else
                 {
-                    var _prev_button = _button_list[| ds_list_size(_button_list)-1];
+                    var _prev_button_array = _button_list[| ds_list_size(_button_list)-1];
+                    var _prev_button = _prev_button_array[ __CHATTERBOX_BUTTON.TEXT ];
                     var _x_offset = _prev_button[| __SCRIBBLE.LEFT ] - _button[| __SCRIBBLE.LEFT ];
                     var _y_offset = _prev_button[| __SCRIBBLE.TOP ] + _prev_button[| __SCRIBBLE.HEIGHT ] + 5;
                     _button[| __SCRIBBLE.LEFT   ] += _x_offset;
@@ -379,7 +383,12 @@ if (_evaluate)
                     _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
                 }
                 
-                ds_list_add(_button_list, _button);
+                var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
+                _button_array[ __CHATTERBOX_BUTTON.TEXT       ] = _button;
+                _button_array[ __CHATTERBOX_BUTTON.MOUSE_OVER ] = false;
+                _button_array[ __CHATTERBOX_BUTTON.MOUSE_DOWN ] = false;
+                _button_array[ __CHATTERBOX_BUTTON.PRESSED    ] = false;
+                ds_list_add(_button_list, _button_array);
             }
             #endregion
         }
@@ -409,7 +418,13 @@ if (_evaluate)
         _button[| __SCRIBBLE.RIGHT  ] += 10;
         _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
         _button[| __SCRIBBLE.__SIZE ]  = _text_instruction; //Borrow a slot in the Scribble data structure to store the instruction index
-        ds_list_add(_button_list, _button);
+        
+        var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
+        _button_array[ __CHATTERBOX_BUTTON.TEXT       ] = _button;
+        _button_array[ __CHATTERBOX_BUTTON.MOUSE_OVER ] = false;
+        _button_array[ __CHATTERBOX_BUTTON.MOUSE_DOWN ] = false;
+        _button_array[ __CHATTERBOX_BUTTON.PRESSED    ] = false;
+        ds_list_add(_button_list, _button_array);
     }
     
     #endregion

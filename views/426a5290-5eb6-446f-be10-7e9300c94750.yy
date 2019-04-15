@@ -6,7 +6,8 @@
     "children": [
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "60990149-1dae-4f22-88d9-53025cbd7878",
-        "5a2bd88b-bb45-42ce-b065-697aa4e45e60"
+        "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
+        "463a38fe-5a07-4bc6-ba8b-52d0ff4cabb4"
     ],
     "filterType": "GMScript",
     "folderName": "Internal Stuff",

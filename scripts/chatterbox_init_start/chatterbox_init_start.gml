@@ -27,6 +27,15 @@ enum __CHATTERBOX_INSTRUCTION
     __SIZE   //3
 }
 
+enum __CHATTERBOX_BUTTON
+{
+    TEXT,
+    MOUSE_OVER,
+    MOUSE_DOWN,
+    PRESSED,
+    __SIZE
+}
+
 enum __CHATTERBOX
 {
     __SECTION0,   // 0
