@@ -28,17 +28,10 @@ else
     _filename = _chatterbox[| __CHATTERBOX.FILENAME ];
 }
 
-var _title_map = global.__chatterbox_data[? _filename ];
-if (_title_map == undefined)
-{
-    show_error("Chatterbox:\nCouldn't find Yarn .json file \"" + string(_filename) + "\"\n ", false);
-    return false;
-}
-
-var _instruction_list = _title_map[? _node_title ];
+var _instruction_list = global.__chatterbox_data[? _filename + __CHATTERBOX_FILENAME_SEPARATOR + _node_title ];
 if (_instruction_list == undefined)
 {
-    show_error("Chatterbox:\nCouldn't find title \"" + string(_node_title) + "\" in Yarn .json file \"" + string(_filename) + "\"\n ", false);
+    show_error("Chatterbox:\nCouldn't find title \"" + string(_node_title) + "\" from Yarn .json file \"" + string(_filename) + "\"\n ", false);
     return false;
 }
 
@@ -69,8 +62,8 @@ if (CHATTERBOX_VISITED_NO_FILENAME)
 }
 else
 {
-    _variables_map[? "visited(" + _filename + ":" + _node_title + ")" ] = true;
-    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _filename + ":" + _node_title + ")\" to <true>");
+    _variables_map[? "visited(" + _filename + __CHATTERBOX_FILENAME_SEPARATOR + _node_title + ")" ] = true;
+    if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _filename + __CHATTERBOX_FILENAME_SEPARATOR + _node_title + ")\" to <true>");
 }
 
 chatterbox_step(_chatterbox);

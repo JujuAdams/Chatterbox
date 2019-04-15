@@ -30,9 +30,6 @@ repeat(_font_count)
     var _string = buffer_read(_buffer, buffer_string);
     buffer_delete(_buffer);
     
-    var _chatterbox_map = ds_map_create();
-    ds_map_add_map(global.__chatterbox_data, _filename, _chatterbox_map);
-    
     var _yarn_json = json_decode(_string);
     
     //Test for JSON made by the standard Yarn editor
@@ -64,7 +61,7 @@ repeat(_font_count)
         var _body  = _node_map[? "body"  ];
         
         var _instruction_list = ds_list_create();
-        ds_map_add_list(_chatterbox_map, _title, _instruction_list);
+        ds_map_add_list(global.__chatterbox_data, _filename + __CHATTERBOX_FILENAME_SEPARATOR + _title, _instruction_list);
         
         
         

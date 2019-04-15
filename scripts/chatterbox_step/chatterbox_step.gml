@@ -92,8 +92,7 @@ for(var _i = ds_list_size(_option_list)-1; _i >= 0; _i--)
 
 
 
-var _title_map = global.__chatterbox_data[? _filename ];
-var _instruction_list = _title_map[? _node_title ];
+var _instruction_list = global.__chatterbox_data[? _filename + __CHATTERBOX_FILENAME_SEPARATOR + _node_title ];
 
 //VM state
 var _indent                = 0;
