@@ -147,13 +147,9 @@ repeat(9999)
                 var _b        = _resolved_array[_element[2]];
                 
                 var _a_value = __chatterbox_resolve_value(_chatterbox, _a);
-                var _a_typeof = typeof(_a_value);
                 var _a_scope = global.__chatterbox_scope;
                 global.__chatterbox_scope = CHATTERBOX_SCOPE.__INVALID;
                 var _b_value = __chatterbox_resolve_value(_chatterbox, _b);
-                var _b_typeof = typeof(_b_value);
-                
-                var _pair_typeof = _a_typeof + ":" + _b_typeof;
                 
                 #endregion
                 
@@ -162,7 +158,12 @@ repeat(9999)
                 var _result = undefined;
                 var _set = false;
                 
-                if (_a_typeof != _b_typeof)
+                var _both_real         = (is_real(_a_value) && is_real(_b_value));
+                var _matching_types    = (typeof(_a_value) == typeof(_b_value));
+                var _either_string     = (is_string(_a_value) || is_string(_b_value));
+                var _neither_undefined = (!is_undefined(_a_value) && !is_undefined(_b_value));
+                
+                if (!_matching_types)
                 {
                     if (_operator != "+") && (_operator != "+=") && (_operator != "==") && (_operator != "!=")
                     {
@@ -179,36 +180,36 @@ repeat(9999)
                 
                 switch(_operator)
                 {
-                    case "/": if (_pair_typeof == "number:number") _result = _a_value / _b_value; break;
-                    case "*": if (_pair_typeof == "number:number") _result = _a_value * _b_value; break;
-                    case "-": if (_pair_typeof == "number:number") _result = _a_value - _b_value; break;
+                    case "/": if (_both_real) _result = _a_value / _b_value; break;
+                    case "*": if (_both_real) _result = _a_value * _b_value; break;
+                    case "-": if (_both_real) _result = _a_value - _b_value; break;
                     case "+":
-                        if (!is_undefined(_a_value) && !is_undefined(_b_value))
+                        if (_neither_undefined)
                         {
-                            _result = ((_a_typeof == "string") || (_b_typeof == "string"))? (string(_a_value) + string(_b_value)) : (_a_value + _b_value);
+                            _result = (_either_string)? (string(_a_value) + string(_b_value)) : (_a_value + _b_value);
                         }
                     break;
                     
-                    case "/=": _set = true; if (_pair_typeof == "number:number") _result = _a_value / _b_value; break;
-                    case "*=": _set = true; if (_pair_typeof == "number:number") _result = _a_value * _b_value; break;
-                    case "-=": _set = true; if (_pair_typeof == "number:number") _result = _a_value - _b_value; break;
-                    case "=":  _set = true;                                      _result =            _b_value; break;
+                    case "/=": _set = true; if (_both_real) _result = _a_value / _b_value; break;
+                    case "*=": _set = true; if (_both_real) _result = _a_value * _b_value; break;
+                    case "-=": _set = true; if (_both_real) _result = _a_value - _b_value; break;
+                    case "=":  _set = true;                 _result =            _b_value; break;
                     case "+=":
                         _set = true;
-                        if (!is_undefined(_a_value) && !is_undefined(_b_value))
+                        if (_neither_undefined)
                         {
-                            _result = ((_a_typeof == "string") || (_b_typeof == "string"))? (string(_a_value) + string(_b_value)) : (_a_value + _b_value);
+                            _result = (_either_string)? (string(_a_value) + string(_b_value)) : (_a_value + _b_value);
                         }
                     break;
                     
-                    case "||": _result = (_pair_typeof == "number:number")? (_a_value || _b_value) : false; break;
-                    case "&&": _result = (_pair_typeof == "number:number")? (_a_value && _b_value) : false; break;
-                    case ">=": _result = (_pair_typeof == "number:number")? (_a_value >= _b_value) : false; break;
-                    case "<=": _result = (_pair_typeof == "number:number")? (_a_value <= _b_value) : false; break;
-                    case ">":  _result = (_pair_typeof == "number:number")? (_a_value >  _b_value) : false; break;
-                    case "<":  _result = (_pair_typeof == "number:number")? (_a_value <  _b_value) : false; break;
-                    case "!=": _result = (_a_typeof == _b_typeof)?          (_a_value != _b_value) : true;  break;
-                    case "==": _result = (_a_typeof == _b_typeof)?          (_a_value == _b_value) : false; break;
+                    case "||": _result = _both_real?      (_a_value || _b_value) : false; break;
+                    case "&&": _result = _both_real?      (_a_value && _b_value) : false; break;
+                    case ">=": _result = _both_real?      (_a_value >= _b_value) : false; break;
+                    case "<=": _result = _both_real?      (_a_value <= _b_value) : false; break;
+                    case ">":  _result = _both_real?      (_a_value >  _b_value) : false; break;
+                    case "<":  _result = _both_real?      (_a_value <  _b_value) : false; break;
+                    case "!=": _result = _matching_types? (_a_value != _b_value) : true;  break;
+                    case "==": _result = _matching_types? (_a_value == _b_value) : false; break;
                 }
                 
                 if (_set)
