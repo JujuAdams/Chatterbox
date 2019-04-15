@@ -282,30 +282,26 @@ repeat(_font_count)
                                     {
                                         var _out_string = string_copy(_string, _work_read_prev, _work_read + _read_add_char - _work_read_prev);
                                         //show_debug_message("    copied \"" + _out_string + "\"");
+                                        _out_string = __chatterbox_remove_whitespace(_out_string, true);
+                                        _out_string = __chatterbox_remove_whitespace(_out_string, false);
+                                        _out_string = string_replace_all(_out_string, "\\\"", "\""); //Replace \" with "
                                         
-                                            _out_string = __chatterbox_remove_whitespace(_out_string, true);
-                                            _out_string = __chatterbox_remove_whitespace(_out_string, false);
-                                            _out_string = string_replace_all(_out_string, "\\\"", "\""); //Replace \" with "
-                                        
-                                        if (_read_parse_operator)
+                                        switch(_out_string)
                                         {
-                                            switch(_out_string)
-                                            {
-                                                case "and": _out_string = "&&"; break;
-                                                case "&"  : _out_string = "&&"; break;
-                                                case "le" : _out_string = "<";  break;
-                                                case "gt" : _out_string = ">";  break;
-                                                case "or" : _out_string = "||"; break;
-                                                case "`"  : _out_string = "||"; break;
-                                                case "|"  : _out_string = "||"; break;
-                                                case "leq": _out_string = "<="; break;
-                                                case "geq": _out_string = ">="; break;
-                                                case "eq" : _out_string = "=="; break;
-                                                case "is" : _out_string = "=="; break;
-                                                case "neq": _out_string = "!="; break;
-                                                case "to" : _out_string = "=";  break;
-                                                case "not": _out_string = "!";  break;
-                                            }
+                                            case "and": _out_string = "&&"; break;
+                                            case "&"  : _out_string = "&&"; break;
+                                            case "le" : _out_string = "<";  break;
+                                            case "gt" : _out_string = ">";  break;
+                                            case "or" : _out_string = "||"; break;
+                                            case "`"  : _out_string = "||"; break;
+                                            case "|"  : _out_string = "||"; break;
+                                            case "leq": _out_string = "<="; break;
+                                            case "geq": _out_string = ">="; break;
+                                            case "eq" : _out_string = "=="; break;
+                                            case "is" : _out_string = "=="; break;
+                                            case "neq": _out_string = "!="; break;
+                                            case "to" : _out_string = "=";  break;
+                                            case "not": _out_string = "!";  break;
                                         }
                                         
                                         if (_out_string != "")
