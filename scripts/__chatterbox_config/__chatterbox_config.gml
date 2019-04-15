@@ -8,32 +8,53 @@
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
 #macro CHATTERBOX_DEBUG  true
-#macro CHATTERBOX_DEFAULT_CONTINUE_TEXT  "CLICK TO CONTINUE"
 
+//Parameters for scribble_create()
+//See scribble_create() for an explanation of these variables
+//Use <undefined> to use default values
+//Values are read when creating text or buttons, and *not* every frame
+#macro CHATTERBOX_TEXT_LINE_MIN_HEIGHT  undefined
+#macro CHATTERBOX_TEXT_MAX_WIDTH        undefined
+#macro CHATTERBOX_TEXT_DEFAULT_COLOUR   undefined
+#macro CHATTERBOX_TEXT_DEFAULT_FONT     undefined
+#macro CHATTERBOX_TEXT_DEFAULT_HALIGN   undefined
+#macro CHATTERBOX_TEXT_DATA_FIELDS      undefined
+
+#macro CHATTERBOX_BUTTON_DEFAULT_TEXT     "..."
+#macro CHATTERBOX_BUTTON_LINE_MIN_HEIGHT  undefined
+#macro CHATTERBOX_BUTTON_MAX_WIDTH        undefined
+#macro CHATTERBOX_BUTTON_DEFAULT_COLOUR   undefined
+#macro CHATTERBOX_BUTTON_DEFAULT_FONT     undefined
+#macro CHATTERBOX_BUTTON_DEFAULT_HALIGN   undefined
+#macro CHATTERBOX_BUTTON_DATA_FIELDS      undefined
+
+//Parameters for scribble_draw()
+//These values can be overwritten by chatterbox_set_property() whenever needed in realtime
+//Values are read every frame and can be changed for dynamic effects
 #macro CHATTERBOX_DEFAULT_TEXT_XSCALE  1
 #macro CHATTERBOX_DEFAULT_TEXT_YSCALE  1
 #macro CHATTERBOX_DEFAULT_TEXT_ANGLE   0
-#macro CHATTERBOX_DEFAULT_TEXT_COLOUR  c_white
+#macro CHATTERBOX_DEFAULT_TEXT_BLEND   c_white
 #macro CHATTERBOX_DEFAULT_TEXT_ALPHA   1
 #macro CHATTERBOX_DEFAULT_TEXT_PMA     false
 
 #macro CHATTERBOX_DEFAULT_BUTTON_XSCALE  1
 #macro CHATTERBOX_DEFAULT_BUTTON_YSCALE  1
 #macro CHATTERBOX_DEFAULT_BUTTON_ANGLE   0
-#macro CHATTERBOX_DEFAULT_BUTTON_COLOUR  c_white
+#macro CHATTERBOX_DEFAULT_BUTTON_BLEND   c_white
 #macro CHATTERBOX_DEFAULT_BUTTON_ALPHA   1
 #macro CHATTERBOX_DEFAULT_BUTTON_PMA     false
 
 //Automatic behaviours
-#macro CHATTERBOX_AUTO_KEYBOARD           false
-#macro CHATTERBOX_AUTO_KEYBOARD_UP        (keyboard_check_released(vk_up)    || keyboard_check_released(vk_pageup))
-#macro CHATTERBOX_AUTO_KEYBOARD_DOWN      (keyboard_check_released(vk_down)  || keyboard_check_released(vk_pagedown))
-#macro CHATTERBOX_AUTO_KEYBOARD_SELECT    (keyboard_check_released(vk_space) || keyboard_check_released(vk_enter))
+#macro CHATTERBOX_AUTO_KEYBOARD         false
+#macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || keyboard_check_released(vk_pageup))
+#macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || keyboard_check_released(vk_pagedown))
+#macro CHATTERBOX_AUTO_KEYBOARD_SELECT  (keyboard_check_released(vk_space) || keyboard_check_released(vk_enter))
 
-#macro CHATTERBOX_AUTO_MOUSE              true
-#macro CHATTERBOX_AUTO_MOUSE_X            mouse_x
-#macro CHATTERBOX_AUTO_MOUSE_Y            mouse_y
-#macro CHATTERBOX_AUTO_MOUSE_SELECT       mouse_check_button_released(mb_left)
+#macro CHATTERBOX_AUTO_MOUSE         true
+#macro CHATTERBOX_AUTO_MOUSE_X       mouse_x
+#macro CHATTERBOX_AUTO_MOUSE_Y       mouse_y
+#macro CHATTERBOX_AUTO_MOUSE_SELECT  mouse_check_button_released(mb_left)
 
 #macro CHATTERBOX_AUTO_HIGHLIGHT             true
 #macro CHATTERBOX_AUTO_HIGHLIGHT_OFF_COLOUR  c_white

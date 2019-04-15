@@ -333,7 +333,13 @@ if (_evaluate)
                     _found_text = true;
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _found_text = " + string(_found_text));
                     
-                    var _text = scribble_create(_instruction_content[0]);
+                    var _text = scribble_create(_instruction_content[0],
+                                                CHATTERBOX_TEXT_LINE_MIN_HEIGHT,
+                                                CHATTERBOX_TEXT_MAX_WIDTH,
+                                                CHATTERBOX_TEXT_DEFAULT_COLOUR,
+                                                CHATTERBOX_TEXT_DEFAULT_FONT,
+                                                CHATTERBOX_TEXT_DEFAULT_HALIGN,
+                                                CHATTERBOX_TEXT_DATA_FIELDS);
                     ds_list_insert(_text_list, 0, _text);
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Created text");
                     
@@ -412,8 +418,16 @@ if (_evaluate)
             {
                 _new_button = false;
                 
+                var _scribble = scribble_create(_new_button_text,
+                                                CHATTERBOX_BUTTON_LINE_MIN_HEIGHT,
+                                                CHATTERBOX_BUTTON_MAX_WIDTH,
+                                                CHATTERBOX_BUTTON_DEFAULT_COLOUR,
+                                                CHATTERBOX_BUTTON_DEFAULT_FONT,
+                                                CHATTERBOX_BUTTON_DEFAULT_HALIGN,
+                                                CHATTERBOX_BUTTON_DATA_FIELDS);
+                
                 var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
-                _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = scribble_create(_new_button_text);
+                _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = _scribble;
                 _button_array[ __CHATTERBOX_BUTTON.INSTRUCTION ] = _instruction;
                 ds_list_add(_button_list, _button_array);
             }
@@ -428,9 +442,17 @@ if (_evaluate)
     #region Create a new button from a TEXT instruction if no option or shortcut was found
     
     if (ds_list_size(_button_list) <= 0)
-    {
+    {  
+        var _scribble = scribble_create(CHATTERBOX_BUTTON_DEFAULT_TEXT,
+                                        CHATTERBOX_BUTTON_LINE_MIN_HEIGHT,
+                                        CHATTERBOX_BUTTON_MAX_WIDTH,
+                                        CHATTERBOX_BUTTON_DEFAULT_COLOUR,
+                                        CHATTERBOX_BUTTON_DEFAULT_FONT,
+                                        CHATTERBOX_BUTTON_DEFAULT_HALIGN,
+                                        CHATTERBOX_BUTTON_DATA_FIELDS);
+        
         var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
-        _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = scribble_create(CHATTERBOX_DEFAULT_CONTINUE_TEXT);
+        _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = _scribble;
         _button_array[ __CHATTERBOX_BUTTON.INSTRUCTION ] = _text_instruction;
         ds_list_add(_button_list, _button_array);
     }
@@ -460,7 +482,7 @@ repeat (_count)
     _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
     _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
     _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
-    _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
+    _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_BLEND;
     _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
     _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
     _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
@@ -484,7 +506,7 @@ repeat (_count)
     _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
     _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
     _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
-    _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
+    _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_BLEND;
     _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
     _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
     _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
