@@ -30,60 +30,31 @@ enum __CHATTERBOX_INSTRUCTION
 enum __CHATTERBOX_BUTTON
 {
     TEXT,
-    MOUSE_OVER,
-    MOUSE_DOWN,
-    PRESSED,
+    INSTRUCTION,
     __SIZE
 }
 
 enum __CHATTERBOX
 {
-    __SECTION0,   // 0
-    LEFT,         // 1
-    TOP,          // 2
-    RIGHT,        // 3
-    BOTTOM,       // 4
-    FILENAME,     // 5
-    TITLE,        // 6
+    __SECTION0,     // 0
+    FILENAME,       // 1
+    TITLE,          // 2
     
-    __SECTION1,   // 7
-    INITIALISED,  // 8
-    INSTRUCTION,  // 9
-    VARIABLES,    //10
-    EXECUTED_MAP, //11
+    __SECTION1,     // 3
+    HIGHLIGHTED,    // 4
+    INITIALISED,    // 5
+    INSTRUCTION,    // 6
+    VARIABLES,      // 7
+    EXECUTED_MAP,   // 8
     
-    __SECTION2,   //11
-    TEXTS,        //12
-    BUTTONS,      //13
+    __SECTION2,     // 9
+    TEXTS,          //10
+    BUTTONS,        //11
+    TEXTS_META,     //12
+    BUTTONS_META,   //13
     
-    __SIZE        //14
+    __SIZE          //14
 }
-
-enum CHATTERBOX_SCOPE
-{
-    __INVALID,  //0
-    INTERNAL,   //1
-    GML_LOCAL,  //2
-    GML_GLOBAL, //3
-    __SIZE      //4
-}
-
-//enum __CHATTERBOX_VM
-//{
-//    UNKNOWN,  // 0
-//    TEXT,     // 1
-//    SHORTCUT, // 2
-//    OPTION,   // 3
-//    REDIRECT, // 4
-//    ACTION,   // 5
-//    IF,       // 6
-//    ELSE,     // 7
-//    ELSEIF,   // 8
-//    IF_END,   // 9
-//    SET,      //10
-//    STOP,     //11
-//    __SIZE    //12
-//}
 
 #macro __CHATTERBOX_VM_UNKNOWN         "unknown"
 #macro __CHATTERBOX_VM_TEXT            "text"

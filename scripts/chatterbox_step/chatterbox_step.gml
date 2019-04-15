@@ -1,16 +1,21 @@
-/// @param json         The Chatterbox data structure to process
-/// @param [stepSize]   The step size e.g. a delta time coefficient. Defaults to CHATTERBOX_DEFAULT_STEP_SIZE
+/// @param json            The Chatterbox data structure to process
+/// @param [selectOption] 
+/// @param [stepSize]      The step size e.g. a delta time coefficient. Defaults to CHATTERBOX_DEFAULT_STEP_SIZE
 
 var _chatterbox = argument[0];
-var _step_size = ((argument_count > 1) && (argument_count[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_STEP_SIZE;
+var _select     = ((argument_count > 1) && (argument_count[1] != undefined))? argument[1] : undefined;
+var _step_size  = ((argument_count > 2) && (argument_count[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_STEP_SIZE;
 
 
 
-var _node_title    = _chatterbox[| __CHATTERBOX.TITLE        ];
-var _filename      = _chatterbox[| __CHATTERBOX.FILENAME     ];
-var _text_list     = _chatterbox[| __CHATTERBOX.TEXTS        ];
-var _button_list   = _chatterbox[| __CHATTERBOX.BUTTONS      ];
-var _executed_map  = _chatterbox[| __CHATTERBOX.EXECUTED_MAP ];
+var _node_title        = _chatterbox[| __CHATTERBOX.TITLE        ];
+var _filename          = _chatterbox[| __CHATTERBOX.FILENAME     ];
+var _text_list         = _chatterbox[| __CHATTERBOX.TEXTS        ];
+var _button_list       = _chatterbox[| __CHATTERBOX.BUTTONS      ];
+var _text_meta_list    = _chatterbox[| __CHATTERBOX.TEXTS_META   ];
+var _button_meta_list  = _chatterbox[| __CHATTERBOX.BUTTONS_META ];
+var _executed_map      = _chatterbox[| __CHATTERBOX.EXECUTED_MAP ];
+var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED  ];
 
 if (_node_title == undefined)
 {
@@ -39,7 +44,8 @@ var _evaluate = false;
 if (!_chatterbox[| __CHATTERBOX.INITIALISED])
 {
     #region Handle chatterboxes that haven't been initialised yet
-    _chatterbox[| __CHATTERBOX.INITIALISED] = true;
+    _chatterbox[| __CHATTERBOX.INITIALISED ] = true;
+    _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
     
     //If this chatterbox hasn't been initialised skip straight to evaluation
     _evaluate = true;
@@ -57,51 +63,49 @@ else
 {
     #region Detect if the player has progressed the dialogue
     
-    for(var _i = ds_list_size(_button_list)-1; _i >= 0; _i--)
+    if (_select)
     {
-        if (keyboard_check_pressed(ord(string(_i+1))))
+        _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
+        
+        var _button_array = _button_list[| _highlighted_index ];
+        var _instruction = _button_array[ __CHATTERBOX_BUTTON.INSTRUCTION ];
+        
+        var _button_array   = _instruction_list[| _instruction];
+        var _button_type    = _button_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
+        var _button_indent  = _button_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+        var _button_content = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+        
+        show_debug_message("Chatterbox: Selected option " + string(_highlighted_index) + ", \"" + string(_button_content[0]) + "\"");
+        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
+        
+        switch(_button_type)
         {
-            var _button_array = _button_list[| _i ];
-            var _button = _button_array[ __CHATTERBOX_BUTTON.TEXT ];
-            var _instruction = _button[| __SCRIBBLE.__SIZE ]; //Read the instruction index from a borrowed slot in the Scribble data structure
+            case __CHATTERBOX_VM_TEXT:
+                //Advance to the next instruction
+                _instruction++;
+                //Use the ident value of the text itself
+                _indent = _button_indent;
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
+            break;
             
-            var _button_array   = _instruction_list[| _instruction];
-            var _button_type    = _button_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
-            var _button_indent  = _button_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
-            var _button_content = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
-                
-            show_debug_message("Chatterbox: Selected option " + string(_i) + ", \"" + string(_button_content[0]) + "\"");
-            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
+            case __CHATTERBOX_VM_SHORTCUT:
+                //Advance to the next instruction
+                _instruction++;
+                //Use the ident value of the next instruction
+                var _instruction_array = _instruction_list[| _instruction ];
+                    _indent            = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
+            break;
             
-            switch(_button_type)
-            {
-                case __CHATTERBOX_VM_TEXT:
-                    //Advance to the next instruction
-                    _instruction++;
-                    //Use the ident value of the text itself
-                    _indent = _button_indent;
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
-                break;
-                
-                case __CHATTERBOX_VM_SHORTCUT:
-                    //Advance to the next instruction
-                    _instruction++;
-                    //Use the ident value of the next instruction
-                    var _instruction_array = _instruction_list[| _instruction ];
-                        _indent            = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
-                break;
-                
-                case __CHATTERBOX_VM_OPTION:
-                    //Jump out to another node
-                    var _content = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
-                    chatterbox_start(_chatterbox, _content[1]);
-                    exit;
-                break;
-            }
-            
-            _evaluate = true;
+            case __CHATTERBOX_VM_OPTION:
+                //Jump out to another node
+                var _content = _button_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+                chatterbox_start(_chatterbox, _content[1]);
+                exit;
+            break;
         }
+        
+        _evaluate = true;
     }
     
     #endregion
@@ -350,44 +354,10 @@ if (_evaluate)
             if (_new_button)
             {
                 _new_button = false;
-                var _button = scribble_create(_new_button_text);
-                
-                if (ds_list_size(_button_list) <= 0)
-                {
-                    if (ds_list_size(_text_list) <= 0)
-                    {
-                        var _y_offset = 0;
-                    }
-                    else
-                    {
-                        var _primary_text = _text_list[| 0];
-                        var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
-                    }
-                
-                    _button[| __SCRIBBLE.LEFT   ] += 10;
-                    _button[| __SCRIBBLE.TOP    ] += _y_offset;
-                    _button[| __SCRIBBLE.RIGHT  ] += 10;
-                    _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
-                    _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
-                }
-                else
-                {
-                    var _prev_button_array = _button_list[| ds_list_size(_button_list)-1];
-                    var _prev_button = _prev_button_array[ __CHATTERBOX_BUTTON.TEXT ];
-                    var _x_offset = _prev_button[| __SCRIBBLE.LEFT ] - _button[| __SCRIBBLE.LEFT ];
-                    var _y_offset = _prev_button[| __SCRIBBLE.TOP ] + _prev_button[| __SCRIBBLE.HEIGHT ] + 5;
-                    _button[| __SCRIBBLE.LEFT   ] += _x_offset;
-                    _button[| __SCRIBBLE.TOP    ] += _y_offset;
-                    _button[| __SCRIBBLE.RIGHT  ] += _x_offset;
-                    _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
-                    _button[| __SCRIBBLE.__SIZE ]  = _instruction; //Borrow a slot in the Scribble data structure to store the instruction index
-                }
                 
                 var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
-                _button_array[ __CHATTERBOX_BUTTON.TEXT       ] = _button;
-                _button_array[ __CHATTERBOX_BUTTON.MOUSE_OVER ] = false;
-                _button_array[ __CHATTERBOX_BUTTON.MOUSE_DOWN ] = false;
-                _button_array[ __CHATTERBOX_BUTTON.PRESSED    ] = false;
+                _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = scribble_create(_new_button_text);
+                _button_array[ __CHATTERBOX_BUTTON.INSTRUCTION ] = _instruction;
                 ds_list_add(_button_list, _button_array);
             }
             #endregion
@@ -402,29 +372,62 @@ if (_evaluate)
     
     if (ds_list_size(_button_list) <= 0)
     {
-        if (ds_list_size(_text_list) <= 0)
-        {
-            var _y_offset = 0;
-        }
-        else
-        {
-            var _primary_text = _text_list[| 0];
-            var _y_offset = _primary_text[| __SCRIBBLE.TOP ] + _primary_text[| __SCRIBBLE.HEIGHT ] + 15;
-        }
-        
-        var _button = scribble_create(CHATTERBOX_CONTINUE_TEXT);
-        _button[| __SCRIBBLE.LEFT   ] += 10;
-        _button[| __SCRIBBLE.TOP    ] += _y_offset;
-        _button[| __SCRIBBLE.RIGHT  ] += 10;
-        _button[| __SCRIBBLE.BOTTOM ] += _y_offset;
-        _button[| __SCRIBBLE.__SIZE ]  = _text_instruction; //Borrow a slot in the Scribble data structure to store the instruction index
-        
         var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
-        _button_array[ __CHATTERBOX_BUTTON.TEXT       ] = _button;
-        _button_array[ __CHATTERBOX_BUTTON.MOUSE_OVER ] = false;
-        _button_array[ __CHATTERBOX_BUTTON.MOUSE_DOWN ] = false;
-        _button_array[ __CHATTERBOX_BUTTON.PRESSED    ] = false;
+        _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = scribble_create(CHATTERBOX_DEFAULT_CONTINUE_TEXT);
+        _button_array[ __CHATTERBOX_BUTTON.INSTRUCTION ] = _text_instruction;
         ds_list_add(_button_list, _button_array);
+    }
+    
+    #endregion
+    
+    #region Make sure we have enough metadata slots laid out
+    
+    var _text_count = ds_list_size(_text_list);
+    var _text_meta_count = ds_list_size(_text_meta_list);
+    var _count = _text_count - _text_meta_count
+    repeat (_count)
+    {
+        var _x = 0;
+        var _y = 0;
+        
+        var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
+        _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
+        _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
+        _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_DEFAULT_TEXT_XSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
+        _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
+        _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
+        _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
+        _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
+        ds_list_add(_text_meta_list, _new_array);
+    }
+    
+    var _button_count = ds_list_size(_button_list);
+    var _button_meta_count = ds_list_size(_button_meta_list);
+    var _count = _button_count - _button_meta_count
+    repeat (_count)
+    {
+        var _x = 0;
+        var _y = 0;
+        
+        var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
+        _new_array[ CHATTERBOX_PROPERTY.X        ] = _x;
+        _new_array[ CHATTERBOX_PROPERTY.Y        ] = _y;
+        _new_array[ CHATTERBOX_PROPERTY.XY       ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.XSCALE   ] = CHATTERBOX_DEFAULT_TEXT_XSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.YSCALE   ] = CHATTERBOX_DEFAULT_TEXT_YSCALE;
+        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.ANGLE    ] = CHATTERBOX_DEFAULT_TEXT_ANGLE;
+        _new_array[ CHATTERBOX_PROPERTY.COLOUR   ] = CHATTERBOX_DEFAULT_TEXT_COLOUR;
+        _new_array[ CHATTERBOX_PROPERTY.ALPHA    ] = CHATTERBOX_DEFAULT_TEXT_ALPHA;
+        _new_array[ CHATTERBOX_PROPERTY.PMA      ] = CHATTERBOX_DEFAULT_TEXT_PMA;
+        _new_array[ CHATTERBOX_PROPERTY.WIDTH    ] = undefined;
+        _new_array[ CHATTERBOX_PROPERTY.HEIGHT   ] = undefined;
+        ds_list_add(_button_meta_list, _new_array);
     }
     
     #endregion

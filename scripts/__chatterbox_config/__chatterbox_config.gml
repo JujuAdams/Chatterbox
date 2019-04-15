@@ -7,11 +7,27 @@
 //  
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
-#macro CHATTERBOX_DEFAULT_LEFT   10
-#macro CHATTERBOX_DEFAULT_TOP    10
-#macro CHATTERBOX_DEFAULT_RIGHT  950
-#macro CHATTERBOX_DEFAULT_BOTTOM 530
-#macro CHATTERBOX_CONTINUE_TEXT  "CLICK TO CONTINUE"
+#macro CHATTERBOX_DEFAULT_CONTINUE_TEXT  "CLICK TO CONTINUE"
+
+#macro CHATTERBOX_DEFAULT_TEXT_XSCALE  1
+#macro CHATTERBOX_DEFAULT_TEXT_YSCALE  1
+#macro CHATTERBOX_DEFAULT_TEXT_ANGLE   0
+#macro CHATTERBOX_DEFAULT_TEXT_COLOUR  c_white
+#macro CHATTERBOX_DEFAULT_TEXT_ALPHA   1
+#macro CHATTERBOX_DEFAULT_TEXT_PMA     false
+
+#macro CHATTERBOX_DEFAULT_BUTTON_XSCALE  1
+#macro CHATTERBOX_DEFAULT_BUTTON_YSCALE  1
+#macro CHATTERBOX_DEFAULT_BUTTON_ANGLE   0
+#macro CHATTERBOX_DEFAULT_BUTTON_COLOUR  c_white
+#macro CHATTERBOX_DEFAULT_BUTTON_ALPHA   1
+#macro CHATTERBOX_DEFAULT_BUTTON_PMA     false
+
+#macro CHATTERBOX_AUTO_KEYBOARD         true
+#macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || (keyboard_check_released(vk_pageup))
+#macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || (keyboard_check_released(vk_pagedown))
+#macro CHATTERBOX_AUTO_KEYBOARD_SELECT  (keyboard_check_released(vk_space) || (keyboard_check_released(vk_enter))
+#macro CHATTERBOX_AUTO_MOUSE            true
 
 #macro CHATTERBOX_DEBUG  true
 
@@ -52,3 +68,35 @@
 #macro CHATTERBOX_OPTION_CLOSE_DELIMITER  "]"
 #macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
 #macro CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
+
+enum CHATTERBOX_PROPERTY
+{
+    X,                   // 0
+    Y,                   // 1
+    XY,                  // 2   //Changing this value also changes X and Y
+    XSCALE,              // 3
+    YSCALE,              // 4
+    XY_SCALE,            // 5   //Changing this value also changes XSCALE and YSCALE
+    ANGLE,               // 6
+    COLOUR,              // 7
+    ALPHA,               // 8
+    PMA,                 // 9   //Premultiply alpha
+    WIDTH,               //10
+    HEIGHT,              //11   //Read-only
+    SCRIBBLE,            //12   //Read-only
+    HIGHLIGHTED,         //13   //Read-only
+    
+    CUSTOM_PROPERTY_1,   //14  You can add your own properties here!
+    CUSTOM_PROPERTY_2,   //15  You can add your own properties here!
+    
+    __SIZE               //16
+}
+
+enum CHATTERBOX_SCOPE
+{
+    __INVALID,  //0
+    INTERNAL,   //1
+    GML_LOCAL,  //2
+    GML_GLOBAL, //3
+    __SIZE      //4
+}

@@ -14,6 +14,12 @@
         "881dd845-b97a-4dce-a3fe-1ad4ded0084f",
         "a0f5144a-4fc5-429c-8c9a-a0c4c2b713c2",
         "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
+        "fe67a8f7-533f-4a3b-bd24-f77891c22dc5",
+        "aa345cc5-b74a-43c6-bb44-5a576afcb148",
+        "20ede6f0-0d33-4a21-bca2-6d74a732f579",
+        "4ad29c35-cc7d-4355-bf35-c1842a24ab4f",
+        "bffae2a4-7947-4247-8200-9471641e91c0",
+        "ecca6e89-708e-47c6-980e-287436d56c42",
         "426a5290-5eb6-446f-be10-7e9300c94750"
     ],
     "filterType": "GMScript",

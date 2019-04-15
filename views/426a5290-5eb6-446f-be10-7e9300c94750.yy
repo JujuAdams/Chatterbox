@@ -10,7 +10,7 @@
         "463a38fe-5a07-4bc6-ba8b-52d0ff4cabb4"
     ],
     "filterType": "GMScript",
-    "folderName": "Internal Stuff",
+    "folderName": "Essential Internal Stuff",
     "isDefaultView": false,
     "localisedFolderName": ""
 }
