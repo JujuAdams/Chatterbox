@@ -533,6 +533,7 @@ repeat(_font_count)
                                         //If-statement suffixed to another token
                                         var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
                                         _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
+                                        _insert_array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _indent;
                                         _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
                                         ds_list_insert(_instruction_list, ds_list_size(_instruction_list)-1, _insert_array);
                                         
