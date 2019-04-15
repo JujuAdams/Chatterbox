@@ -13,20 +13,20 @@
 //See scribble_create() for an explanation of these variables
 //Use <undefined> to use default values
 //Values are read when creating text or buttons, and *not* every frame
-#macro CHATTERBOX_TEXT_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_TEXT_MAX_WIDTH        undefined
-#macro CHATTERBOX_TEXT_DEFAULT_COLOUR   undefined
-#macro CHATTERBOX_TEXT_DEFAULT_FONT     undefined
-#macro CHATTERBOX_TEXT_DEFAULT_HALIGN   undefined
-#macro CHATTERBOX_TEXT_DATA_FIELDS      undefined
+#macro CHATTERBOX_TEXT_CREATE_LINE_MIN_HEIGHT  undefined
+#macro CHATTERBOX_TEXT_CREATE_MAX_WIDTH        undefined
+#macro CHATTERBOX_TEXT_CREATE_DEFAULT_COLOUR   undefined
+#macro CHATTERBOX_TEXT_CREATE_DEFAULT_FONT     undefined
+#macro CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN   undefined
+#macro CHATTERBOX_TEXT_CREATE_DATA_FIELDS      undefined
 
-#macro CHATTERBOX_BUTTON_DEFAULT_TEXT     "..."
-#macro CHATTERBOX_BUTTON_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_BUTTON_MAX_WIDTH        undefined
-#macro CHATTERBOX_BUTTON_DEFAULT_COLOUR   undefined
-#macro CHATTERBOX_BUTTON_DEFAULT_FONT     undefined
-#macro CHATTERBOX_BUTTON_DEFAULT_HALIGN   undefined
-#macro CHATTERBOX_BUTTON_DATA_FIELDS      undefined
+#macro CHATTERBOX_BUTTON_DEFAULT_TEXT            "..."
+#macro CHATTERBOX_BUTTON_CREATE_LINE_MIN_HEIGHT  undefined
+#macro CHATTERBOX_BUTTON_CREATE_MAX_WIDTH        undefined
+#macro CHATTERBOX_BUTTON_CREATE_DEFAULT_COLOUR   undefined
+#macro CHATTERBOX_BUTTON_CREATE_DEFAULT_FONT     undefined
+#macro CHATTERBOX_BUTTON_CREATE_DEFAULT_HALIGN   undefined
+#macro CHATTERBOX_BUTTON_CREATE_DATA_FIELDS      undefined
 
 //Parameters for scribble_draw()
 //These values can be overwritten by chatterbox_set_property() whenever needed in realtime

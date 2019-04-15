@@ -334,12 +334,12 @@ if (_evaluate)
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _found_text = " + string(_found_text));
                     
                     var _text = scribble_create(_instruction_content[0],
-                                                CHATTERBOX_TEXT_LINE_MIN_HEIGHT,
-                                                CHATTERBOX_TEXT_MAX_WIDTH,
-                                                CHATTERBOX_TEXT_DEFAULT_COLOUR,
-                                                CHATTERBOX_TEXT_DEFAULT_FONT,
-                                                CHATTERBOX_TEXT_DEFAULT_HALIGN,
-                                                CHATTERBOX_TEXT_DATA_FIELDS);
+                                                CHATTERBOX_TEXT_CREATE_LINE_MIN_HEIGHT,
+                                                CHATTERBOX_TEXT_CREATE_MAX_WIDTH,
+                                                CHATTERBOX_TEXT_CREATE_DEFAULT_COLOUR,
+                                                CHATTERBOX_TEXT_CREATE_DEFAULT_FONT,
+                                                CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN,
+                                                CHATTERBOX_TEXT_CREATE_DATA_FIELDS);
                     ds_list_insert(_text_list, 0, _text);
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Created text");
                     
@@ -419,12 +419,12 @@ if (_evaluate)
                 _new_button = false;
                 
                 var _scribble = scribble_create(_new_button_text,
-                                                CHATTERBOX_BUTTON_LINE_MIN_HEIGHT,
-                                                CHATTERBOX_BUTTON_MAX_WIDTH,
-                                                CHATTERBOX_BUTTON_DEFAULT_COLOUR,
-                                                CHATTERBOX_BUTTON_DEFAULT_FONT,
-                                                CHATTERBOX_BUTTON_DEFAULT_HALIGN,
-                                                CHATTERBOX_BUTTON_DATA_FIELDS);
+                                                CHATTERBOX_BUTTON_CREATE_LINE_MIN_HEIGHT,
+                                                CHATTERBOX_BUTTON_CREATE_MAX_WIDTH,
+                                                CHATTERBOX_BUTTON_CREATE_DEFAULT_COLOUR,
+                                                CHATTERBOX_BUTTON_CREATE_DEFAULT_FONT,
+                                                CHATTERBOX_BUTTON_CREATE_DEFAULT_HALIGN,
+                                                CHATTERBOX_BUTTON_CREATE_DATA_FIELDS);
                 
                 var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
                 _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = _scribble;
@@ -444,12 +444,12 @@ if (_evaluate)
     if (ds_list_size(_button_list) <= 0)
     {  
         var _scribble = scribble_create(CHATTERBOX_BUTTON_DEFAULT_TEXT,
-                                        CHATTERBOX_BUTTON_LINE_MIN_HEIGHT,
-                                        CHATTERBOX_BUTTON_MAX_WIDTH,
-                                        CHATTERBOX_BUTTON_DEFAULT_COLOUR,
-                                        CHATTERBOX_BUTTON_DEFAULT_FONT,
-                                        CHATTERBOX_BUTTON_DEFAULT_HALIGN,
-                                        CHATTERBOX_BUTTON_DATA_FIELDS);
+                                        CHATTERBOX_BUTTON_CREATE_LINE_MIN_HEIGHT,
+                                        CHATTERBOX_BUTTON_CREATE_MAX_WIDTH,
+                                        CHATTERBOX_BUTTON_CREATE_DEFAULT_COLOUR,
+                                        CHATTERBOX_BUTTON_CREATE_DEFAULT_FONT,
+                                        CHATTERBOX_BUTTON_CREATE_DEFAULT_HALIGN,
+                                        CHATTERBOX_BUTTON_CREATE_DATA_FIELDS);
         
         var _button_array = array_create(__CHATTERBOX_BUTTON.__SIZE);
         _button_array[ __CHATTERBOX_BUTTON.TEXT        ] = _scribble;
