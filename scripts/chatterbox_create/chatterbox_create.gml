@@ -12,15 +12,15 @@ _list[| __CHATTERBOX.EXECUTED_MAP ] = ds_map_create();
 
 _list[| __CHATTERBOX.__SECTION2   ] = "-- Children --"
 _list[| __CHATTERBOX.TEXTS        ] = ds_list_create();
-_list[| __CHATTERBOX.BUTTONS      ] = ds_list_create();
+_list[| __CHATTERBOX.OPTIONS      ] = ds_list_create();
 _list[| __CHATTERBOX.TEXTS_META   ] = ds_list_create();
-_list[| __CHATTERBOX.BUTTONS_META ] = ds_list_create();
+_list[| __CHATTERBOX.OPTIONS_META ] = ds_list_create();
 
 ds_list_mark_as_map( _list, __CHATTERBOX.VARIABLES   );
 ds_list_mark_as_map( _list, __CHATTERBOX.EXECUTED_MAP);
 ds_list_mark_as_list(_list, __CHATTERBOX.TEXTS       );
-ds_list_mark_as_list(_list, __CHATTERBOX.BUTTONS     );
+ds_list_mark_as_list(_list, __CHATTERBOX.OPTIONS     );
 ds_list_mark_as_list(_list, __CHATTERBOX.TEXTS_META  );
-ds_list_mark_as_list(_list, __CHATTERBOX.BUTTONS_META);
+ds_list_mark_as_list(_list, __CHATTERBOX.OPTIONS_META);
 
 return _list;

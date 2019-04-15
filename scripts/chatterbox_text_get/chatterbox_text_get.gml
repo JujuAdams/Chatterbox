@@ -1,14 +1,14 @@
 /// @param chatterbox
-/// @param isButton
+/// @param isOption
 /// @param index
 /// @param property
 
 var _chatterbox = argument0;
-var _is_button  = argument1;
+var _is_option  = argument1;
 var _index      = argument2;
 var _property   = argument3;
 
-var _meta_list = _chatterbox[| _is_button? __CHATTERBOX.BUTTONS_META : __CHATTERBOX.TEXTS_META ];
+var _meta_list = _chatterbox[| _is_option? __CHATTERBOX.OPTIONS_META : __CHATTERBOX.TEXTS_META ];
 if (_index < 0) || (_index >= ds_list_size(_meta_list)) return undefined;
 
 var _array = _meta_list[| _index ];
@@ -28,12 +28,12 @@ else if (_property == CHATTERBOX_PROPERTY.WIDTH   )
      || (_property == CHATTERBOX_PROPERTY.HEIGHT  )
      || (_property == CHATTERBOX_PROPERTY.SCRIBBLE)
 {
-    if (_is_button)
+    if (_is_option)
     {
-        var _list = _chatterbox[| __CHATTERBOX.BUTTONS ];
+        var _list = _chatterbox[| __CHATTERBOX.OPTIONS ];
         if (_index >= ds_list_size(_list)) return 0;
-        var _button_array = _list[| _index ];
-        var _scribble = _button_array[ __CHATTERBOX_BUTTON.TEXT ];
+        var _option_array = _list[| _index ];
+        var _scribble = _option_array[ __CHATTERBOX_OPTION.TEXT ];
     }
     else
     {

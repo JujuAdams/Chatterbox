@@ -27,7 +27,7 @@ enum __CHATTERBOX_INSTRUCTION
     __SIZE   //3
 }
 
-enum __CHATTERBOX_BUTTON
+enum __CHATTERBOX_OPTION
 {
     TEXT,
     INSTRUCTION,
@@ -49,9 +49,9 @@ enum __CHATTERBOX
     
     __SECTION2,     // 9
     TEXTS,          //10
-    BUTTONS,        //11
+    OPTIONS,        //11
     TEXTS_META,     //12
-    BUTTONS_META,   //13
+    OPTIONS_META,   //13
     
     __SIZE          //14
 }

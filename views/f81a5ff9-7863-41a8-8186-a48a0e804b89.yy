@@ -6,8 +6,7 @@
     "children": [
         "ca6010de-78da-4d2d-a06c-d8021e067eab",
         "1214bbb2-007d-4e70-8415-079e2f13b7d5",
-        "e1f5a547-d2ea-4775-8bfa-0336c5a33ebb",
-        "ed0df524-f7eb-4c0c-8094-ebaa98e3fe92"
+        "2b5b6d64-5f87-44f3-8400-534c8e1cc91c"
     ],
     "filterType": "GMScript",
     "folderName": "Chatterbox",

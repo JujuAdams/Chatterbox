@@ -7,7 +7,7 @@
 //  
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
-#macro CHATTERBOX_BUTTON_DEFAULT_TEXT  "..."
+#macro CHATTERBOX_OPTION_DEFAULT_TEXT  "..."
 
 //Automatic helper behaviours
 #macro CHATTERBOX_AUTO_KEYBOARD         true
@@ -34,7 +34,7 @@
 //Parameters for scribble_create() calls made by Chatterbox
 //See scribble_create() for an explanation of these variables
 //Use <undefined> to use default values
-//Values are read when creating text or buttons, and *not* every frame
+//Values are read when creating text or options, and *not* every frame
 #macro CHATTERBOX_TEXT_CREATE_LINE_MIN_HEIGHT  undefined
 #macro CHATTERBOX_TEXT_CREATE_MAX_WIDTH        undefined
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_COLOUR   undefined
@@ -42,12 +42,12 @@
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN   undefined
 #macro CHATTERBOX_TEXT_CREATE_DATA_FIELDS      undefined
 
-#macro CHATTERBOX_BUTTON_CREATE_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_BUTTON_CREATE_MAX_WIDTH        undefined
-#macro CHATTERBOX_BUTTON_CREATE_DEFAULT_COLOUR   undefined
-#macro CHATTERBOX_BUTTON_CREATE_DEFAULT_FONT     undefined
-#macro CHATTERBOX_BUTTON_CREATE_DEFAULT_HALIGN   undefined
-#macro CHATTERBOX_BUTTON_CREATE_DATA_FIELDS      undefined
+#macro CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT  undefined
+#macro CHATTERBOX_OPTION_CREATE_MAX_WIDTH        undefined
+#macro CHATTERBOX_OPTION_CREATE_DEFAULT_COLOUR   undefined
+#macro CHATTERBOX_OPTION_CREATE_DEFAULT_FONT     undefined
+#macro CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN   undefined
+#macro CHATTERBOX_OPTION_CREATE_DATA_FIELDS      undefined
 
 //Parameters for scribble_draw() calls made by Chatterbox
 //These values can be overwritten by chatterbox_set_property() whenever needed in realtime
@@ -59,12 +59,12 @@
 #macro CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA   1
 #macro CHATTERBOX_TEXT_DRAW_DEFAULT_PMA     false
 
-#macro CHATTERBOX_BUTTON_DRAW_DEFAULT_XSCALE  1
-#macro CHATTERBOX_BUTTON_DRAW_DEFAULT_YSCALE  1
-#macro CHATTERBOX_BUTTON_DRAW_DEFAULT_ANGLE   0
-#macro CHATTERBOX_BUTTON_DRAW_DEFAULT_BLEND   c_white
-#macro CHATTERBOX_BUTTON_DRAW_DEFAULT_ALPHA   1
-#macro CHATTERBOX_BUTTON_DRAW_DEFAULT_PMA     false
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE  1
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE  1
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE   0
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND   c_white
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA   1
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_PMA     false
 
 
 #macro CHATTERBOX_TAB_INDENT_SIZE   4
@@ -117,23 +117,23 @@ enum CHATTERBOX_SCOPE
 
 enum CHATTERBOX_PROPERTY
 {
-    __SECTION0,          // 0  -- Internal --
-    X,                   // 1
-    Y,                   // 2
-    XY,                  // 3  Changing this value also changes .X and .Y
-    XSCALE,              // 4
-    YSCALE,              // 5
-    XY_SCALE,            // 6  Changing this value also changes .XSCALE and .YSCALE
-    ANGLE,               // 7
-    BLEND,               // 8
-    ALPHA,               // 9
-    PMA,                 //10  Premultiply alpha
-    WIDTH,               //11
-    
-    __SECTION1,          //12  -- Read-Only Properties --
-    HEIGHT,              //13
-    SCRIBBLE,            //14
-    HIGHLIGHTED,         //15
-    
-    __SIZE               //16
+    __SECTION0,   // 0  -- Internal --
+    X,            // 1
+    Y,            // 2
+    XY,           // 3  Changing this value also changes .X and .Y
+    XSCALE,       // 4
+    YSCALE,       // 5
+    XY_SCALE,     // 6  Changing this value also changes .XSCALE and .YSCALE
+    ANGLE,        // 7
+    BLEND,        // 8
+    ALPHA,        // 9
+    PMA,          //10  Premultiply alpha
+                  
+    __SECTION1,   //11  -- Read-Only Properties --
+    WIDTH,        //12
+    HEIGHT,       //13
+    SCRIBBLE,     //14
+    HIGHLIGHTED,  //15
+                  
+    __SIZE        //16
 }
