@@ -7,7 +7,7 @@
 //  
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
-#macro CHATTERBOX_BUTTON_DEFAULT_TEXT  "......................................"
+#macro CHATTERBOX_BUTTON_DEFAULT_TEXT  "..."
 
 //Automatic helper behaviours
 #macro CHATTERBOX_AUTO_KEYBOARD         true
