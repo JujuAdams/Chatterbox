@@ -98,7 +98,7 @@ var _instruction_list = _title_map[? _node_title ];
 
 //VM state
 var _indent                = 0;
-var _indent_for_options    = undefined;
+var _indent_bottom_limit   = undefined;
 var _instruction           = 0;
 var _end_instruction       = -1;
 var _scan_from_text        = false;
@@ -199,9 +199,9 @@ if (_evaluate)
                 _indent = _instruction_indent;
                 if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set indent = " + string(_indent));
             }
-            else if ((_indent_for_options != undefined) && (_instruction_indent < _indent_for_options))
+            else if ((_indent_bottom_limit != undefined) && (_instruction_indent < _indent_bottom_limit))
             {
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       instruction indent " + string(_instruction_indent) + " < _indent_for_options " + string(_indent_for_options));
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       instruction indent " + string(_instruction_indent) + " < _indent_bottom_limit " + string(_indent_bottom_limit));
                 _break = true;
                 if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":         Break");
             }
@@ -348,6 +348,9 @@ if (_evaluate)
                     
                     var _text_instruction = _instruction; //Record the instruction position of the text
                     
+                    _indent_bottom_limit = _instruction_indent;
+                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _indent_for_options = " + string(_indent_bottom_limit));
+                    
                     #endregion
                 break;
                 
@@ -370,8 +373,8 @@ if (_evaluate)
                         break;
                     }
                     
-                    _indent_for_options = _instruction_indent;
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _indent_for_options = " + string(_indent_for_options));
+                    _indent_bottom_limit = _instruction_indent;
+                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _indent_for_options = " + string(_indent_bottom_limit));
                     
                     _new_option = true;
                     _new_option_text = _instruction_content[0];
@@ -398,8 +401,8 @@ if (_evaluate)
                         break;
                     }
                     
-                    _indent_for_options = _instruction_indent;
-                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _indent_for_options = " + string(_indent_for_options));
+                    _indent_bottom_limit = _instruction_indent;
+                    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _indent_for_options = " + string(_indent_bottom_limit));
                     
                     _new_option = true;
                     _new_option_text = _instruction_content[0];

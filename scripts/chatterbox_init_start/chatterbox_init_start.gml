@@ -57,19 +57,19 @@ enum __CHATTERBOX
     __SIZE          //14
 }
 
-#macro __CHATTERBOX_VM_UNKNOWN         "unknown"
-#macro __CHATTERBOX_VM_TEXT            "text"
-#macro __CHATTERBOX_VM_SHORTCUT        "shortcut"
-#macro __CHATTERBOX_VM_OPTION          "option"
-#macro __CHATTERBOX_VM_REDIRECT        "redirect"
-#macro __CHATTERBOX_VM_GENERIC_ACTION  "generic action"
+#macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
+#macro __CHATTERBOX_VM_TEXT            "TEXT"
+#macro __CHATTERBOX_VM_SHORTCUT        "SHORTCUT"
+#macro __CHATTERBOX_VM_OPTION          "OPTION"
+#macro __CHATTERBOX_VM_REDIRECT        "REDIRECT"
+#macro __CHATTERBOX_VM_GENERIC_ACTION  "ACTION"
 #macro __CHATTERBOX_VM_IF              "IF"
 #macro __CHATTERBOX_VM_ELSE            "ELSE"
 #macro __CHATTERBOX_VM_ELSEIF          "ELSE IF"
 #macro __CHATTERBOX_VM_IF_END          "END"
-#macro __CHATTERBOX_VM_SET             "set"
-#macro __CHATTERBOX_VM_STOP            "stop"
-#macro __CHATTERBOX_VM_CUSTOM_ACTION   "custom action"
+#macro __CHATTERBOX_VM_SET             "SET"
+#macro __CHATTERBOX_VM_STOP            "STOP"
+#macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
 
 #macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
 #macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
