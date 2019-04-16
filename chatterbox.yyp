@@ -359,6 +359,14 @@
             }
         },
         {
+            "Key": "7b520895-9bf4-4ebe-9c7b-fad70f6451e6",
+            "Value": {
+                "id": "85edbcbb-8fc0-465b-a820-70271fc61c79",
+                "resourcePath": "scripts\\hide_chatterbox\\hide_chatterbox.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "7c1d8641-a93c-4e1e-8530-37a429b86f1f",
             "Value": {
                 "id": "f8fc30c6-4365-48e5-95b1-2fc22dc18ee8",
@@ -919,7 +927,8 @@
         "577c1e55-1029-42ec-a0ed-1d0641d30f22",
         "a418e576-739d-42c4-912f-344270e5899c",
         "00fbc8f9-0e51-458c-8834-69a5cbc5e94b",
-        "5035acc2-d809-4bf5-b251-ea72c52874d4"
+        "5035acc2-d809-4bf5-b251-ea72c52874d4",
+        "7b520895-9bf4-4ebe-9c7b-fad70f6451e6"
     ],
     "tutorial": ""
 }

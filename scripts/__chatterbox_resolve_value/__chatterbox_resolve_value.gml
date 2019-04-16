@@ -93,32 +93,32 @@ else
         }
         else if (string_copy(_value, 1, 2) == "g.")
         {
-            _scope = CHATTERBOX_SCOPE.GML_GLOBAL;
+            _scope = CHATTERBOX_SCOPE_GML_GLOBAL;
             _value = string_delete(_value, 1, 2);
         }
         else if (string_copy(_value, 1, 7) == "global.")
         {
-            _scope = CHATTERBOX_SCOPE.GML_GLOBAL;
+            _scope = CHATTERBOX_SCOPE_GML_GLOBAL;
             _value = string_delete(_value, 1, 7);
         }
         else if (string_copy(_value, 1, 2) == "l.")
         {
-            _scope = CHATTERBOX_SCOPE.GML_LOCAL;
+            _scope = CHATTERBOX_SCOPE_GML_LOCAL;
             _value = string_delete(_value, 1, 2);
         }
         else if (string_copy(_value, 1, 6) == "local.")
         {
-            _scope = CHATTERBOX_SCOPE.GML_LOCAL;
+            _scope = CHATTERBOX_SCOPE_GML_LOCAL;
             _value = string_delete(_value, 1, 6);
         }
         else if (string_copy(_value, 1, 2) == "i.")
         {
-            _scope = CHATTERBOX_SCOPE.INTERNAL;
+            _scope = CHATTERBOX_SCOPE_INTERNAL;
             _value = string_delete(_value, 1, 2);
         }
         else if (string_copy(_value, 1, 9) == "internal.")
         {
-            _scope = CHATTERBOX_SCOPE.INTERNAL;
+            _scope = CHATTERBOX_SCOPE_INTERNAL;
             _value = string_delete(_value, 1, 9);
         }
         
@@ -130,7 +130,7 @@ else
         
         switch(_scope)
         {                   
-            case CHATTERBOX_SCOPE.INTERNAL:
+            case CHATTERBOX_SCOPE_INTERNAL:
                 if (!ds_map_exists(_variables_map, _value))
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
@@ -150,7 +150,7 @@ else
                 }
             break;
             
-            case CHATTERBOX_SCOPE.GML_LOCAL:
+            case CHATTERBOX_SCOPE_GML_LOCAL:
                 if (!variable_instance_exists(id, _value))
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
@@ -170,7 +170,7 @@ else
                 }
             break;
             
-            case CHATTERBOX_SCOPE.GML_GLOBAL:
+            case CHATTERBOX_SCOPE_GML_GLOBAL:
                 if (!variable_global_exists(_value))
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)

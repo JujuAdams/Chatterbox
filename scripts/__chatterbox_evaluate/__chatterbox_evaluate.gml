@@ -220,9 +220,9 @@ repeat(9999)
                 {
                     switch(_a_scope)
                     {                   
-                        case CHATTERBOX_SCOPE.INTERNAL:   _variables_map[? _a ] = _result;        break;
-                        case CHATTERBOX_SCOPE.GML_LOCAL:  variable_instance_set(id, _a, _result); break;
-                        case CHATTERBOX_SCOPE.GML_GLOBAL: variable_global_set(_a, _result);       break;
+                        case CHATTERBOX_SCOPE_INTERNAL:   _variables_map[? _a ] = _result;        break;
+                        case CHATTERBOX_SCOPE_GML_LOCAL:  variable_instance_set(id, _a, _result); break;
+                        case CHATTERBOX_SCOPE_GML_GLOBAL: variable_global_set(_a, _result);       break;
                     }
                 }
                 

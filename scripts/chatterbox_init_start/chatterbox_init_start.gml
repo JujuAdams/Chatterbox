@@ -40,21 +40,22 @@ enum __CHATTERBOX
     TITLE,          // 2
     
     __SECTION1,     // 3
-    HIGHLIGHTED,    // 4
-    INITIALISED,    // 5
-    VARIABLES,      // 6
+    SUSPENDED,      // 4
+    HIGHLIGHTED,    // 5
+    INITIALISED,    // 6
+    VARIABLES,      // 7
     
-    __SECTION2,     // 7
-    TEXTS,          // 8
-    OPTIONS,        // 9
-    TEXTS_META,     //10
-    OPTIONS_META,   //11
+    __SECTION2,     // 8
+    TEXTS,          // 9
+    OPTIONS,        //10
+    TEXTS_META,     //11
+    OPTIONS_META,   //12
     
-    __SIZE          //12
+    __SIZE          //13
 }
 
 #macro __CHATTERBOX_SCOPE_INVALID  -1
-#macro __CHATTERBOX_VARIABLE_MAP   (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE.GML_LOCAL)? _chatterbox[| __CHATTERBOX.VARIABLES ] : global.__chatterbox_variables
+#macro __CHATTERBOX_VARIABLE_MAP   (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE_GML_LOCAL)? _chatterbox[| __CHATTERBOX.VARIABLES ] : global.__chatterbox_variables
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
 #macro __CHATTERBOX_VM_TEXT            "TEXT"
@@ -69,6 +70,7 @@ enum __CHATTERBOX
 #macro __CHATTERBOX_VM_SET             "SET"
 #macro __CHATTERBOX_VM_STOP            "STOP"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
+#macro __CHATTERBOX_VM_SUSPEND         "SUSPEND"
 
 #macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
 #macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX

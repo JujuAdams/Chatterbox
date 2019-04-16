@@ -6,8 +6,6 @@ var _chatterbox = argument[0];
 var _select     = ((argument_count > 1) && (argument_count[1] != undefined))? argument[1] : undefined;
 var _step_size  = ((argument_count > 2) && (argument_count[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_STEP_SIZE;
 
-
-
 var _node_title        = _chatterbox[| __CHATTERBOX.TITLE        ];
 var _filename          = _chatterbox[| __CHATTERBOX.FILENAME     ];
 var _text_list         = _chatterbox[| __CHATTERBOX.TEXTS        ];
@@ -112,6 +110,7 @@ var _evaluate = false;
 if (!_chatterbox[| __CHATTERBOX.INITIALISED])
 {
     #region Handle chatterboxes that haven't been initialised yet
+    
     _chatterbox[| __CHATTERBOX.INITIALISED ] = true;
     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Initialising");
     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
@@ -132,6 +131,7 @@ else
     if (_select && (_highlighted_index != undefined))
     {
         _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
+        _chatterbox[| __CHATTERBOX.SUSPENDED   ] = false;
         
         var _option_meta_array = _option_list[| _highlighted_index ];
         var _instruction     = _option_meta_array[ __CHATTERBOX_OPTION.START_INSTRUCTION ];
@@ -142,12 +142,12 @@ else
         _scan_from_option = true;
         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
         
-        var _option_array = global.__chatterbox_vm[| _instruction];
+        var _option_array = global.__chatterbox_vm[| _instruction ];
         var _indent       = _option_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
         
         
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from " + string(_highlighted_index) + ", \"" + string(_option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from option index=" + string(_highlighted_index) + ", \"" + string(_option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
         
         //Advance to the next instruction
         _instruction++;
@@ -511,6 +511,34 @@ if (_evaluate)
                     #endregion
                 break;
                 
+                case __CHATTERBOX_VM_SUSPEND:
+                    #region Suspend
+                    
+                    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
+                    if (_scan_from_text)
+                    {
+                        _break = true;
+                        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> Break ->");
+                        break;
+                    }
+                    else
+                    {
+                        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_option_end == " + string(_scan_from_option_end));
+                        if (_scan_from_option_end)
+                        {
+                            _text_instruction = _instruction; //Record the instruction position of the text
+                            _chatterbox[| __CHATTERBOX.SUSPENDED ] = true;
+                            if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Suspending");
+                            
+                            _break = true;
+                            if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> Break ->");
+                            break;
+                        }
+                    }
+                    
+                    #endregion
+                break;
+                
                 case __CHATTERBOX_VM_CUSTOM_ACTION:
                     #region Custom Action
                     
@@ -524,8 +552,8 @@ if (_evaluate)
                     
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     now executing");
                     
-                    var _argument_array = array_create(array_length_1d(_instruction_content)-1);
-                    array_copy(_argument_array, 0, _instruction_content, 1, array_length_1d(_instruction_content)-1);
+                    var _argument_array = array_create(array_length_1d(_instruction_content)-3);
+                    array_copy(_argument_array, 0, _instruction_content, 3, array_length_1d(_instruction_content)-3);
                     
                     var _i = 0;
                     repeat(array_length_1d(_argument_array))
@@ -592,7 +620,7 @@ if (_evaluate)
     
     if (ds_list_size(_option_list) <= 0)
     {  
-        var _scribble = scribble_create(CHATTERBOX_OPTION_DEFAULT_TEXT,
+        var _scribble = scribble_create(_chatterbox[| __CHATTERBOX.SUSPENDED ]? "" : CHATTERBOX_OPTION_DEFAULT_TEXT,
                                         CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT,
                                         CHATTERBOX_OPTION_CREATE_MAX_WIDTH,
                                         CHATTERBOX_OPTION_CREATE_DEFAULT_COLOUR,
@@ -605,6 +633,8 @@ if (_evaluate)
         _option_array[@ __CHATTERBOX_OPTION.START_INSTRUCTION ] = _text_instruction;
         _option_array[@ __CHATTERBOX_OPTION.END_INSTRUCTION   ] = _text_instruction+1;
         ds_list_add(_option_list, _option_array);
+                
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Created new option because none exist  " + string(_option_array));
     }
     
     #endregion

@@ -577,6 +577,10 @@ repeat(_font_count)
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ELSE;
                                 }
+                                else if (_content[0] == "suspend")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_SUSPEND;
+                                }
                                 else if (_content[0] == "stop")
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_STOP;

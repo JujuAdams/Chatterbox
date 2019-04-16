@@ -8,7 +8,6 @@
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
 #macro CHATTERBOX_OPTION_DEFAULT_TEXT  "..."
-#macro CHATTERBOX_FILENAME_SEPARATOR   ":"
 #macro CHATTERBOX_TAB_INDENT_SIZE      4
 #macro CHATTERBOX_ROUND_UP_INDENTS     true
 #macro CHATTERBOX_DEFAULT_STEP_SIZE    SCRIBBLE_DEFAULT_STEP_SIZE  //The default step size. "(delta_time/16667)" assumes that the game is running at 60FPS and will delta time effects accordingly
@@ -81,6 +80,8 @@
 
 #endregion
 
+#region Variables and scoping
+
 //Supported variable prefixes for if-statements:
 // 
 // <<if $variable == 42>>          :  CHATTERBOX_DOLLAR_VARIABLE_SCOPE
@@ -91,28 +92,31 @@
 // <<if l.variable == 42>>         :  Local GML (instance) scope
 // <<if internal.variable == 42>>  :  Internal Chatterbox variable
 // <<if i.variable == 42>>         :  Internal Chatterbox variable
-// 
+//
+#macro CHATTERBOX_SCOPE_INTERNAL    0
+#macro CHATTERBOX_SCOPE_GML_LOCAL   1
+#macro CHATTERBOX_SCOPE_GML_GLOBAL  2
+//
 // Internal Chatterbox variables are, in reality, key:value pairs in a ds_map
 // Use chatterbox_variable_export() and chatterbox_variable_import() to handle these variables
 // 
 // The $ prefix is what's specified in the Yarn documentation
 
-enum CHATTERBOX_SCOPE
-{
-    INTERNAL,  //0
-    GML_LOCAL, //1
-    GML_GLOBAL //2
-}
-
-#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE    CHATTERBOX_SCOPE.INTERNAL    //If a variable starts if a $, what scope should it take?
-#macro CHATTERBOX_NAKED_VARIABLE_SCOPE     CHATTERBOX_SCOPE.GML_LOCAL   //If a variable has no prefix, what scope should it take?
+#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE    CHATTERBOX_SCOPE_INTERNAL    //If a variable starts if a $, what scope should it take?
+#macro CHATTERBOX_NAKED_VARIABLE_SCOPE     CHATTERBOX_SCOPE_GML_LOCAL   //If a variable has no prefix, what scope should it take?
 #macro CHATTERBOX_DEFAULT_VARIABLE_VALUE   0                            //Default value if a variable cannot be found
-#macro CHATTERBOX_INTERNAL_VARIABLE_SCOPE  CHATTERBOX_SCOPE.GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
+#macro CHATTERBOX_INTERNAL_VARIABLE_SCOPE  CHATTERBOX_SCOPE_GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
+
+#endregion
+
+#macro CHATTERBOX_STATE_SUSPENDED  -1
+#macro CHATTERBOX_STATE_STOPPED     0
+#macro CHATTERBOX_STATE_RUNNING     1
 
 //Debug assistance
 #macro CHATTERBOX_DEBUG                         true
-#macro CHATTERBOX_DEBUG_PARSER                  false
-#macro CHATTERBOX_DEBUG_VM                      false
+#macro CHATTERBOX_DEBUG_PARSER                  true
+#macro CHATTERBOX_DEBUG_VM                      true
 #macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false  //Throw an error if a variable (in any scope) is missing
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false  //Throw an error when two values of different datatypes are being compared
@@ -123,6 +127,7 @@ enum CHATTERBOX_SCOPE
 #macro CHATTERBOX_OPTION_CLOSE_DELIMITER  "]"
 #macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
 #macro CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
+#macro CHATTERBOX_FILENAME_SEPARATOR      ":"
 
 enum CHATTERBOX_PROPERTY
 {
@@ -136,7 +141,7 @@ enum CHATTERBOX_PROPERTY
     BLEND,        // 7
     ALPHA,        // 8
     PMA,          // 9  Premultiply alpha
-    MAX_WIDTH,    //10
+    MAX_WIDTH,    //10  //Unusued!
                   
     __SECTION0,   //11  -- Read-Only Properties --
     WIDTH,        //12

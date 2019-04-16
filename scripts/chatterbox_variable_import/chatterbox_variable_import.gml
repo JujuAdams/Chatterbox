@@ -9,7 +9,7 @@ if (_new_map < 0)
     return false;
 }
 
-if (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE.GML_LOCAL)
+if (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE_GML_LOCAL)
 {
     var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
     ds_map_destroy(_variables_map);
