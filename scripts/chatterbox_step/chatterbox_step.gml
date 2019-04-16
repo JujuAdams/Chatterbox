@@ -93,11 +93,11 @@ for(var _i = ds_list_size(_option_list)-1; _i >= 0; _i--)
 
 
 //VM state
-var _instruction_list      = global.__chatterbox_data[? _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title ];
+var _key                   = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
 var _indent                = 0;
 var _indent_bottom_limit   = undefined;
 var _text_instruction      = 0;
-var _instruction           = 0;
+var _instruction           = global.__chatterbox_goto[? _key ];
 var _end_instruction       = -1;
 var _scan_from_text        = false;
 var _scan_from_option      = false;
@@ -111,13 +111,11 @@ if (!_chatterbox[| __CHATTERBOX.INITIALISED])
 {
     #region Handle chatterboxes that haven't been initialised yet
     _chatterbox[| __CHATTERBOX.INITIALISED ] = true;
-    _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
     
     //If this chatterbox hasn't been initialised skip straight to evaluation
     _evaluate = true;
     
-    var _instruction       = _chatterbox[| __CHATTERBOX.INSTRUCTION ];
-    var _instruction_array = _instruction_list[| _instruction];
+    var _instruction_array = global.__chatterbox_vm[| _instruction];
         _indent            = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
         
     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
@@ -142,7 +140,7 @@ else
         _scan_from_option = true;
         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
         
-        var _option_array   = _instruction_list[| _instruction];
+        var _option_array   = global.__chatterbox_vm[| _instruction];
         var _indent         = _option_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
         var _option_content = _option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
@@ -176,7 +174,7 @@ if (_evaluate)
             continue;
         }
         
-        var _instruction_array   = _instruction_list[| _instruction ];
+        var _instruction_array   = global.__chatterbox_vm[| _instruction ];
         var _instruction_type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
         var _instruction_indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
         var _instruction_content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
@@ -380,11 +378,10 @@ if (_evaluate)
                         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Redirecting to " + string(_key) );
                         
                         //Partially reset state
-                        var _instruction_list      = global.__chatterbox_data[? _key ];
                         var _indent                = 0;
                         var _indent_bottom_limit   = 0;
                         var _text_instruction      = 0;
-                        var _instruction           = 0;
+                        var _instruction           = global.__chatterbox_goto[? _key ];
                         var _end_instruction       = -1;
                         var _if_state              = true;
                         var _permit_greater_indent = false;
@@ -413,11 +410,10 @@ if (_evaluate)
                             if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Jumping to " + string(_key) );
                             
                             //Partially reset state
-                            var _instruction_list      = global.__chatterbox_data[? _key ];
                             var _indent                = 0;
                             var _indent_bottom_limit   = 0;
                             var _text_instruction      = -1;
-                            var _instruction           = -1;
+                            var _instruction           = global.__chatterbox_goto[? _key ];
                             var _end_instruction       = -1;
                             var _if_state              = true;
                             var _permit_greater_indent = false;

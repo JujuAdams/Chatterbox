@@ -44,17 +44,15 @@ enum __CHATTERBOX
     __SECTION1,     // 3
     HIGHLIGHTED,    // 4
     INITIALISED,    // 5
-    INSTRUCTION,    // 6
-    VARIABLES,      // 7
-    EXECUTED_MAP,   // 8
+    VARIABLES,      // 6
     
-    __SECTION2,     // 9
-    TEXTS,          //10
-    OPTIONS,        //11
-    TEXTS_META,     //12
-    OPTIONS_META,   //13
+    __SECTION2,     // 7
+    TEXTS,          // 8
+    OPTIONS,        // 9
+    TEXTS_META,     //10
+    OPTIONS_META,   //11
     
-    __SIZE          //14
+    __SIZE          //12
 }
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
@@ -112,7 +110,8 @@ if ( !directory_exists(_font_directory) )
 //Declare global variables
 global.__chatterbox_font_directory    = _font_directory;
 global.__chatterbox_file_data         = ds_map_create();
-global.__chatterbox_data              = ds_map_create();
+global.__chatterbox_goto              = ds_map_create();
+global.__chatterbox_vm                = ds_list_create();
 global.__chatterbox_init_complete     = false;
 global.__chatterbox_default_file      = "";
 global.__chatterbox_indent_size       = 0;
