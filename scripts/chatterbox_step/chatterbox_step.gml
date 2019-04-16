@@ -396,6 +396,20 @@ if (_evaluate)
                         _variables_map[? "visited(" + _key + ")" ] = true;
                         if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                         
+                        if (!ds_map_exists(global.__chatterbox_goto, _key))
+                        {
+                            if (!ds_map_exists(global.__chatterbox_file_data, _filename))
+                            {
+                                show_error("Chatterbox:\nFile \"" + string(_filename) + "\" not initialised.\n ", true);
+                                exit;
+                            }
+                            else
+                            {
+                                show_error("Chatterbox:\nNode title \"" + string(_node_title) + "\" not found in file \"" + string(_filename) + "\".\n ", true);
+                                exit;
+                            }
+                        }
+                        
                         //Partially reset state
                         var _text_instruction      = -1;
                         var _instruction           = global.__chatterbox_goto[? _key ]-1;
@@ -434,6 +448,20 @@ if (_evaluate)
                             var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
                             _variables_map[? "visited(" + _key + ")" ] = true;
                             if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
+                        
+                            if (!ds_map_exists(global.__chatterbox_goto, _key))
+                            {
+                                if (!ds_map_exists(global.__chatterbox_file_data, _filename))
+                                {
+                                    show_error("Chatterbox:\nFile \"" + string(_filename) + "\" not initialised.\n ", true);
+                                    exit;
+                                }
+                                else
+                                {
+                                    show_error("Chatterbox:\nNode title \"" + string(_node_title) + "\" not found in file \"" + string(_filename) + "\".\n ", true);
+                                    exit;
+                                }
+                            }
                             
                             //Partially reset state
                             var _text_instruction      = -1;
