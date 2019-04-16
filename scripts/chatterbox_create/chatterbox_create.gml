@@ -26,26 +26,30 @@ if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 //Create the Chatterbox data structure
 var _chatterbox = ds_list_create();
 
-_chatterbox[| __CHATTERBOX.__SECTION0   ] = "-- Parameters --";
-_chatterbox[| __CHATTERBOX.FILENAME     ] = _filename;
-_chatterbox[| __CHATTERBOX.TITLE        ] = _node_title;
-_chatterbox[| __CHATTERBOX.ORIGIN_X     ] = _origin_x;
-_chatterbox[| __CHATTERBOX.ORIGIN_Y     ] = _origin_y;
+_chatterbox[| __CHATTERBOX.__SECTION0      ] = "-- Parameters --";
+_chatterbox[| __CHATTERBOX.FILENAME        ] = _filename;
+_chatterbox[| __CHATTERBOX.TITLE           ] = _node_title;
+_chatterbox[| __CHATTERBOX.ORIGIN_X        ] = _origin_x;
+_chatterbox[| __CHATTERBOX.ORIGIN_Y        ] = _origin_y;
 
-_chatterbox[| __CHATTERBOX.__SECTION1   ] = "-- State --";
-_chatterbox[| __CHATTERBOX.ITERATION    ] = -1;
-_chatterbox[| __CHATTERBOX.SUSPENDED    ] = false;
-_chatterbox[| __CHATTERBOX.HIGHLIGHTED  ] = 0;
-_chatterbox[| __CHATTERBOX.INITIALISED  ] = false;
-_chatterbox[| __CHATTERBOX.VARIABLES    ] = ds_map_create();
+_chatterbox[| __CHATTERBOX.__SECTION1      ] = "-- State --";
+_chatterbox[| __CHATTERBOX.ITERATION       ] = -1;
+_chatterbox[| __CHATTERBOX.SUSPENDED       ] = false;
+_chatterbox[| __CHATTERBOX.HIGHLIGHTED     ] = 0;
+_chatterbox[| __CHATTERBOX.INITIALISED     ] = false;
+_chatterbox[| __CHATTERBOX.VARIABLES       ] = ds_map_create();
 
-_chatterbox[| __CHATTERBOX.__SECTION2   ] = "-- Children --"
-_chatterbox[| __CHATTERBOX.TEXT_LIST   ] = ds_list_create();
-_chatterbox[| __CHATTERBOX.OPTION_LIST ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.__SECTION2      ] = "-- Children --"
+_chatterbox[| __CHATTERBOX.TEXT_LIST       ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.OPTION_LIST     ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.OLD_TEXT_LIST   ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.OLD_OPTION_LIST ] = ds_list_create();
 
-ds_list_mark_as_map( _chatterbox, __CHATTERBOX.VARIABLES   );
-ds_list_mark_as_list(_chatterbox, __CHATTERBOX.TEXT_LIST  );
-ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OPTION_LIST);
+ds_list_mark_as_map( _chatterbox, __CHATTERBOX.VARIABLES      );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.TEXT_LIST      );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OPTION_LIST    );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OLD_TEXT_LIST  );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OLD_OPTION_LIST);
 
 
 

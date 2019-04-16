@@ -40,45 +40,35 @@ _matrix = matrix_multiply(_matrix, _old_matrix);
 matrix_set(matrix_world, _matrix);
 
 
-
-var _list = _chatterbox[| __CHATTERBOX.TEXT_LIST ];
-for(var _i = ds_list_size(_list)-1; _i >= 0; _i--)
+for(var _j = 0; _j < 4; _j++)
 {
-    var _array = _list[| _i];
-    var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
-    
-    var _colour = _array[ CHATTERBOX_PROPERTY.BLEND ];
-    if (_host_colour != c_white)
+    switch(_j)
     {
-        _colour = make_colour_rgb( colour_get_red(_colour)*_host_red, colour_get_green(_colour)*_host_green, colour_get_blue(_colour)*_host_blue);
+        case 0: var _list = _chatterbox[| __CHATTERBOX.TEXT_LIST       ]; break;
+        case 1: var _list = _chatterbox[| __CHATTERBOX.OPTION_LIST     ]; break;
+        case 2: var _list = _chatterbox[| __CHATTERBOX.OLD_TEXT_LIST   ]; break;
+        case 3: var _list = _chatterbox[| __CHATTERBOX.OLD_OPTION_LIST ]; break;
     }
     
-    scribble_draw(_scribble,
-                  _array[ CHATTERBOX_PROPERTY.X      ], _array[ CHATTERBOX_PROPERTY.Y      ],
-                  _array[ CHATTERBOX_PROPERTY.XSCALE ], _array[ CHATTERBOX_PROPERTY.YSCALE ],
-                  _array[ CHATTERBOX_PROPERTY.ANGLE  ],
-                  _colour, _host_alpha*_array[ CHATTERBOX_PROPERTY.ALPHA ],
-                  _array[ CHATTERBOX_PROPERTY.PMA    ]);
-}
-
-var _list = _chatterbox[| __CHATTERBOX.OPTION_LIST ];
-for(var _i = ds_list_size(_list)-1; _i >= 0; _i--)
-{
-    var _array = _list[| _i];
-    var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
-    
-    var _colour = _array[ CHATTERBOX_PROPERTY.BLEND ];
-    if (_host_colour != c_white)
+    for(var _i = ds_list_size(_list)-1; _i >= 0; _i--)
     {
-        _colour = make_colour_rgb( colour_get_red(_colour)*_host_red, colour_get_green(_colour)*_host_green, colour_get_blue(_colour)*_host_blue);
-    }
+        var _array = _list[| _i];
+        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+        if (_scribble == undefined) continue;
     
-    scribble_draw(_scribble,
-                  _array[ CHATTERBOX_PROPERTY.X      ], _array[ CHATTERBOX_PROPERTY.Y      ],
-                  _array[ CHATTERBOX_PROPERTY.XSCALE ], _array[ CHATTERBOX_PROPERTY.YSCALE ],
-                  _array[ CHATTERBOX_PROPERTY.ANGLE  ],
-                  _colour, _host_alpha*_array[ CHATTERBOX_PROPERTY.ALPHA ],
-                  _array[ CHATTERBOX_PROPERTY.PMA    ]);
+        var _colour = _array[ CHATTERBOX_PROPERTY.BLEND ];
+        if (_host_colour != c_white)
+        {
+            _colour = make_colour_rgb( colour_get_red(_colour)*_host_red, colour_get_green(_colour)*_host_green, colour_get_blue(_colour)*_host_blue);
+        }
+    
+        scribble_draw(_scribble,
+                      _array[ CHATTERBOX_PROPERTY.X      ], _array[ CHATTERBOX_PROPERTY.Y      ],
+                      _array[ CHATTERBOX_PROPERTY.XSCALE ], _array[ CHATTERBOX_PROPERTY.YSCALE ],
+                      _array[ CHATTERBOX_PROPERTY.ANGLE  ],
+                      _colour, _host_alpha*_array[ CHATTERBOX_PROPERTY.ALPHA ],
+                      _array[ CHATTERBOX_PROPERTY.PMA    ]);
+    }
 }
 
 
