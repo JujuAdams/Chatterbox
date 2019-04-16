@@ -135,6 +135,14 @@
             }
         },
         {
+            "Key": "37d0f127-d351-434f-832d-2403fe96ef7f",
+            "Value": {
+                "id": "d8500a31-6519-4327-a358-2f0d52408285",
+                "resourcePath": "scripts\\chatterbox_variables_clear\\chatterbox_variables_clear.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "3a184a7c-b4e5-457f-865c-aa18b0b9fcbf",
             "Value": {
                 "id": "ee59f17f-d455-4726-b8df-f51a412848c3",
@@ -242,7 +250,7 @@
             "Key": "577c1e55-1029-42ec-a0ed-1d0641d30f22",
             "Value": {
                 "id": "29190158-a0b7-43b4-bfae-80851cb634b8",
-                "resourcePath": "scripts\\chatterbox_variable_export\\chatterbox_variable_export.yy",
+                "resourcePath": "scripts\\chatterbox_variables_export\\chatterbox_variables_export.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -546,7 +554,7 @@
             "Key": "a418e576-739d-42c4-912f-344270e5899c",
             "Value": {
                 "id": "2356d8e1-94b4-4147-add9-dc8fd73ba891",
-                "resourcePath": "scripts\\chatterbox_variable_import\\chatterbox_variable_import.yy",
+                "resourcePath": "scripts\\chatterbox_variables_import\\chatterbox_variables_import.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -714,7 +722,7 @@
             "Key": "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
             "Value": {
                 "id": "70f92675-c6da-403b-b4ab-be17139737a6",
-                "resourcePath": "scripts\\chatterbox_variable_array\\chatterbox_variable_array.yy",
+                "resourcePath": "scripts\\chatterbox_variables_array\\chatterbox_variables_array.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -932,6 +940,7 @@
         "4ad29c35-cc7d-4355-bf35-c1842a24ab4f",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
+        "37d0f127-d351-434f-832d-2403fe96ef7f",
         "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
         "577c1e55-1029-42ec-a0ed-1d0641d30f22",
         "a418e576-739d-42c4-912f-344270e5899c",
