@@ -11,6 +11,7 @@ var _filename          = _chatterbox[| __CHATTERBOX.FILENAME    ];
 var _text_list         = _chatterbox[| __CHATTERBOX.TEXT_LIST   ];
 var _option_list       = _chatterbox[| __CHATTERBOX.OPTION_LIST ];
 var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED ];
+var _iteration         = _chatterbox[| __CHATTERBOX.ITERATION   ];
 var _variables_map     = __CHATTERBOX_VARIABLE_MAP;
 
 if (_node_title == undefined)
@@ -269,7 +270,8 @@ else
 
 if (_evaluate)
 {
-    __chatterbox_destroy_children(_chatterbox);
+    _iteration++;
+    _chatterbox[| __CHATTERBOX.ITERATION ] = _iteration;
     
     #region Evaluate Yarn virtual machine
     
@@ -472,7 +474,8 @@ if (_evaluate)
                         //Use an existing text array to as a template
                         var _old_array = _text_list[| 0];
                         array_copy(_new_array, 0, _old_array, 0, CHATTERBOX_PROPERTY.__SIZE);
-                        _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE ] = _scribble;
+                        _new_array[@ CHATTERBOX_PROPERTY.ITERATION ] = _iteration;
+                        _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE  ] = _scribble;
                     }
                     else
                     {
@@ -488,7 +491,10 @@ if (_evaluate)
                         _new_array[@ CHATTERBOX_PROPERTY.ALPHA          ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
                         _new_array[@ CHATTERBOX_PROPERTY.PMA            ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
                         _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_MAX_WIDTH;
+                        _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTABLE  ] = true;
+                        _new_array[@ CHATTERBOX_PROPERTY.SELECTABLE     ] = true;
                         _new_array[@ CHATTERBOX_PROPERTY.__SECTION0     ] = "-- Read-Only Properties --";
+                        _new_array[@ CHATTERBOX_PROPERTY.ITERATION      ] = _iteration;
                         _new_array[@ CHATTERBOX_PROPERTY.WIDTH          ] = undefined;
                         _new_array[@ CHATTERBOX_PROPERTY.HEIGHT         ] = undefined;
                         _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE       ] = _scribble;
@@ -791,6 +797,7 @@ if (_evaluate)
                 
                 if (_replace_index < _size)
                 {
+                    _array[@ CHATTERBOX_PROPERTY.ITERATION      ] = _iteration;
                     _array[@ CHATTERBOX_PROPERTY.SCRIBBLE       ] = _scribble;
                     _array[@ CHATTERBOX_PROPERTY.__INSTRUCTION0 ] = _text_instruction;
                     _array[@ CHATTERBOX_PROPERTY.__INSTRUCTION1 ] = _instruction;
@@ -809,7 +816,10 @@ if (_evaluate)
                     _new_array[@ CHATTERBOX_PROPERTY.ALPHA          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
                     _new_array[@ CHATTERBOX_PROPERTY.PMA            ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
                     _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
+                    _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTABLE  ] = true;
+                    _new_array[@ CHATTERBOX_PROPERTY.SELECTABLE     ] = true;
                     _new_array[@ CHATTERBOX_PROPERTY.__SECTION0     ] = "-- Read-Only Properties --";
+                    _new_array[@ CHATTERBOX_PROPERTY.ITERATION      ] = _iteration;
                     _new_array[@ CHATTERBOX_PROPERTY.WIDTH          ] = undefined;
                     _new_array[@ CHATTERBOX_PROPERTY.HEIGHT         ] = undefined;
                     _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE       ] = _scribble;
@@ -854,6 +864,7 @@ if (_evaluate)
         if (_size > 0)
         {
             var _array = _option_list[| 0 ]; //Use slot 0
+            _array[@ CHATTERBOX_PROPERTY.ITERATION      ] = _iteration;
             _array[@ CHATTERBOX_PROPERTY.SCRIBBLE       ] = _scribble;
             _array[@ CHATTERBOX_PROPERTY.__INSTRUCTION0 ] = _text_instruction;
             _array[@ CHATTERBOX_PROPERTY.__INSTRUCTION1 ] = _text_instruction+1;
@@ -872,7 +883,10 @@ if (_evaluate)
             _new_array[@ CHATTERBOX_PROPERTY.ALPHA          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
             _new_array[@ CHATTERBOX_PROPERTY.PMA            ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
             _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
+            _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTABLE  ] = true;
+            _new_array[@ CHATTERBOX_PROPERTY.SELECTABLE     ] = true;
             _new_array[@ CHATTERBOX_PROPERTY.__SECTION0     ] = "-- Read-Only Properties --";
+            _new_array[@ CHATTERBOX_PROPERTY.ITERATION      ] = _iteration;
             _new_array[@ CHATTERBOX_PROPERTY.WIDTH          ] = undefined;
             _new_array[@ CHATTERBOX_PROPERTY.HEIGHT         ] = undefined;
             _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE       ] = _scribble;
@@ -887,6 +901,43 @@ if (_evaluate)
     
     #endregion
 }
+
+#region Fade out and destroy old text and options
+
+var _text_size   = ds_list_size(_text_list);
+var _option_size = ds_list_size(_option_list);
+
+for(var _i = 0; _i < _text_size; _i++)
+{
+    var _array = _text_list[| _i];
+    if (_array[ CHATTERBOX_PROPERTY.ITERATION ] < _iteration)
+    {
+        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+        if (scribble_typewriter_get_state(_scribble) == 1) scribble_typewriter_out(_scribble, undefined, CHATTERBOX_TEXT_FADE_OUT_SPEED, CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS);
+        if (scribble_typewriter_get_state(_scribble) == 2)
+        {
+            scribble_destroy(_scribble);
+            _array[ CHATTERBOX_PROPERTY.SCRIBBLE ] = undefined;
+        }
+    }
+}
+
+for(var _i = 0; _i < _option_size; _i++)
+{
+    var _array = _option_list[| _i];
+    if (_array[ CHATTERBOX_PROPERTY.ITERATION ] < _iteration)
+    {
+        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+        if (scribble_typewriter_get_state(_scribble) == 1) scribble_typewriter_out(_scribble, undefined, CHATTERBOX_OPTION_FADE_OUT_SPEED, CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS);
+        if (scribble_typewriter_get_state(_scribble) == 2)
+        {
+            scribble_destroy(_scribble);
+            _array[ CHATTERBOX_PROPERTY.SCRIBBLE ] = undefined;
+        }
+    }
+}
+
+#endregion
 
 #region Automatic option position and colouring behaviours
 

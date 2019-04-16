@@ -33,17 +33,18 @@ enum __CHATTERBOX
     ORIGIN_X,       // 3
     ORIGIN_Y,       // 4
     
-    __SECTION1,     // 3
-    SUSPENDED,      // 4
-    HIGHLIGHTED,    // 5
-    INITIALISED,    // 6
-    VARIABLES,      // 7
+    __SECTION1,     // 5
+    ITERATION,      // 6
+    SUSPENDED,      // 7
+    HIGHLIGHTED,    // 8
+    INITIALISED,    // 9
+    VARIABLES,      //10
     
-    __SECTION2,     // 8
-    TEXT_LIST,      // 9
-    OPTION_LIST,    //10
+    __SECTION2,     //11
+    TEXT_LIST,      //12
+    OPTION_LIST,    //13
     
-    __SIZE          //11
+    __SIZE          //14
 }
 
 #macro __CHATTERBOX_SCOPE_INVALID     -1

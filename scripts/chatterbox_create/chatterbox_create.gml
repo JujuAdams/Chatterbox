@@ -33,6 +33,8 @@ _chatterbox[| __CHATTERBOX.ORIGIN_X     ] = _origin_x;
 _chatterbox[| __CHATTERBOX.ORIGIN_Y     ] = _origin_y;
 
 _chatterbox[| __CHATTERBOX.__SECTION1   ] = "-- State --";
+_chatterbox[| __CHATTERBOX.ITERATION    ] = -1;
+_chatterbox[| __CHATTERBOX.SUSPENDED    ] = false;
 _chatterbox[| __CHATTERBOX.HIGHLIGHTED  ] = 0;
 _chatterbox[| __CHATTERBOX.INITIALISED  ] = false;
 _chatterbox[| __CHATTERBOX.VARIABLES    ] = ds_map_create();

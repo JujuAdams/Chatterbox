@@ -50,6 +50,14 @@
 #macro CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS      true
 #macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT        true  //Not used!
 #macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS     true  //Not used!
+#macro CHATTERBOX_TEXT_FADE_IN_SPEED                 0.2
+#macro CHATTERBOX_TEXT_FADE_IN_SMOOTHNESS            3
+#macro CHATTERBOX_TEXT_FADE_OUT_SPEED                0.2
+#macro CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS           3
+#macro CHATTERBOX_OPTION_FADE_IN_SPEED               0.2
+#macro CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS          3
+#macro CHATTERBOX_OPTION_FADE_OUT_SPEED              0.2
+#macro CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS         3
 
 #endregion
 
@@ -64,8 +72,6 @@
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_FONT     undefined
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN   undefined
 #macro CHATTERBOX_TEXT_CREATE_DATA_FIELDS      undefined
-#macro CHATTERBOX_TEXT_FADE_IN_SPEED           0.2
-#macro CHATTERBOX_TEXT_FADE_IN_SMOOTHNESS      3
 
 #macro CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT  undefined
 #macro CHATTERBOX_OPTION_CREATE_MAX_WIDTH        400
@@ -73,8 +79,6 @@
 #macro CHATTERBOX_OPTION_CREATE_DEFAULT_FONT     undefined
 #macro CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN   undefined
 #macro CHATTERBOX_OPTION_CREATE_DATA_FIELDS      undefined
-#macro CHATTERBOX_OPTION_FADE_IN_SPEED           0.2
-#macro CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS      3
 
 #endregion
 
@@ -167,13 +171,14 @@ enum CHATTERBOX_PROPERTY
     SELECTABLE,     //12
                   
     __SECTION0,     //13  -- Read-Only Properties --
-    WIDTH,          //14
-    HEIGHT,         //15
-    SCRIBBLE,       //16
-    IS_OPTION,      //17
-    HIGHLIGHTED,    //18
-    __INSTRUCTION0, //19  //Internal property used for the virtual machine
-    __INSTRUCTION1, //20  //Internal property used for the virtual machine
+    ITERATION,      //14
+    WIDTH,          //15
+    HEIGHT,         //16
+    SCRIBBLE,       //17
+    IS_OPTION,      //18
+    HIGHLIGHTED,    //19
+    __INSTRUCTION0, //20  //Internal property used for the virtual machine
+    __INSTRUCTION1, //21  //Internal property used for the virtual machine
                   
-    __SIZE          //21
+    __SIZE          //22
 }
