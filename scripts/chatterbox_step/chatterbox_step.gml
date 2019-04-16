@@ -46,6 +46,7 @@ if (CHATTERBOX_AUTO_MOUSE)
     {
         var _array = _option_list[| _i ];
         var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+        if (_scribble == undefined) continue;
         
         var _box = scribble_get_box(_scribble, 
                                     _array[ CHATTERBOX_PROPERTY.X      ], _array[ CHATTERBOX_PROPERTY.Y      ],
@@ -119,6 +120,7 @@ for(var _i = 0; _i < _old_text_size; _i++)
     var _array = _old_text_list[| _i];
     var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
     if (_scribble == undefined) continue;
+    
     var _state = scribble_typewriter_get_state(_scribble);
     if (_state < 2) _all_text_faded_out = false;
 }
@@ -128,6 +130,7 @@ for(var _i = 0; _i < _old_option_size; _i++)
     var _array = _old_option_list[| _i];
     var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
     if (_scribble == undefined) continue;
+    
     var _state = scribble_typewriter_get_state(_scribble);
     if (_state < 2) _all_options_faded_out = false;
 }
@@ -343,7 +346,6 @@ else
     if (_select && (_highlighted_index != undefined) && (_all_options_faded_in || !CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS))
     {
         _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
-        _chatterbox[| __CHATTERBOX.SUSPENDED   ] = false;
         
         var _array = _option_list[| _highlighted_index ];
         var _instruction     = _array[ CHATTERBOX_PROPERTY.__INSTRUCTION0 ];
@@ -385,14 +387,21 @@ if (_evaluate)
         var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
         if (_scribble == undefined) continue;
         
-        if (scribble_typewriter_get_state(_scribble) == 1)
+        if (_chatterbox[| __CHATTERBOX.SUSPENDED ])
         {
-            scribble_typewriter_out(_scribble, undefined, CHATTERBOX_TEXT_FADE_OUT_SPEED, CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS);
+            scribble_destroy(_scribble);
         }
-        
-        var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        array_copy(_new_array, 0, _array, 0, CHATTERBOX_PROPERTY.__SIZE);
-        ds_list_add(_old_text_list, _new_array);
+        else
+        {
+            if (scribble_typewriter_get_state(_scribble) == 1)
+            {
+                scribble_typewriter_out(_scribble, undefined, CHATTERBOX_TEXT_FADE_OUT_SPEED, CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS);
+            }
+            
+            var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
+            array_copy(_new_array, 0, _array, 0, CHATTERBOX_PROPERTY.__SIZE);
+            ds_list_add(_old_text_list, _new_array);
+        }
         
         _array[@ CHATTERBOX_PROPERTY.SCRIBBLE ] = undefined;
     }
@@ -404,21 +413,30 @@ if (_evaluate)
         var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
         if (_scribble == undefined) continue;
         
-        if (scribble_typewriter_get_state(_scribble) == 1)
+        if (_chatterbox[| __CHATTERBOX.SUSPENDED ])
         {
-            scribble_typewriter_out(_scribble, undefined,
-                                    (CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT <= 1)? CHATTERBOX_OPTION_FADE_OUT_SPEED : 0,
-                                    CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS);
+            scribble_destroy(_scribble);
         }
-        
-        var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        array_copy(_new_array, 0, _array, 0, CHATTERBOX_PROPERTY.__SIZE);
-        ds_list_add(_old_option_list, _new_array);
+        else
+        {
+            if (scribble_typewriter_get_state(_scribble) == 1)
+            {
+                scribble_typewriter_out(_scribble, undefined,
+                                        (CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT <= 1)? CHATTERBOX_OPTION_FADE_OUT_SPEED : 0,
+                                        CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS);
+            }
+            
+            var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
+            array_copy(_new_array, 0, _array, 0, CHATTERBOX_PROPERTY.__SIZE);
+            ds_list_add(_old_option_list, _new_array);
+        }
         
         _array[@ CHATTERBOX_PROPERTY.SCRIBBLE ] = undefined;
     }
     
     #endregion
+    
+    _chatterbox[| __CHATTERBOX.SUSPENDED ] = false;
     
     #region Run virtual machine
     
