@@ -37,6 +37,7 @@ switch(_name)
     case "set":
     case "stop":
     case "suspend":
+    case "wait":
         show_error("Chatterbox:\nAction name \"" + _name + "\" is reserved for internal Chatterbox use.\nPlease choose another action name.\n ", false);
         return false;
     break;

@@ -613,10 +613,24 @@ if (_evaluate)
             var _new_option_text = "";
             switch(_instruction_type)
             {
+                case __CHATTERBOX_VM_WAIT:
+                    #region Wait
+                    
+                    if (_scan_from_text)
+                    {
+                        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
+                        _break = true;
+                        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> BREAK ->");
+                        break;
+                    }
+                    
+                    #endregion
+                break;
+                
                 case __CHATTERBOX_VM_TEXT:
                     #region Text
                     
-                    if (_scan_from_text)
+                    if (_scan_from_text && CHATTERBOX_AUTO_SINGLETON_TEXT)
                     {
                         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                         _break = true;
@@ -1108,15 +1122,27 @@ if (CHATTERBOX_AUTO_HIGHLIGHT)
     }
 }
 
-if (CHATTERBOX_AUTO_POSITION)
+if (CHATTERBOX_AUTO_LAYOUT)
 {
-    //Control position and colour of options
-    var _x_offset = chatterbox_text_get(_chatterbox, false, 0, CHATTERBOX_PROPERTY.X)
-                  + CHATTERBOX_AUTO_POSITION_OPTION_INDENT;
+    //Control position of text
+    var _y_offset = 0;
     
-    var _y_offset = chatterbox_text_get(_chatterbox, false, 0, CHATTERBOX_PROPERTY.Y)
-                  + chatterbox_text_get(_chatterbox, false, 0, CHATTERBOX_PROPERTY.HEIGHT)
-                  + CHATTERBOX_AUTO_POSITION_TEXT_SEPARATION;
+    var _count = chatterbox_text_get_number(_chatterbox, false);
+    for(var _i = 0; _i < _count; _i++)
+    {
+        chatterbox_text_set(_chatterbox, false, _i, CHATTERBOX_PROPERTY.XY, 0, _y_offset );
+    
+        _y_offset = chatterbox_text_get(_chatterbox, false, _i, CHATTERBOX_PROPERTY.Y)
+                  + chatterbox_text_get(_chatterbox, false, _i, CHATTERBOX_PROPERTY.HEIGHT)
+                  + CHATTERBOX_AUTO_LAYOUT_TEXT_TEXT_Y;
+    }
+    
+    if (_count > 0) _y_offset -= CHATTERBOX_AUTO_LAYOUT_OPTION_OPTION_Y;
+    
+    //Control position and colour of options
+    var _x_offset  = chatterbox_text_get(_chatterbox, false, 0, CHATTERBOX_PROPERTY.X)
+                   + CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_X;     
+        _y_offset += CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_Y;
     
     var _count = chatterbox_text_get_number(_chatterbox, true);
     for(var _i = 0; _i < _count; _i++)
@@ -1125,7 +1151,7 @@ if (CHATTERBOX_AUTO_POSITION)
     
         _y_offset = chatterbox_text_get(_chatterbox, true, _i, CHATTERBOX_PROPERTY.Y)
                   + chatterbox_text_get(_chatterbox, true, _i, CHATTERBOX_PROPERTY.HEIGHT)
-                  + CHATTERBOX_AUTO_POSITION_OPTION_SEPARATION;
+                  + CHATTERBOX_AUTO_LAYOUT_OPTION_OPTION_Y;
     }
 }
 

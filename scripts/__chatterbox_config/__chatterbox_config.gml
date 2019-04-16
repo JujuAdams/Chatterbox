@@ -34,14 +34,15 @@
 #macro CHATTERBOX_AUTO_HIGHLIGHT_ON_ALPHA    1
 
 //Positions options relative to the 0th text element
-#macro CHATTERBOX_AUTO_POSITION                    true
-#macro CHATTERBOX_AUTO_POSITION_OPTION_INDENT      10
-#macro CHATTERBOX_AUTO_POSITION_TEXT_SEPARATION    20
-#macro CHATTERBOX_AUTO_POSITION_OPTION_SEPARATION  10
+#macro CHATTERBOX_AUTO_LAYOUT                  true
+#macro CHATTERBOX_AUTO_LAYOUT_TEXT_TEXT_Y      10
+#macro CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_X    10
+#macro CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_Y    30
+#macro CHATTERBOX_AUTO_LAYOUT_OPTION_OPTION_Y  10
 
 //Fading
 #macro CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT     true
-#macro CHATTERBOX_AUTO_SINGLETON_TEXT                true  //Not used!
+#macro CHATTERBOX_AUTO_SINGLETON_TEXT                true
 #macro CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT    1     //Values 0 -> 1 (inclusive) valid
 #macro CHATTERBOX_AUTO_FADE_IN_OPTION_AFTER_OPTION   1     //Values 0 -> 1 (inclusive) valid
 #macro CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT   1     //Values 1 -> 2 (inclusive) valid

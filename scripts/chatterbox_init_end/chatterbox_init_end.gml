@@ -585,6 +585,10 @@ repeat(_font_count)
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_STOP;
                                 }
+                                else if (_content[0] == "wait")
+                                {
+                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_WAIT;
+                                }
                                 else if (ds_map_exists(global.__chatterbox_actions, _content[0]))
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_CUSTOM_ACTION;

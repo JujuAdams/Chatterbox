@@ -2,7 +2,7 @@
 	{
 		"title": "Start",
 		"tags": "",
-		"body": "Frank: Hey, it's me. Frank.\nSammy: W-who?\nFrank:I'll now hide Chatterbox.\n<<suspend>>\nSammy: Welcome back.\nFrank: Frank! Ya know?\n<<set c = 3>>\nSammy: Umm. N-no, I don't... know?\n<<if c == 3>>\n	<<set d = 4>>\n<<endif>>\n[[Why don't you know?|WhyNot]]\n[[Anyways, whatever.|Whatever]]\n[[Test New Options|TestNewOptions]]",
+		"body": "Frank: Hey, it's me. Frank.\nSammy: W-who?\n<<wait>>\nFrank:I'll now hide Chatterbox.\n<<suspend>>\nSammy: Welcome back.\nFrank: Frank! Ya know?\n<<set c = 3>>\nSammy: Umm. N-no, I don't... know?\n<<if c == 3>>\n	<<set d = 4>>\n<<endif>>\n[[Why don't you know?|WhyNot]]\n[[Anyways, whatever.|Whatever]]\n[[Test New Options|TestNewOptions]]",
 		"position": {
 			"x": 672,
 			"y": 285
