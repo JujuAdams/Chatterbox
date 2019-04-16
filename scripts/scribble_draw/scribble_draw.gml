@@ -57,6 +57,8 @@ if ( (_json[| __SCRIBBLE.TW_DIRECTION ] != 0) && (ds_list_size(_json[| __SCRIBBL
 
 #endregion
 
+
+
 var _old_matrix = matrix_get(matrix_world);
 
 if ((_xscale == 1) && (_yscale == 1) && (_angle == 0))
@@ -71,6 +73,8 @@ else
 
 _matrix = matrix_multiply(_matrix, _old_matrix);
 matrix_set(matrix_world, _matrix);
+
+
 
 if (SCRIBBLE_COMPATIBILITY_DRAW)
 {

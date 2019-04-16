@@ -38,6 +38,8 @@ enum __CHATTERBOX
     __SECTION0,     // 0
     FILENAME,       // 1
     TITLE,          // 2
+    ORIGIN_X,       // 3
+    ORIGIN_Y,       // 4
     
     __SECTION1,     // 3
     SUSPENDED,      // 4
