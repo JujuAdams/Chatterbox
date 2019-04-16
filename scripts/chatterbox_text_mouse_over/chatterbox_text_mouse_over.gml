@@ -6,7 +6,7 @@ var _chatterbox = argument0;
 var _mouse_x    = argument1;
 var _mouse_y    = argument2;
 
-var _list = _chatterbox[| __CHATTERBOX.OPTIONS_META ];
+var _list = _chatterbox[| __CHATTERBOX.OPTION_LIST ];
 
 var _count = ds_list_size(_list);
 for(var _i = 0; _i < _count; _i++)

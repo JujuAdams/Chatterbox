@@ -38,12 +38,12 @@ _chatterbox[| __CHATTERBOX.INITIALISED  ] = false;
 _chatterbox[| __CHATTERBOX.VARIABLES    ] = ds_map_create();
 
 _chatterbox[| __CHATTERBOX.__SECTION2   ] = "-- Children --"
-_chatterbox[| __CHATTERBOX.TEXTS_META   ] = ds_list_create();
-_chatterbox[| __CHATTERBOX.OPTIONS_META ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.TEXT_LIST   ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.OPTION_LIST ] = ds_list_create();
 
 ds_list_mark_as_map( _chatterbox, __CHATTERBOX.VARIABLES   );
-ds_list_mark_as_list(_chatterbox, __CHATTERBOX.TEXTS_META  );
-ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OPTIONS_META);
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.TEXT_LIST  );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OPTION_LIST);
 
 
 

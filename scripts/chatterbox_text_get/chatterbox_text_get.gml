@@ -8,7 +8,7 @@ var _is_option  = argument1;
 var _index      = argument2;
 var _property   = argument3;
 
-var _list = _chatterbox[| _is_option? __CHATTERBOX.OPTIONS_META : __CHATTERBOX.TEXTS_META ];
+var _list = _chatterbox[| _is_option? __CHATTERBOX.OPTION_LIST : __CHATTERBOX.TEXT_LIST ];
 
 var _array = _list[| _index ];
 if (_property == CHATTERBOX_PROPERTY.XY)

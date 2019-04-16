@@ -40,8 +40,8 @@ enum __CHATTERBOX
     VARIABLES,      // 7
     
     __SECTION2,     // 8
-    TEXTS_META,     // 9
-    OPTIONS_META,   //10
+    TEXT_LIST,      // 9
+    OPTION_LIST,    //10
     
     __SIZE          //11
 }

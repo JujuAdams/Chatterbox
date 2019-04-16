@@ -37,35 +37,31 @@ switch(_property)
 
 if (_is_option)
 {
-    var _meta_list = _chatterbox[| __CHATTERBOX.OPTIONS_META ];
+    var _list = _chatterbox[| __CHATTERBOX.OPTION_LIST ];
     
     #region Fill in gaps if we're modifying an index larger than what we already have
     
-    var _meta_count = ds_list_size(_meta_list);
-    var _count = 1 + _index - _meta_count
-    repeat (_count)
+    var _count = ds_list_size(_list);
+    repeat (1 + _index - _count)
     {
-        var _x = 0;
-        var _y = 0;
-        
         var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        _new_array[ CHATTERBOX_PROPERTY.X           ] = _x;
-        _new_array[ CHATTERBOX_PROPERTY.Y           ] = _y;
-        _new_array[ CHATTERBOX_PROPERTY.XY          ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE;
-        _new_array[ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
-        _new_array[ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
-        _new_array[ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
-        _new_array[ CHATTERBOX_PROPERTY.MAX_WIDTH   ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
-        _new_array[ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Read-Only Properties --";
-        _new_array[ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
-        ds_list_add(_meta_list, _new_array);
+        _new_array[@ CHATTERBOX_PROPERTY.X           ] = 0;
+        _new_array[@ CHATTERBOX_PROPERTY.Y           ] = 0;
+        _new_array[@ CHATTERBOX_PROPERTY.XY          ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE;
+        _new_array[@ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE;
+        _new_array[@ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE;
+        _new_array[@ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
+        _new_array[@ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
+        _new_array[@ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
+        _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH   ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
+        _new_array[@ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Read-Only Properties --";
+        _new_array[@ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
+        ds_list_add(_list, _new_array);
     }
     
     #endregion
@@ -73,42 +69,38 @@ if (_is_option)
 }
 else
 {
-    var _meta_list = _chatterbox[| __CHATTERBOX.TEXTS_META ];
+    var _list = _chatterbox[| __CHATTERBOX.TEXT_LIST ];
     
     #region Fill in gaps if we're modifying an index larger than what we already have
     
-    var _meta_count = ds_list_size(_meta_list);
-    var _count = 1 + _index - _meta_count
-    repeat (_count)
+    var _count = ds_list_size(_list);
+    repeat(1 + _index - _count)
     {
-        var _x = 0;
-        var _y = 0;
-        
         var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-        _new_array[ CHATTERBOX_PROPERTY.X           ] = _x;
-        _new_array[ CHATTERBOX_PROPERTY.Y           ] = _y;
-        _new_array[ CHATTERBOX_PROPERTY.XY          ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE;
-        _new_array[ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE;
-        _new_array[ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
-        _new_array[ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
-        _new_array[ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
-        _new_array[ CHATTERBOX_PROPERTY.MAX_WIDTH   ] = CHATTERBOX_TEXT_DRAW_DEFAULT_MAX_WIDTH;
-        _new_array[ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Read-Only Properties --";
-        _new_array[ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
-        _new_array[ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
-        ds_list_add(_meta_list, _new_array);
+        _new_array[@ CHATTERBOX_PROPERTY.X           ] = 0;
+        _new_array[@ CHATTERBOX_PROPERTY.Y           ] = 0;
+        _new_array[@ CHATTERBOX_PROPERTY.XY          ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE;
+        _new_array[@ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE;
+        _new_array[@ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE;
+        _new_array[@ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
+        _new_array[@ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
+        _new_array[@ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
+        _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH   ] = CHATTERBOX_TEXT_DRAW_DEFAULT_MAX_WIDTH;
+        _new_array[@ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Read-Only Properties --";
+        _new_array[@ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
+        _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
+        ds_list_add(_list, _new_array);
     }
     
     #endregion
     
 }
 
-var _array = _meta_list[| _index ];
+var _array = _list[| _index ];
 if (_property == CHATTERBOX_PROPERTY.XY)
 {
     _array[@ CHATTERBOX_PROPERTY.X ] = _value;
