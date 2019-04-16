@@ -11,7 +11,7 @@
         "4ad29c35-cc7d-4355-bf35-c1842a24ab4f"
     ],
     "filterType": "GMScript",
-    "folderName": "Text Access",
+    "folderName": "Text Customisation",
     "isDefaultView": false,
     "localisedFolderName": ""
 }
