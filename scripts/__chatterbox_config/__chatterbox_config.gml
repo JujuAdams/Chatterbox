@@ -102,10 +102,10 @@
 // 
 // The $ prefix is what's specified in the Yarn documentation
 
-#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE    CHATTERBOX_SCOPE_INTERNAL    //If a variable starts if a $, what scope should it take?
-#macro CHATTERBOX_NAKED_VARIABLE_SCOPE     CHATTERBOX_SCOPE_GML_LOCAL   //If a variable has no prefix, what scope should it take?
-#macro CHATTERBOX_DEFAULT_VARIABLE_VALUE   0                            //Default value if a variable cannot be found
-#macro CHATTERBOX_INTERNAL_VARIABLE_SCOPE  CHATTERBOX_SCOPE_GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
+#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE        CHATTERBOX_SCOPE_INTERNAL    //If a variable starts if a $, what scope should it take?
+#macro CHATTERBOX_NAKED_VARIABLE_SCOPE         CHATTERBOX_SCOPE_GML_LOCAL   //If a variable has no prefix, what scope should it take?
+#macro CHATTERBOX_DEFAULT_VARIABLE_VALUE       0                            //Default value if a variable cannot be found
+#macro CHATTERBOX_INTERNAL_VARIABLE_MAP_SCOPE  CHATTERBOX_SCOPE_GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
 
 #endregion
 
