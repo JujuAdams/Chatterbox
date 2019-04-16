@@ -6,4 +6,4 @@
 //  
 //  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
-chatterbox = chatterbox_create("Start", "Test.json", 100, 100);
+chatterbox = chatterbox_create("Start", "Test.json");
