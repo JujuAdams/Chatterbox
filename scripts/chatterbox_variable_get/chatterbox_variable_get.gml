@@ -2,7 +2,7 @@
 /// @param variableName
 /// @param [defaultValue]
 
-var _chatterbox    = argument[0];
+var _chatterbox    = argument[0]; _chatterbox = _chatterbox; //Stop "only used once error"
 var _variable      = argument[1];
 var _default_value = (argument_count > 2)? argument[2] : CHATTERBOX_DEFAULT_VARIABLE_VALUE;
 

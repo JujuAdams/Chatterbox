@@ -9,8 +9,6 @@
         "7078f18e-cab5-4718-9cff-70420fb20d03",
         "36f2c371-0af7-4281-bef1-c48ce4fbbb54",
         "afc20b7e-b50b-4685-b72a-f48def4737d8",
-        "9ac119d1-18d4-4e8d-b6fe-3a55f9192a0b",
-        "fe827cce-097e-4bbf-a9ac-757793ca5408",
         "881dd845-b97a-4dce-a3fe-1ad4ded0084f",
         "a0f5144a-4fc5-429c-8c9a-a0c4c2b713c2",
         "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",

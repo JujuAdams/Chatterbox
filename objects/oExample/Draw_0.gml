@@ -1,4 +1,4 @@
-draw_text(10, 200, chatterbox_variable_array(chatterbox, true));
+draw_text(10, 200, chatterbox_variables_array(chatterbox, true));
 
 if (chatterbox_get_state(chatterbox))
 {

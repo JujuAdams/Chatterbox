@@ -606,7 +606,8 @@ if (_evaluate)
                     }
                     
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
-                    chatterbox_stop(_chatterbox);
+                    __chatterbox_destroy_children(_chatterbox);
+                    _chatterbox[| __CHATTERBOX.TITLE ] = undefined;
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Stop");
                     exit;
                     

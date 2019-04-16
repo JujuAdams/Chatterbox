@@ -35,6 +35,14 @@
 #macro CHATTERBOX_AUTO_POSITION_TEXT_SEPARATION    20
 #macro CHATTERBOX_AUTO_POSITION_OPTION_SEPARATION  10
 
+#macro CHATTERBOX_AUTO_SINGLETON_TEXT               true  //Not used!
+#macro CHATTERBOX_AUTO_FADE_OPTIONS_AFTER_TEXT      true
+#macro CHATTERBOX_AUTO_FADE_OPTION_AFTER_OPTION     true
+#macro CHATTERBOX_AUTO_NO_HIHGLIGHT_FADING_OPTIONS  true
+#macro CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS     true
+#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT       true
+#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS    true
+
 #endregion
 
 #region Parameters for scribble_create() calls made by Chatterbox
@@ -109,6 +117,7 @@
 
 #endregion
 
+#macro CHATTERBOX_STOP              undefined
 #macro CHATTERBOX_STATE_SUSPENDED  -1
 #macro CHATTERBOX_STATE_STOPPED     0
 #macro CHATTERBOX_STATE_RUNNING     1
@@ -131,23 +140,28 @@
 
 enum CHATTERBOX_PROPERTY
 {
-    X,            // 0
-    Y,            // 1
-    XY,           // 2  Changing this value also changes .X and .Y
-    XSCALE,       // 3
-    YSCALE,       // 4
-    XY_SCALE,     // 5  Changing this value also changes .XSCALE and .YSCALE
-    ANGLE,        // 6
-    BLEND,        // 7
-    ALPHA,        // 8
-    PMA,          // 9  Premultiply alpha
-    MAX_WIDTH,    //10  //Unusued!
+    X,              // 0
+    Y,              // 1
+    XY,             // 2  Changing this value also changes .X and .Y
+    XSCALE,         // 3
+    YSCALE,         // 4
+    XY_SCALE,       // 5  Changing this value also changes .XSCALE and .YSCALE
+    ANGLE,          // 6
+    BLEND,          // 7
+    ALPHA,          // 8
+    PMA,            // 9  Premultiply alpha
+    MAX_WIDTH,      //10  //Unusued!
+    HIGHLIGHTABLE,  //11
+    SELECTABLE,     //12
                   
-    __SECTION0,   //11  -- Read-Only Properties --
-    WIDTH,        //12
-    HEIGHT,       //13
-    SCRIBBLE,     //14
-    HIGHLIGHTED,  //15
+    __SECTION0,     //13  -- Read-Only Properties --
+    WIDTH,          //14
+    HEIGHT,         //15
+    SCRIBBLE,       //16
+    IS_OPTION,      //17
+    HIGHLIGHTED,    //18
+    __INSTRUCTION0, //19  //Internal property used for the virtual machine
+    __INSTRUCTION1, //20  //Internal property used for the virtual machine
                   
-    __SIZE        //16
+    __SIZE          //21
 }

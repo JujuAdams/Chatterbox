@@ -4,10 +4,9 @@
 global.__chatterbox_scope         = __CHATTERBOX_SCOPE_INVALID;
 global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
 
-var _chatterbox = argument0;
+var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"
 var _value      = argument1;
 
-var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
 var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 
 if (is_real(_value))

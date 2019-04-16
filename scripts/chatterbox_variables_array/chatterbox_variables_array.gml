@@ -1,7 +1,7 @@
 /// @param chatterbox
 /// @param [alphabetise]
 
-var _chatterbox  = argument[0];
+var _chatterbox  = argument[0]; _chatterbox = _chatterbox; //Stop "only used once error"
 var _alphabetise = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : false;
 
 var _variables_map = __CHATTERBOX_VARIABLE_MAP;

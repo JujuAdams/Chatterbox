@@ -5,6 +5,14 @@
 var _chatterbox = argument[0];
 var _node_title = argument[1];
 
+if (!is_string(_node_title))
+{
+    show_debug_message("Chatterbox: Stopping");
+    __chatterbox_destroy_children(_chatterbox);
+    _chatterbox[| __CHATTERBOX.TITLE ] = undefined;
+    exit;
+}
+
 if (argument_count > 2) && (argument[2] != undefined)
 {
     var _filename = argument[2];

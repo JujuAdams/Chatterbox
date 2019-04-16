@@ -2,7 +2,7 @@
 /// @param variableName
 /// @param value
 
-var _chatterbox = argument0;
+var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"
 var _variable   = argument1;
 var _value      = argument2;
 

@@ -1,6 +1,6 @@
 /// @param chatterbox
 
-var _chatterbox = argument0;
+var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"
 
 var _new_map = json_decode(_variables_map);
 if (_new_map < 0)
