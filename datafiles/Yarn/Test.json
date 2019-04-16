@@ -12,7 +12,7 @@
 	{
 		"title": "WhyNot",
 		"tags": "",
-		"body": "Frank: Why not?\nSammy: Because this is stupid.",
+		"body": "Frank: Why not?\nSammy: Because this is stupid.\n[[Test2.json:Start]]",
 		"position": {
 			"x": 462,
 			"y": 530

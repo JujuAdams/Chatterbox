@@ -101,6 +101,7 @@ var _instruction           = global.__chatterbox_goto[? _key ];
 var _end_instruction       = -1;
 var _scan_from_text        = false;
 var _scan_from_option      = false;
+var _scan_from_option_end  = false;
 var _if_state              = true;
 var _permit_greater_indent = false;
 
@@ -140,12 +141,12 @@ else
         _scan_from_option = true;
         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
         
-        var _option_array   = global.__chatterbox_vm[| _instruction];
-        var _indent         = _option_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+        var _option_array = global.__chatterbox_vm[| _instruction];
+        var _indent       = _option_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
-        var _option_content = _option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
         
-        show_debug_message("Chatterbox: Starting scan from " + string(_highlighted_index) + ", \"" + string(_option_content[0]) + "\"");
+        
+        show_debug_message("Chatterbox: Starting scan from " + string(_highlighted_index) + ", \"" + string(_option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
         
         //Advance to the next instruction
         _instruction++;
@@ -168,11 +169,7 @@ if (_evaluate)
     repeat(9999)
     {
         var _continue = false;
-        if (_instruction < 0)
-        {
-            _instruction++;
-            continue;
-        }
+            _scan_from_option_end = false;
         
         var _instruction_array   = global.__chatterbox_vm[| _instruction ];
         var _instruction_type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
@@ -184,13 +181,21 @@ if (_evaluate)
         {
             if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_option == " + string(_scan_from_option));
             
-            if (_instruction >= _end_instruction)
+            if (_instruction == _end_instruction)
             {
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction " + string(_instruction) + " >= end " + string(_end_instruction));
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction " + string(_instruction) + " == end " + string(_end_instruction));
                 _indent = _instruction_indent;
                 if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set indent = " + string(_indent));
                 _scan_from_option = false;
                 if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _scan_from_option=" + string(_scan_from_option));
+                _scan_from_option_end = true;
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _scan_from_option_end=" + string(_scan_from_option_end));
+            }
+            else if (_instruction > _end_instruction)
+            {
+                show_error("Chatterbox:\nVM instruction overstepped bounds!\n ", true);
+                _instruction = _end_instruction;
+                continue;
             }
         }
         
@@ -208,7 +213,7 @@ if (_evaluate)
             {
                 if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       instruction indent " + string(_instruction_indent) + " < _indent_bottom_limit " + string(_indent_bottom_limit));
                 _break = true;
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":         Break");
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> BREAK ->");
             }
         }
         else if (_instruction_indent > _indent)
@@ -224,7 +229,7 @@ if (_evaluate)
             else
             {
                 _continue = true;
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":         Continue");
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
             }
         }
         
@@ -247,7 +252,7 @@ if (_evaluate)
                         {
                             if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _if_state == " + string(_if_state));
                             _continue = true;
-                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                             break;
                         }
                     }
@@ -261,7 +266,7 @@ if (_evaluate)
                             _if_state = false;
                             if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _if_state = " + string(_if_state));
                             _continue = true;
-                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                             break;
                         }
                     }
@@ -313,7 +318,7 @@ if (_evaluate)
             {
                 if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   _if_state == " + string(_if_state));
                 _continue = true;
-                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Continue");
+                if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
             }
         }
         
@@ -334,7 +339,7 @@ if (_evaluate)
                     {
                         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                         _break = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Break");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> BREAK ->");
                         break;
                     }
                     
@@ -365,29 +370,46 @@ if (_evaluate)
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                     if (_scan_from_text)
                     {
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Break");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> BREAK ->");
                         _break = true;
                         break;
                     }
                     else
                     {
-                        _node_title = _instruction_content[0];
-                        _chatterbox[| __CHATTERBOX.TITLE ] = _node_title;
+                        var _string = _instruction_content[0];
+                        var _pos = string_pos(CHATTERBOX_FILENAME_SEPARATOR, _string);
+                        if (_pos > 0)
+                        {
+                            _filename   = string_copy(_string, 1, _pos-1);
+                            _node_title = string_delete(_string, 1, _pos);
+                        }
+                        else
+                        {
+                            _node_title = _string;
+                        }
                         
-                        var _key = _node_title; //_filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Redirecting to " + string(_key) );
+                        _chatterbox[| __CHATTERBOX.TITLE    ] = _node_title;
+                        _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
+                        
+                        var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
                         
                         //Partially reset state
-                        var _indent                = 0;
-                        var _indent_bottom_limit   = 0;
-                        var _text_instruction      = 0;
-                        var _instruction           = global.__chatterbox_goto[? _key ];
+                        var _text_instruction      = -1;
+                        var _instruction           = global.__chatterbox_goto[? _key ]-1;
                         var _end_instruction       = -1;
                         var _if_state              = true;
                         var _permit_greater_indent = false;
+                        var _scan_from_option_end  = false;
+                        
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Jumping to " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)" );
+                        
+                        var _instruction_array   = global.__chatterbox_vm[| _instruction+1];
+                            _indent              = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+                            _indent_bottom_limit = 0;
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
                         
                         _continue = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                         break;
                     }
                     
@@ -400,8 +422,8 @@ if (_evaluate)
                     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                     if (!_scan_from_text)
                     {
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction=" + string(_instruction) + " vs. end=" + string(_end_instruction));
-                        if (_instruction == _end_instruction)
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_option_end == " + string(_scan_from_option_end));
+                        if (_scan_from_option_end)
                         {
                             _node_title = _instruction_content[1];
                             _chatterbox[| __CHATTERBOX.TITLE ] = _node_title;
@@ -414,6 +436,7 @@ if (_evaluate)
                             var _end_instruction       = -1;
                             var _if_state              = true;
                             var _permit_greater_indent = false;
+                            var _scan_from_option_end  = false;
                             
                             if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Jumping to " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)" );
                             
@@ -424,7 +447,7 @@ if (_evaluate)
                         }
                         
                         _continue = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Continue");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                         break;
                     }
                     
@@ -452,7 +475,7 @@ if (_evaluate)
                         }
                         
                         _continue = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                         break;
                     }
                     
@@ -473,7 +496,7 @@ if (_evaluate)
                     {
                         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                         _continue = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                         break;
                     }
                     
@@ -490,7 +513,7 @@ if (_evaluate)
                     {
                         if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                         _continue = true;
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Continue");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- Continue <-");
                         break;
                     }
                     
@@ -516,7 +539,7 @@ if (_evaluate)
                     
                     if (_scan_from_text)
                     {
-                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Break");
+                        if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> BREAK ->");
                         _break = true;
                         break;
                     }
@@ -575,7 +598,7 @@ if (_evaluate)
         var _option_array = array_create(__CHATTERBOX_OPTION.__SIZE);
         _option_array[@ __CHATTERBOX_OPTION.TEXT              ] = _scribble;
         _option_array[@ __CHATTERBOX_OPTION.START_INSTRUCTION ] = _text_instruction;
-        _option_array[@ __CHATTERBOX_OPTION.END_INSTRUCTION   ] = _text_instruction;
+        _option_array[@ __CHATTERBOX_OPTION.END_INSTRUCTION   ] = _text_instruction+1;
         ds_list_add(_option_list, _option_array);
     }
     

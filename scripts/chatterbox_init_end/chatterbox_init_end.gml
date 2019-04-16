@@ -679,6 +679,7 @@ repeat(_font_count)
 
 
 
+show_debug_message("Chatterbox: VM has " + string(ds_list_size(global.__chatterbox_vm)) + " instructions");
 show_debug_message("Chatterbox: Initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");
 show_debug_message("Chatterbox: Thanks for using Chatterbox!");
 
