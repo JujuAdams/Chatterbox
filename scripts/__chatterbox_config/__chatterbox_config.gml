@@ -14,34 +14,41 @@
 
 #region Automatic helper behaviours
 
+//Use keyboard input to highlight and select options
 #macro CHATTERBOX_AUTO_KEYBOARD         true
 #macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || keyboard_check_released(vk_pageup))
 #macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || keyboard_check_released(vk_pagedown))
 #macro CHATTERBOX_AUTO_KEYBOARD_SELECT  (keyboard_check_released(vk_space) || keyboard_check_released(vk_enter))
 
+//Use mouse input to highlight and select options
 #macro CHATTERBOX_AUTO_MOUSE         true
 #macro CHATTERBOX_AUTO_MOUSE_X       mouse_x
 #macro CHATTERBOX_AUTO_MOUSE_Y       mouse_y
 #macro CHATTERBOX_AUTO_MOUSE_SELECT  mouse_check_button_released(mb_left)
 
+//Colours highlighted options
 #macro CHATTERBOX_AUTO_HIGHLIGHT             true
 #macro CHATTERBOX_AUTO_HIGHLIGHT_OFF_COLOUR  c_white
 #macro CHATTERBOX_AUTO_HIGHLIGHT_OFF_ALPHA   0.5
 #macro CHATTERBOX_AUTO_HIGHLIGHT_ON_COLOUR   c_yellow
 #macro CHATTERBOX_AUTO_HIGHLIGHT_ON_ALPHA    1
 
+//Positions options relative to the 0th text element
 #macro CHATTERBOX_AUTO_POSITION                    true
 #macro CHATTERBOX_AUTO_POSITION_OPTION_INDENT      10
 #macro CHATTERBOX_AUTO_POSITION_TEXT_SEPARATION    20
 #macro CHATTERBOX_AUTO_POSITION_OPTION_SEPARATION  10
 
-#macro CHATTERBOX_AUTO_SINGLETON_TEXT               true  //Not used!
-#macro CHATTERBOX_AUTO_FADE_OPTIONS_AFTER_TEXT      true
-#macro CHATTERBOX_AUTO_FADE_OPTION_AFTER_OPTION     true
-#macro CHATTERBOX_AUTO_NO_HIHGLIGHT_FADING_OPTIONS  true
-#macro CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS     true
-#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT       true
-#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS    true
+//Handles fading
+#macro CHATTERBOX_AUTO_SINGLETON_TEXT                true  //Not used!
+#macro CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT    1  //Values 0 -> 1 (inclusive) valid
+#macro CHATTERBOX_AUTO_FADE_IN_OPTION_AFTER_OPTION   1  //Values 0 -> 1 (inclusive) valid
+#macro CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT   2  //Values 1 -> 2 (inclusive) valid
+#macro CHATTERBOX_AUTO_FADE_OUT_OPTION_AFTER_OPTION  2  //Values 1 -> 2 (inclusive) valid
+#macro CHATTERBOX_AUTO_NO_HIHGLIGHT_FADING_OPTIONS   true
+#macro CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS      true
+#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT        true
+#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS     true
 
 #endregion
 
