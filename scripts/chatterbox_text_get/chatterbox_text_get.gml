@@ -8,51 +8,46 @@ var _is_option  = argument1;
 var _index      = argument2;
 var _property   = argument3;
 
-var _meta_list = _chatterbox[| _is_option? __CHATTERBOX.OPTIONS_META : __CHATTERBOX.TEXTS_META ];
-if (_index < 0) || (_index >= ds_list_size(_meta_list)) return undefined;
+var _list = _chatterbox[| _is_option? __CHATTERBOX.OPTIONS_META : __CHATTERBOX.TEXTS_META ];
 
-var _array = _meta_list[| _index ];
+var _array = _list[| _index ];
 if (_property == CHATTERBOX_PROPERTY.XY)
 {
-    return [_array[@ CHATTERBOX_PROPERTY.X ], _array[@ CHATTERBOX_PROPERTY.Y ]];
+    if (_index < 0) || (_index >= ds_list_size(_list)) return [0, 0];
+    return [_array[ CHATTERBOX_PROPERTY.X ], _array[ CHATTERBOX_PROPERTY.Y ]];
 }
 else if (_property == CHATTERBOX_PROPERTY.XY_SCALE)
 {
-    return [_array[@ CHATTERBOX_PROPERTY.XSCALE ], _array[@ CHATTERBOX_PROPERTY.YSCALE ]];
+    if (_index < 0) || (_index >= ds_list_size(_list)) return [0, 0];
+    return [_array[ CHATTERBOX_PROPERTY.XSCALE ], _array[ CHATTERBOX_PROPERTY.YSCALE ]];
 }
 else if (_property == CHATTERBOX_PROPERTY.HIGHLIGHTED)
 {
+    if (_index < 0) || (_index >= ds_list_size(_list)) return false;
     return (_index == _chatterbox[| __CHATTERBOX.HIGHLIGHTED ]);
 }
 else if (_property == CHATTERBOX_PROPERTY.WIDTH   )
      || (_property == CHATTERBOX_PROPERTY.HEIGHT  )
      || (_property == CHATTERBOX_PROPERTY.SCRIBBLE)
 {
-    if (_is_option)
+    if (_index < 0) || (_index >= ds_list_size(_list))
     {
-        var _list = _chatterbox[| __CHATTERBOX.OPTIONS ];
-        if (_index >= ds_list_size(_list)) return 0;
-        var _option_array = _list[| _index ];
-        var _scribble = _option_array[ __CHATTERBOX_OPTION.TEXT ];
-    }
-    else
-    {
-        var _list = _chatterbox[| __CHATTERBOX.TEXTS ];
-        if (_index >= ds_list_size(_list)) return 0;
-        var _scribble = _list[| _index ];
+        return (_property == CHATTERBOX_PROPERTY.SCRIBBLE)? undefined : 0;
     }
     
-    if (_property == CHATTERBOX_PROPERTY.SCRIBBLE )
+    var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+    
+    if ( !is_real(_scribble) || !ds_exists(_scribble, ds_type_list) )
     {
-        return (!is_real(_scribble) || !ds_exists(_scribble, ds_type_list))? undefined : _scribble;
+        return (_property == CHATTERBOX_PROPERTY.SCRIBBLE)? undefined : 0;
     }
     
-    if ( !is_real(_scribble) || !ds_exists(_scribble, ds_type_list) ) return 0;
-    
-    if (_property == CHATTERBOX_PROPERTY.WIDTH ) return _scribble[| __SCRIBBLE.WIDTH  ];
-    if (_property == CHATTERBOX_PROPERTY.HEIGHT) return _scribble[| __SCRIBBLE.HEIGHT ];
+    if (_property == CHATTERBOX_PROPERTY.SCRIBBLE) return _scribble;
+    if (_property == CHATTERBOX_PROPERTY.WIDTH   ) return _scribble[| __SCRIBBLE.WIDTH  ];
+    if (_property == CHATTERBOX_PROPERTY.HEIGHT  ) return _scribble[| __SCRIBBLE.HEIGHT ];
 }
 else
 {
+    if (_index < 0) || (_index >= ds_list_size(_list)) return 0;
     return _array[ _property ];
 }

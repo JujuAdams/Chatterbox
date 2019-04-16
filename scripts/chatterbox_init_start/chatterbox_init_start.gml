@@ -25,14 +25,6 @@ enum __CHATTERBOX_INSTRUCTION
     __SIZE   //3
 }
 
-enum __CHATTERBOX_OPTION
-{
-    TEXT,
-    START_INSTRUCTION,
-    END_INSTRUCTION,
-    __SIZE
-}
-
 enum __CHATTERBOX
 {
     __SECTION0,     // 0
@@ -48,12 +40,10 @@ enum __CHATTERBOX
     VARIABLES,      // 7
     
     __SECTION2,     // 8
-    TEXTS,          // 9
-    OPTIONS,        //10
-    TEXTS_META,     //11
-    OPTIONS_META,   //12
+    TEXTS_META,     // 9
+    OPTIONS_META,   //10
     
-    __SIZE          //13
+    __SIZE          //11
 }
 
 #macro __CHATTERBOX_SCOPE_INVALID     -1

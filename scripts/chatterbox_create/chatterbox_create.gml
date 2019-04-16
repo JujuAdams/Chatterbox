@@ -24,30 +24,26 @@ if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 
 
 //Create the Chatterbox data structure
-var _list = ds_list_create();
+var _chatterbox = ds_list_create();
 
-_list[| __CHATTERBOX.__SECTION0   ] = "-- Parameters --";
-_list[| __CHATTERBOX.FILENAME     ] = _filename;
-_list[| __CHATTERBOX.TITLE        ] = _node_title;
-_list[| __CHATTERBOX.ORIGIN_X     ] = _origin_x;
-_list[| __CHATTERBOX.ORIGIN_Y     ] = _origin_y;
+_chatterbox[| __CHATTERBOX.__SECTION0   ] = "-- Parameters --";
+_chatterbox[| __CHATTERBOX.FILENAME     ] = _filename;
+_chatterbox[| __CHATTERBOX.TITLE        ] = _node_title;
+_chatterbox[| __CHATTERBOX.ORIGIN_X     ] = _origin_x;
+_chatterbox[| __CHATTERBOX.ORIGIN_Y     ] = _origin_y;
 
-_list[| __CHATTERBOX.__SECTION1   ] = "-- State --";
-_list[| __CHATTERBOX.HIGHLIGHTED  ] = 0;
-_list[| __CHATTERBOX.INITIALISED  ] = false;
-_list[| __CHATTERBOX.VARIABLES    ] = ds_map_create();
+_chatterbox[| __CHATTERBOX.__SECTION1   ] = "-- State --";
+_chatterbox[| __CHATTERBOX.HIGHLIGHTED  ] = 0;
+_chatterbox[| __CHATTERBOX.INITIALISED  ] = false;
+_chatterbox[| __CHATTERBOX.VARIABLES    ] = ds_map_create();
 
-_list[| __CHATTERBOX.__SECTION2   ] = "-- Children --"
-_list[| __CHATTERBOX.TEXTS        ] = ds_list_create();
-_list[| __CHATTERBOX.OPTIONS      ] = ds_list_create();
-_list[| __CHATTERBOX.TEXTS_META   ] = ds_list_create();
-_list[| __CHATTERBOX.OPTIONS_META ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.__SECTION2   ] = "-- Children --"
+_chatterbox[| __CHATTERBOX.TEXTS_META   ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.OPTIONS_META ] = ds_list_create();
 
-ds_list_mark_as_map( _list, __CHATTERBOX.VARIABLES   );
-ds_list_mark_as_list(_list, __CHATTERBOX.TEXTS       );
-ds_list_mark_as_list(_list, __CHATTERBOX.OPTIONS     );
-ds_list_mark_as_list(_list, __CHATTERBOX.TEXTS_META  );
-ds_list_mark_as_list(_list, __CHATTERBOX.OPTIONS_META);
+ds_list_mark_as_map( _chatterbox, __CHATTERBOX.VARIABLES   );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.TEXTS_META  );
+ds_list_mark_as_list(_chatterbox, __CHATTERBOX.OPTIONS_META);
 
 
 
@@ -69,10 +65,10 @@ if (_node_title != undefined)
         _variables_map[? "visited(" + _key + ")" ] = true;
         if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
         
-        chatterbox_step(_list);
+        chatterbox_step(_chatterbox);
     }
 }
 
 
 
-return _list;
+return _chatterbox;
