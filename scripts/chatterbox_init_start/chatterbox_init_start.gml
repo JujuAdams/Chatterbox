@@ -53,6 +53,9 @@ enum __CHATTERBOX
     __SIZE          //12
 }
 
+#macro __CHATTERBOX_SCOPE_INVALID  -1
+#macro __CHATTERBOX_VARIABLE_MAP   (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE.GML_LOCAL)? _chatterbox[| __CHATTERBOX.VARIABLES ] : global.__chatterbox_variables
+
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
 #macro __CHATTERBOX_VM_TEXT            "TEXT"
 #macro __CHATTERBOX_VM_SHORTCUT        "SHORTCUT"
@@ -113,7 +116,9 @@ global.__chatterbox_vm                = ds_list_create();
 global.__chatterbox_init_complete     = false;
 global.__chatterbox_default_file      = "";
 global.__chatterbox_indent_size       = 0;
+global.__chatterbox_variables         = ds_map_create();
 global.__chatterbox_actions           = ds_map_create();
+global.__chatterbox_functions         = ds_map_create();
 
 //Big ol' list of operator dipthongs
 global.__chatterbox_op_list        = ds_list_create();

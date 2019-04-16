@@ -4,7 +4,7 @@
 var _chatterbox = argument0;
 var _content    = argument1;
 
-var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
 
 var _resolved_array = array_create(array_length_1d(_content), pointer_null); //Copy the array
@@ -152,7 +152,7 @@ repeat(9999)
                 
                 var _a_value = __chatterbox_resolve_value(_chatterbox, _a);
                 var _a_scope = global.__chatterbox_scope;
-                global.__chatterbox_scope = CHATTERBOX_SCOPE.__INVALID;
+                global.__chatterbox_scope = __CHATTERBOX_SCOPE_INVALID;
                 var _b_value = __chatterbox_resolve_value(_chatterbox, _b);
                 
                 #endregion

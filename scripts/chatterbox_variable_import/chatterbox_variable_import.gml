@@ -9,11 +9,19 @@ if (_new_map < 0)
     return false;
 }
 
-var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
-ds_map_destroy(_variables_map);
-
-_chatterbox[| __CHATTERBOX.VARIABLES ] = _new_map;
-ds_list_mark_as_map(_chatterbox, __CHATTERBOX.VARIABLES);
+if (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE.GML_LOCAL)
+{
+    var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+    ds_map_destroy(_variables_map);
+    
+    _chatterbox[| __CHATTERBOX.VARIABLES ] = _new_map;
+    ds_list_mark_as_map(_chatterbox, __CHATTERBOX.VARIABLES);
+}
+else
+{
+    ds_map_destroy(global.__chatterbox_variables);
+    global.__chatterbox_variables = _new_map;
+}
 
 if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Variable import successful");
 

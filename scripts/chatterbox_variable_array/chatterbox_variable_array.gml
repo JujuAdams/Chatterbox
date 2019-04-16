@@ -4,7 +4,7 @@
 var _chatterbox  = argument[0];
 var _alphabetise = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : false;
 
-var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 var _array = array_create(ds_map_size(_variables_map));
 
 if (_alphabetise)

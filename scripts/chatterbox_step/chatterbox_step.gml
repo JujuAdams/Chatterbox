@@ -15,6 +15,7 @@ var _option_list       = _chatterbox[| __CHATTERBOX.OPTIONS      ];
 var _text_meta_list    = _chatterbox[| __CHATTERBOX.TEXTS_META   ];
 var _option_meta_list  = _chatterbox[| __CHATTERBOX.OPTIONS_META ];
 var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED  ];
+var _variables_map     = __CHATTERBOX_VARIABLE_MAP;
 
 if (_node_title == undefined)
 {
@@ -146,7 +147,7 @@ else
         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
         
         
-        show_debug_message("Chatterbox: Starting scan from " + string(_highlighted_index) + ", \"" + string(_option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from " + string(_highlighted_index) + ", \"" + string(_option_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
         
         //Advance to the next instruction
         _instruction++;
@@ -392,6 +393,8 @@ if (_evaluate)
                         _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
                         
                         var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
+                        _variables_map[? "visited(" + _key + ")" ] = true;
+                        if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                         
                         //Partially reset state
                         var _text_instruction      = -1;
@@ -429,6 +432,8 @@ if (_evaluate)
                             _chatterbox[| __CHATTERBOX.TITLE ] = _node_title;
                             
                             var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
+                            _variables_map[? "visited(" + _key + ")" ] = true;
+                            if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                             
                             //Partially reset state
                             var _text_instruction      = -1;
@@ -618,7 +623,6 @@ repeat (_count)
     var _y = 0;
         
     var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-    _new_array[@ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Internal --";
     _new_array[@ CHATTERBOX_PROPERTY.X           ] = _x;
     _new_array[@ CHATTERBOX_PROPERTY.Y           ] = _y;
     _new_array[@ CHATTERBOX_PROPERTY.XY          ] = undefined;
@@ -629,8 +633,9 @@ repeat (_count)
     _new_array[@ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
     _new_array[@ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
     _new_array[@ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
+    _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH   ] = CHATTERBOX_TEXT_DRAW_DEFAULT_MAX_WIDTH;
+    _new_array[@ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Read-Only Properties --";
     _new_array[@ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
-    _new_array[@ CHATTERBOX_PROPERTY.__SECTION1  ] = "-- Read-Only Properties --";
     _new_array[@ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
     _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
     _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;
@@ -646,19 +651,19 @@ repeat (_count)
     var _y = 0;
     
     var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
-    _new_array[@ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Internal --";
     _new_array[@ CHATTERBOX_PROPERTY.X           ] = _x;
     _new_array[@ CHATTERBOX_PROPERTY.Y           ] = _y;
     _new_array[@ CHATTERBOX_PROPERTY.XY          ] = undefined;
-    _new_array[@ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE;
-    _new_array[@ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE;
+    _new_array[@ CHATTERBOX_PROPERTY.XSCALE      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE;
+    _new_array[@ CHATTERBOX_PROPERTY.YSCALE      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE;
     _new_array[@ CHATTERBOX_PROPERTY.XY_SCALE    ] = undefined;
-    _new_array[@ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE;
-    _new_array[@ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
-    _new_array[@ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
-    _new_array[@ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
+    _new_array[@ CHATTERBOX_PROPERTY.ANGLE       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE;
+    _new_array[@ CHATTERBOX_PROPERTY.BLEND       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
+    _new_array[@ CHATTERBOX_PROPERTY.ALPHA       ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
+    _new_array[@ CHATTERBOX_PROPERTY.PMA         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
+    _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH   ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
+    _new_array[@ CHATTERBOX_PROPERTY.__SECTION0  ] = "-- Read-Only Properties --";
     _new_array[@ CHATTERBOX_PROPERTY.WIDTH       ] = undefined;
-    _new_array[@ CHATTERBOX_PROPERTY.__SECTION1  ] = "-- Read-Only Properties --";
     _new_array[@ CHATTERBOX_PROPERTY.HEIGHT      ] = undefined;
     _new_array[@ CHATTERBOX_PROPERTY.SCRIBBLE    ] = undefined;
     _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTED ] = undefined;

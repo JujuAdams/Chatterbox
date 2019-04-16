@@ -1,13 +1,13 @@
 /// @param chatterbox
 /// @param value
 
-global.__chatterbox_scope = CHATTERBOX_SCOPE.__INVALID;
+global.__chatterbox_scope = __CHATTERBOX_SCOPE_INVALID;
 
 var _chatterbox = argument0;
 var _value      = argument1;
 
 var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
-var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
+var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 
 if (is_real(_value))
 {

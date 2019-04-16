@@ -43,8 +43,8 @@ show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" +
 
 _chatterbox[| __CHATTERBOX.INITIALISED ] = false;
 
-var _variables_map = _chatterbox[| __CHATTERBOX.VARIABLES ];
-_variables_map[? "visited(" + _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title + ")" ] = true;
+var _variables_map = __CHATTERBOX_VARIABLE_MAP;
+_variables_map[? "visited(" + _key + ")" ] = true;
 if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
 
 chatterbox_step(_chatterbox);

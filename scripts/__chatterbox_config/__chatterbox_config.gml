@@ -9,8 +9,12 @@
 
 #macro CHATTERBOX_OPTION_DEFAULT_TEXT  "..."
 #macro CHATTERBOX_FILENAME_SEPARATOR   ":"
+#macro CHATTERBOX_TAB_INDENT_SIZE      4
+#macro CHATTERBOX_ROUND_UP_INDENTS     true
+#macro CHATTERBOX_DEFAULT_STEP_SIZE    SCRIBBLE_DEFAULT_STEP_SIZE  //The default step size. "(delta_time/16667)" assumes that the game is running at 60FPS and will delta time effects accordingly
 
-//Automatic helper behaviours
+#region Automatic helper behaviours
+
 #macro CHATTERBOX_AUTO_KEYBOARD         true
 #macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || keyboard_check_released(vk_pageup))
 #macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || keyboard_check_released(vk_pagedown))
@@ -32,46 +36,50 @@
 #macro CHATTERBOX_AUTO_POSITION_TEXT_SEPARATION    20
 #macro CHATTERBOX_AUTO_POSITION_OPTION_SEPARATION  10
 
-//Parameters for scribble_create() calls made by Chatterbox
+#endregion
+
+#region Parameters for scribble_create() calls made by Chatterbox
+
 //See scribble_create() for an explanation of these variables
 //Use <undefined> to use default values
 //Values are read when creating text or options, and *not* every frame
 #macro CHATTERBOX_TEXT_CREATE_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_TEXT_CREATE_MAX_WIDTH        undefined
+#macro CHATTERBOX_TEXT_CREATE_MAX_WIDTH        400
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_COLOUR   undefined
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_FONT     undefined
 #macro CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN   undefined
 #macro CHATTERBOX_TEXT_CREATE_DATA_FIELDS      undefined
 
 #macro CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_OPTION_CREATE_MAX_WIDTH        undefined
+#macro CHATTERBOX_OPTION_CREATE_MAX_WIDTH        400
 #macro CHATTERBOX_OPTION_CREATE_DEFAULT_COLOUR   undefined
 #macro CHATTERBOX_OPTION_CREATE_DEFAULT_FONT     undefined
 #macro CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN   undefined
 #macro CHATTERBOX_OPTION_CREATE_DATA_FIELDS      undefined
 
-//Parameters for scribble_draw() calls made by Chatterbox
+#endregion
+
+#region Default parameters for scribble_draw() calls made by Chatterbox
+
 //These values can be overwritten by chatterbox_set_property() whenever needed in realtime
 //Values are read every frame and can be changed for dynamic effects
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE  1
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE  1
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE   0
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND   c_white
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA   1
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_PMA     false
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE     1
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE     1
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE      0
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND      c_white
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA      1
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_PMA        false
+#macro CHATTERBOX_TEXT_DRAW_DEFAULT_MAX_WIDTH  300
 
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE  1
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE  1
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE   0
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND   c_white
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA   1
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_PMA     false
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE     1
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE     1
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE      0
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND      c_white
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA      1
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_PMA        false
+#macro CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH  300
 
-
-#macro CHATTERBOX_TAB_INDENT_SIZE   4
-#macro CHATTERBOX_ROUND_UP_INDENTS  true
-
-#macro CHATTERBOX_DEFAULT_STEP_SIZE  SCRIBBLE_DEFAULT_STEP_SIZE  //The default step size. "(delta_time/16667)" assumes that the game is running at 60FPS and will delta time effects accordingly
+#endregion
 
 //Supported variable prefixes for if-statements:
 // 
@@ -91,16 +99,15 @@
 
 enum CHATTERBOX_SCOPE
 {
-    __INVALID,  //0
-    INTERNAL,   //1
-    GML_LOCAL,  //2
-    GML_GLOBAL, //3
-    __SIZE      //4
+    INTERNAL,  //0
+    GML_LOCAL, //1
+    GML_GLOBAL //2
 }
 
-#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE     CHATTERBOX_SCOPE.INTERNAL   //If a variable starts if a $, what scope should it take?
-#macro CHATTERBOX_NAKED_VARIABLE_SCOPE      CHATTERBOX_SCOPE.GML_LOCAL  //If a variable has no prefix, what scope should it take?
-#macro CHATTERBOX_DEFAULT_VARIABLE_VALUE    0                           //Default value if a variable cannot be found
+#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE    CHATTERBOX_SCOPE.INTERNAL    //If a variable starts if a $, what scope should it take?
+#macro CHATTERBOX_NAKED_VARIABLE_SCOPE     CHATTERBOX_SCOPE.GML_LOCAL   //If a variable has no prefix, what scope should it take?
+#macro CHATTERBOX_DEFAULT_VARIABLE_VALUE   0                            //Default value if a variable cannot be found
+#macro CHATTERBOX_INTERNAL_VARIABLE_SCOPE  CHATTERBOX_SCOPE.GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
 
 //Debug assistance
 #macro CHATTERBOX_DEBUG                         true
@@ -119,19 +126,19 @@ enum CHATTERBOX_SCOPE
 
 enum CHATTERBOX_PROPERTY
 {
-    __SECTION0,   // 0  -- Internal --
-    X,            // 1
-    Y,            // 2
-    XY,           // 3  Changing this value also changes .X and .Y
-    XSCALE,       // 4
-    YSCALE,       // 5
-    XY_SCALE,     // 6  Changing this value also changes .XSCALE and .YSCALE
-    ANGLE,        // 7
-    BLEND,        // 8
-    ALPHA,        // 9
-    PMA,          //10  Premultiply alpha
+    X,            // 0
+    Y,            // 1
+    XY,           // 2  Changing this value also changes .X and .Y
+    XSCALE,       // 3
+    YSCALE,       // 4
+    XY_SCALE,     // 5  Changing this value also changes .XSCALE and .YSCALE
+    ANGLE,        // 6
+    BLEND,        // 7
+    ALPHA,        // 8
+    PMA,          // 9  Premultiply alpha
+    MAX_WIDTH,    //10
                   
-    __SECTION1,   //11  -- Read-Only Properties --
+    __SECTION0,   //11  -- Read-Only Properties --
     WIDTH,        //12
     HEIGHT,       //13
     SCRIBBLE,     //14
