@@ -22,7 +22,7 @@
 	{
 		"title": "Node2",
 		"tags": "",
-		"body": "\n\nStandard choice syntax test.\n\n[[Choice 1|Node3]]\n[[Choice 2|Node4]]\n\n<<if if if if if if if>>\n\n",
+		"body": "\n\nStandard choice syntax test.\n\n[[Choice 1|Node3]]\n[[Choice 2|Node4]]",
 		"position": {
 			"x": 1131,
 			"y": 400
