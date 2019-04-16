@@ -123,7 +123,7 @@ global.__chatterbox_scope             = __CHATTERBOX_SCOPE_INVALID;
 global.__chatterbox_variable_name     = __CHATTERBOX_VARIABLE_INVALID;
 global.__chatterbox_variables         = ds_map_create();
 global.__chatterbox_actions           = ds_map_create();
-global.__chatterbox_functions         = ds_map_create();
+global.__chatterbox_permitted_scripts = ds_map_create();
 
 //Big ol' list of operator dipthongs
 global.__chatterbox_op_list        = ds_list_create();

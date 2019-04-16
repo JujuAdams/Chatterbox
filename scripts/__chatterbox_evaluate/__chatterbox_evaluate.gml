@@ -61,7 +61,7 @@ repeat(9999)
                 }
                 else
                 {
-                    _function = global.__chatterbox_actions[? _function ];
+                    _function = global.__chatterbox_permitted_scripts[? _function ];
                     if (_function != undefined)
                     {
                         _result = script_execute(_function, _function_args);
