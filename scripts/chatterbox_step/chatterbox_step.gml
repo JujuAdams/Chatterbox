@@ -130,7 +130,7 @@ for(var _i = 0; _i < _old_option_size; _i++)
 
 #region Stop options from being highlighted if they've not finished fading in
 
-if (!_all_options_faded_in && CHATTERBOX_AUTO_NO_HIHGLIGHT_FADING_OPTIONS)
+if (!_all_options_faded_in && CHATTERBOX_AUTO_NO_HIGHLIGHT_FADING_OPTIONS)
 {
     _highlighted_index = undefined;
     _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index
@@ -403,7 +403,7 @@ if (_evaluate)
         {
             if (scribble_typewriter_get_state(_scribble) == 1)
             {
-                scribble_typewriter_out(_scribble, undefined, CHATTERBOX_TEXT_FADE_OUT_SPEED, CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS);
+                scribble_typewriter_out(_scribble, CHATTERBOX_TEXT_FADE_OUT_METHOD, CHATTERBOX_TEXT_FADE_OUT_SPEED, CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS);
             }
             
             var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
@@ -429,7 +429,7 @@ if (_evaluate)
         {
             if (scribble_typewriter_get_state(_scribble) == 1)
             {
-                scribble_typewriter_out(_scribble, undefined,
+                scribble_typewriter_out(_scribble, CHATTERBOX_OPTION_FADE_OUT_METHOD,
                                         (CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT <= 1)? CHATTERBOX_OPTION_FADE_OUT_SPEED : 0,
                                         CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS);
             }
@@ -634,7 +634,7 @@ if (_evaluate)
                                                 CHATTERBOX_TEXT_CREATE_DEFAULT_FONT,
                                                 CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN,
                                                 CHATTERBOX_TEXT_CREATE_DATA_FIELDS);
-                    scribble_typewriter_in(_scribble, undefined, CHATTERBOX_TEXT_FADE_IN_SPEED, CHATTERBOX_TEXT_FADE_IN_SMOOTHNESS);
+                    scribble_typewriter_in(_scribble, CHATTERBOX_TEXT_FADE_IN_METHOD, CHATTERBOX_TEXT_FADE_IN_SPEED, CHATTERBOX_TEXT_FADE_IN_SMOOTHNESS);
                     
                     
                     
@@ -971,7 +971,7 @@ if (_evaluate)
                                                 CHATTERBOX_OPTION_CREATE_DEFAULT_FONT,
                                                 CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN,
                                                 CHATTERBOX_OPTION_CREATE_DATA_FIELDS);
-                scribble_typewriter_in(_scribble, undefined,
+                scribble_typewriter_in(_scribble, CHATTERBOX_OPTION_FADE_IN_METHOD,
                                        (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? CHATTERBOX_OPTION_FADE_IN_SPEED : 0,
                                        CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS);
                 
@@ -1045,7 +1045,7 @@ if (_evaluate)
                                         CHATTERBOX_OPTION_CREATE_DEFAULT_FONT,
                                         CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN,
                                         CHATTERBOX_OPTION_CREATE_DATA_FIELDS);
-        scribble_typewriter_in(_scribble, undefined,
+        scribble_typewriter_in(_scribble, CHATTERBOX_OPTION_FADE_IN_METHOD,
                                (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? CHATTERBOX_OPTION_FADE_IN_SPEED : 0,
                                CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS);
         
