@@ -152,6 +152,7 @@ repeat(9999)
                 
                 var _a_value = __chatterbox_resolve_value(_chatterbox, _a);
                 var _a_scope = global.__chatterbox_scope;
+                _a = (global.__chatterbox_variable_name != __CHATTERBOX_VARIABLE_INVALID)? global.__chatterbox_variable_name : _a;
                 global.__chatterbox_scope = __CHATTERBOX_SCOPE_INVALID;
                 var _b_value = __chatterbox_resolve_value(_chatterbox, _b);
                 

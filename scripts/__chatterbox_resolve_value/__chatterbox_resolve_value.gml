@@ -1,7 +1,8 @@
 /// @param chatterbox
 /// @param value
 
-global.__chatterbox_scope = __CHATTERBOX_SCOPE_INVALID;
+global.__chatterbox_scope         = __CHATTERBOX_SCOPE_INVALID;
+global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
 
 var _chatterbox = argument0;
 var _value      = argument1;
@@ -123,6 +124,7 @@ else
         }
         
         global.__chatterbox_scope = _scope;
+        global.__chatterbox_variable_name = _value;
         
         #endregion
         

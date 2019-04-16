@@ -34,7 +34,7 @@ chatterbox_init_start("Yarn");
 chatterbox_init_add_action("custom", custom_action_example);
 chatterbox_init_add_action("hide", hide_chatterbox);
 chatterbox_init_add_json("Test.json");
-//chatterbox_init_add_json("Test2.json");
+chatterbox_init_add_json("Test2.json");
 chatterbox_init_end();
 
 instance_destroy();

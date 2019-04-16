@@ -54,7 +54,8 @@ enum __CHATTERBOX
     __SIZE          //13
 }
 
-#macro __CHATTERBOX_SCOPE_INVALID  -1
+#macro __CHATTERBOX_SCOPE_INVALID     -1
+#macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
 #macro __CHATTERBOX_VARIABLE_MAP   (CHATTERBOX_INTERNAL_VARIABLE_SCOPE == CHATTERBOX_SCOPE_GML_LOCAL)? _chatterbox[| __CHATTERBOX.VARIABLES ] : global.__chatterbox_variables
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
@@ -118,6 +119,8 @@ global.__chatterbox_vm                = ds_list_create();
 global.__chatterbox_init_complete     = false;
 global.__chatterbox_default_file      = "";
 global.__chatterbox_indent_size       = 0;
+global.__chatterbox_scope             = __CHATTERBOX_SCOPE_INVALID;
+global.__chatterbox_variable_name     = __CHATTERBOX_VARIABLE_INVALID;
 global.__chatterbox_variables         = ds_map_create();
 global.__chatterbox_actions           = ds_map_create();
 global.__chatterbox_functions         = ds_map_create();
