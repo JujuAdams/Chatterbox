@@ -104,6 +104,8 @@ enum CHATTERBOX_SCOPE
 
 //Debug assistance
 #macro CHATTERBOX_DEBUG                         true
+#macro CHATTERBOX_DEBUG_PARSER                  false
+#macro CHATTERBOX_DEBUG_VM                      false
 #macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false  //Throw an error if a variable (in any scope) is missing
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false  //Throw an error when two values of different datatypes are being compared

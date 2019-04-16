@@ -31,7 +31,7 @@ repeat(_font_count)
     ds_list_add(global.__chatterbox_vm, _filename);
     var _instruction_file_offset = ds_list_size(global.__chatterbox_vm);
     global.__chatterbox_goto[? _filename ] = _instruction_file_offset;
-    if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:     File instruction offset is " + string(_instruction_file_offset));
+    if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:     File instruction offset is " + string(_instruction_file_offset));
     
     
     
@@ -103,7 +103,7 @@ repeat(_font_count)
         _body = string_replace_all(_body, "\n\r", "\n");
         _body = string_replace_all(_body, "\r\n", "\n");
         _body = string_replace_all(_body, "\r"  , "\n");
-        if (__CHATTERBOX_DEBUG_PARSER)
+        if (CHATTERBOX_DEBUG_PARSER)
         {
             show_debug_message("Chatterbox:     Processing \"" + string(_title) + "\" = \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
         }
@@ -112,7 +112,7 @@ repeat(_font_count)
         ds_list_add(global.__chatterbox_vm, _filename + CHATTERBOX_FILENAME_SEPARATOR + _title);
         var _instruction_node_offset = ds_list_size(global.__chatterbox_vm);
         global.__chatterbox_goto[? _filename + CHATTERBOX_FILENAME_SEPARATOR + _title ] = _instruction_node_offset;
-        if (__CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       Node instruction offset is " + string(_instruction_node_offset));
+        if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       Node instruction offset is " + string(_instruction_node_offset));
         
         
         
@@ -643,7 +643,7 @@ repeat(_font_count)
         
         
         //Debug output that enumerates all instructions for this node
-        if (__CHATTERBOX_DEBUG_PARSER)
+        if (CHATTERBOX_DEBUG_PARSER)
         {
             var _i = _instruction_node_offset;
             repeat(ds_list_size(global.__chatterbox_vm) - _instruction_node_offset)
