@@ -1,4 +1,4 @@
-<h1 align="center">Chatterbox 0.0.3</h1>
+<h1 align="center">Chatterbox 0.0.4</h1>
 
 ### @jujuadams
 
