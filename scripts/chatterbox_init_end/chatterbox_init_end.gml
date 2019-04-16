@@ -80,7 +80,7 @@ repeat(_font_count)
             {
                 _string += ", ";
                 _i++;
-                if (_i >= 3)
+                if (_i >= 10)
                 {
                     show_debug_message(_string);
                     _string = "Chatterbox:       ";
@@ -105,7 +105,7 @@ repeat(_font_count)
         _body = string_replace_all(_body, "\r"  , "\n");
         if (__CHATTERBOX_DEBUG_PARSER)
         {
-            show_debug_message("Chatterbox:     Processing \"" + string(_title) + "\" ::: \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
+            show_debug_message("Chatterbox:     Processing \"" + string(_title) + "\" = \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
         }
         _body += "\n";
         
@@ -645,22 +645,27 @@ repeat(_font_count)
         //Debug output that enumerates all instructions for this node
         if (__CHATTERBOX_DEBUG_PARSER)
         {
-            var _i = _instruction_node_offset-1;
-            repeat(ds_list_size(global.__chatterbox_vm) - (_instruction_node_offset-1))
+            var _i = _instruction_node_offset;
+            repeat(ds_list_size(global.__chatterbox_vm) - _instruction_node_offset)
             {
                 var _array = global.__chatterbox_vm[| _i];
-                _string = "";
                 
-                var _size = array_length_1d(_array);
-                for(var _j = 0; _j < _size; _j++)
+                if (is_array(_array))
                 {
-                    var _value = _array[_j];
-                    if (_value != undefined)
-                    {
-                        if (_j > 0) _string += ", ";
-                        _string += string(_value);
-                    }
+                    _string = "";
+                    
+                    var _type    = _array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
+                    var _indent  = _array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
+                    var _content = _array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
+                    
+                    repeat(_indent) _string += " ";
+                    _string += string(_type) + ": " + string(_content);
                 }
+                else
+                {
+                    _string = string(_array);
+                }
+                
                 show_debug_message("Chatterbox:       " + _string);
                 
                 _i++;

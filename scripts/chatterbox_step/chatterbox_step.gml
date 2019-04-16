@@ -111,14 +111,14 @@ if (!_chatterbox[| __CHATTERBOX.INITIALISED])
 {
     #region Handle chatterboxes that haven't been initialised yet
     _chatterbox[| __CHATTERBOX.INITIALISED ] = true;
+    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Initialising");
+    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
     
     //If this chatterbox hasn't been initialised skip straight to evaluation
     _evaluate = true;
     
     var _instruction_array = global.__chatterbox_vm[| _instruction];
         _indent            = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
-        
-    if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
     if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
     
     #endregion
@@ -407,16 +407,20 @@ if (_evaluate)
                             _chatterbox[| __CHATTERBOX.TITLE ] = _node_title;
                             
                             var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Jumping to " + string(_key) );
                             
                             //Partially reset state
-                            var _indent                = 0;
-                            var _indent_bottom_limit   = 0;
                             var _text_instruction      = -1;
-                            var _instruction           = global.__chatterbox_goto[? _key ];
+                            var _instruction           = global.__chatterbox_goto[? _key ]-1;
                             var _end_instruction       = -1;
                             var _if_state              = true;
                             var _permit_greater_indent = false;
+                            
+                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Jumping to " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)" );
+                            
+                            var _instruction_array   = global.__chatterbox_vm[| _instruction+1];
+                                _indent              = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+                                _indent_bottom_limit = 0;
+                            if (__CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
                         }
                         
                         _continue = true;
