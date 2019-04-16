@@ -84,31 +84,43 @@ if (CHATTERBOX_AUTO_MOUSE)
 
 
 
-//Perform a step for all nested Scribble data structures
 var _all_text_faded_in     = true;
 var _all_text_faded_out    = true;
 var _all_options_faded_in  = true;
 var _all_options_faded_out = true;
 
-var _size = ds_list_size(_text_list)
-for(var _i = 0; _i < _size; _i++)
+var _text_size   = ds_list_size(_text_list);
+var _option_size = ds_list_size(_option_list);
+
+#region Find the fade state of every text child
+
+for(var _i = 0; _i < _text_size; _i++)
 {
     var _scribble = _text_list[| _i];
-    scribble_step(_scribble, _step_size);
-    
     var _state = scribble_typewriter_get_state(_scribble);
     if (_state != 1) _all_text_faded_in  = false;
     if (_state != 2) _all_text_faded_out = false;
 }
 
-var _previous_state = (ds_list_size(_text_list) > 0)? scribble_typewriter_get_state(_text_list[| 0]) : 1;
-
-var _size = ds_list_size(_option_list)
-for(var _i = 0; _i < _size; _i++)
+for(var _i = 0; _i < _option_size; _i++)
 {
     var _option_array = _option_list[| _i];
     var _scribble = _option_array[ __CHATTERBOX_OPTION.TEXT ];
-    
+    var _state = scribble_typewriter_get_state(_scribble);
+    if (_state != 1) _all_options_faded_in  = false;
+    if (_state != 2) _all_options_faded_out = false;
+}
+
+#endregion
+
+#region Control option fades
+
+var _previous_state = (ds_list_size(_text_list) > 0)? scribble_typewriter_get_state(_text_list[| 0]) : 1;
+
+for(var _i = 0; _i < _option_size; _i++)
+{
+    var _option_array = _option_list[| _i];
+    var _scribble = _option_array[ __CHATTERBOX_OPTION.TEXT ];
     var _state = scribble_typewriter_get_state(_scribble);
     if (_state != 1) _all_options_faded_in  = false;
     if (_state != 2) _all_options_faded_out = false;
@@ -122,9 +134,11 @@ for(var _i = 0; _i < _size; _i++)
     }
     
     if (CHATTERBOX_AUTO_FADE_IN_OPTION_AFTER_OPTION > 0) _previous_state = _state;
-    
-    scribble_step(_scribble, _step_size);
 }
+
+#endregion
+
+#region Stop options from being highlighted if they've not finished fading in
 
 if (!_all_options_faded_in && CHATTERBOX_AUTO_NO_HIHGLIGHT_FADING_OPTIONS)
 {
@@ -140,27 +154,48 @@ else
     }
 }
 
+#endregion
+
+#region Skip fading if we're able to
+
 if (CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT
-&& (CHATTERBOX_AUTO_KEYBOARD_SELECT || CHATTERBOX_AUTO_MOUSE_SELECT)
+&& (CHATTERBOX_AUTO_KEYBOARD_SELECT || CHATTERBOX_AUTO_MOUSE_SELECT || _select)
 && (!_all_text_faded_in || !_all_options_faded_in))
 {
     _select = false;
     
-    var _size = ds_list_size(_text_list)
-    for(var _i = 0; _i < _size; _i++)
+    for(var _i = 0; _i < _text_size; _i++)
     {
         var _scribble = _text_list[| _i];
         scribble_typewriter_out(_scribble, undefined, 0);
     }
     
-    var _size = ds_list_size(_option_list)
-    for(var _i = 0; _i < _size; _i++)
+    for(var _i = 0; _i < _option_size; _i++)
     {
         var _option_array = _option_list[| _i];
         var _scribble = _option_array[ __CHATTERBOX_OPTION.TEXT ];
         scribble_typewriter_out(_scribble, undefined, 0);
     }
 }
+
+#endregion
+
+#region Perform step for each text child
+
+for(var _i = 0; _i < _text_size; _i++)
+{
+    var _scribble = _text_list[| _i];
+    scribble_step(_scribble, _step_size);
+}
+
+for(var _i = 0; _i < _option_size; _i++)
+{
+    var _option_array = _option_list[| _i];
+    var _scribble = _option_array[ __CHATTERBOX_OPTION.TEXT ];
+    scribble_step(_scribble, _step_size);
+}
+
+#endregion
 
 
 
