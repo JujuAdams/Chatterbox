@@ -4,10 +4,10 @@
 var _chatterbox     = argument0;
 var _selected_index = argument1;
 
-var _node_title     = _chatterbox[| __CHATTERBOX.TITLE          ];
-var _filename       = _chatterbox[| __CHATTERBOX.FILENAME       ];
-var _child_array    = _chatterbox[| __CHATTERBOX.CHILDREN       ];
-var _singleton_text = _chatterbox[| __CHATTERBOX.SINGLETON_TEXT ];
+var _node_title     = _chatterbox[ __CHATTERBOX.TITLE          ];
+var _filename       = _chatterbox[ __CHATTERBOX.FILENAME       ];
+var _child_array    = _chatterbox[ __CHATTERBOX.CHILDREN       ];
+var _singleton_text = _chatterbox[ __CHATTERBOX.SINGLETON_TEXT ];
 
 if (_node_title == undefined)
 {
@@ -75,7 +75,7 @@ if (is_real(_selected_index))
     _instruction++;
     
     _child_array = []; //Wipe all children
-    _chatterbox[| __CHATTERBOX.CHILDREN ] = _child_array;
+    _chatterbox[@ __CHATTERBOX.CHILDREN ] = _child_array;
     
     #region Run virtual machine
     
@@ -321,8 +321,8 @@ if (is_real(_selected_index))
                             _node_title = _string;
                         }
                         
-                        _chatterbox[| __CHATTERBOX.TITLE    ] = _node_title;
-                        _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
+                        _chatterbox[@ __CHATTERBOX.TITLE    ] = _node_title;
+                        _chatterbox[@ __CHATTERBOX.FILENAME ] = _filename;
                         
                         var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
                         global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
@@ -375,7 +375,7 @@ if (is_real(_selected_index))
                         if (_scan_from_option_end)
                         {
                             _node_title = _instruction_content[1];
-                            _chatterbox[| __CHATTERBOX.TITLE ] = _node_title;
+                            _chatterbox[@ __CHATTERBOX.TITLE ] = _node_title;
                             
                             var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
                             global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
@@ -510,7 +510,7 @@ if (is_real(_selected_index))
                     }
                     
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
-                    _chatterbox[| __CHATTERBOX.TITLE ] = undefined;
+                    _chatterbox[@ __CHATTERBOX.TITLE ] = undefined;
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Stop");
                     exit;
                     

@@ -1,1 +1,0 @@
-chatterbox_destroy(chatterbox);

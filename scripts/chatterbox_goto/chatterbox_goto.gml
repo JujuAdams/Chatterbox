@@ -8,7 +8,7 @@ var _node_title = argument[1];
 if (!is_string(_node_title))
 {
     show_debug_message("Chatterbox: Stopping");
-    _chatterbox[| __CHATTERBOX.TITLE ] = undefined;
+    _chatterbox[@ __CHATTERBOX.TITLE ] = undefined;
     exit;
 }
 
@@ -28,11 +28,11 @@ if (argument_count > 2) && (argument[2] != undefined)
         return undefined;
     }
     
-    _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
+    _chatterbox[@ __CHATTERBOX.FILENAME ] = _filename;
 }
 else
 {
-    _filename = _chatterbox[| __CHATTERBOX.FILENAME ];
+    _filename = _chatterbox[ __CHATTERBOX.FILENAME ];
 }
 
 var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
@@ -43,8 +43,8 @@ if (_instruction == undefined)
     return false;
 }
 
-_chatterbox[| __CHATTERBOX.TITLE    ] = _node_title;
-_chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
+_chatterbox[@ __CHATTERBOX.TITLE    ] = _node_title;
+_chatterbox[@ __CHATTERBOX.FILENAME ] = _filename;
 
 show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
 
@@ -57,7 +57,7 @@ _new_array[@ __CHATTERBOX_CHILD.STRING            ] = "";
 _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction-1;
 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
-var _child_array = _chatterbox[| __CHATTERBOX.CHILDREN ];
+var _child_array = _chatterbox[ __CHATTERBOX.CHILDREN ];
 _child_array[@ array_length_1d(_child_array) ] = _new_array;
 
 return chatterbox_select(_chatterbox, 0);

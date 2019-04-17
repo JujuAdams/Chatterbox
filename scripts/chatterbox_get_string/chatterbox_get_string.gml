@@ -7,7 +7,7 @@ var _type       = argument1;
 var _index      = argument2;
 
 var _count = 0;
-var _child_array = _chatterbox[| __CHATTERBOX.CHILDREN ];
+var _child_array = _chatterbox[ __CHATTERBOX.CHILDREN ];
 var _size = array_length_1d(_child_array);
 for(var _i = 0; _i < _size; _i++)
 {

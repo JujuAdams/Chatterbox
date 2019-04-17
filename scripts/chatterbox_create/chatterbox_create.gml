@@ -17,9 +17,9 @@ if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 }
 
 //Create the Chatterbox data structure
-var _chatterbox = ds_list_create();
-_chatterbox[| __CHATTERBOX.FILENAME       ] = _filename;
-_chatterbox[| __CHATTERBOX.TITLE          ] = undefined;
-_chatterbox[| __CHATTERBOX.SINGLETON_TEXT ] = _singleton_text;
-_chatterbox[| __CHATTERBOX.CHILDREN       ] = [];
+var _chatterbox = array_create(__CHATTERBOX.__SIZE);
+_chatterbox[@ __CHATTERBOX.FILENAME       ] = _filename;
+_chatterbox[@ __CHATTERBOX.TITLE          ] = undefined;
+_chatterbox[@ __CHATTERBOX.SINGLETON_TEXT ] = _singleton_text;
+_chatterbox[@ __CHATTERBOX.CHILDREN       ] = [];
 return _chatterbox;
