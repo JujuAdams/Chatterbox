@@ -93,7 +93,7 @@ for(var _i = 0; _i < _option_size; _i++)
     {
         if (_previous_state >= ((_i == 0)? CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT : CHATTERBOX_AUTO_FADE_IN_OPTION_AFTER_OPTION))
         {
-            scribble_typewriter_in(_scribble, undefined, CHATTERBOX_OPTION_FADE_IN_SPEED);
+            scribble_typewriter_in(_scribble, undefined, _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_SPEED ]);
         }
     }
     
@@ -120,7 +120,7 @@ for(var _i = 0; _i < _old_option_size; _i++)
     {
         if (_previous_state >= ((_i == 0)? CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT : CHATTERBOX_AUTO_FADE_OUT_OPTION_AFTER_OPTION))
         {
-            scribble_typewriter_out(_scribble, undefined, CHATTERBOX_OPTION_FADE_OUT_SPEED);
+            scribble_typewriter_out(_scribble, undefined, _chatterbox[| __CHATTERBOX.OPTION_FADE_OUT_SPEED ]);
         }
     }
     
@@ -343,7 +343,10 @@ if (_evaluate)
         {
             if (scribble_typewriter_get_state(_scribble) == 1)
             {
-                scribble_typewriter_out(_scribble, CHATTERBOX_TEXT_FADE_OUT_METHOD, CHATTERBOX_TEXT_FADE_OUT_SPEED, CHATTERBOX_TEXT_FADE_OUT_SMOOTHNESS);
+                scribble_typewriter_out(_scribble,
+                                        _chatterbox[| __CHATTERBOX.TEXT_FADE_OUT_METHOD     ],
+                                        _chatterbox[| __CHATTERBOX.TEXT_FADE_OUT_SPEED      ],
+                                        _chatterbox[| __CHATTERBOX.TEXT_FADE_OUT_SMOOTHNESS ]);
             }
             
             var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
@@ -369,9 +372,10 @@ if (_evaluate)
         {
             if (scribble_typewriter_get_state(_scribble) == 1)
             {
-                scribble_typewriter_out(_scribble, CHATTERBOX_OPTION_FADE_OUT_METHOD,
-                                        (CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT <= 1)? CHATTERBOX_OPTION_FADE_OUT_SPEED : 0,
-                                        CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS);
+                scribble_typewriter_out(_scribble,
+                                        _chatterbox[| __CHATTERBOX.OPTION_FADE_OUT_METHOD ],
+                                        (CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT <= 1)? _chatterbox[| __CHATTERBOX.OPTION_FADE_OUT_SPEED ] : 0,
+                                        _chatterbox[| __CHATTERBOX.OPTION_FADE_OUT_SMOOTHNESS ]);
             }
             
             var _new_array = array_create(CHATTERBOX_PROPERTY.__SIZE);
@@ -588,7 +592,10 @@ if (_evaluate)
                                                     _chatterbox[| __CHATTERBOX.TEXT_STARTING_FONT   ],
                                                     _chatterbox[| __CHATTERBOX.TEXT_STARTING_HALIGN ],
                                                     _chatterbox[| __CHATTERBOX.TEXT_DATA_FIELDS     ]);
-                    scribble_typewriter_in(_scribble, CHATTERBOX_TEXT_FADE_IN_METHOD, CHATTERBOX_TEXT_FADE_IN_SPEED, CHATTERBOX_TEXT_FADE_IN_SMOOTHNESS);
+                    
+                    scribble_typewriter_in(_scribble, _chatterbox[| __CHATTERBOX.TEXT_FADE_IN_METHOD     ],
+                                                      _chatterbox[| __CHATTERBOX.TEXT_FADE_IN_SPEED      ],
+                                                      _chatterbox[| __CHATTERBOX.TEXT_FADE_IN_SMOOTHNESS ]);
                     
                     
                     
@@ -925,9 +932,9 @@ if (_evaluate)
                                                 _chatterbox[| __CHATTERBOX.OPTION_STARTING_FONT   ],
                                                 _chatterbox[| __CHATTERBOX.OPTION_STARTING_HALIGN ],
                                                 _chatterbox[| __CHATTERBOX.OPTION_DATA_FIELDS     ]);
-                scribble_typewriter_in(_scribble, CHATTERBOX_OPTION_FADE_IN_METHOD,
-                                       (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? CHATTERBOX_OPTION_FADE_IN_SPEED : 0,
-                                       CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS);
+                scribble_typewriter_in(_scribble, _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_METHOD ],
+                                       (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_SPEED ] : 0,
+                                       _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_SMOOTHNESS ]);
                 
                 
                 
@@ -999,9 +1006,9 @@ if (_evaluate)
                                         _chatterbox[| __CHATTERBOX.OPTION_STARTING_FONT   ],
                                         _chatterbox[| __CHATTERBOX.OPTION_STARTING_HALIGN ],
                                         _chatterbox[| __CHATTERBOX.OPTION_DATA_FIELDS     ]);
-        scribble_typewriter_in(_scribble, CHATTERBOX_OPTION_FADE_IN_METHOD,
-                               (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? CHATTERBOX_OPTION_FADE_IN_SPEED : 0,
-                               CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS);
+        scribble_typewriter_in(_scribble, _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_METHOD ],
+                               (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_SPEED ] : 0,
+                               _chatterbox[| __CHATTERBOX.OPTION_FADE_IN_SMOOTHNESS ]);
         
         
         if (_size > 0)
