@@ -711,6 +711,14 @@
             }
         },
         {
+            "Key": "bb7a9189-5247-473b-9321-1bcc1b264c61",
+            "Value": {
+                "id": "9b63f40e-c887-4bb8-ba3a-9ce97c815c0e",
+                "resourcePath": "scripts\\chatterbox_auto_option_fade\\chatterbox_auto_option_fade.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "bbaf2270-049d-4b2f-b134-efca33e50f7e",
             "Value": {
                 "id": "47ab283f-66cc-4cf9-951e-43151e10add0",
@@ -1022,9 +1030,10 @@
         "9be195a5-ec06-4794-8441-e640f1f50368",
         "504f88db-16f6-4b2f-be8c-d27614e56be6",
         "8014a3c7-9151-408f-b1e7-d17fe92a95f5",
-        "6924ed5f-0b41-451c-8ff0-9a6a9ade7aca",
         "31a7b01b-c147-49cc-995d-f57c0d96c67f",
+        "6924ed5f-0b41-451c-8ff0-9a6a9ade7aca",
         "cc0bb167-1627-4737-bfdc-abe8ae513f76",
+        "bb7a9189-5247-473b-9321-1bcc1b264c61",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
         "37d0f127-d351-434f-832d-2403fe96ef7f",

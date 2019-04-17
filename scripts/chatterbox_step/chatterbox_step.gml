@@ -19,6 +19,8 @@ var _variables_map     = __CHATTERBOX_VARIABLE_MAP;
 
 var _selected = _selected || _force_select;
 
+
+
 var _all_text_faded_in     = true;
 var _all_text_faded_out    = true;
 var _all_options_faded_in  = true;
@@ -625,7 +627,6 @@ if (_evaluate)
                         _new_array[@ CHATTERBOX_PROPERTY.BLEND          ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
                         _new_array[@ CHATTERBOX_PROPERTY.ALPHA          ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
                         _new_array[@ CHATTERBOX_PROPERTY.PMA            ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
-                        _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH      ] = CHATTERBOX_TEXT_DRAW_DEFAULT_MAX_WIDTH;
                         _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTABLE  ] = true;
                         _new_array[@ CHATTERBOX_PROPERTY.SELECTABLE     ] = true;
                         _new_array[@ CHATTERBOX_PROPERTY.__SECTION0     ] = "-- Read-Only Properties --";
@@ -965,7 +966,6 @@ if (_evaluate)
                     _new_array[@ CHATTERBOX_PROPERTY.BLEND          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
                     _new_array[@ CHATTERBOX_PROPERTY.ALPHA          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
                     _new_array[@ CHATTERBOX_PROPERTY.PMA            ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
-                    _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
                     _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTABLE  ] = true;
                     _new_array[@ CHATTERBOX_PROPERTY.SELECTABLE     ] = true;
                     _new_array[@ CHATTERBOX_PROPERTY.__SECTION0     ] = "-- Read-Only Properties --";
@@ -1032,7 +1032,6 @@ if (_evaluate)
             _new_array[@ CHATTERBOX_PROPERTY.BLEND          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
             _new_array[@ CHATTERBOX_PROPERTY.ALPHA          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
             _new_array[@ CHATTERBOX_PROPERTY.PMA            ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
-            _new_array[@ CHATTERBOX_PROPERTY.MAX_WIDTH      ] = CHATTERBOX_OPTION_DRAW_DEFAULT_MAX_WIDTH;
             _new_array[@ CHATTERBOX_PROPERTY.HIGHLIGHTABLE  ] = true;
             _new_array[@ CHATTERBOX_PROPERTY.SELECTABLE     ] = true;
             _new_array[@ CHATTERBOX_PROPERTY.__SECTION0     ] = "-- Read-Only Properties --";

@@ -27,6 +27,7 @@
 #macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT        true
 #macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS     true
 #macro CHATTERBOX_AUTO_FORCE_FADE_OUT_ON_SUSPEND     true
+#macro CHATTERBOX_AUTO_FORCE_FADE_OUT_ON_SUSPEND     true
 
 #endregion
 
@@ -113,19 +114,18 @@ enum CHATTERBOX_PROPERTY
     BLEND,          // 7
     ALPHA,          // 8
     PMA,            // 9  Premultiply alpha
-    MAX_WIDTH,      //10  //Unusued!
-    HIGHLIGHTABLE,  //11
-    SELECTABLE,     //12
+    HIGHLIGHTABLE,  //10
+    SELECTABLE,     //11
                   
-    __SECTION0,     //13  -- Read-Only Properties --
-    ITERATION,      //14
-    WIDTH,          //15
-    HEIGHT,         //16
-    SCRIBBLE,       //17
-    IS_OPTION,      //18
-    HIGHLIGHTED,    //19
-    __INSTRUCTION0, //20  //Internal property used for the virtual machine
-    __INSTRUCTION1, //21  //Internal property used for the virtual machine
+    __SECTION0,     //12  -- Read-Only Properties --
+    ITERATION,      //13
+    WIDTH,          //14
+    HEIGHT,         //15
+    SCRIBBLE,       //16
+    IS_OPTION,      //17
+    HIGHLIGHTED,    //18
+    __INSTRUCTION0, //19  //Internal property used for the virtual machine
+    __INSTRUCTION1, //20  //Internal property used for the virtual machine
                   
-    __SIZE          //22
+    __SIZE          //21
 }
