@@ -14,12 +14,6 @@
 
 #region Automatic helper behaviours
 
-//Use keyboard input to highlight and select options
-#macro CHATTERBOX_AUTO_KEYBOARD         true
-#macro CHATTERBOX_AUTO_KEYBOARD_UP      (keyboard_check_released(vk_up)    || keyboard_check_released(vk_pageup))
-#macro CHATTERBOX_AUTO_KEYBOARD_DOWN    (keyboard_check_released(vk_down)  || keyboard_check_released(vk_pagedown))
-#macro CHATTERBOX_AUTO_KEYBOARD_SELECT  (keyboard_check_released(vk_space) || keyboard_check_released(vk_enter))
-
 //Use mouse input to highlight and select options
 #macro CHATTERBOX_AUTO_MOUSE         true
 #macro CHATTERBOX_AUTO_MOUSE_X       mouse_x
@@ -66,27 +60,6 @@
 #macro CHATTERBOX_OPTION_FADE_OUT_SPEED              0.1
 #macro CHATTERBOX_OPTION_FADE_OUT_SMOOTHNESS         3
 #macro CHATTERBOX_OPTION_FADE_OUT_METHOD             SCRIBBLE_TYPEWRITER_WHOLE
-
-#endregion
-
-#region Parameters for scribble_create() calls made by Chatterbox
-
-//See scribble_create() for an explanation of these variables
-//Use <undefined> to use default values
-//Values are read when creating text or options, and *not* every frame
-#macro CHATTERBOX_TEXT_CREATE_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_TEXT_CREATE_MAX_WIDTH        400
-#macro CHATTERBOX_TEXT_CREATE_DEFAULT_COLOUR   undefined
-#macro CHATTERBOX_TEXT_CREATE_DEFAULT_FONT     undefined
-#macro CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN   undefined
-#macro CHATTERBOX_TEXT_CREATE_DATA_FIELDS      undefined
-
-#macro CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT  undefined
-#macro CHATTERBOX_OPTION_CREATE_MAX_WIDTH        400
-#macro CHATTERBOX_OPTION_CREATE_DEFAULT_COLOUR   undefined
-#macro CHATTERBOX_OPTION_CREATE_DEFAULT_FONT     undefined
-#macro CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN   undefined
-#macro CHATTERBOX_OPTION_CREATE_DATA_FIELDS      undefined
 
 #endregion
 

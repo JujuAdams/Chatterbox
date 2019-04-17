@@ -12,7 +12,7 @@ if (!script_exists(_script))
 
 if ( !variable_global_exists("__chatterbox_init_complete") )
 {
-    show_error("Chatterbox:\nchatterbox_allow_script() should be called after initialising Chatterbox.\n ", false);
+    show_error("Chatterbox:\nchatterbox_init_permit_script() should be called after initialising Chatterbox.\n ", false);
     return false;
 }
 
@@ -24,7 +24,7 @@ if ( !is_string(_name) )
 
 if ( !is_real(_script) )
 {
-    show_error("Chatterbox:\nScripts should be numerical script indices e.g. chatterbox_allow_script(\"name\", your_script);\n(Input was \"" + string(_name) + "\")\n ", false);
+    show_error("Chatterbox:\nScripts should be numerical script indices e.g. chatterbox_init_permit_script(\"name\", your_script);\n(Input was \"" + string(_name) + "\")\n ", false);
     return false;
 }
 

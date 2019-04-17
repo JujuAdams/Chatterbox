@@ -1,9 +1,9 @@
 /// @param json            The Chatterbox data structure to process
-/// @param [selectOption] 
+/// @param selectOption 
 /// @param [stepSize]      The step size e.g. a delta time coefficient. Defaults to CHATTERBOX_DEFAULT_STEP_SIZE
 
 var _chatterbox = argument[0];
-var _select     = ((argument_count > 1) && (argument_count[1] != undefined))? argument[1] : undefined;
+var _select     = argument[1];
 var _step_size  = ((argument_count > 2) && (argument_count[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_STEP_SIZE;
 
 var _node_title        = _chatterbox[| __CHATTERBOX.TITLE           ];
@@ -149,7 +149,7 @@ else
 #region Skip fading if we're able to
 
 if (CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT
-&& (CHATTERBOX_AUTO_KEYBOARD_SELECT || CHATTERBOX_AUTO_MOUSE_SELECT || _select)
+&& (_select)
 && (!_all_text_faded_in || !_all_options_faded_in))
 {
     _select = false;
@@ -265,67 +265,6 @@ var _scan_from_option      = false;
 var _scan_from_option_end  = false;
 var _if_state              = true;
 var _permit_greater_indent = false;
-
-
-
-#region Automatic option selection behaviours
-
-if (CHATTERBOX_AUTO_KEYBOARD)
-{
-    if (_highlighted_index != undefined)
-    {
-        if (CHATTERBOX_AUTO_KEYBOARD_UP)   _highlighted_index--;
-        if (CHATTERBOX_AUTO_KEYBOARD_DOWN) _highlighted_index++;
-        
-        _select = CHATTERBOX_AUTO_KEYBOARD_SELECT;
-        _highlighted_index = clamp(_highlighted_index, 0, ds_list_size(_option_list)-1);
-        _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index;
-    }
-}
-
-if (CHATTERBOX_AUTO_MOUSE)
-{
-    var _count = ds_list_size(_option_list);
-    for(var _i = 0; _i < _count; _i++)
-    {
-        var _array = _option_list[| _i ];
-        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
-        if (_scribble == undefined) continue;
-        
-        var _box = scribble_get_box(_scribble, 
-                                    _array[ CHATTERBOX_PROPERTY.X      ], _array[ CHATTERBOX_PROPERTY.Y      ],
-                                    -1, -1, -1, -1,
-                                    _array[ CHATTERBOX_PROPERTY.XSCALE ], _array[ CHATTERBOX_PROPERTY.YSCALE ],
-                                    _array[ CHATTERBOX_PROPERTY.ANGLE  ]);
-        
-        var _mouse_x = CHATTERBOX_AUTO_MOUSE_X;
-        var _mouse_y = CHATTERBOX_AUTO_MOUSE_Y;
-        
-        if (point_in_triangle(_mouse_x, _mouse_y,
-                              _box[SCRIBBLE_BOX.X0], _box[SCRIBBLE_BOX.Y0],
-                              _box[SCRIBBLE_BOX.X1], _box[SCRIBBLE_BOX.Y1],
-                              _box[SCRIBBLE_BOX.X2], _box[SCRIBBLE_BOX.Y2]))
-        {
-            _highlighted_index = _i;
-            break;
-        }
-        else if (point_in_triangle(_mouse_x, _mouse_y,
-                                   _box[SCRIBBLE_BOX.X1], _box[SCRIBBLE_BOX.Y1],
-                                   _box[SCRIBBLE_BOX.X2], _box[SCRIBBLE_BOX.Y2],
-                                   _box[SCRIBBLE_BOX.X3], _box[SCRIBBLE_BOX.Y3]))
-        {
-            _highlighted_index = _i;
-            break;
-        }
-    }
-    
-    if (!CHATTERBOX_AUTO_KEYBOARD && (_i >= _count)) _highlighted_index = undefined;
-    _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index;
-    
-    if (!CHATTERBOX_AUTO_KEYBOARD || (_i < _count)) _select = CHATTERBOX_AUTO_MOUSE_SELECT;
-}
-
-#endregion
 
 
 
@@ -642,12 +581,12 @@ if (_evaluate)
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _scan_from_text = " + string(_scan_from_text));
                     
                     var _scribble = scribble_create(_instruction_content[0],
-                                                CHATTERBOX_TEXT_CREATE_LINE_MIN_HEIGHT,
-                                                CHATTERBOX_TEXT_CREATE_MAX_WIDTH,
-                                                CHATTERBOX_TEXT_CREATE_DEFAULT_COLOUR,
-                                                CHATTERBOX_TEXT_CREATE_DEFAULT_FONT,
-                                                CHATTERBOX_TEXT_CREATE_DEFAULT_HALIGN,
-                                                CHATTERBOX_TEXT_CREATE_DATA_FIELDS);
+                                                    _chatterbox[| __CHATTERBOX.TEXT_MIN_LINE_HEIGHT ],
+                                                    _chatterbox[| __CHATTERBOX.TEXT_MAX_LINE_WIDTH  ],
+                                                    _chatterbox[| __CHATTERBOX.TEXT_STARTING_COLOUR ],
+                                                    _chatterbox[| __CHATTERBOX.TEXT_STARTING_FONT   ],
+                                                    _chatterbox[| __CHATTERBOX.TEXT_STARTING_HALIGN ],
+                                                    _chatterbox[| __CHATTERBOX.TEXT_DATA_FIELDS     ]);
                     scribble_typewriter_in(_scribble, CHATTERBOX_TEXT_FADE_IN_METHOD, CHATTERBOX_TEXT_FADE_IN_SPEED, CHATTERBOX_TEXT_FADE_IN_SMOOTHNESS);
                     
                     
@@ -979,12 +918,12 @@ if (_evaluate)
                 _new_option = false;
                 
                 var _scribble = scribble_create(_new_option_text,
-                                                CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT,
-                                                CHATTERBOX_OPTION_CREATE_MAX_WIDTH,
-                                                CHATTERBOX_OPTION_CREATE_DEFAULT_COLOUR,
-                                                CHATTERBOX_OPTION_CREATE_DEFAULT_FONT,
-                                                CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN,
-                                                CHATTERBOX_OPTION_CREATE_DATA_FIELDS);
+                                                _chatterbox[| __CHATTERBOX.OPTION_MIN_LINE_HEIGHT ],
+                                                _chatterbox[| __CHATTERBOX.OPTION_MAX_LINE_WIDTH  ],
+                                                _chatterbox[| __CHATTERBOX.OPTION_STARTING_COLOUR ],
+                                                _chatterbox[| __CHATTERBOX.OPTION_STARTING_FONT   ],
+                                                _chatterbox[| __CHATTERBOX.OPTION_STARTING_HALIGN ],
+                                                _chatterbox[| __CHATTERBOX.OPTION_DATA_FIELDS     ]);
                 scribble_typewriter_in(_scribble, CHATTERBOX_OPTION_FADE_IN_METHOD,
                                        (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? CHATTERBOX_OPTION_FADE_IN_SPEED : 0,
                                        CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS);
@@ -1053,12 +992,12 @@ if (_evaluate)
     {
         //We haven't found an option that's alive
         var _scribble = scribble_create(_chatterbox[| __CHATTERBOX.SUSPENDED ]? "" : CHATTERBOX_OPTION_DEFAULT_TEXT,
-                                        CHATTERBOX_OPTION_CREATE_LINE_MIN_HEIGHT,
-                                        CHATTERBOX_OPTION_CREATE_MAX_WIDTH,
-                                        CHATTERBOX_OPTION_CREATE_DEFAULT_COLOUR,
-                                        CHATTERBOX_OPTION_CREATE_DEFAULT_FONT,
-                                        CHATTERBOX_OPTION_CREATE_DEFAULT_HALIGN,
-                                        CHATTERBOX_OPTION_CREATE_DATA_FIELDS);
+                                        _chatterbox[| __CHATTERBOX.OPTION_MIN_LINE_HEIGHT ],
+                                        _chatterbox[| __CHATTERBOX.OPTION_MAX_LINE_WIDTH  ],
+                                        _chatterbox[| __CHATTERBOX.OPTION_STARTING_COLOUR ],
+                                        _chatterbox[| __CHATTERBOX.OPTION_STARTING_FONT   ],
+                                        _chatterbox[| __CHATTERBOX.OPTION_STARTING_HALIGN ],
+                                        _chatterbox[| __CHATTERBOX.OPTION_DATA_FIELDS     ]);
         scribble_typewriter_in(_scribble, CHATTERBOX_OPTION_FADE_IN_METHOD,
                                (CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT <= 0)? CHATTERBOX_OPTION_FADE_IN_SPEED : 0,
                                CHATTERBOX_OPTION_FADE_IN_SMOOTHNESS);

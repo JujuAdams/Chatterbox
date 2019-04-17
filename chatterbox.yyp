@@ -119,6 +119,14 @@
             }
         },
         {
+            "Key": "31a7b01b-c147-49cc-995d-f57c0d96c67f",
+            "Value": {
+                "id": "3d2151a5-d109-4c74-a8c9-90883a0432c8",
+                "resourcePath": "scripts\\chatterbox_template_option\\chatterbox_template_option.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "36f2c371-0af7-4281-bef1-c48ce4fbbb54",
             "Value": {
                 "id": "666752ac-f982-4629-969c-542257aa9859",
@@ -251,6 +259,14 @@
             "Value": {
                 "id": "29190158-a0b7-43b4-bfae-80851cb634b8",
                 "resourcePath": "scripts\\chatterbox_variables_export\\chatterbox_variables_export.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "57dcdccd-f4aa-4cdf-9c05-2ca9a7726279",
+            "Value": {
+                "id": "022ed6c1-dc35-4fb3-bf61-6d28e72645ff",
+                "resourcePath": "scripts\\chatterbox_auto_mouse_input\\chatterbox_auto_mouse_input.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -399,6 +415,14 @@
             }
         },
         {
+            "Key": "8014a3c7-9151-408f-b1e7-d17fe92a95f5",
+            "Value": {
+                "id": "bc03e31d-0971-474e-a09f-54396ca8f62f",
+                "resourcePath": "scripts\\chatterbox_template_text\\chatterbox_template_text.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "823dc2a8-f6cf-4000-92c7-4263a047466c",
             "Value": {
                 "id": "2761d17c-3b8f-4b19-89c6-79e0dd589cd2",
@@ -442,7 +466,7 @@
             "Key": "872012ae-b0bc-44c4-bc46-bf0e03659e62",
             "Value": {
                 "id": "05f894b8-2586-4dff-99b4-a35ca47bcf4f",
-                "resourcePath": "scripts\\chatterbox_permit_script\\chatterbox_permit_script.yy",
+                "resourcePath": "scripts\\chatterbox_init_permit_script\\chatterbox_init_permit_script.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -516,6 +540,14 @@
                 "id": "81c9abcf-8081-4d51-a544-be7cac5bf2de",
                 "resourcePath": "views\\9a14b894-4693-4a4a-a152-7ede094c183a.yy",
                 "resourceType": "GMFolder"
+            }
+        },
+        {
+            "Key": "9a675fb8-a15f-49d2-9317-c820aa4e91cb",
+            "Value": {
+                "id": "2467a8e8-8599-416e-a2dd-7571e2d021cd",
+                "resourcePath": "scripts\\chatterbox_auto_keyboard_input\\chatterbox_auto_keyboard_input.yy",
+                "resourceType": "GMScript"
             }
         },
         {
@@ -923,12 +955,14 @@
         "afc20b7e-b50b-4685-b72a-f48def4737d8",
         "881dd845-b97a-4dce-a3fe-1ad4ded0084f",
         "a0f5144a-4fc5-429c-8c9a-a0c4c2b713c2",
+        "9ac119d1-18d4-4e8d-b6fe-3a55f9192a0b",
         "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "60990149-1dae-4f22-88d9-53025cbd7878",
         "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
         "463a38fe-5a07-4bc6-ba8b-52d0ff4cabb4",
-        "9ac119d1-18d4-4e8d-b6fe-3a55f9192a0b",
+        "8014a3c7-9151-408f-b1e7-d17fe92a95f5",
+        "31a7b01b-c147-49cc-995d-f57c0d96c67f",
         "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
         "872012ae-b0bc-44c4-bc46-bf0e03659e62",
         "bffae2a4-7947-4247-8200-9471641e91c0",
@@ -944,6 +978,8 @@
         "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
         "577c1e55-1029-42ec-a0ed-1d0641d30f22",
         "a418e576-739d-42c4-912f-344270e5899c",
+        "9a675fb8-a15f-49d2-9317-c820aa4e91cb",
+        "57dcdccd-f4aa-4cdf-9c05-2ca9a7726279",
         "00fbc8f9-0e51-458c-8834-69a5cbc5e94b",
         "5035acc2-d809-4bf5-b251-ea72c52874d4",
         "7b520895-9bf4-4ebe-9c7b-fad70f6451e6"

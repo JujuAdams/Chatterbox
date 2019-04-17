@@ -27,26 +27,42 @@ enum __CHATTERBOX_INSTRUCTION
 
 enum __CHATTERBOX
 {
-    __SECTION0,      // 0
-    FILENAME,        // 1
-    TITLE,           // 2
-    ORIGIN_X,        // 3
-    ORIGIN_Y,        // 4
+    __SECTION0,             // 0
+    FILENAME,               // 1
+    TITLE,                  // 2
+    ORIGIN_X,               // 3
+    ORIGIN_Y,               // 4
     
-    __SECTION1,      // 5
-    ITERATION,       // 6
-    SUSPENDED,       // 7
-    HIGHLIGHTED,     // 8
-    INITIALISED,     // 9
-    VARIABLES,       //10
+    __SECTION1,
+    TEXT_MIN_LINE_HEIGHT,   // 5
+    TEXT_MAX_LINE_WIDTH,    // 6
+    TEXT_STARTING_COLOUR,   // 7
+    TEXT_STARTING_FONT,     // 8
+    TEXT_STARTING_HALIGN,   // 9
+    TEXT_DATA_FIELDS,       //10
     
-    __SECTION2,      //11
-    TEXT_LIST,       //12
-    OPTION_LIST,     //13
-    OLD_TEXT_LIST,   //14
-    OLD_OPTION_LIST, //15
+    __SECTION2,
+    OPTION_MIN_LINE_HEIGHT, //11
+    OPTION_MAX_LINE_WIDTH,  //12
+    OPTION_STARTING_COLOUR, //13
+    OPTION_STARTING_FONT,   //14
+    OPTION_STARTING_HALIGN, //15
+    OPTION_DATA_FIELDS,     //16
     
-    __SIZE           //16
+    __SECTION3,             //17
+    ITERATION,              //18
+    SUSPENDED,              //19
+    HIGHLIGHTED,            //20
+    INITIALISED,            //21
+    VARIABLES,              //22
+    
+    __SECTION4,             //23
+    TEXT_LIST,              //24
+    OPTION_LIST,            //25
+    OLD_TEXT_LIST,          //26
+    OLD_OPTION_LIST,        //27
+    
+    __SIZE                  //28
 }
 
 #macro __CHATTERBOX_SCOPE_INVALID     -1
