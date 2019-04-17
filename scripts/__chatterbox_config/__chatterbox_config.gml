@@ -12,6 +12,9 @@
 #macro CHATTERBOX_ROUND_UP_INDENTS     true
 #macro CHATTERBOX_SINGLETON_TEXT       true
 
+#macro CHATTERBOX_TEXT    1
+#macro CHATTERBOX_OPTION  2
+
 #region Variables and scoping
 
 //Supported variable prefixes for if-statements:
@@ -40,10 +43,6 @@
 #macro CHATTERBOX_INTERNAL_VARIABLE_MAP_SCOPE  CHATTERBOX_SCOPE_GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
 
 #endregion
-
-#macro CHATTERBOX_STATE_SUSPENDED  -1
-#macro CHATTERBOX_STATE_STOPPED     0
-#macro CHATTERBOX_STATE_RUNNING     1
 
 //Debug assistance
 #macro CHATTERBOX_DEBUG                         false

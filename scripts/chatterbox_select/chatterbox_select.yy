@@ -1,8 +1,8 @@
 {
-    "id": "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
+    "id": "881dd845-b97a-4dce-a3fe-1ad4ded0084f",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "chatterbox_get_state",
+    "name": "chatterbox_select",
     "IsCompatibility": false,
     "IsDnD": false
 }

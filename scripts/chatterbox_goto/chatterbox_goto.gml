@@ -48,11 +48,16 @@ _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
 
 show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
 
-_chatterbox[| __CHATTERBOX.INITIALISED ] = false;
-
 var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 _variables_map[? "visited(" + _key + ")" ] = true;
 if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
 
-chatterbox_step(_chatterbox);
-return true;
+//Create a fake option
+var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
+_new_array[@ __CHATTERBOX_CHILD.STRING            ] = "";
+_new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
+_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction-1;
+_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
+ds_list_add(_chatterbox[| __CHATTERBOX.CHILD_LIST ], _new_array);
+
+return chatterbox_select(_chatterbox, 0);

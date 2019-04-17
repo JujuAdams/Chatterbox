@@ -29,13 +29,10 @@ enum __CHATTERBOX
 {
     FILENAME,    //0
     TITLE,       //1
-    ITERATION,   //2
-    SUSPENDED,   //3
-    INITIALISED, //4
-    VARIABLES,   //5
-    TEXT_LIST,   //6
-    OPTION_LIST, //7
-    __SIZE       //8
+    SUSPENDED,   //2
+    VARIABLES,   //3
+    CHILD_LIST,  //4
+    __SIZE       //5
 }
 
 enum __CHATTERBOX_CHILD

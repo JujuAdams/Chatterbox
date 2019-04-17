@@ -1,168 +1,13 @@
-/// @param json            The Chatterbox data structure to process
-/// @param [forceSelect] 
-/// @param [stepSize]      The step size e.g. a delta time coefficient. Defaults to CHATTERBOX_DEFAULT_STEP_SIZE
+/// @param chatterbox
+/// @param optionIndex
 
-var _chatterbox   = argument[0];
-var _force_select = ((argument_count > 1) && (argument_count[1] != undefined))? argument[1] : false;
-var _step_size    = ((argument_count > 2) && (argument_count[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_STEP_SIZE;
+var _chatterbox     = argument0;
+var _selected_index = argument1;
 
-var _node_title        = _chatterbox[| __CHATTERBOX.TITLE           ];
-var _filename          = _chatterbox[| __CHATTERBOX.FILENAME        ];
-var _selected          = _chatterbox[| __CHATTERBOX.SELECTED        ];
-var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED     ];
-var _iteration         = _chatterbox[| __CHATTERBOX.ITERATION       ];
-var _text_list         = _chatterbox[| __CHATTERBOX.TEXT_LIST       ];
-var _option_list       = _chatterbox[| __CHATTERBOX.OPTION_LIST     ];
-var _old_text_list     = _chatterbox[| __CHATTERBOX.OLD_TEXT_LIST   ];
-var _old_option_list   = _chatterbox[| __CHATTERBOX.OLD_OPTION_LIST ];
-var _variables_map     = __CHATTERBOX_VARIABLE_MAP;
-
-var _selected = _selected || _force_select;
-
-
-
-var _all_text_faded_in     = true;
-var _all_options_faded_in  = true;
-
-var _text_size       = ds_list_size(_text_list);
-var _option_size     = ds_list_size(_option_list);
-var _old_text_size   = ds_list_size(_old_text_list);
-var _old_option_size = ds_list_size(_old_option_list);
-
-#region Find the fade state of every child
-
-for(var _i = 0; _i < _text_size; _i++)
-{
-    var _array = _text_list[| _i];
-    var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-    if (_scribble == undefined) continue;
-    var _state = scribble_typewriter_get_state(_scribble);
-    if ((_state != undefined) && (_state < 1)) _all_text_faded_in = false;
-}
-
-for(var _i = 0; _i < _option_size; _i++)
-{
-    var _array = _option_list[| _i];
-    var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-    if (_scribble == undefined) continue;
-    var _state = scribble_typewriter_get_state(_scribble);
-    if ((_state != undefined) && (_state < 1)) _all_options_faded_in = false;
-}
-
-#endregion
-
-#region Stop options from being highlighted if they've not all finished fading in
-
-if (!_all_options_faded_in && CHATTERBOX_FADING_OPTIONS_NO_HIGHLIGHT)
-{
-    _highlighted_index = undefined;
-    _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index
-}
-else
-{
-    if (_highlighted_index == undefined)
-    {
-        _highlighted_index = 0;
-        _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index
-    }
-}
-
-#endregion
-
-#region Skip fading if we're able to
-
-if (CHATTERBOX_SKIP_FADE_ON_SELECT && _selected && (!_all_text_faded_in || !_all_options_faded_in))
-{
-    _selected = false;
-    
-    for(var _i = 0; _i < _text_size; _i++)
-    {
-        var _array = _text_list[| _i];
-        var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-        if (_scribble == undefined) continue;
-        
-        scribble_typewriter_out(_scribble, undefined, 0);
-    }
-    
-    for(var _i = 0; _i < _option_size; _i++)
-    {
-        var _array = _option_list[| _i];
-        var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-        if (_scribble == undefined) continue;
-        
-        scribble_typewriter_out(_scribble, undefined, 0);
-    }
-}
-
-#endregion
-
-#region Perform step for each text child
-
-for(var _i = 0; _i < _text_size; _i++)
-{
-    var _array = _text_list[| _i];
-    var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-    if (_scribble == undefined) continue;
-    scribble_step(_scribble, _step_size);
-}
-
-for(var _i = 0; _i < _option_size; _i++)
-{
-    var _array = _option_list[| _i];
-    var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-    if (_scribble == undefined) continue;
-    scribble_step(_scribble, _step_size);
-}
-
-for(var _i = 0; _i < _old_text_size; _i++)
-{
-    var _array = _old_text_list[| _i];
-    scribble_step(_array[ __CHATTERBOX_CHILD.SCRIBBLE ], _step_size);
-}
-
-for(var _i = 0; _i < _old_option_size; _i++)
-{
-    var _array = _old_option_list[| _i];
-    scribble_step(_array[ __CHATTERBOX_CHILD.SCRIBBLE ], _step_size);
-}
-
-#endregion
-
-#region Destroy any old children that have finished fading out
-
-if (CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT)
-{
-    for(var _i = _old_text_size-1; _i >= 0; _i--)
-    {
-        var _array = _old_text_list[| _i];
-        var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-        
-        var _state = scribble_typewriter_get_state(_scribble);
-        if ((_state == undefined) || (_state >= 2))
-        {
-            scribble_destroy(_scribble);
-            ds_list_delete(_old_text_list, _i);
-        }
-    }
-}
-
-if (CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS)
-{
-    for(var _i = _old_option_size-1; _i >= 0; _i--)
-    {
-        var _array = _old_option_list[| _i];
-        var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-        
-        var _state = scribble_typewriter_get_state(_scribble);
-        if ((_state == undefined) || (_state >= 2))
-        {
-            scribble_destroy(_scribble);
-            ds_list_delete(_old_option_list, _i);
-        }
-    }
-}
-
-#endregion
+var _node_title    = _chatterbox[| __CHATTERBOX.TITLE       ];
+var _filename      = _chatterbox[| __CHATTERBOX.FILENAME    ];
+var _child_list    = _chatterbox[| __CHATTERBOX.CHILD_LIST  ];
+var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 
 
 
@@ -190,110 +35,65 @@ var _permit_greater_indent = false;
 
 
 var _evaluate = false;
-if (!_chatterbox[| __CHATTERBOX.INITIALISED])
-{
-    #region Handle chatterboxes that haven't been initialised yet
-    
-    _chatterbox[| __CHATTERBOX.INITIALISED ] = true;
-    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Initialising");
-    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
-    
-    //If this chatterbox hasn't been initialised skip straight to evaluation
-    _evaluate = true;
-    
-    var _instruction_array = global.__chatterbox_vm[| _instruction];
-        _indent            = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
-    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
-    
-    #endregion
-}
-else
+if (is_real(_selected_index))
 {
     #region Advance to the next instruction if the player has selected an option
     
-    if (_selected && (_highlighted_index != undefined) && (_all_options_faded_in || !CHATTERBOX_FADING_OPTIONS_NO_SELECT))
+    var _array = undefined;
+    var _count = 0;
+    var _size = ds_list_size(_child_list);
+    for(var _i = 0; _i < _size; _i++)
     {
-        _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
-        
-        var _array = _option_list[| _highlighted_index ];
-        var _instruction     = _array[ __CHATTERBOX_CHILD.INSTRUCTION_START ];
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
-        var _end_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END ];
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set end instruction = " + string(_end_instruction));
-        
-        _scan_from_option = true;
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
-        
-        var _array  = global.__chatterbox_vm[| _instruction ];
-        var _indent = _array[ __CHATTERBOX_INSTRUCTION.INDENT ];
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
-        
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from option index=" + string(_highlighted_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
-        
-        //Advance to the next instruction
-        _instruction++;
-        
-        _evaluate = true;
+        var _array = _child_list[| _i ];
+        if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION)
+        {
+            if (_count == _selected_index) break;
+            _count++;
+        }
     }
+    
+    if ((_i >= _size) || !is_array(_array))
+    {
+        if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Selected option (" + string(_selected_index) + ") could not be found. Total number of options is " + string(chatterbox_get_child_count(_chatterbox, CHATTERBOX_OPTION)));
+        return false;
+    }
+    
+    var _instruction     = _array[ __CHATTERBOX_CHILD.INSTRUCTION_START ];
+    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
+    var _end_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END ];
+    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set end instruction = " + string(_end_instruction));
+    
+    _scan_from_option = true;
+    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
+    
+    var _array  = global.__chatterbox_vm[| _instruction ];
+    if (!is_array(_array))
+    {
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Non-array: \"" + string(_instruction_array) + "\"");
+    }
+    else
+    {
+        _indent = _array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+    }
+    
+    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
+    
+    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from option index=" + string(_selected_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
+    
+    //Advance to the next instruction
+    _instruction++;
+    
+    _evaluate = true;
     
     #endregion
 }
-
-_chatterbox[| __CHATTERBOX.SELECTED ] = false;
 
 
 
 if (_evaluate)
 {
-    #region Move current children to "old" lists
-    
-    var _text_size = ds_list_size(_text_list);
-    for(var _i = 0; _i < _text_size; _i++)
-    {
-        var _array = _text_list[| _i];
-        var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-        if (_scribble == undefined) continue;
-        
-        if (_chatterbox[| __CHATTERBOX.SUSPENDED ])
-        {
-            scribble_destroy(_scribble);
-        }
-        else
-        {
-            var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-            array_copy(_new_array, 0, _array, 0, __CHATTERBOX_CHILD.__SIZE);
-            ds_list_add(_old_text_list, _new_array);
-        }
-        
-        _array[@ __CHATTERBOX_CHILD.SCRIBBLE ] = undefined;
-    }
-    
-    var _option_size = ds_list_size(_option_list);
-    for(var _i = 0; _i < _option_size; _i++)
-    {
-        var _array = _option_list[| _i];
-        var _scribble = _array[ __CHATTERBOX_CHILD.SCRIBBLE ];
-        if (_scribble == undefined) continue;
-        
-        if (_chatterbox[| __CHATTERBOX.SUSPENDED ])
-        {
-            scribble_destroy(_scribble);
-        }
-        else
-        {
-            var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-            array_copy(_new_array, 0, _array, 0, __CHATTERBOX_CHILD.__SIZE);
-            ds_list_add(_old_option_list, _new_array);
-        }
-        
-        _array[@ __CHATTERBOX_CHILD.SCRIBBLE ] = undefined;
-    }
-    
-    #endregion
-    
-    _iteration++;
-    _chatterbox[| __CHATTERBOX.ITERATION ] = _iteration;
     _chatterbox[| __CHATTERBOX.SUSPENDED ] = false;
+    ds_list_clear(_child_list);
     
     #region Run virtual machine
     
@@ -304,6 +104,14 @@ if (_evaluate)
             _scan_from_option_end = false;
         
         var _instruction_array   = global.__chatterbox_vm[| _instruction ];
+        if (!is_array(_instruction_array))
+        {
+            if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox:   Non-array: \"" + string(_instruction_array) + "\"");
+            _instruction++;
+            if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox:     <- Continue <-");
+            continue;
+        }
+        
         var _instruction_type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
         var _instruction_indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
         var _instruction_content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
@@ -490,56 +298,12 @@ if (_evaluate)
                     _scan_from_text = true;
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     Set _scan_from_text = " + string(_scan_from_text));
                     
-                    var _scribble = scribble_create(_instruction_content[0],
-                                                    _chatterbox[| __CHATTERBOX.TEXT_MIN_LINE_HEIGHT ],
-                                                    _chatterbox[| __CHATTERBOX.TEXT_MAX_LINE_WIDTH  ],
-                                                    _chatterbox[| __CHATTERBOX.TEXT_STARTING_COLOUR ],
-                                                    _chatterbox[| __CHATTERBOX.TEXT_STARTING_FONT   ],
-                                                    _chatterbox[| __CHATTERBOX.TEXT_STARTING_HALIGN ],
-                                                    _chatterbox[| __CHATTERBOX.TEXT_DATA_FIELDS     ]);
-                    
-                    
-                    
-                    var _size = ds_list_size(_text_list);
-                    for(var _replace_index = 0; _replace_index < _size; _replace_index++)
-                    {
-                        var _array = _text_list[| _replace_index];
-                        if (_array[ __CHATTERBOX_CHILD.SCRIBBLE ] == undefined) break;
-                    }
-                    
-                    if (_replace_index < _size)
-                    {
-                        _array[@ __CHATTERBOX_CHILD.ITERATION ] = _iteration;
-                        _array[@ __CHATTERBOX_CHILD.SCRIBBLE  ] = _scribble;
-                    }
-                    else
-                    {
-                        //If we've got no existing text to use as a template, create one!
-                        var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-                        _new_array[@ __CHATTERBOX_CHILD.X              ] = 0;
-                        _new_array[@ __CHATTERBOX_CHILD.Y              ] = 0;
-                        _new_array[@ __CHATTERBOX_CHILD.XY             ] = undefined;
-                        _new_array[@ __CHATTERBOX_CHILD.XSCALE         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE;
-                        _new_array[@ __CHATTERBOX_CHILD.YSCALE         ] = CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE;
-                        _new_array[@ __CHATTERBOX_CHILD.XY_SCALE       ] = undefined;
-                        _new_array[@ __CHATTERBOX_CHILD.ANGLE          ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE;
-                        _new_array[@ __CHATTERBOX_CHILD.BLEND          ] = CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND;
-                        _new_array[@ __CHATTERBOX_CHILD.ALPHA          ] = CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA;
-                        _new_array[@ __CHATTERBOX_CHILD.PMA            ] = CHATTERBOX_TEXT_DRAW_DEFAULT_PMA;
-                        _new_array[@ __CHATTERBOX_CHILD.HIGHLIGHTABLE  ] = true;
-                        _new_array[@ __CHATTERBOX_CHILD.SELECTABLE     ] = true;
-                        _new_array[@ __CHATTERBOX_CHILD.__SECTION0     ] = "-- Read-Only Properties --";
-                        _new_array[@ __CHATTERBOX_CHILD.ITERATION      ] = _iteration;
-                        _new_array[@ __CHATTERBOX_CHILD.WIDTH          ] = undefined;
-                        _new_array[@ __CHATTERBOX_CHILD.HEIGHT         ] = undefined;
-                        _new_array[@ __CHATTERBOX_CHILD.SCRIBBLE       ] = _scribble;
-                        _new_array[@ __CHATTERBOX_CHILD.HIGHLIGHTED    ] = undefined;
-                        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = undefined;
-                        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END ] = undefined;
-                        ds_list_add(_text_list, _new_array);
-                    }
-                    
-                    
+                    var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
+                    _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _instruction_content[0];
+                    _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_TEXT;
+                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = undefined;
+                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = undefined;
+                    ds_list_add(_child_list, _new_array);
                     
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Created text");
                     
@@ -807,55 +571,12 @@ if (_evaluate)
             {
                 _new_option = false;
                 
-                var _scribble = scribble_create(_new_option_text,
-                                                _chatterbox[| __CHATTERBOX.OPTION_MIN_LINE_HEIGHT ],
-                                                _chatterbox[| __CHATTERBOX.OPTION_MAX_LINE_WIDTH  ],
-                                                _chatterbox[| __CHATTERBOX.OPTION_STARTING_COLOUR ],
-                                                _chatterbox[| __CHATTERBOX.OPTION_STARTING_FONT   ],
-                                                _chatterbox[| __CHATTERBOX.OPTION_STARTING_HALIGN ],
-                                                _chatterbox[| __CHATTERBOX.OPTION_DATA_FIELDS     ]);
-                
-                
-                
-                var _size = ds_list_size(_option_list);
-                for(var _replace_index = 0; _replace_index < _size; _replace_index++)
-                {
-                    var _array = _option_list[| _replace_index];
-                    if (_array[ __CHATTERBOX_CHILD.SCRIBBLE ] == undefined) break;
-                }
-                
-                if (_replace_index < _size)
-                {
-                    _array[@ __CHATTERBOX_CHILD.ITERATION      ] = _iteration;
-                    _array[@ __CHATTERBOX_CHILD.SCRIBBLE       ] = _scribble;
-                    _array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-                    _array[@ __CHATTERBOX_CHILD.INSTRUCTION_END ] = _instruction;
-                }
-                else
-                {
-                    var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-                    _new_array[@ __CHATTERBOX_CHILD.X              ] = 0;
-                    _new_array[@ __CHATTERBOX_CHILD.Y              ] = 0;
-                    _new_array[@ __CHATTERBOX_CHILD.XY             ] = undefined;
-                    _new_array[@ __CHATTERBOX_CHILD.XSCALE         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE;
-                    _new_array[@ __CHATTERBOX_CHILD.YSCALE         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE;
-                    _new_array[@ __CHATTERBOX_CHILD.XY_SCALE       ] = undefined;
-                    _new_array[@ __CHATTERBOX_CHILD.ANGLE          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE;
-                    _new_array[@ __CHATTERBOX_CHILD.BLEND          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
-                    _new_array[@ __CHATTERBOX_CHILD.ALPHA          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
-                    _new_array[@ __CHATTERBOX_CHILD.PMA            ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
-                    _new_array[@ __CHATTERBOX_CHILD.HIGHLIGHTABLE  ] = true;
-                    _new_array[@ __CHATTERBOX_CHILD.SELECTABLE     ] = true;
-                    _new_array[@ __CHATTERBOX_CHILD.__SECTION0     ] = "-- Read-Only Properties --";
-                    _new_array[@ __CHATTERBOX_CHILD.ITERATION      ] = _iteration;
-                    _new_array[@ __CHATTERBOX_CHILD.WIDTH          ] = undefined;
-                    _new_array[@ __CHATTERBOX_CHILD.HEIGHT         ] = undefined;
-                    _new_array[@ __CHATTERBOX_CHILD.SCRIBBLE       ] = _scribble;
-                    _new_array[@ __CHATTERBOX_CHILD.HIGHLIGHTED    ] = undefined;
-                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END ] = _instruction;
-                    ds_list_add(_option_list, _new_array);
-                }
+                var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
+                _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _new_option_text;
+                _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
+                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
+                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
+                ds_list_add(_child_list, _new_array);
             }
             #endregion
         }
@@ -867,60 +588,22 @@ if (_evaluate)
     
     #region Create a new option from a TEXT instruction if no option or shortcut was found
     
-    var _size = ds_list_size(_option_list);
-    for(var _i = 0; _i < _size; _i++)
-    {
-        var _array = _option_list[| _i ];
-        if (_array[ __CHATTERBOX_CHILD.SCRIBBLE ] != undefined) break;
-    }
-    
-    if (_i >= _size)
+    if (chatterbox_get_child_count(_chatterbox, CHATTERBOX_OPTION) <= 0)
     {
         //We haven't found an option that's alive
-        var _scribble = scribble_create(_chatterbox[| __CHATTERBOX.SUSPENDED ]? "" : CHATTERBOX_OPTION_DEFAULT_TEXT,
-                                        _chatterbox[| __CHATTERBOX.OPTION_MIN_LINE_HEIGHT ],
-                                        _chatterbox[| __CHATTERBOX.OPTION_MAX_LINE_WIDTH  ],
-                                        _chatterbox[| __CHATTERBOX.OPTION_STARTING_COLOUR ],
-                                        _chatterbox[| __CHATTERBOX.OPTION_STARTING_FONT   ],
-                                        _chatterbox[| __CHATTERBOX.OPTION_STARTING_HALIGN ],
-                                        _chatterbox[| __CHATTERBOX.OPTION_DATA_FIELDS     ]);
-        
-        if (_size > 0)
-        {
-            var _array = _option_list[| 0 ]; //Use slot 0
-            _array[@ __CHATTERBOX_CHILD.ITERATION      ] = _iteration;
-            _array[@ __CHATTERBOX_CHILD.SCRIBBLE       ] = _scribble;
-            _array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-            _array[@ __CHATTERBOX_CHILD.INSTRUCTION_END ] = _text_instruction+1;
-        }
-        else
-        {
-            var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-            _new_array[@ __CHATTERBOX_CHILD.X              ] = 0;
-            _new_array[@ __CHATTERBOX_CHILD.Y              ] = 0;
-            _new_array[@ __CHATTERBOX_CHILD.XY             ] = undefined;
-            _new_array[@ __CHATTERBOX_CHILD.XSCALE         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE;
-            _new_array[@ __CHATTERBOX_CHILD.YSCALE         ] = CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE;
-            _new_array[@ __CHATTERBOX_CHILD.XY_SCALE       ] = undefined;
-            _new_array[@ __CHATTERBOX_CHILD.ANGLE          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE;
-            _new_array[@ __CHATTERBOX_CHILD.BLEND          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND;
-            _new_array[@ __CHATTERBOX_CHILD.ALPHA          ] = CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA;
-            _new_array[@ __CHATTERBOX_CHILD.PMA            ] = CHATTERBOX_OPTION_DRAW_DEFAULT_PMA;
-            _new_array[@ __CHATTERBOX_CHILD.HIGHLIGHTABLE  ] = true;
-            _new_array[@ __CHATTERBOX_CHILD.SELECTABLE     ] = true;
-            _new_array[@ __CHATTERBOX_CHILD.__SECTION0     ] = "-- Read-Only Properties --";
-            _new_array[@ __CHATTERBOX_CHILD.ITERATION      ] = _iteration;
-            _new_array[@ __CHATTERBOX_CHILD.WIDTH          ] = undefined;
-            _new_array[@ __CHATTERBOX_CHILD.HEIGHT         ] = undefined;
-            _new_array[@ __CHATTERBOX_CHILD.SCRIBBLE       ] = _scribble;
-            _new_array[@ __CHATTERBOX_CHILD.HIGHLIGHTED    ] = undefined;
-            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END ] = _text_instruction+1;
-            ds_list_add(_option_list, _new_array);
-        }
+        var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
+        _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _chatterbox[| __CHATTERBOX.SUSPENDED ]? "" : CHATTERBOX_OPTION_DEFAULT_TEXT;
+        _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
+        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
+        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _text_instruction+1;
+        ds_list_add(_child_list, _new_array);
     }
     
     #endregion
     
     #endregion
+
+    return true;
 }
+
+return false;

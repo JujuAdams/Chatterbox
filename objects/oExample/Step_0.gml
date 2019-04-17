@@ -1,18 +1,6 @@
-chatterbox_keyboard_input(chatterbox,
-                          keyboard_check_released(vk_up),
-                          keyboard_check_released(vk_down),
-                          keyboard_check_released(vk_space) || keyboard_check_released(vk_enter));
-
-chatterbox_mouse_input(chatterbox,
-                       mouse_x, mouse_y,
-                       mouse_check_button_released(mb_left),
-                       false);
-
-chatterbox_auto_option_highlight(chatterbox, c_white, 0.3, c_yellow, 1.0);
-chatterbox_auto_layout(chatterbox, 10, 10, 20, 10);
-
-chatterbox_step(chatterbox);
-chatterbox_auto_option_fade(chatterbox, 1, 1, 1, 1);
+if (keyboard_check_released(ord("1"))) chatterbox_select(chatterbox, 0);
+if (keyboard_check_released(ord("2"))) chatterbox_select(chatterbox, 1);
+if (keyboard_check_released(ord("3"))) chatterbox_select(chatterbox, 2);
 
 //If we press F5 then restart the demo
 if (keyboard_check_released(vk_f5))
