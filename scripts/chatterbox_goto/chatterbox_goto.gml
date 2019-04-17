@@ -55,7 +55,7 @@ if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key +
 var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
 _new_array[@ __CHATTERBOX_CHILD.STRING            ] = "";
 _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
-_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction-1;
+_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction;
 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
 
 var _child_array = []; //Wipe all children

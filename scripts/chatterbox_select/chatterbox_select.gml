@@ -17,14 +17,14 @@ if (_node_title == undefined)
 
 //VM state
 var _key                   = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-var _indent                = 0;
-var _indent_bottom_limit   = undefined;
+var _start_indent          = 0;
+var _indent_bottom_limit   = 0;
 var _text_instruction      = 0;
-var _instruction           = global.__chatterbox_goto[? _key ];
+var _start_instruction     = global.__chatterbox_goto[? _key ];
 var _end_instruction       = -1;
 var _scan_from_text        = false;
-var _scan_from_option      = false;
-var _scan_from_option_end  = false;
+var _scan_from_last_wait      = false;
+var _at_scan_end_instruction  = false;
 var _if_state              = true;
 var _permit_greater_indent = false;
 
@@ -51,39 +51,37 @@ if (is_real(_selected_index))
         return false;
     }
     
-    var _instruction     = _array[ __CHATTERBOX_CHILD.INSTRUCTION_START ];
-    var _end_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END   ];
-    if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
+    var _start_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_START ];
+    var _end_instruction   = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END   ];
+    if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set start instruction = " + string(_start_instruction));
     if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set end instruction = " + string(_end_instruction));
     
-    _scan_from_option = true;
-    if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
+    _scan_from_last_wait = true;
+    if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set _scan_from_last_wait=" + string(_scan_from_last_wait));
     
-    var _array = global.__chatterbox_vm[| _instruction ];
+    var _array = global.__chatterbox_vm[| _start_instruction ];
     if (!is_array(_array))
     {
         if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Non-array: \"" + string(_array) + "\"");
     }
     else
     {
-        _indent = _array[ __CHATTERBOX_INSTRUCTION.INDENT ];
-        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set indent = " + string(_indent));
+        _start_indent = _array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Set start indent = " + string(_start_indent));
         if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Starting scan from option index=" + string(_selected_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
     }
-    
-    //Advance to the next instruction
-    _instruction++;
     
     _child_array = []; //Wipe all children
     _chatterbox[@ __CHATTERBOX.CHILDREN ] = _child_array;
     
-    #region Run virtual machine
+    var _instruction = _start_instruction;
+    var _indent      = _start_indent;
     
     var _break = false;
     repeat(9999)
     {
         var _continue = false;
-            _scan_from_option_end = false;
+            _at_scan_end_instruction = false;
         
         var _instruction_array   = global.__chatterbox_vm[| _instruction ];
         if (!is_array(_instruction_array))
@@ -99,19 +97,19 @@ if (is_real(_selected_index))
         var _instruction_content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
         if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":   " + _instruction_type + ":   " + string(_instruction_indent) + ":   " + string(_instruction_content));
         
-        if (_scan_from_option)
+        if (_scan_from_last_wait)
         {
-            if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_option == " + string(_scan_from_option));
+            if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_last_wait == " + string(_scan_from_last_wait));
             
             if (_instruction == _end_instruction)
             {
                 if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction " + string(_instruction) + " == end " + string(_end_instruction));
-                _indent = _instruction_indent;
+                _indent                  = _instruction_indent;
+                _scan_from_last_wait     = false;
+                _at_scan_end_instruction = true;
                 if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set indent = " + string(_indent));
-                _scan_from_option = false;
-                if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _scan_from_option=" + string(_scan_from_option));
-                _scan_from_option_end = true;
-                if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _scan_from_option_end=" + string(_scan_from_option_end));
+                if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _scan_from_last_wait=" + string(_scan_from_last_wait));
+                if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set _at_scan_end_instruction=" + string(_at_scan_end_instruction));
             }
             else if (_instruction > _end_instruction)
             {
@@ -131,7 +129,7 @@ if (is_real(_selected_index))
                 _indent = _instruction_indent;
                 if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       Set indent = " + string(_indent));
             }
-            else if ((_indent_bottom_limit != undefined) && (_instruction_indent < _indent_bottom_limit))
+            else if (_instruction_indent < _indent_bottom_limit)
             {
                 if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       instruction indent " + string(_instruction_indent) + " < _indent_bottom_limit " + string(_indent_bottom_limit));
                 _break = true;
@@ -269,6 +267,14 @@ if (is_real(_selected_index))
                 case __CHATTERBOX_VM_TEXT:
                     #region Text
                     
+                    if (_scan_from_last_wait)
+                    {
+                        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_last_wait == " + string(_scan_from_last_wait));
+                        _continue = true;
+                        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":   <- CONTINUE <-");
+                        break;
+                    }
+                    
                     if (_scan_from_text && _singleton_text)
                     {
                         if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
@@ -343,12 +349,12 @@ if (is_real(_selected_index))
                         }
                         
                         //Partially reset state
-                        var _text_instruction      = -1;
-                        var _instruction           = global.__chatterbox_goto[? _key ]-1;
-                        var _end_instruction       = -1;
-                        var _if_state              = true;
-                        var _permit_greater_indent = false;
-                        var _scan_from_option_end  = false;
+                        var _text_instruction        = -1;
+                        var _instruction             = global.__chatterbox_goto[? _key ]-1;
+                        var _end_instruction         = -1;
+                        var _if_state                = true;
+                        var _permit_greater_indent   = false;
+                        var _at_scan_end_instruction = false;
                         
                         if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Jumping to " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)" );
                         
@@ -371,8 +377,8 @@ if (is_real(_selected_index))
                     if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                     if (!_scan_from_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_option_end == " + string(_scan_from_option_end));
-                        if (_scan_from_option_end)
+                        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     _at_scan_end_instruction == " + string(_at_scan_end_instruction));
+                        if (_at_scan_end_instruction)
                         {
                             _node_title = _instruction_content[1];
                             _chatterbox[@ __CHATTERBOX.TITLE ] = _node_title;
@@ -401,7 +407,7 @@ if (is_real(_selected_index))
                             var _end_instruction       = -1;
                             var _if_state              = true;
                             var _permit_greater_indent = false;
-                            var _scan_from_option_end  = false;
+                            var _at_scan_end_instruction  = false;
                             
                             if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: Jumping to " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)" );
                             
@@ -433,7 +439,8 @@ if (is_real(_selected_index))
                     if (!_scan_from_text)
                     {
                         if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction=" + string(_instruction) + " vs. end=" + string(_end_instruction));
-                        if (_instruction == _end_instruction)
+                        if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     indent=" + string(_indent) + " >= start=" + string(_start_indent));
+                        if ((_instruction == _end_instruction) && (_indent >= _start_indent))
                         {
                             _permit_greater_indent = true;
                             if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":   Set _permit_greater_indent = " + string(_permit_greater_indent));
@@ -556,14 +563,12 @@ if (is_real(_selected_index))
         _new_array[@ __CHATTERBOX_CHILD.STRING            ] = CHATTERBOX_OPTION_DEFAULT_TEXT;
         _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
         _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _text_instruction+1;
+        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
         _child_array[@ array_length_1d(_child_array) ] = _new_array;
     }
     
     #endregion
     
-    #endregion
-
     return true;
 }
 
