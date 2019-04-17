@@ -21,6 +21,5 @@ var _chatterbox = ds_list_create();
 _chatterbox[| __CHATTERBOX.FILENAME       ] = _filename;
 _chatterbox[| __CHATTERBOX.TITLE          ] = undefined;
 _chatterbox[| __CHATTERBOX.SINGLETON_TEXT ] = _singleton_text;
-_chatterbox[| __CHATTERBOX.CHILD_LIST     ] = ds_list_create();
-ds_list_mark_as_list(_chatterbox, __CHATTERBOX.CHILD_LIST);
+_chatterbox[| __CHATTERBOX.CHILDREN       ] = [];
 return _chatterbox;

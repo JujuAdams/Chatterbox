@@ -21,7 +21,7 @@ enum __CHATTERBOX_INSTRUCTION
 {
     TYPE,    //0
     INDENT,  //1
-    CONTENT, //2
+    CONTENT, //2  //A nested array, which is turn might have arrays in it (!)
     __SIZE   //3
 }
 
@@ -30,7 +30,7 @@ enum __CHATTERBOX
     FILENAME,       //0
     TITLE,          //1
     SINGLETON_TEXT, //2
-    CHILD_LIST,     //3
+    CHILDREN,       //3  //A nested array
     __SIZE          //4
 }
 

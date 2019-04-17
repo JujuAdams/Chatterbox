@@ -6,7 +6,7 @@ var _selected_index = argument1;
 
 var _node_title     = _chatterbox[| __CHATTERBOX.TITLE          ];
 var _filename       = _chatterbox[| __CHATTERBOX.FILENAME       ];
-var _child_list     = _chatterbox[| __CHATTERBOX.CHILD_LIST     ];
+var _child_array    = _chatterbox[| __CHATTERBOX.CHILDREN       ];
 var _singleton_text = _chatterbox[| __CHATTERBOX.SINGLETON_TEXT ];
 
 if (_node_title == undefined)
@@ -33,10 +33,10 @@ if (is_real(_selected_index))
     //Scan through all children to find the selected option
     var _array = undefined;
     var _count = 0;
-    var _size = ds_list_size(_child_list);
+    var _size = array_length_1d(_child_array);
     for(var _i = 0; _i < _size; _i++)
     {
-        var _array = _child_list[| _i ];
+        var _array = _child_array[ _i ];
         if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION)
         {
             if (_count == _selected_index) break;
@@ -74,7 +74,8 @@ if (is_real(_selected_index))
     //Advance to the next instruction
     _instruction++;
     
-    ds_list_clear(_child_list);
+    _child_array = []; //Wipe all children
+    _chatterbox[| __CHATTERBOX.CHILDREN ] = _child_array;
     
     #region Run virtual machine
     
@@ -284,7 +285,7 @@ if (is_real(_selected_index))
                     _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_TEXT;
                     _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = undefined;
                     _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = undefined;
-                    ds_list_add(_child_list, _new_array);
+                    _child_array[@ array_length_1d(_child_array) ] = _new_array;
                     
                     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":       Created text");
                     
@@ -528,7 +529,7 @@ if (is_real(_selected_index))
                 _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
                 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
                 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
-                ds_list_add(_child_list, _new_array);
+                _child_array[@ array_length_1d(_child_array) ] = _new_array;
             }
             #endregion
         }
@@ -548,7 +549,7 @@ if (is_real(_selected_index))
         _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
         _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
         _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _text_instruction+1;
-        ds_list_add(_child_list, _new_array);
+        _child_array[@ array_length_1d(_child_array) ] = _new_array;
     }
     
     #endregion
