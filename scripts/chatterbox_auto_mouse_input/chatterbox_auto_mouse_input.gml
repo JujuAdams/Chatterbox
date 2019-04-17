@@ -23,9 +23,6 @@ for(var _i = 0; _i < _count; _i++)
                                 -1, -1, -1, -1,
                                 _array[ CHATTERBOX_PROPERTY.XSCALE ], _array[ CHATTERBOX_PROPERTY.YSCALE ],
                                 _array[ CHATTERBOX_PROPERTY.ANGLE  ]);
-    
-    var _mouse_x = CHATTERBOX_AUTO_MOUSE_X;
-    var _mouse_y = CHATTERBOX_AUTO_MOUSE_Y;
         
     if (point_in_triangle(_mouse_x, _mouse_y,
                             _box[SCRIBBLE_BOX.X0], _box[SCRIBBLE_BOX.Y0],

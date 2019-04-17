@@ -1046,20 +1046,6 @@ if (_evaluate)
 
 #region Automatic option position and colouring behaviours
 
-if (CHATTERBOX_AUTO_HIGHLIGHT)
-{
-    var _count = chatterbox_text_get_number(_chatterbox, true);
-    for(var _i = 0; _i < _count; _i++)
-    {
-        var _highlighted = chatterbox_text_get(_chatterbox, true, _i, CHATTERBOX_PROPERTY.HIGHLIGHTED);
-        _highlighted = (_highlighted == undefined)? false : _highlighted;
-        var _colour = _highlighted? CHATTERBOX_AUTO_HIGHLIGHT_ON_COLOUR : CHATTERBOX_AUTO_HIGHLIGHT_OFF_COLOUR;
-        var _alpha  = _highlighted? CHATTERBOX_AUTO_HIGHLIGHT_ON_ALPHA  : CHATTERBOX_AUTO_HIGHLIGHT_OFF_ALPHA;
-        
-        chatterbox_text_set(_chatterbox, true, _i, CHATTERBOX_PROPERTY.BLEND, _colour);
-        chatterbox_text_set(_chatterbox, true, _i, CHATTERBOX_PROPERTY.ALPHA , _alpha);
-    }
-}
 
 if (CHATTERBOX_AUTO_LAYOUT)
 {

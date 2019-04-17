@@ -255,6 +255,14 @@
             }
         },
         {
+            "Key": "504f88db-16f6-4b2f-be8c-d27614e56be6",
+            "Value": {
+                "id": "20a3c3cb-d18d-4a49-a529-609b3eb6ad24",
+                "resourcePath": "scripts\\chatterbox_auto_position\\chatterbox_auto_position.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "577c1e55-1029-42ec-a0ed-1d0641d30f22",
             "Value": {
                 "id": "29190158-a0b7-43b4-bfae-80851cb634b8",
@@ -555,6 +563,14 @@
             "Value": {
                 "id": "d8515e41-8a17-4e82-9539-7ee95f77249b",
                 "resourcePath": "scripts\\chatterbox_goto\\chatterbox_goto.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "9be195a5-ec06-4794-8441-e640f1f50368",
+            "Value": {
+                "id": "ff9d9bb4-50ed-4e9b-9676-1fb78cb8b10b",
+                "resourcePath": "scripts\\chatterbox_auto_highlight\\chatterbox_auto_highlight.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -980,6 +996,8 @@
         "a418e576-739d-42c4-912f-344270e5899c",
         "9a675fb8-a15f-49d2-9317-c820aa4e91cb",
         "57dcdccd-f4aa-4cdf-9c05-2ca9a7726279",
+        "9be195a5-ec06-4794-8441-e640f1f50368",
+        "504f88db-16f6-4b2f-be8c-d27614e56be6",
         "00fbc8f9-0e51-458c-8834-69a5cbc5e94b",
         "5035acc2-d809-4bf5-b251-ea72c52874d4",
         "7b520895-9bf4-4ebe-9c7b-fad70f6451e6"

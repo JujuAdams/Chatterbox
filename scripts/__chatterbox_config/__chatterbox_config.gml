@@ -14,19 +14,6 @@
 
 #region Automatic helper behaviours
 
-//Use mouse input to highlight and select options
-#macro CHATTERBOX_AUTO_MOUSE         true
-#macro CHATTERBOX_AUTO_MOUSE_X       mouse_x
-#macro CHATTERBOX_AUTO_MOUSE_Y       mouse_y
-#macro CHATTERBOX_AUTO_MOUSE_SELECT  mouse_check_button_released(mb_left)
-
-//Colours highlighted options
-#macro CHATTERBOX_AUTO_HIGHLIGHT             true
-#macro CHATTERBOX_AUTO_HIGHLIGHT_OFF_COLOUR  c_white
-#macro CHATTERBOX_AUTO_HIGHLIGHT_OFF_ALPHA   0.5
-#macro CHATTERBOX_AUTO_HIGHLIGHT_ON_COLOUR   c_yellow
-#macro CHATTERBOX_AUTO_HIGHLIGHT_ON_ALPHA    1
-
 //Positions options relative to the 0th text element
 #macro CHATTERBOX_AUTO_LAYOUT                  true
 #macro CHATTERBOX_AUTO_LAYOUT_TEXT_TEXT_Y      10
