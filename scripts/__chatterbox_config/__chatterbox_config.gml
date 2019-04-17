@@ -14,13 +14,6 @@
 
 #region Automatic helper behaviours
 
-//Positions options relative to the 0th text element
-#macro CHATTERBOX_AUTO_LAYOUT                  true
-#macro CHATTERBOX_AUTO_LAYOUT_TEXT_TEXT_Y      10
-#macro CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_X    10
-#macro CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_Y    30
-#macro CHATTERBOX_AUTO_LAYOUT_OPTION_OPTION_Y  10
-
 //Fading
 #macro CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT     true
 #macro CHATTERBOX_AUTO_SINGLETON_TEXT                true
@@ -101,7 +94,6 @@
 
 #endregion
 
-#macro CHATTERBOX_STOP              undefined
 #macro CHATTERBOX_STATE_SUSPENDED  -1
 #macro CHATTERBOX_STATE_STOPPED     0
 #macro CHATTERBOX_STATE_RUNNING     1

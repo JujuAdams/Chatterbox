@@ -52,17 +52,18 @@ enum __CHATTERBOX
     __SECTION3,             //17
     ITERATION,              //18
     SUSPENDED,              //19
-    HIGHLIGHTED,            //20
-    INITIALISED,            //21
-    VARIABLES,              //22
+    SELECTED,               //20
+    HIGHLIGHTED,            //21
+    INITIALISED,            //22
+    VARIABLES,              //23
     
-    __SECTION4,             //23
-    TEXT_LIST,              //24
-    OPTION_LIST,            //25
-    OLD_TEXT_LIST,          //26
-    OLD_OPTION_LIST,        //27
+    __SECTION4,             //24
+    TEXT_LIST,              //25
+    OPTION_LIST,            //26
+    OLD_TEXT_LIST,          //27
+    OLD_OPTION_LIST,        //28
     
-    __SIZE                  //28
+    __SIZE                  //29
 }
 
 #macro __CHATTERBOX_SCOPE_INVALID     -1

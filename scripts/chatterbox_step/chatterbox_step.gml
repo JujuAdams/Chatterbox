@@ -1,13 +1,14 @@
 /// @param json            The Chatterbox data structure to process
-/// @param selectOption 
+/// @param [forceSelect] 
 /// @param [stepSize]      The step size e.g. a delta time coefficient. Defaults to CHATTERBOX_DEFAULT_STEP_SIZE
 
-var _chatterbox = argument[0];
-var _select     = argument[1];
-var _step_size  = ((argument_count > 2) && (argument_count[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_STEP_SIZE;
+var _chatterbox   = argument[0];
+var _force_select = ((argument_count > 1) && (argument_count[1] != undefined))? argument[1] : false;
+var _step_size    = ((argument_count > 2) && (argument_count[2] != undefined))? argument[2] : CHATTERBOX_DEFAULT_STEP_SIZE;
 
 var _node_title        = _chatterbox[| __CHATTERBOX.TITLE           ];
 var _filename          = _chatterbox[| __CHATTERBOX.FILENAME        ];
+var _selected          = _chatterbox[| __CHATTERBOX.SELECTED        ];
 var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED     ];
 var _iteration         = _chatterbox[| __CHATTERBOX.ITERATION       ];
 var _text_list         = _chatterbox[| __CHATTERBOX.TEXT_LIST       ];
@@ -16,7 +17,7 @@ var _old_text_list     = _chatterbox[| __CHATTERBOX.OLD_TEXT_LIST   ];
 var _old_option_list   = _chatterbox[| __CHATTERBOX.OLD_OPTION_LIST ];
 var _variables_map     = __CHATTERBOX_VARIABLE_MAP;
 
-
+var _selected = _selected || _force_select;
 
 var _all_text_faded_in     = true;
 var _all_text_faded_out    = true;
@@ -148,11 +149,9 @@ else
 
 #region Skip fading if we're able to
 
-if (CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT
-&& (_select)
-&& (!_all_text_faded_in || !_all_options_faded_in))
+if (CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT && _selected && (!_all_text_faded_in || !_all_options_faded_in))
 {
-    _select = false;
+    _selected = false;
     
     for(var _i = 0; _i < _text_size; _i++)
     {
@@ -290,7 +289,7 @@ else
 {
     #region Advance to the next instruction if the player has selected an option
     
-    if (_select && (_highlighted_index != undefined) && (_all_options_faded_in || !CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS))
+    if (_selected && (_highlighted_index != undefined) && (_all_options_faded_in || !CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS))
     {
         _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
         
@@ -317,6 +316,8 @@ else
     
     #endregion
 }
+
+_chatterbox[| __CHATTERBOX.SELECTED ] = false;
 
 
 
@@ -1043,41 +1044,3 @@ if (_evaluate)
     
     #endregion
 }
-
-#region Automatic option position and colouring behaviours
-
-
-if (CHATTERBOX_AUTO_LAYOUT)
-{
-    //Control position of text
-    var _y_offset = 0;
-    
-    var _count = chatterbox_text_get_number(_chatterbox, false);
-    for(var _i = 0; _i < _count; _i++)
-    {
-        chatterbox_text_set(_chatterbox, false, _i, CHATTERBOX_PROPERTY.XY, 0, _y_offset );
-    
-        _y_offset = chatterbox_text_get(_chatterbox, false, _i, CHATTERBOX_PROPERTY.Y)
-                  + chatterbox_text_get(_chatterbox, false, _i, CHATTERBOX_PROPERTY.HEIGHT)
-                  + CHATTERBOX_AUTO_LAYOUT_TEXT_TEXT_Y;
-    }
-    
-    if (_count > 0) _y_offset -= CHATTERBOX_AUTO_LAYOUT_OPTION_OPTION_Y;
-    
-    //Control position and colour of options
-    var _x_offset  = chatterbox_text_get(_chatterbox, false, 0, CHATTERBOX_PROPERTY.X)
-                   + CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_X;     
-        _y_offset += CHATTERBOX_AUTO_LAYOUT_TEXT_OPTION_Y;
-    
-    var _count = chatterbox_text_get_number(_chatterbox, true);
-    for(var _i = 0; _i < _count; _i++)
-    {
-        chatterbox_text_set(_chatterbox, true, _i, CHATTERBOX_PROPERTY.XY, _x_offset, _y_offset );
-    
-        _y_offset = chatterbox_text_get(_chatterbox, true, _i, CHATTERBOX_PROPERTY.Y)
-                  + chatterbox_text_get(_chatterbox, true, _i, CHATTERBOX_PROPERTY.HEIGHT)
-                  + CHATTERBOX_AUTO_LAYOUT_OPTION_OPTION_Y;
-    }
-}
-
-#endregion

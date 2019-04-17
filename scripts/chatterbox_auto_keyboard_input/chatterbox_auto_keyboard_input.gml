@@ -1,10 +1,12 @@
 /// @param chatter
 /// @param up
 /// @param down
+/// @param select
 
 var _chatterbox = argument0;
 var _up         = argument1;
 var _down       = argument2;
+var _select     = argument3;
 
 var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED ];
 var _option_list       = _chatterbox[| __CHATTERBOX.OPTION_LIST ];
@@ -16,4 +18,5 @@ if (_highlighted_index != undefined)
     
     _highlighted_index = clamp(_highlighted_index, 0, ds_list_size(_option_list)-1);
     _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index;
+    if (_select) _chatterbox[| __CHATTERBOX.SELECTED ] = true;
 }

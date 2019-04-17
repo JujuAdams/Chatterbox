@@ -54,5 +54,5 @@ var _variables_map = __CHATTERBOX_VARIABLE_MAP;
 _variables_map[? "visited(" + _key + ")" ] = true;
 if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
 
-chatterbox_step(_chatterbox, false);
+chatterbox_step(_chatterbox);
 return true;
