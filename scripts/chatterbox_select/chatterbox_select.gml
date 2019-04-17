@@ -92,7 +92,6 @@ if (is_real(_selected_index))
 
 if (_evaluate)
 {
-    _chatterbox[| __CHATTERBOX.SUSPENDED ] = false;
     ds_list_clear(_child_list);
     
     #region Run virtual machine
@@ -489,35 +488,6 @@ if (_evaluate)
                     #endregion
                 break;
                 
-                case __CHATTERBOX_VM_SUSPEND:
-                    #region Suspend
-                    
-                    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
-                    if (_scan_from_text)
-                    {
-                        _break = true;
-                        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> Break ->");
-                        break;
-                    }
-                    else
-                    {
-                        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_option_end == " + string(_scan_from_option_end));
-                        if (_scan_from_option_end)
-                        {
-                            _text_instruction = _instruction; //Record the instruction position of the text
-                            
-                            _chatterbox[| __CHATTERBOX.SUSPENDED ] = true;
-                            if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Suspending");
-                            
-                            _break = true;
-                            if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":   -> Break ->");
-                            break;
-                        }
-                    }
-                    
-                    #endregion
-                break;
-                
                 case __CHATTERBOX_VM_CUSTOM_ACTION:
                     #region Custom Action
                     
@@ -592,7 +562,7 @@ if (_evaluate)
     {
         //We haven't found an option that's alive
         var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-        _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _chatterbox[| __CHATTERBOX.SUSPENDED ]? "" : CHATTERBOX_OPTION_DEFAULT_TEXT;
+        _new_array[@ __CHATTERBOX_CHILD.STRING            ] = CHATTERBOX_OPTION_DEFAULT_TEXT;
         _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
         _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
         _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _text_instruction+1;

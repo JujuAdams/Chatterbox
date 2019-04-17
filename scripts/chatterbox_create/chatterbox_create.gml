@@ -18,7 +18,6 @@ if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 var _chatterbox = ds_list_create();
 _chatterbox[| __CHATTERBOX.FILENAME    ] = _filename;
 _chatterbox[| __CHATTERBOX.TITLE       ] = undefined;
-_chatterbox[| __CHATTERBOX.SUSPENDED   ] = false;
 _chatterbox[| __CHATTERBOX.VARIABLES   ] = ds_map_create();
 _chatterbox[| __CHATTERBOX.CHILD_LIST  ] = ds_list_create();
 ds_list_mark_as_map( _chatterbox, __CHATTERBOX.VARIABLES );
