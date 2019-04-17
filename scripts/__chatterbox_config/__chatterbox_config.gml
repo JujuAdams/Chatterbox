@@ -15,14 +15,15 @@
 #region Automatic helper behaviours
 
 //Fading
-#macro CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT     true
-#macro CHATTERBOX_AUTO_SINGLETON_TEXT                true
+#macro CHATTERBOX_SKIP_FADE_ON_SELECT          true
+#macro CHATTERBOX_SINGLETON_TEXT               true
+#macro CHATTERBOX_FADING_OPTIONS_NO_HIGHLIGHT  true
+#macro CHATTERBOX_FADING_OPTIONS_NO_SELECT     true
+
 #macro CHATTERBOX_AUTO_FADE_IN_OPTIONS_AFTER_TEXT    1     //Values 0 -> 1 (inclusive) valid
 #macro CHATTERBOX_AUTO_FADE_IN_OPTION_AFTER_OPTION   1     //Values 0 -> 1 (inclusive) valid
 #macro CHATTERBOX_AUTO_FADE_OUT_OPTIONS_AFTER_TEXT   1     //Values 1 -> 2 (inclusive) valid
 #macro CHATTERBOX_AUTO_FADE_OUT_OPTION_AFTER_OPTION  1     //Values 1 -> 2 (inclusive) valid
-#macro CHATTERBOX_AUTO_NO_HIGHLIGHT_FADING_OPTIONS   true
-#macro CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS      true
 #macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT        true
 #macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS     true
 #macro CHATTERBOX_AUTO_FORCE_FADE_OUT_ON_SUSPEND     true

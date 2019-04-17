@@ -131,7 +131,7 @@ for(var _i = 0; _i < _old_option_size; _i++)
 
 #region Stop options from being highlighted if they've not finished fading in
 
-if (!_all_options_faded_in && CHATTERBOX_AUTO_NO_HIGHLIGHT_FADING_OPTIONS)
+if (!_all_options_faded_in && CHATTERBOX_FADING_OPTIONS_NO_HIGHLIGHT)
 {
     _highlighted_index = undefined;
     _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index
@@ -149,7 +149,7 @@ else
 
 #region Skip fading if we're able to
 
-if (CHATTERBOX_AUTO_ALLOW_SKIP_FADE_ON_SELECT && _selected && (!_all_text_faded_in || !_all_options_faded_in))
+if (CHATTERBOX_SKIP_FADE_ON_SELECT && _selected && (!_all_text_faded_in || !_all_options_faded_in))
 {
     _selected = false;
     
@@ -289,7 +289,7 @@ else
 {
     #region Advance to the next instruction if the player has selected an option
     
-    if (_selected && (_highlighted_index != undefined) && (_all_options_faded_in || !CHATTERBOX_AUTO_NO_SELECT_FADING_OPTIONS))
+    if (_selected && (_highlighted_index != undefined) && (_all_options_faded_in || !CHATTERBOX_FADING_OPTIONS_NO_SELECT))
     {
         _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = 0;
         
@@ -570,7 +570,7 @@ if (_evaluate)
                 case __CHATTERBOX_VM_TEXT:
                     #region Text
                     
-                    if (_scan_from_text && CHATTERBOX_AUTO_SINGLETON_TEXT)
+                    if (_scan_from_text && CHATTERBOX_SINGLETON_TEXT)
                     {
                         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                         _break = true;
