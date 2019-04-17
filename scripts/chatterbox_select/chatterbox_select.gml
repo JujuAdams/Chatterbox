@@ -282,7 +282,7 @@ if (is_real(_selected_index))
                     
                     var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
                     _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _instruction_content[0];
-                    _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_TEXT;
+                    _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_BODY;
                     _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = undefined;
                     _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = undefined;
                     _child_array[@ array_length_1d(_child_array) ] = _new_array;

@@ -15,7 +15,7 @@
 #macro CHATTERBOX_DEFAULT_VARIABLE_VALUE  0      //Default value if a variable cannot be found
 
 //chatterbox_get_string() and chatterbox_get_string_count() constants
-#macro CHATTERBOX_TEXT    1
+#macro CHATTERBOX_BODY    1
 #macro CHATTERBOX_OPTION  2
 
 #region Variables and scoping

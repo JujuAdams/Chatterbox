@@ -3,10 +3,10 @@ if (!suspend)
     var _x = 10;
     var _y = 10;
     
-    var _text_count = chatterbox_get_string_count(chatterbox, CHATTERBOX_TEXT);
+    var _text_count = chatterbox_get_string_count(chatterbox, CHATTERBOX_BODY);
     for(var _i = 0; _i < _text_count; _i++)
     {
-        draw_text(_x, _y, chatterbox_get_string(chatterbox, CHATTERBOX_TEXT, _i));
+        draw_text(_x, _y, chatterbox_get_string(chatterbox, CHATTERBOX_BODY, _i));
         _y += 20;
     }
     
