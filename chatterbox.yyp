@@ -274,7 +274,7 @@
             "Key": "6a735733-e38d-4fc8-ad9e-24d8b97c6adb",
             "Value": {
                 "id": "310012e9-0630-447c-91ce-3c51cce03a8e",
-                "resourcePath": "scripts\\chatterbox_init_findreplace\\chatterbox_init_findreplace.yy",
+                "resourcePath": "scripts\\chatterbox_init_add_findreplace\\chatterbox_init_add_findreplace.yy",
                 "resourceType": "GMScript"
             }
         },

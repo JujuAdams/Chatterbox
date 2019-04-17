@@ -1,4 +1,4 @@
-//  Chatterbox v0.1.0
+//  Chatterbox v0.1.1
 //  2019/04/15
 //  @jujuadams
 //  With thanks to Els White
@@ -31,7 +31,7 @@ scribble_set_glyph_property("sSpriteFont", "q", SCRIBBLE_GLYPH.SEPARATION, -1, t
 
 //Initialise Chatterbox
 chatterbox_init_start("Yarn");
-chatterbox_init_findreplace("<<suspend>>", "<<suspend>>\n<<wait>>\n...\n<<wait>>");
+chatterbox_init_add_findreplace("<<suspend>>", "<<suspend>>\n<<wait>>\n...\n<<wait>>");
 chatterbox_init_add_action("suspend", suspend_dialogue);
 chatterbox_init_add_json("Test.json");
 chatterbox_init_add_json("Test2.json");
