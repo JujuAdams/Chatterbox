@@ -8,11 +8,11 @@
 
 chatterbox = chatterbox_create("Test.json");
 
-chatterbox_template_text(     chatterbox, undefined, 250, undefined, "fTestB", undefined, undefined);
+chatterbox_template_text(chatterbox, undefined, 250, undefined, "fTestB", undefined, undefined);
 chatterbox_template_text_fade(chatterbox, SCRIBBLE_TYPEWRITER_PER_CHARACTER, 0.5, 3,
                                           SCRIBBLE_TYPEWRITER_WHOLE, 0.1, 3);
 
-chatterbox_template_option(     chatterbox, undefined, 250, undefined, "sSpriteFont", undefined, undefined);
+chatterbox_template_option(chatterbox, undefined, 250, undefined, "sSpriteFont", undefined, undefined);
 chatterbox_template_option_fade(chatterbox, SCRIBBLE_TYPEWRITER_PER_CHARACTER, 0.5, 3,
                                             SCRIBBLE_TYPEWRITER_WHOLE, 0.1, 3);
 
