@@ -47,7 +47,7 @@ if (is_real(_selected_index))
     //If we can't find the selected option, bail
     if ((_i >= _size) || !is_array(_array))
     {
-        if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Selected option (" + string(_selected_index) + ") could not be found. Total number of options is " + string(chatterbox_get_child_count(_chatterbox, CHATTERBOX_OPTION)));
+        if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Selected option (" + string(_selected_index) + ") could not be found. Total number of options is " + string(_count));
         return false;
     }
     
@@ -541,9 +541,17 @@ if (is_real(_selected_index))
     
     #region Create a new option from a TEXT instruction if no option or shortcut was found
     
-    if (chatterbox_get_child_count(_chatterbox, CHATTERBOX_OPTION) <= 0)
+    //Scan through all children to find the selected option
+    var _size = array_length_1d(_child_array);
+    for(var _i = 0; _i < _size; _i++)
     {
-        //We haven't found an option that's alive
+        var _array = _child_array[ _i ];
+        if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION) break;
+    }
+    
+    if (_i >= _size)
+    {
+        //We haven't found an option so we should create one!
         var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
         _new_array[@ __CHATTERBOX_CHILD.STRING            ] = CHATTERBOX_OPTION_DEFAULT_TEXT;
         _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;

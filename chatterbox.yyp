@@ -482,7 +482,7 @@
             "Key": "9852bbf4-3dd5-4cff-a7ad-e366b47cf21a",
             "Value": {
                 "id": "dde46752-9a5f-44b9-afe4-335ca6b510c1",
-                "resourcePath": "scripts\\chatterbox_get_child_count\\chatterbox_get_child_count.yy",
+                "resourcePath": "scripts\\chatterbox_get_string_count\\chatterbox_get_string_count.yy",
                 "resourceType": "GMScript"
             }
         },
