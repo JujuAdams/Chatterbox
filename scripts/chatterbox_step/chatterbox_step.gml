@@ -51,7 +51,7 @@ for(var _i = 0; _i < _option_size; _i++)
 
 #endregion
 
-#region Stop options from being highlighted if they've not finished fading in
+#region Stop options from being highlighted if they've not all finished fading in
 
 if (!_all_options_faded_in && CHATTERBOX_FADING_OPTIONS_NO_HIGHLIGHT)
 {
@@ -71,28 +71,28 @@ else
 
 #region Skip fading if we're able to
 
-//if (CHATTERBOX_SKIP_FADE_ON_SELECT && _selected && (!_all_text_faded_in || !_all_options_faded_in))
-//{
-//    _selected = false;
-//    
-//    for(var _i = 0; _i < _text_size; _i++)
-//    {
-//        var _array = _text_list[| _i];
-//        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
-//        if (_scribble == undefined) continue;
-//        
-//        scribble_typewriter_out(_scribble, undefined, 0);
-//    }
-//    
-//    for(var _i = 0; _i < _option_size; _i++)
-//    {
-//        var _array = _option_list[| _i];
-//        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
-//        if (_scribble == undefined) continue;
-//        
-//        scribble_typewriter_out(_scribble, undefined, 0);
-//    }
-//}
+if (CHATTERBOX_SKIP_FADE_ON_SELECT && _selected && (!_all_text_faded_in || !_all_options_faded_in))
+{
+    _selected = false;
+    
+    for(var _i = 0; _i < _text_size; _i++)
+    {
+        var _array = _text_list[| _i];
+        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+        if (_scribble == undefined) continue;
+        
+        scribble_typewriter_out(_scribble, undefined, 0);
+    }
+    
+    for(var _i = 0; _i < _option_size; _i++)
+    {
+        var _array = _option_list[| _i];
+        var _scribble = _array[ CHATTERBOX_PROPERTY.SCRIBBLE ];
+        if (_scribble == undefined) continue;
+        
+        scribble_typewriter_out(_scribble, undefined, 0);
+    }
+}
 
 #endregion
 

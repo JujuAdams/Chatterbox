@@ -20,8 +20,6 @@ var _option_size     = ds_list_size(_option_list);
 var _old_text_size   = ds_list_size(_old_text_list);
 var _old_option_size = ds_list_size(_old_option_list);
 
-#region Trigger fades
-
 //Fade in
 var _previous_state = 1;
 for(var _i = _text_size-1; _i >= 0; _i--)
@@ -114,5 +112,3 @@ for(var _i = 0; _i < _old_option_size; _i++)
     
     if (_out_threshold_option > 0) _previous_state = _state;
 }
-
-#endregion

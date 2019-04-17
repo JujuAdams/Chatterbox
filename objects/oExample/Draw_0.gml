@@ -1,1 +1,1 @@
-chatterbox_draw(chatterbox);
+chatterbox_draw(chatterbox, room_width/4 - 250/2, room_height/4 - 250/2);

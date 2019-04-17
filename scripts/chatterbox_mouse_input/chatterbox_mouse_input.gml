@@ -2,13 +2,13 @@
 /// @param mouseX
 /// @param mouseY
 /// @param select
-/// @param allowNoHighlight
+/// @param overwrite
 
-var _chatterbox         = argument0;
-var _mouse_x            = argument1;
-var _mouse_y            = argument2;
-var _select             = argument3;
-var _allow_no_highlight = argument4;
+var _chatterbox = argument0;
+var _mouse_x    = argument1;
+var _mouse_y    = argument2;
+var _select     = argument3;
+var _overwrite  = argument4;
 
 var _highlighted_index = _chatterbox[| __CHATTERBOX.HIGHLIGHTED ];
 var _option_list       = _chatterbox[| __CHATTERBOX.OPTION_LIST ];
@@ -44,7 +44,7 @@ for(var _i = 0; _i < _count; _i++)
     }
 }
 
-if (_allow_no_highlight && (_i >= _count)) _highlighted_index = undefined;
+if (_overwrite && (_i >= _count)) _highlighted_index = undefined;
 _chatterbox[| __CHATTERBOX.HIGHLIGHTED ] = _highlighted_index;
 if ((_i < _count) && _select) _chatterbox[| __CHATTERBOX.SELECTED ] = true;
 

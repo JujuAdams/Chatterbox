@@ -1,8 +1,8 @@
 {
-    "id": "504f88db-16f6-4b2f-be8c-d27614e56be6",
+    "id": "9be195a5-ec06-4794-8441-e640f1f50368",
     "modelName": "GMScript",
     "mvc": "1.0",
-    "name": "chatterbox_auto_position",
+    "name": "chatterbox_auto_option_highlight",
     "IsCompatibility": false,
     "IsDnD": false
 }
