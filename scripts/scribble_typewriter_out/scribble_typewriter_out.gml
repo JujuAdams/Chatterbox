@@ -26,6 +26,7 @@ if ( !is_real( _json ) || !ds_exists( _json, ds_type_list ) )
     exit;
 }
 
+_json[| __SCRIBBLE.TW_ACTIVE    ] = true;
 _json[| __SCRIBBLE.TW_DIRECTION ] = -1;
 _json[| __SCRIBBLE.TW_POSITION  ] =  0;
 

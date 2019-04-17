@@ -236,6 +236,7 @@ _json[| __SCRIBBLE.WORDS                   ] = 0;
 _json[| __SCRIBBLE.GLOBAL_INDEX            ] = global.__scribble_global_count;
 
 _json[| __SCRIBBLE.__SECTION2              ] = "-- Typewriter --";
+_json[| __SCRIBBLE.TW_ACTIVE               ] = false;
 _json[| __SCRIBBLE.TW_DIRECTION            ] = 0;
 _json[| __SCRIBBLE.TW_SPEED                ] = SCRIBBLE_DEFAULT_TYPEWRITER_SPEED;
 _json[| __SCRIBBLE.TW_POSITION             ] = 0;

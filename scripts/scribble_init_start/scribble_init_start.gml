@@ -110,36 +110,37 @@ enum __SCRIBBLE
     GLOBAL_INDEX,        //19
     
     __SECTION2,          //20
-    TW_DIRECTION,        //21
-    TW_SPEED,            //22
-    TW_POSITION,         //23
-    TW_METHOD,           //24
-    TW_SMOOTHNESS,       //25
-    CHAR_FADE_T,         //26
-    LINE_FADE_T,         //27
+    TW_ACTIVE,           //21
+    TW_DIRECTION,        //22
+    TW_SPEED,            //23
+    TW_POSITION,         //24
+    TW_METHOD,           //25
+    TW_SMOOTHNESS,       //26
+    CHAR_FADE_T,         //27
+    LINE_FADE_T,         //28
     
-    __SECTION3,          //28
-    HAS_CALLED_STEP,     //29
-    NO_STEP_COUNT,       //30
-    DATA_FIELDS,         //31
-    ANIMATION_TIME,      //32
+    __SECTION3,          //29
+    HAS_CALLED_STEP,     //30
+    NO_STEP_COUNT,       //31
+    DATA_FIELDS,         //32
+    ANIMATION_TIME,      //33
     
-    __SECTION4,          //33
-    LINE_LIST,           //34
-    VERTEX_BUFFER_LIST,  //35
+    __SECTION4,          //34
+    LINE_LIST,           //35
+    VERTEX_BUFFER_LIST,  //36
     
-    __SECTION5,          //36
-    EV_CHARACTER_LIST,   //37
-    EV_NAME_LIST,        //38
-    EV_DATA_LIST,        //39
-    EV_TRIGGERED_LIST,   //40
-    EV_TRIGGERED_MAP,    //41
-    EV_VALUE_MAP,        //42
-    EV_CHANGED_MAP,      //43
-    EV_PREVIOUS_MAP,     //44
-    EV_DIFFERENT_MAP,    //45
+    __SECTION5,          //37
+    EV_CHARACTER_LIST,   //38
+    EV_NAME_LIST,        //39
+    EV_DATA_LIST,        //40
+    EV_TRIGGERED_LIST,   //41
+    EV_TRIGGERED_MAP,    //42
+    EV_VALUE_MAP,        //43
+    EV_CHANGED_MAP,      //44
+    EV_PREVIOUS_MAP,     //45
+    EV_DIFFERENT_MAP,    //46
     
-    __SIZE               //46
+    __SIZE               //47
 }
 
 #macro __SCRIBBLE_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))

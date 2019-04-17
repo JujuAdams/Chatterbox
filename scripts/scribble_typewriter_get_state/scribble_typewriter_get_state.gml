@@ -1,6 +1,7 @@
 /// Returns the state of the typewriter effect for a Scribble data structure
 ///
-/// A Scribble typewriter state is a decimal value from 0 to 2 (inclusive).
+/// A Scribble typewriter state is a decimal value from 0 to 2 (inclusive),
+/// or <undefined> if no typewriter behaviour has been used
 ///
 /// 0 = State      : Text not yet faded in
 /// 0 < State < 1  : Text is fading in
@@ -19,6 +20,8 @@ if ( !is_real(_json) || !ds_exists(_json, ds_type_list) )
     show_error("Scribble:\nScribble data structure \"" + string(_json) + "\" doesn't exist!\n ", false);
     exit;
 }
+
+if (!_json[| __SCRIBBLE.TW_ACTIVE ]) return undefined;
 
 switch(_json[| __SCRIBBLE.TW_METHOD ])
 {
