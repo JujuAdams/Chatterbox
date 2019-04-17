@@ -1,6 +1,13 @@
-if (keyboard_check_released(ord("1"))) {suspend = false; chatterbox_select(chatterbox, 0);}
-if (keyboard_check_released(ord("2"))) {suspend = false; chatterbox_select(chatterbox, 1);}
-if (keyboard_check_released(ord("3"))) {suspend = false; chatterbox_select(chatterbox, 2);}
+var _select = undefined;
+if (keyboard_check_released(ord("1"))) _select = 0;
+if (keyboard_check_released(ord("2"))) _select = 1;
+if (keyboard_check_released(ord("3"))) _select = 2;
+
+if (_select != undefined)
+{
+    suspend = false;
+    chatterbox_select(chatterbox, _select);
+}
 
 //If we press F5 then restart the demo
 if (keyboard_check_released(vk_f5))
