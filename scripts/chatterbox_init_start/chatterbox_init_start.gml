@@ -7,7 +7,7 @@
 
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.1.1"
+#macro __CHATTERBOX_VERSION  "0.1.2"
 #macro __CHATTERBOX_DATE     "2019/04/15"
 
 enum __CHATTERBOX_FILE
