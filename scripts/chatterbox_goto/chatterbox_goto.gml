@@ -57,7 +57,9 @@ _new_array[@ __CHATTERBOX_CHILD.STRING            ] = "";
 _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction-1;
 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
-var _child_array = _chatterbox[ __CHATTERBOX.CHILDREN ];
+
+var _child_array = []; //Wipe all children
+_chatterbox[@ __CHATTERBOX.CHILDREN ] = _child_array;
 _child_array[@ array_length_1d(_child_array) ] = _new_array;
 
 return chatterbox_select(_chatterbox, 0);

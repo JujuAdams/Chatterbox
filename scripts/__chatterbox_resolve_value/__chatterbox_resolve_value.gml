@@ -7,8 +7,6 @@ global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
 var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"
 var _value      = argument1;
 
-var global.__chatterbox_variables = global.__chatterbox_variables;
-
 if (is_real(_value))
 {
     //It's a real!

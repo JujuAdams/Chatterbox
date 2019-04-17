@@ -39,9 +39,8 @@
 #macro CHATTERBOX_SCOPE_GML_LOCAL   1
 #macro CHATTERBOX_SCOPE_GML_GLOBAL  2
 
-#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE        CHATTERBOX_SCOPE_INTERNAL    //If a variable starts if a $, what scope should it take?
-#macro CHATTERBOX_NAKED_VARIABLE_SCOPE         CHATTERBOX_SCOPE_GML_LOCAL   //If a variable has no prefix, what scope should it take?
-#macro CHATTERBOX_INTERNAL_VARIABLE_MAP_SCOPE  CHATTERBOX_SCOPE_GML_GLOBAL  //Are internal variables stored locally in each individual Chatterbox, or globally?
+#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  CHATTERBOX_SCOPE_INTERNAL    //If a variable starts if a $, what scope should it take?
+#macro CHATTERBOX_NAKED_VARIABLE_SCOPE   CHATTERBOX_SCOPE_GML_LOCAL   //If a variable has no prefix, what scope should it take?
 
 #endregion
 
