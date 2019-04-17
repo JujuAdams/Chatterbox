@@ -4,20 +4,17 @@
 var _chatterbox     = argument0;
 var _selected_index = argument1;
 
-var _node_title    = _chatterbox[| __CHATTERBOX.TITLE       ];
-var _filename      = _chatterbox[| __CHATTERBOX.FILENAME    ];
-var _child_list    = _chatterbox[| __CHATTERBOX.CHILD_LIST  ];
-var _variables_map = __CHATTERBOX_VARIABLE_MAP;
-
-
+var _node_title     = _chatterbox[| __CHATTERBOX.TITLE          ];
+var _filename       = _chatterbox[| __CHATTERBOX.FILENAME       ];
+var _child_list     = _chatterbox[| __CHATTERBOX.CHILD_LIST     ];
+var _singleton_text = _chatterbox[| __CHATTERBOX.SINGLETON_TEXT ];
+var _variables_map  = __CHATTERBOX_VARIABLE_MAP;
 
 if (_node_title == undefined)
 {
     //If the node title is <undefined> then this chatterbox has been stopped
     exit;
 }
-
-
 
 //VM state
 var _key                   = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
@@ -32,13 +29,9 @@ var _scan_from_option_end  = false;
 var _if_state              = true;
 var _permit_greater_indent = false;
 
-
-
-var _evaluate = false;
 if (is_real(_selected_index))
 {
-    #region Advance to the next instruction if the player has selected an option
-    
+    //Scan through all children to find the selected option
     var _array = undefined;
     var _count = 0;
     var _size = ds_list_size(_child_list);
@@ -52,6 +45,7 @@ if (is_real(_selected_index))
         }
     }
     
+    //If we can't find the selected option, bail
     if ((_i >= _size) || !is_array(_array))
     {
         if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Selected option (" + string(_selected_index) + ") could not be found. Total number of options is " + string(chatterbox_get_child_count(_chatterbox, CHATTERBOX_OPTION)));
@@ -59,14 +53,14 @@ if (is_real(_selected_index))
     }
     
     var _instruction     = _array[ __CHATTERBOX_CHILD.INSTRUCTION_START ];
+    var _end_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END   ];
     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set instruction = " + string(_instruction));
-    var _end_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END ];
     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set end instruction = " + string(_end_instruction));
     
     _scan_from_option = true;
     if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set _scan_from_option=" + string(_scan_from_option));
     
-    var _array  = global.__chatterbox_vm[| _instruction ];
+    var _array = global.__chatterbox_vm[| _instruction ];
     if (!is_array(_array))
     {
         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Non-array: \"" + string(_array) + "\"");
@@ -78,20 +72,9 @@ if (is_real(_selected_index))
         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from option index=" + string(_selected_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
     }
     
-    
-    
     //Advance to the next instruction
     _instruction++;
     
-    _evaluate = true;
-    
-    #endregion
-}
-
-
-
-if (_evaluate)
-{
     ds_list_clear(_child_list);
     
     #region Run virtual machine
@@ -286,7 +269,7 @@ if (_evaluate)
                 case __CHATTERBOX_VM_TEXT:
                     #region Text
                     
-                    if (_scan_from_text && CHATTERBOX_SINGLETON_TEXT)
+                    if (_scan_from_text && _singleton_text)
                     {
                         if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: " + string(_instruction) + ":     _scan_from_text == " + string(_scan_from_text));
                         _break = true;
