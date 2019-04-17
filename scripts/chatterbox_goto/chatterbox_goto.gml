@@ -48,8 +48,7 @@ _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
 
 show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
 
-var _variables_map = __CHATTERBOX_VARIABLE_MAP;
-_variables_map[? "visited(" + _key + ")" ] = true;
+global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
 if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
 
 //Create a fake option

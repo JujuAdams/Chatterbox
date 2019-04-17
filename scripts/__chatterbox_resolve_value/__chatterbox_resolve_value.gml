@@ -7,7 +7,7 @@ global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
 var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"
 var _value      = argument1;
 
-var _variables_map = __CHATTERBOX_VARIABLE_MAP;
+var global.__chatterbox_variables = global.__chatterbox_variables;
 
 if (is_real(_value))
 {
@@ -132,7 +132,7 @@ else
         switch(_scope)
         {                   
             case CHATTERBOX_SCOPE_INTERNAL:
-                if (!ds_map_exists(_variables_map, _value))
+                if (!ds_map_exists(global.__chatterbox_variables, _value))
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
@@ -147,7 +147,7 @@ else
                 }
                 else
                 {
-                    _value = _variables_map[? _value ];
+                    _value = global.__chatterbox_variables[? _value ];
                 }
             break;
             

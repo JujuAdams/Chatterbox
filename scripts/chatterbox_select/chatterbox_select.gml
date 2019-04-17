@@ -8,7 +8,6 @@ var _node_title     = _chatterbox[| __CHATTERBOX.TITLE          ];
 var _filename       = _chatterbox[| __CHATTERBOX.FILENAME       ];
 var _child_list     = _chatterbox[| __CHATTERBOX.CHILD_LIST     ];
 var _singleton_text = _chatterbox[| __CHATTERBOX.SINGLETON_TEXT ];
-var _variables_map  = __CHATTERBOX_VARIABLE_MAP;
 
 if (_node_title == undefined)
 {
@@ -325,7 +324,7 @@ if (is_real(_selected_index))
                         _chatterbox[| __CHATTERBOX.FILENAME ] = _filename;
                         
                         var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-                        _variables_map[? "visited(" + _key + ")" ] = true;
+                        global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
                         if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                         
                         if (!ds_map_exists(global.__chatterbox_goto, _key))
@@ -378,7 +377,7 @@ if (is_real(_selected_index))
                             _chatterbox[| __CHATTERBOX.TITLE ] = _node_title;
                             
                             var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-                            _variables_map[? "visited(" + _key + ")" ] = true;
+                            global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
                             if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                         
                             if (!ds_map_exists(global.__chatterbox_goto, _key))

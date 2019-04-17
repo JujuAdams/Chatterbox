@@ -30,9 +30,8 @@ enum __CHATTERBOX
     FILENAME,       //0
     TITLE,          //1
     SINGLETON_TEXT, //2
-    VARIABLES,      //3
-    CHILD_LIST,     //4
-    __SIZE          //5
+    CHILD_LIST,     //3
+    __SIZE          //4
 }
 
 enum __CHATTERBOX_CHILD
@@ -46,7 +45,6 @@ enum __CHATTERBOX_CHILD
 
 #macro __CHATTERBOX_SCOPE_INVALID     -1
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
-#macro __CHATTERBOX_VARIABLE_MAP      (CHATTERBOX_INTERNAL_VARIABLE_MAP_SCOPE == CHATTERBOX_SCOPE_GML_LOCAL)? _chatterbox[| __CHATTERBOX.VARIABLES ] : global.__chatterbox_variables
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
 #macro __CHATTERBOX_VM_WAIT            "WAIT"

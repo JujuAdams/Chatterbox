@@ -4,7 +4,7 @@
 var _chatterbox = argument0;
 var _content    = argument1;
 
-var _variables_map = __CHATTERBOX_VARIABLE_MAP;
+var global.__chatterbox_variables = global.__chatterbox_variables;
 var _filename      = _chatterbox[| __CHATTERBOX.FILENAME  ];
 
 var _resolved_array = array_create(array_length_1d(_content), pointer_null); //Copy the array
@@ -56,7 +56,7 @@ repeat(9999)
                 if (_function == "visited")
                 {
                     if (_element_length == 3) _function_args[1] = _filename;
-                    _result = _variables_map[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")" ];
+                    _result = global.__chatterbox_variables[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")" ];
                     _result = (_result == undefined)? false : _result;
                 }
                 else
@@ -221,7 +221,7 @@ repeat(9999)
                 {
                     switch(_a_scope)
                     {                   
-                        case CHATTERBOX_SCOPE_INTERNAL:   _variables_map[? _a ] = _result;        break;
+                        case CHATTERBOX_SCOPE_INTERNAL:   global.__chatterbox_variables[? _a ] = _result;        break;
                         case CHATTERBOX_SCOPE_GML_LOCAL:  variable_instance_set(id, _a, _result); break;
                         case CHATTERBOX_SCOPE_GML_GLOBAL: variable_global_set(_a, _result);       break;
                     }
