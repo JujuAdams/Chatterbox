@@ -103,35 +103,11 @@
             }
         },
         {
-            "Key": "20ede6f0-0d33-4a21-bca2-6d74a732f579",
-            "Value": {
-                "id": "1546c97a-a790-4787-a851-3b8ad65a757d",
-                "resourcePath": "scripts\\chatterbox_text_get\\chatterbox_text_get.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "2b5b6d64-5f87-44f3-8400-534c8e1cc91c",
             "Value": {
                 "id": "e17e95e3-b8bf-40ec-93e7-edde41d0af83",
                 "resourcePath": "views\\2b5b6d64-5f87-44f3-8400-534c8e1cc91c.yy",
                 "resourceType": "GMFolder"
-            }
-        },
-        {
-            "Key": "2b69ef9c-4928-49ad-b1f1-c364f9d3d443",
-            "Value": {
-                "id": "383e02d0-a6cb-48f8-9b72-87a23d1e21ff",
-                "resourcePath": "views\\2b69ef9c-4928-49ad-b1f1-c364f9d3d443.yy",
-                "resourceType": "GMFolder"
-            }
-        },
-        {
-            "Key": "31a7b01b-c147-49cc-995d-f57c0d96c67f",
-            "Value": {
-                "id": "3d2151a5-d109-4c74-a8c9-90883a0432c8",
-                "resourcePath": "scripts\\chatterbox_template_option\\chatterbox_template_option.yy",
-                "resourceType": "GMScript"
             }
         },
         {
@@ -231,22 +207,6 @@
             }
         },
         {
-            "Key": "4ad29c35-cc7d-4355-bf35-c1842a24ab4f",
-            "Value": {
-                "id": "12cb26a3-7f2a-4c60-a0b6-829d22e6aa0d",
-                "resourcePath": "scripts\\chatterbox_text_mouse_over\\chatterbox_text_mouse_over.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "4de818ba-6741-4da1-b71c-9893530d83f4",
-            "Value": {
-                "id": "0107e8f7-8d5f-495e-a5c1-eebd7bfd80c0",
-                "resourcePath": "views\\4de818ba-6741-4da1-b71c-9893530d83f4.yy",
-                "resourceType": "GMFolder"
-            }
-        },
-        {
             "Key": "5035acc2-d809-4bf5-b251-ea72c52874d4",
             "Value": {
                 "id": "02a7e685-e9b7-4ca2-aa6e-db0838d3d3a7",
@@ -271,26 +231,10 @@
             }
         },
         {
-            "Key": "504f88db-16f6-4b2f-be8c-d27614e56be6",
-            "Value": {
-                "id": "20a3c3cb-d18d-4a49-a529-609b3eb6ad24",
-                "resourcePath": "scripts\\chatterbox_auto_layout\\chatterbox_auto_layout.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "577c1e55-1029-42ec-a0ed-1d0641d30f22",
             "Value": {
                 "id": "29190158-a0b7-43b4-bfae-80851cb634b8",
                 "resourcePath": "scripts\\chatterbox_variables_export\\chatterbox_variables_export.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "57dcdccd-f4aa-4cdf-9c05-2ca9a7726279",
-            "Value": {
-                "id": "022ed6c1-dc35-4fb3-bf61-6d28e72645ff",
-                "resourcePath": "scripts\\chatterbox_mouse_input\\chatterbox_mouse_input.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -331,14 +275,6 @@
             "Value": {
                 "id": "f11aa36b-1f1e-4a5a-bae5-6e41da881c44",
                 "resourcePath": "scripts\\__chatterbox_resolve_value\\__chatterbox_resolve_value.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "6924ed5f-0b41-451c-8ff0-9a6a9ade7aca",
-            "Value": {
-                "id": "2290ff1b-49a0-4eae-bd61-5c931b7384bb",
-                "resourcePath": "scripts\\chatterbox_template_text_fade\\chatterbox_template_text_fade.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -391,14 +327,6 @@
             }
         },
         {
-            "Key": "76c60c08-0222-4ee5-8ef2-3293e16b2155",
-            "Value": {
-                "id": "e080c816-a9fe-4325-912e-dc16360f6ed9",
-                "resourcePath": "scripts\\chatterbox_text_destroy\\chatterbox_text_destroy.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "7887bc75-4b33-4846-bd70-275cf18456f4",
             "Value": {
                 "id": "452211be-1520-4453-a4e4-3f29703f9c97",
@@ -423,14 +351,6 @@
             }
         },
         {
-            "Key": "7b520895-9bf4-4ebe-9c7b-fad70f6451e6",
-            "Value": {
-                "id": "85edbcbb-8fc0-465b-a820-70271fc61c79",
-                "resourcePath": "scripts\\hide_chatterbox\\hide_chatterbox.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "7c1d8641-a93c-4e1e-8530-37a429b86f1f",
             "Value": {
                 "id": "f8fc30c6-4365-48e5-95b1-2fc22dc18ee8",
@@ -444,14 +364,6 @@
                 "id": "1439cfbd-9724-4b91-a4b2-06abb2487f60",
                 "resourcePath": "options\\windowsuap\\options_windowsuap.yy",
                 "resourceType": "GMWindowsUAPOptions"
-            }
-        },
-        {
-            "Key": "8014a3c7-9151-408f-b1e7-d17fe92a95f5",
-            "Value": {
-                "id": "bc03e31d-0971-474e-a09f-54396ca8f62f",
-                "resourcePath": "scripts\\chatterbox_template_text\\chatterbox_template_text.yy",
-                "resourceType": "GMScript"
             }
         },
         {
@@ -575,26 +487,10 @@
             }
         },
         {
-            "Key": "9a675fb8-a15f-49d2-9317-c820aa4e91cb",
-            "Value": {
-                "id": "2467a8e8-8599-416e-a2dd-7571e2d021cd",
-                "resourcePath": "scripts\\chatterbox_keyboard_input\\chatterbox_keyboard_input.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "9ac119d1-18d4-4e8d-b6fe-3a55f9192a0b",
             "Value": {
                 "id": "d8515e41-8a17-4e82-9539-7ee95f77249b",
                 "resourcePath": "scripts\\chatterbox_goto\\chatterbox_goto.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "9be195a5-ec06-4794-8441-e640f1f50368",
-            "Value": {
-                "id": "ff9d9bb4-50ed-4e9b-9676-1fb78cb8b10b",
-                "resourcePath": "scripts\\chatterbox_auto_option_highlight\\chatterbox_auto_option_highlight.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -611,14 +507,6 @@
             "Value": {
                 "id": "87f72567-afe9-465c-8215-016f23a441d0",
                 "resourcePath": "scripts\\chatterbox_variable_set\\chatterbox_variable_set.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "a0f5144a-4fc5-429c-8c9a-a0c4c2b713c2",
-            "Value": {
-                "id": "7a496437-06a8-4d76-82de-5ff689578ac5",
-                "resourcePath": "scripts\\chatterbox_draw\\chatterbox_draw.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -663,14 +551,6 @@
             }
         },
         {
-            "Key": "aa345cc5-b74a-43c6-bb44-5a576afcb148",
-            "Value": {
-                "id": "407eadc1-cd86-48f7-b45a-f0dad771b333",
-                "resourcePath": "scripts\\chatterbox_text_set\\chatterbox_text_set.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "aa4ca4db-ff31-4cd0-b9cc-08badea29bdd",
             "Value": {
                 "id": "52bc3ba6-216f-4e9f-8cbc-10a1d1616844",
@@ -711,14 +591,6 @@
             }
         },
         {
-            "Key": "bb7a9189-5247-473b-9321-1bcc1b264c61",
-            "Value": {
-                "id": "9b63f40e-c887-4bb8-ba3a-9ce97c815c0e",
-                "resourcePath": "scripts\\chatterbox_auto_option_fade\\chatterbox_auto_option_fade.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "bbaf2270-049d-4b2f-b134-efca33e50f7e",
             "Value": {
                 "id": "47ab283f-66cc-4cf9-951e-43151e10add0",
@@ -731,14 +603,6 @@
             "Value": {
                 "id": "fef4c8b6-b6af-4cbc-aa31-36f02613e354",
                 "resourcePath": "scripts\\scribble_add_colour\\scribble_add_colour.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "bffae2a4-7947-4247-8200-9471641e91c0",
-            "Value": {
-                "id": "af1b52e1-9718-4c1b-8e2f-ca060dce0fdc",
-                "resourcePath": "scripts\\chatterbox_set_highlighted\\chatterbox_set_highlighted.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -771,14 +635,6 @@
             "Value": {
                 "id": "3392542a-84b1-4aa7-b24b-33ca58939698",
                 "resourcePath": "scripts\\__chatterbox_config\\__chatterbox_config.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "cc0bb167-1627-4737-bfdc-abe8ae513f76",
-            "Value": {
-                "id": "e07af501-e756-4319-bb77-2ed0f51b8b0b",
-                "resourcePath": "scripts\\chatterbox_template_option_fade\\chatterbox_template_option_fade.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -847,14 +703,6 @@
             }
         },
         {
-            "Key": "e1f5a547-d2ea-4775-8bfa-0336c5a33ebb",
-            "Value": {
-                "id": "3c5d0934-88b1-4d5b-863e-2ee6e5170ea7",
-                "resourcePath": "views\\e1f5a547-d2ea-4775-8bfa-0336c5a33ebb.yy",
-                "resourceType": "GMFolder"
-            }
-        },
-        {
             "Key": "e346a946-97e3-4051-96c1-3b6c92346baf",
             "Value": {
                 "id": "a28346b5-8063-4be2-ba61-0588ab782fcc",
@@ -868,14 +716,6 @@
                 "id": "d2eb849c-77fa-4177-82b4-59dfadb486eb",
                 "resourcePath": "options\\android\\options_android.yy",
                 "resourceType": "GMAndroidOptions"
-            }
-        },
-        {
-            "Key": "e7dfd968-5f19-4315-a42f-771e0f697411",
-            "Value": {
-                "id": "3b981b31-ac33-4251-a7b0-91b74b7846b3",
-                "resourcePath": "views\\e7dfd968-5f19-4315-a42f-771e0f697411.yy",
-                "resourceType": "GMFolder"
             }
         },
         {
@@ -899,22 +739,6 @@
             "Value": {
                 "id": "b92ccb80-fd6f-4bf3-adc7-a421bb0d5333",
                 "resourcePath": "views\\e96eec5d-efb0-4a51-8fc4-4ba5d3b2e29f.yy",
-                "resourceType": "GMFolder"
-            }
-        },
-        {
-            "Key": "ecca6e89-708e-47c6-980e-287436d56c42",
-            "Value": {
-                "id": "4d4be630-1c2a-48e8-bae8-99f7ba4998e5",
-                "resourcePath": "scripts\\chatterbox_get_highlighted\\chatterbox_get_highlighted.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "ed0df524-f7eb-4c0c-8094-ebaa98e3fe92",
-            "Value": {
-                "id": "8c99a41b-5c11-48ac-9c93-23899dcf8d98",
-                "resourcePath": "views\\ed0df524-f7eb-4c0c-8094-ebaa98e3fe92.yy",
                 "resourceType": "GMFolder"
             }
         },
@@ -975,14 +799,6 @@
             }
         },
         {
-            "Key": "fe67a8f7-533f-4a3b-bd24-f77891c22dc5",
-            "Value": {
-                "id": "8a7c7ba0-26bb-469b-af44-2ff03b72df6c",
-                "resourcePath": "scripts\\chatterbox_text_get_number\\chatterbox_text_get_number.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "ffc75b87-7243-4a9b-8f82-a7aec1b436ba",
             "Value": {
                 "id": "30b84997-6b5c-4017-813c-18c0e609825d",
@@ -1018,40 +834,22 @@
         "36f2c371-0af7-4281-bef1-c48ce4fbbb54",
         "afc20b7e-b50b-4685-b72a-f48def4737d8",
         "881dd845-b97a-4dce-a3fe-1ad4ded0084f",
-        "a0f5144a-4fc5-429c-8c9a-a0c4c2b713c2",
         "9ac119d1-18d4-4e8d-b6fe-3a55f9192a0b",
         "1f11e1ed-5ea3-416f-a975-c9e41f5ed534",
         "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
         "60990149-1dae-4f22-88d9-53025cbd7878",
         "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
         "463a38fe-5a07-4bc6-ba8b-52d0ff4cabb4",
-        "9a675fb8-a15f-49d2-9317-c820aa4e91cb",
-        "57dcdccd-f4aa-4cdf-9c05-2ca9a7726279",
-        "9be195a5-ec06-4794-8441-e640f1f50368",
-        "504f88db-16f6-4b2f-be8c-d27614e56be6",
-        "8014a3c7-9151-408f-b1e7-d17fe92a95f5",
-        "31a7b01b-c147-49cc-995d-f57c0d96c67f",
-        "6924ed5f-0b41-451c-8ff0-9a6a9ade7aca",
-        "cc0bb167-1627-4737-bfdc-abe8ae513f76",
-        "bb7a9189-5247-473b-9321-1bcc1b264c61",
-        "fe67a8f7-533f-4a3b-bd24-f77891c22dc5",
-        "aa345cc5-b74a-43c6-bb44-5a576afcb148",
-        "20ede6f0-0d33-4a21-bca2-6d74a732f579",
-        "76c60c08-0222-4ee5-8ef2-3293e16b2155",
-        "4ad29c35-cc7d-4355-bf35-c1842a24ab4f",
+        "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
+        "872012ae-b0bc-44c4-bc46-bf0e03659e62",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
         "37d0f127-d351-434f-832d-2403fe96ef7f",
         "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
         "577c1e55-1029-42ec-a0ed-1d0641d30f22",
         "a418e576-739d-42c4-912f-344270e5899c",
-        "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
-        "872012ae-b0bc-44c4-bc46-bf0e03659e62",
-        "bffae2a4-7947-4247-8200-9471641e91c0",
-        "ecca6e89-708e-47c6-980e-287436d56c42",
         "00fbc8f9-0e51-458c-8834-69a5cbc5e94b",
-        "5035acc2-d809-4bf5-b251-ea72c52874d4",
-        "7b520895-9bf4-4ebe-9c7b-fad70f6451e6"
+        "5035acc2-d809-4bf5-b251-ea72c52874d4"
     ],
     "tutorial": ""
 }

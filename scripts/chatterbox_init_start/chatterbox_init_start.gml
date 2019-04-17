@@ -12,9 +12,9 @@
 
 enum __CHATTERBOX_FILE
 {
-    FILENAME, // 0
-    NAME,     // 1
-    __SIZE    // 2
+    FILENAME, //0
+    NAME,     //1
+    __SIZE    //2
 }
 
 enum __CHATTERBOX_INSTRUCTION
@@ -27,55 +27,24 @@ enum __CHATTERBOX_INSTRUCTION
 
 enum __CHATTERBOX
 {
-    __SECTION0,                 // 0
-    FILENAME,                   // 1
-    TITLE,                      // 2
-    ORIGIN_X,                   // 3
-    ORIGIN_Y,                   // 4
-    
-    __SECTION1,
-    TEXT_MIN_LINE_HEIGHT,       // 5
-    TEXT_MAX_LINE_WIDTH,        // 6
-    TEXT_STARTING_COLOUR,       // 7
-    TEXT_STARTING_FONT,         // 8
-    TEXT_STARTING_HALIGN,       // 9
-    TEXT_DATA_FIELDS,           //10
-    TEXT_FADE_IN_SPEED,         //11
-    TEXT_FADE_IN_SMOOTHNESS,    //12
-    TEXT_FADE_IN_METHOD,        //13
-    TEXT_FADE_OUT_SPEED,        //14
-    TEXT_FADE_OUT_SMOOTHNESS,   //15
-    TEXT_FADE_OUT_METHOD,       //16
-    
-    __SECTION2,
-    OPTION_MIN_LINE_HEIGHT,     //17
-    OPTION_MAX_LINE_WIDTH,      //18
-    OPTION_STARTING_COLOUR,     //19
-    OPTION_STARTING_FONT,       //20
-    OPTION_STARTING_HALIGN,     //21
-    OPTION_DATA_FIELDS,         //22
-    OPTION_FADE_IN_SPEED,       //23
-    OPTION_FADE_IN_SMOOTHNESS,  //24
-    OPTION_FADE_IN_METHOD,      //25
-    OPTION_FADE_OUT_SPEED,      //26
-    OPTION_FADE_OUT_SMOOTHNESS, //27
-    OPTION_FADE_OUT_METHOD,     //28
-    
-    __SECTION3,                 //29
-    ITERATION,                  //30
-    SUSPENDED,                  //31
-    SELECTED,                   //32
-    HIGHLIGHTED,                //33
-    INITIALISED,                //34
-    VARIABLES,                  //35
-    
-    __SECTION4,                 //36
-    TEXT_LIST,                  //37
-    OPTION_LIST,                //38
-    OLD_TEXT_LIST,              //39
-    OLD_OPTION_LIST,            //40
-    
-    __SIZE                      //41
+    FILENAME,    //0
+    TITLE,       //1
+    ITERATION,   //2
+    SUSPENDED,   //3
+    INITIALISED, //4
+    VARIABLES,   //5
+    TEXT_LIST,   //6
+    OPTION_LIST, //7
+    __SIZE       //8
+}
+
+enum __CHATTERBOX_CHILD
+{
+    STRING,            //0
+    TYPE,              //1
+    INSTRUCTION_START, //2
+    INSTRUCTION_END,   //3
+    __SIZE             //4
 }
 
 #macro __CHATTERBOX_SCOPE_INVALID     -1
@@ -98,8 +67,6 @@ enum __CHATTERBOX
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
 #macro __CHATTERBOX_VM_SUSPEND         "SUSPEND"
 
-#macro __CHATTERBOX_ON_DIRECTX ((os_type == os_windows) || (os_type == os_xboxone) || (os_type == os_uwp) || (os_type == os_win8native) || (os_type == os_winphone))
-#macro __CHATTERBOX_ON_OPENGL  !__CHATTERBOX_ON_DIRECTX
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
 #endregion

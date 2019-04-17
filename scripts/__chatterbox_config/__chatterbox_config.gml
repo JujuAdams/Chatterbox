@@ -10,39 +10,7 @@
 #macro CHATTERBOX_OPTION_DEFAULT_TEXT  "..."
 #macro CHATTERBOX_TAB_INDENT_SIZE      4
 #macro CHATTERBOX_ROUND_UP_INDENTS     true
-#macro CHATTERBOX_DEFAULT_STEP_SIZE    SCRIBBLE_DEFAULT_STEP_SIZE  //The default step size. "(delta_time/16667)" assumes that the game is running at 60FPS and will delta time effects accordingly
-
-#region Automatic helper behaviours
-
-//Fading
-#macro CHATTERBOX_SKIP_FADE_ON_SELECT             true
-#macro CHATTERBOX_SINGLETON_TEXT                  true
-#macro CHATTERBOX_FADING_OPTIONS_NO_HIGHLIGHT     true
-#macro CHATTERBOX_FADING_OPTIONS_NO_SELECT        true
-#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_TEXT     true
-#macro CHATTERBOX_AUTO_DESTROY_FADED_OUT_OPTIONS  true
-
-#endregion
-
-#region Default parameters for scribble_draw() calls made by Chatterbox
-
-//These values can be overwritten by chatterbox_set_property() whenever needed in realtime
-//Values are read every frame and can be changed for dynamic effects
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_XSCALE     1
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_YSCALE     1
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_ANGLE      0
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_BLEND      c_white
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_ALPHA      1
-#macro CHATTERBOX_TEXT_DRAW_DEFAULT_PMA        false
-
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_XSCALE     1
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_YSCALE     1
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ANGLE      0
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_BLEND      c_white
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_ALPHA      1
-#macro CHATTERBOX_OPTION_DRAW_DEFAULT_PMA        false
-
-#endregion
+#macro CHATTERBOX_SINGLETON_TEXT       true
 
 #region Variables and scoping
 
@@ -92,31 +60,3 @@
 #macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
 #macro CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
 #macro CHATTERBOX_FILENAME_SEPARATOR      ":"
-
-enum CHATTERBOX_PROPERTY
-{
-    X,              // 0
-    Y,              // 1
-    XY,             // 2  Changing this value also changes .X and .Y
-    XSCALE,         // 3
-    YSCALE,         // 4
-    XY_SCALE,       // 5  Changing this value also changes .XSCALE and .YSCALE
-    ANGLE,          // 6
-    BLEND,          // 7
-    ALPHA,          // 8
-    PMA,            // 9  Premultiply alpha
-    HIGHLIGHTABLE,  //10
-    SELECTABLE,     //11
-                  
-    __SECTION0,     //12  -- Read-Only Properties --
-    ITERATION,      //13
-    WIDTH,          //14
-    HEIGHT,         //15
-    SCRIBBLE,       //16
-    IS_OPTION,      //17
-    HIGHLIGHTED,    //18
-    __INSTRUCTION0, //19  //Internal property used for the virtual machine
-    __INSTRUCTION1, //20  //Internal property used for the virtual machine
-                  
-    __SIZE          //21
-}
