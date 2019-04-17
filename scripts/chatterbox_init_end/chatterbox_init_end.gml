@@ -103,6 +103,16 @@ repeat(_font_count)
         _body = string_replace_all(_body, "\n\r", "\n");
         _body = string_replace_all(_body, "\r\n", "\n");
         _body = string_replace_all(_body, "\r"  , "\n");
+        
+        //Perform find-replace
+        var _size = ds_list_size(global.__chatterbox_findreplace_old_string);
+        for(var _i = 0; _i < _size; _i++)
+        {
+            _body = string_replace_all(_body,
+                                       global.__chatterbox_findreplace_old_string[| _i ],
+                                       global.__chatterbox_findreplace_new_string[| _i ]);
+        }
+        
         if (CHATTERBOX_DEBUG_PARSER)
         {
             show_debug_message("Chatterbox:     Processing \"" + string(_title) + "\" = \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
@@ -576,10 +586,6 @@ repeat(_font_count)
                                 else if (_content[0] == "else")
                                 {
                                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ELSE;
-                                }
-                                else if (_content[0] == "suspend")
-                                {
-                                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_SUSPEND;
                                 }
                                 else if (_content[0] == "stop")
                                 {

@@ -8,3 +8,5 @@
 
 chatterbox = chatterbox_create("Test.json");
 chatterbox_goto(chatterbox, "Start");
+
+suspend = false;

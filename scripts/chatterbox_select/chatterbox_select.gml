@@ -69,16 +69,16 @@ if (is_real(_selected_index))
     var _array  = global.__chatterbox_vm[| _instruction ];
     if (!is_array(_array))
     {
-        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Non-array: \"" + string(_instruction_array) + "\"");
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Non-array: \"" + string(_array) + "\"");
     }
     else
     {
         _indent = _array[ __CHATTERBOX_INSTRUCTION.INDENT ];
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
+        if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from option index=" + string(_selected_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
     }
     
-    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Set indent = " + string(_indent));
     
-    if (CHATTERBOX_DEBUG_VM) show_debug_message("Chatterbox: Starting scan from option index=" + string(_selected_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
     
     //Advance to the next instruction
     _instruction++;

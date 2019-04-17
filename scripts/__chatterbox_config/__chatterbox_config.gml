@@ -10,7 +10,6 @@
 #macro CHATTERBOX_OPTION_DEFAULT_TEXT  "..."
 #macro CHATTERBOX_TAB_INDENT_SIZE      4
 #macro CHATTERBOX_ROUND_UP_INDENTS     true
-#macro CHATTERBOX_SINGLETON_TEXT       true
 
 #macro CHATTERBOX_TEXT    1
 #macro CHATTERBOX_OPTION  2
@@ -47,7 +46,7 @@
 //Debug assistance
 #macro CHATTERBOX_DEBUG                         false
 #macro CHATTERBOX_DEBUG_PARSER                  false  //Spits out debug info for the file parser
-#macro CHATTERBOX_DEBUG_VM                      false  //Spits out debug info for the virtual machine
+#macro CHATTERBOX_DEBUG_VM                      true  //Spits out debug info for the virtual machine
 #macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false  //Throw an error if a variable (in any scope) is missing
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false  //Throw an error when two values of different datatypes are being compared

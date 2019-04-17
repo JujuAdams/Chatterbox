@@ -1,6 +1,8 @@
 /// @param [filename]
+/// @param [singletonText]
 
-var _filename = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
+var _filename       = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
+var _singleton_text = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : true;
 
 if (!is_string(_filename))
 {
@@ -16,10 +18,11 @@ if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 
 //Create the Chatterbox data structure
 var _chatterbox = ds_list_create();
-_chatterbox[| __CHATTERBOX.FILENAME    ] = _filename;
-_chatterbox[| __CHATTERBOX.TITLE       ] = undefined;
-_chatterbox[| __CHATTERBOX.VARIABLES   ] = ds_map_create();
-_chatterbox[| __CHATTERBOX.CHILD_LIST  ] = ds_list_create();
+_chatterbox[| __CHATTERBOX.FILENAME       ] = _filename;
+_chatterbox[| __CHATTERBOX.TITLE          ] = undefined;
+_chatterbox[| __CHATTERBOX.SINGLETON_TEXT ] = _singleton_text;
+_chatterbox[| __CHATTERBOX.VARIABLES      ] = ds_map_create();
+_chatterbox[| __CHATTERBOX.CHILD_LIST     ] = ds_list_create();
 ds_list_mark_as_map( _chatterbox, __CHATTERBOX.VARIABLES );
 ds_list_mark_as_list(_chatterbox, __CHATTERBOX.CHILD_LIST);
 return _chatterbox;

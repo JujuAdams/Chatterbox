@@ -202,7 +202,7 @@
             "Key": "5035acc2-d809-4bf5-b251-ea72c52874d4",
             "Value": {
                 "id": "02a7e685-e9b7-4ca2-aa6e-db0838d3d3a7",
-                "resourcePath": "scripts\\custom_action_example\\custom_action_example.yy",
+                "resourcePath": "scripts\\suspend_dialogue\\suspend_dialogue.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -267,6 +267,14 @@
             "Value": {
                 "id": "f11aa36b-1f1e-4a5a-bae5-6e41da881c44",
                 "resourcePath": "scripts\\__chatterbox_resolve_value\\__chatterbox_resolve_value.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
+            "Key": "6a735733-e38d-4fc8-ad9e-24d8b97c6adb",
+            "Value": {
+                "id": "310012e9-0630-447c-91ce-3c51cce03a8e",
+                "resourcePath": "scripts\\chatterbox_init_findreplace\\chatterbox_init_findreplace.yy",
                 "resourceType": "GMScript"
             }
         },
@@ -842,6 +850,7 @@
         "5a2bd88b-bb45-42ce-b065-697aa4e45e60",
         "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
         "872012ae-b0bc-44c4-bc46-bf0e03659e62",
+        "6a735733-e38d-4fc8-ad9e-24d8b97c6adb",
         "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
         "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
         "37d0f127-d351-434f-832d-2403fe96ef7f",

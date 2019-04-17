@@ -27,11 +27,12 @@ enum __CHATTERBOX_INSTRUCTION
 
 enum __CHATTERBOX
 {
-    FILENAME,    //0
-    TITLE,       //1
-    VARIABLES,   //1
-    CHILD_LIST,  //2
-    __SIZE       //3
+    FILENAME,       //0
+    TITLE,          //1
+    SINGLETON_TEXT, //2
+    VARIABLES,      //3
+    CHILD_LIST,     //4
+    __SIZE          //5
 }
 
 enum __CHATTERBOX_CHILD
@@ -61,7 +62,6 @@ enum __CHATTERBOX_CHILD
 #macro __CHATTERBOX_VM_SET             "SET"
 #macro __CHATTERBOX_VM_STOP            "STOP"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
-#macro __CHATTERBOX_VM_SUSPEND         "SUSPEND"
 
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
@@ -100,18 +100,20 @@ if ( !directory_exists(_font_directory) )
 }
 
 //Declare global variables
-global.__chatterbox_font_directory    = _font_directory;
-global.__chatterbox_file_data         = ds_map_create();
-global.__chatterbox_goto              = ds_map_create();
-global.__chatterbox_vm                = ds_list_create();
-global.__chatterbox_init_complete     = false;
-global.__chatterbox_default_file      = "";
-global.__chatterbox_indent_size       = 0;
-global.__chatterbox_scope             = __CHATTERBOX_SCOPE_INVALID;
-global.__chatterbox_variable_name     = __CHATTERBOX_VARIABLE_INVALID;
-global.__chatterbox_variables         = ds_map_create();
-global.__chatterbox_actions           = ds_map_create();
-global.__chatterbox_permitted_scripts = ds_map_create();
+global.__chatterbox_font_directory         = _font_directory;
+global.__chatterbox_file_data              = ds_map_create();
+global.__chatterbox_goto                   = ds_map_create();
+global.__chatterbox_vm                     = ds_list_create();
+global.__chatterbox_init_complete          = false;
+global.__chatterbox_default_file           = "";
+global.__chatterbox_indent_size            = 0;
+global.__chatterbox_scope                  = __CHATTERBOX_SCOPE_INVALID;
+global.__chatterbox_variable_name          = __CHATTERBOX_VARIABLE_INVALID;
+global.__chatterbox_variables              = ds_map_create();
+global.__chatterbox_actions                = ds_map_create();
+global.__chatterbox_permitted_scripts      = ds_map_create();
+global.__chatterbox_findreplace_old_string = ds_list_create();
+global.__chatterbox_findreplace_new_string = ds_list_create();
 
 //Big ol' list of operator dipthongs
 global.__chatterbox_op_list        = ds_list_create();
