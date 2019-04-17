@@ -4,8 +4,6 @@
 //  With thanks to Els White
 //  
 //  https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
-//  
-//  For use with Scribble v4.5.1 - https://github.com/GameMakerDiscord/scribble
 
 #macro CHATTERBOX_OPTION_DEFAULT_TEXT     "..."
 #macro CHATTERBOX_TAB_INDENT_SIZE         4
