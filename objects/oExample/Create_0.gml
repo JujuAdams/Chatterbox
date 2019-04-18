@@ -3,7 +3,7 @@
 //  @jujuadams
 //  With thanks to Els White
 
-chatterbox = chatterbox_create("Test.json");
+chatterbox = chatterbox_create_host("Test.json");
 chatterbox_goto(chatterbox, "Start");
 
 suspend = false;

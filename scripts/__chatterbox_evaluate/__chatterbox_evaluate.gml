@@ -1,10 +1,10 @@
-/// @param chatterbox
+/// @param chatterboxHost
 /// @param contentArray
 
 var _chatterbox = argument0;
 var _content    = argument1;
 
-var _filename = _chatterbox[ __CHATTERBOX.FILENAME  ];
+var _filename = _chatterbox[ __CHATTERBOX_HOST.FILENAME  ];
 
 var _resolved_array = array_create(array_length_1d(_content), pointer_null); //Copy the array
 

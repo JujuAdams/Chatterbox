@@ -25,7 +25,7 @@ enum __CHATTERBOX_INSTRUCTION
     __SIZE   //3
 }
 
-enum __CHATTERBOX
+enum __CHATTERBOX_HOST
 {
     FILENAME,       //0
     TITLE,          //1

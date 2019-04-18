@@ -1,0 +1,1 @@
+//Because Chatterbox works using arrays, no destroy script is needed!

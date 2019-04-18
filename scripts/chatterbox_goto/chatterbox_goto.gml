@@ -1,4 +1,10 @@
-/// @param chatterbox
+/// Jumps to a node and processes dialogue
+/// 
+/// The building block of dialogue in Yarn is the "node". See __chatterbox_syntax() for more information.
+/// This script jumps to the specified node and processes the dialogue. Any text that's outputted can
+/// be picked up by chatterbox_get_string() and chatterbox_get_string_count().
+/// 
+/// @param chatterboxHost
 /// @param nodeTitle
 /// @param [filename]
 
@@ -8,7 +14,7 @@ var _node_title = argument[1];
 if (!is_string(_node_title))
 {
     show_debug_message("Chatterbox: Stopping");
-    _chatterbox[@ __CHATTERBOX.TITLE ] = undefined;
+    _chatterbox[@ __CHATTERBOX_HOST.TITLE ] = undefined;
     exit;
 }
 
@@ -28,11 +34,11 @@ if (argument_count > 2) && (argument[2] != undefined)
         return undefined;
     }
     
-    _chatterbox[@ __CHATTERBOX.FILENAME ] = _filename;
+    _chatterbox[@ __CHATTERBOX_HOST.FILENAME ] = _filename;
 }
 else
 {
-    _filename = _chatterbox[ __CHATTERBOX.FILENAME ];
+    _filename = _chatterbox[ __CHATTERBOX_HOST.FILENAME ];
 }
 
 var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
@@ -43,8 +49,8 @@ if (_instruction == undefined)
     return false;
 }
 
-_chatterbox[@ __CHATTERBOX.TITLE    ] = _node_title;
-_chatterbox[@ __CHATTERBOX.FILENAME ] = _filename;
+_chatterbox[@ __CHATTERBOX_HOST.TITLE    ] = _node_title;
+_chatterbox[@ __CHATTERBOX_HOST.FILENAME ] = _filename;
 
 show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
 
@@ -59,7 +65,7 @@ _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction;
 _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
 
 var _child_array = []; //Wipe all children
-_chatterbox[@ __CHATTERBOX.CHILDREN ] = _child_array;
+_chatterbox[@ __CHATTERBOX_HOST.CHILDREN ] = _child_array;
 _child_array[@ array_length_1d(_child_array) ] = _new_array;
 
-return chatterbox_select(_chatterbox, 0);
+return chatterbox_select(_chatterbox, 0); //Now select the fake option!

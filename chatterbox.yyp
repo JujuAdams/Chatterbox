@@ -90,7 +90,7 @@
             "Key": "36f2c371-0af7-4281-bef1-c48ce4fbbb54",
             "Value": {
                 "id": "666752ac-f982-4629-969c-542257aa9859",
-                "resourcePath": "scripts\\chatterbox_create\\chatterbox_create.yy",
+                "resourcePath": "scripts\\chatterbox_create_host\\chatterbox_create_host.yy",
                 "resourceType": "GMScript"
             }
         },

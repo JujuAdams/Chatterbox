@@ -1,4 +1,4 @@
-/// @param chatterbox
+/// @param chatterboxHost
 /// @param value
 
 global.__chatterbox_scope         = CHATTERBOX_SCOPE_INVALID;
