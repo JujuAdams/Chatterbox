@@ -1,1 +1,0 @@
-return json_encode(CHATTERBOX_VARIABLES_MAP);

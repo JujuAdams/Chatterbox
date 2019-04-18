@@ -1,1 +1,0 @@
-ds_map_clear(CHATTERBOX_VARIABLES_MAP);

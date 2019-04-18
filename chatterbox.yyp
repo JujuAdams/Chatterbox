@@ -87,14 +87,6 @@
             }
         },
         {
-            "Key": "37d0f127-d351-434f-832d-2403fe96ef7f",
-            "Value": {
-                "id": "d8500a31-6519-4327-a358-2f0d52408285",
-                "resourcePath": "scripts\\chatterbox_variables_clear\\chatterbox_variables_clear.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "3a479606-3abc-4c0a-ba65-b8a104c61c52",
             "Value": {
                 "id": "2cdd511b-4766-4599-9ac5-8e48dcf7e855",
@@ -148,14 +140,6 @@
                 "id": "2e664e4e-8780-406d-a7c5-9db63c8ff808",
                 "resourcePath": "views\\503cf607-27a8-45bf-a70c-c4f6011d4644.yy",
                 "resourceType": "GMFolder"
-            }
-        },
-        {
-            "Key": "577c1e55-1029-42ec-a0ed-1d0641d30f22",
-            "Value": {
-                "id": "29190158-a0b7-43b4-bfae-80851cb634b8",
-                "resourcePath": "scripts\\chatterbox_variables_export\\chatterbox_variables_export.yy",
-                "resourceType": "GMScript"
             }
         },
         {
@@ -327,27 +311,11 @@
             }
         },
         {
-            "Key": "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
-            "Value": {
-                "id": "87f72567-afe9-465c-8215-016f23a441d0",
-                "resourcePath": "scripts\\chatterbox_variable_set\\chatterbox_variable_set.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "a128950b-5063-4876-b4a6-b99dbd2ea6d1",
             "Value": {
                 "id": "4cac3a81-fd9d-4338-9deb-fbfc2f10a361",
                 "resourcePath": "options\\amazonfire\\options_amazonfire.yy",
                 "resourceType": "GMAmazonFireOptions"
-            }
-        },
-        {
-            "Key": "a418e576-739d-42c4-912f-344270e5899c",
-            "Value": {
-                "id": "2356d8e1-94b4-4147-add9-dc8fd73ba891",
-                "resourcePath": "scripts\\chatterbox_variables_import\\chatterbox_variables_import.yy",
-                "resourceType": "GMScript"
             }
         },
         {
@@ -415,34 +383,10 @@
             }
         },
         {
-            "Key": "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
-            "Value": {
-                "id": "6d4690bb-a2ef-44d5-9264-148f84ccff89",
-                "resourcePath": "scripts\\chatterbox_variable_get\\chatterbox_variable_get.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
-            "Key": "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
-            "Value": {
-                "id": "70f92675-c6da-403b-b4ab-be17139737a6",
-                "resourcePath": "scripts\\chatterbox_variables_array\\chatterbox_variables_array.yy",
-                "resourceType": "GMScript"
-            }
-        },
-        {
             "Key": "df3afc9f-820f-420b-b9b5-ed2c2222c392",
             "Value": {
                 "id": "4e6bbd92-0545-493c-bfc4-2cd9d9d3b297",
                 "resourcePath": "views\\df3afc9f-820f-420b-b9b5-ed2c2222c392.yy",
-                "resourceType": "GMFolder"
-            }
-        },
-        {
-            "Key": "e41e7be4-61b1-4367-8b5d-59f502dfa3c6",
-            "Value": {
-                "id": "d3eb33cc-9eaa-4097-90d4-3ce4478b3a21",
-                "resourcePath": "views\\e41e7be4-61b1-4367-8b5d-59f502dfa3c6.yy",
                 "resourceType": "GMFolder"
             }
         },
@@ -527,12 +471,6 @@
         "d25ff5fc-73bc-48eb-ad5c-e3a6cb63937e",
         "872012ae-b0bc-44c4-bc46-bf0e03659e62",
         "6a735733-e38d-4fc8-ad9e-24d8b97c6adb",
-        "a0699bf6-2dba-4cc6-a6ee-30be4dce3936",
-        "d57b2ef2-3165-4dd7-a520-274e6b0a837c",
-        "37d0f127-d351-434f-832d-2403fe96ef7f",
-        "d845a584-6fd3-4ad9-a9e8-ce4649d7e284",
-        "577c1e55-1029-42ec-a0ed-1d0641d30f22",
-        "a418e576-739d-42c4-912f-344270e5899c",
         "5035acc2-d809-4bf5-b251-ea72c52874d4"
     ],
     "tutorial": ""
