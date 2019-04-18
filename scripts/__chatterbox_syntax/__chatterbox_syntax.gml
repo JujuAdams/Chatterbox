@@ -15,8 +15,8 @@
 /// 
 /// This document is intended to act as a comprehensive and concise reference for Yarn syntax and structure, for use by programmers
 /// and content creators. It assumes a working knowledge of modern programming/scripting languages. For a more thorough explanation
-/// of Yarn usage, see the General Usage Guide
-/// 
+/// of Yarn usage, see the General Usage Guide:
+///     https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/General-Usage.md
 /// 
 /// 
 /// -- Nodes --
@@ -35,6 +35,7 @@
 /// A script file can contain multiple nodes. In this case, nodes are delineated using three equals (=) characters.
 /// Additionally, Yarn can check if a node has been visited by calling visited("NodeName") in an if statement
 /// (i.e. <<if visited("NodeName") == true>>).
+/// 
 /// 
 /// 
 /// -- Links Between Nodes --
@@ -95,7 +96,7 @@
 /// 
 /// [[Option 1|Node1]]
 /// [[Option the Second|Node2]]
-/// [[Third Option|Node3]]
+/// [[Third Option, in a different file|TheOtherFile.json:DestinationNode]]
 /// 
 /// 
 /// 
