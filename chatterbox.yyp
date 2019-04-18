@@ -258,7 +258,7 @@
             "Key": "872012ae-b0bc-44c4-bc46-bf0e03659e62",
             "Value": {
                 "id": "05f894b8-2586-4dff-99b4-a35ca47bcf4f",
-                "resourcePath": "scripts\\chatterbox_init_permit_script\\chatterbox_init_permit_script.yy",
+                "resourcePath": "scripts\\chatterbox_init_add_function\\chatterbox_init_add_function.yy",
                 "resourceType": "GMScript"
             }
         },

@@ -1,6 +1,6 @@
 /// This is a slightly edited copy of the YarnSpinner Quick Refence Guide (fetched on 2019/04/18):
 ///     https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
-/// (YarnSpinner is the Unity implementation of Yarn.)
+/// (YarnSpinner is a Unity implementation of Yarn.)
 /// 
 /// Chatterbox is a full implementation of the Yarn scripting language. However, Chatterbox does slightly extend its functionality,
 /// adding more control to variable handling. This enables convenient direct access of GML variables from inside the dialogue script.
@@ -10,8 +10,6 @@
 /// 
 /// 
 /// 
-/// 
-/// YARN QUICK REFERENCE
 /// 
 /// This document is intended to act as a comprehensive and concise reference for Yarn syntax and structure, for use by programmers
 /// and content creators. It assumes a working knowledge of modern programming/scripting languages. For a more thorough explanation
@@ -100,7 +98,51 @@
 /// 
 /// 
 /// 
-/// -- Variables & Conditionals --
+/// -- Actions --
+/// Chatterbox has the following native actions:
+/// 
+///     <<if "expression">>
+///     <<else>>
+///     <<elseif "expression">>
+///     <<endif>>
+///     <<set "expression">>
+///     <<stop>>
+///     <<wait>>
+/// 
+/// Custom actions can be added to Chatterbox by using the chatterbox_init_add_action() script. Custom actions must be added after calling
+/// chatterbox_init_start() and before calling chatterbox_init_end(). Custom action names cannot contain spaces or commas.
+/// 
+///     GML:    chatterbox_init_start("Yarn");
+///             chatterbox_init_add_action("playMusic", play_background_music);
+///             chatterbox_init_add_json("example.json");
+///             chatterbox_init_end();
+/// 
+///     Yarn:   Here's some text!
+///             <<playMusic>>
+///             The music will have started now.
+/// 
+/// By adding the custom action "playMusic" and binding it to the script play_background_music(), Chatterbox will now call this script
+/// whenever <<playMusic>> is processed by Chatterbox.
+/// 
+/// Custom actions can also have parameters. These parameters can be any Chatterbox value - a real number, a string, or a variable.
+/// Parameters should separated by spaces. Parameters are passed into a script as an array of values in argument0.
+/// 
+///     GML:    chatterbox_init_start("Yarn");
+///             chatterbox_init_add_action("gotoRoom", go_to_room);
+///             chatterbox_init_add_json("example.json");
+///             chatterbox_init_end();
+/// 
+///     Yarn:   Let's go see what the priest is up to.
+///             <<gotoRoom "rChapel" $entrance>>
+///             <<stop>>
+/// 
+/// Chatterbox will execute the script go_to_room() whenever <<gotoRoom>> is processed. In this case, go_to_room() will receive an array
+/// of two values from Chatterbox. The first (index 0) element of the array will be "rChapel" and the second (index 1) element will
+/// hold whatever value is in the "$entrance" variable.
+/// 
+/// 
+/// 
+/// -- Variables, Conditionals & Functions --
 /// 
 /// Declaring and Setting Variables:
 /// This statement serves to set a variable's value. No declarative statement is required; setting a variable's value brings it into existence.
@@ -129,19 +171,6 @@
 /// 
 /// 
 /// 
-/// Variable Types:
-/// There are four different types of variable in Yarn: strings, floating-point numbers, booleans, and null.
-/// 
-/// Yarn will automatically convert between types. For example:
-/// 
-///     <<if "hi" == "hi">>
-///         The two strings are the same!
-///     <<endif>>
-/// 
-///     <<if 1+1+"hi" == "2hi">>
-///         Strings get joined together with other values!
-///     <<endif>>
-/// 
 /// If/Else Statements:
 /// Yarn supports standard if/else/elseif statements.
 /// 
@@ -155,6 +184,56 @@
 ///     <<else>>
 ///         No success. :(
 ///     <<endif>>
+/// 
+/// 
+/// 
+/// Expressions:
+/// There are four different types of variable in Yarn: strings, floating-point numbers, booleans, and null.
+/// 
+/// Yarn will automatically convert between types. For example:
+/// 
+///     <<if "hi" == "hi">>
+///         The two strings are the same!
+///     <<endif>>
+/// 
+///     <<if 1+1+"hi" == "2hi">>
+///         Strings get joined together with other values!
+///     <<endif>>
+/// 
+/// 
+/// 
+/// Functions:
+/// By default, Chatterbox includes a visited() function, used to check whether a node has been entered.
+/// 
+///     <<if visited("GoToCity")>>
+///         We have gone to the city before!
+///     <<endif>>
+/// 
+/// Other custom functions can be added to Chatterbox using the chatterbox_init_add_function() script.
+/// Much like custom actions, custom functions can have parameters. Custom functions can be added at any
+/// point, after calling chatterbox_init_start(), but should be added before using chatterbox_goto() or
+/// chatterbox_select().
+/// 
+/// Parameters should be separated by spaces and are passed into a script as an array of values in argument0.
+/// Custom functions can return values, but they should be reals or strings.
+/// 
+///     GML:    chatterbox_init_start("Yarn");
+///             chatterbox_init_add_function("AmIDead", am_i_dead);
+///             chatterbox_init_add_json("example.json");
+///             chatterbox_init_end();
+/// 
+///     Yarn:   Am I dead?
+///             <<if AmIDead("player")>>
+///                 Yup. Definitely dead.
+///             <<else>>
+///                 No, not yet!
+///             <<endif>>
+/// 
+/// This example shows how the script am_i_dead() is called by Chatterbox in an if statement. The value
+/// returned from am_i_dead() determines which text is displayed.
+/// 
+/// 
+/// 
 /// 
 /// Supported operators:
 /// 
@@ -184,12 +263,3 @@
 ///     not   |    !
 /// 
 /// NB: For compatibility with other Yarn files, "`", "&", and "|" are also supported.
-/// 
-/// 
-/// 
-/// -- Commands and Functions --
-/// By default, Chatterbox includes a visited() function, used to check whether a node has been entered.
-/// 
-///     <<if visited("GoToCity")>>
-///         We have gone to the city before!
-///     <<endif>>
