@@ -11,6 +11,7 @@
 #macro CHATTERBOX_FILENAME_SEPARATOR      ":"
 #macro CHATTERBOX_DEBUG                   false
 #macro CHATTERBOX_DEFAULT_VARIABLE_VALUE  0      //Default value if a variable cannot be found
+#macro CHATTERBOX_VARIABLES_MAP           global.chatterbox_variables_map
 
 //chatterbox_get_string() and chatterbox_get_string_count() constants
 #macro CHATTERBOX_BODY    1
@@ -30,7 +31,7 @@
 // <<if internal.variable == 42>>  :  Internal Chatterbox variable
 // <<if i.variable == 42>>         :  Internal Chatterbox variable
 // 
-// Internal Chatterbox variables are, in reality, key:value pairs in a globally scoped ds_map (global.__chatterbox_variables_map)
+// Internal Chatterbox variables are, in reality, key:value pairs in a globally scoped ds_map (CHATTERBOX_VARIABLES_MAP_map)
 // Use chatterbox_variable_export() and chatterbox_variable_import() to handle these variables
 
 #macro CHATTERBOX_SCOPE_INTERNAL    0

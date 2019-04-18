@@ -1,4 +1,4 @@
 /// @param variableName
 /// @param value
 
-global.__chatterbox_variables[? argument0 ] = argument1;
+CHATTERBOX_VARIABLES_MAP[? argument0 ] = argument1;

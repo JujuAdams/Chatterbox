@@ -99,6 +99,7 @@ if ( !directory_exists(_font_directory) )
 
 //Declare global variables
 global.__chatterbox_font_directory         = _font_directory;
+global.chatterbox_variables_map            = ds_map_create();
 global.__chatterbox_file_data              = ds_map_create();
 global.__chatterbox_goto                   = ds_map_create();
 global.__chatterbox_vm                     = ds_list_create();
@@ -107,7 +108,6 @@ global.__chatterbox_default_file           = "";
 global.__chatterbox_indent_size            = 0;
 global.__chatterbox_scope                  = __CHATTERBOX_SCOPE_INVALID;
 global.__chatterbox_variable_name          = __CHATTERBOX_VARIABLE_INVALID;
-global.__chatterbox_variables              = ds_map_create();
 global.__chatterbox_actions                = ds_map_create();
 global.__chatterbox_permitted_scripts      = ds_map_create();
 global.__chatterbox_findreplace_old_string = ds_list_create();

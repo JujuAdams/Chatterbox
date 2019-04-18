@@ -55,7 +55,7 @@ repeat(9999)
                 if (_function == "visited")
                 {
                     if (_element_length == 3) _function_args[1] = _filename;
-                    _result = global.__chatterbox_variables[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")" ];
+                    _result = CHATTERBOX_VARIABLES_MAP[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")" ];
                     _result = (_result == undefined)? false : _result;
                 }
                 else
@@ -220,7 +220,7 @@ repeat(9999)
                 {
                     switch(_a_scope)
                     {                   
-                        case CHATTERBOX_SCOPE_INTERNAL:   global.__chatterbox_variables[? _a ] = _result;        break;
+                        case CHATTERBOX_SCOPE_INTERNAL:   CHATTERBOX_VARIABLES_MAP[? _a ] = _result;        break;
                         case CHATTERBOX_SCOPE_GML_LOCAL:  variable_instance_set(id, _a, _result); break;
                         case CHATTERBOX_SCOPE_GML_GLOBAL: variable_global_set(_a, _result);       break;
                     }

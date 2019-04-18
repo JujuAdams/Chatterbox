@@ -331,7 +331,7 @@ if (is_real(_selected_index))
                         _chatterbox[@ __CHATTERBOX.FILENAME ] = _filename;
                         
                         var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-                        global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
+                        CHATTERBOX_VARIABLES_MAP[? "visited(" + _key + ")" ] = true;
                         if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                         
                         if (!ds_map_exists(global.__chatterbox_goto, _key))
@@ -384,7 +384,7 @@ if (is_real(_selected_index))
                             _chatterbox[@ __CHATTERBOX.TITLE ] = _node_title;
                             
                             var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-                            global.__chatterbox_variables[? "visited(" + _key + ")" ] = true;
+                            CHATTERBOX_VARIABLES_MAP[? "visited(" + _key + ")" ] = true;
                             if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
                         
                             if (!ds_map_exists(global.__chatterbox_goto, _key))

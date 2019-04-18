@@ -1,1 +1,1 @@
-ds_map_clear(global.__chatterbox_variables);
+ds_map_clear(CHATTERBOX_VARIABLES_MAP);

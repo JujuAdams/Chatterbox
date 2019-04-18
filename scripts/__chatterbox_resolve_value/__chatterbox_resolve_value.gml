@@ -130,7 +130,7 @@ else
         switch(_scope)
         {                   
             case CHATTERBOX_SCOPE_INTERNAL:
-                if (!ds_map_exists(global.__chatterbox_variables, _value))
+                if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _value))
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
@@ -145,7 +145,7 @@ else
                 }
                 else
                 {
-                    _value = global.__chatterbox_variables[? _value ];
+                    _value = CHATTERBOX_VARIABLES_MAP[? _value ];
                 }
             break;
             

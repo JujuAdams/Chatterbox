@@ -1,1 +1,1 @@
-return json_encode(global.__chatterbox_variables);
+return json_encode(CHATTERBOX_VARIABLES_MAP);

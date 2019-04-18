@@ -9,8 +9,8 @@ if (_new_map < 0)
     return false;
 }
 
-ds_map_destroy(global.__chatterbox_variables);
-global.__chatterbox_variables = _new_map;
+ds_map_destroy(CHATTERBOX_VARIABLES_MAP);
+CHATTERBOX_VARIABLES_MAP = _new_map;
 if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox: Variable import successful");
 
 return true;
