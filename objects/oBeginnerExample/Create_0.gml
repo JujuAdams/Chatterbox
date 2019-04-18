@@ -1,0 +1,10 @@
+//  Chatterbox v0.1.2
+//  2019/04/15
+//  @jujuadams
+//  With thanks to Els White
+
+//Create a host
+chatterbox = chatterbox_create_host("Test.json");
+
+//Tell the host to jump to a node
+chatterbox_goto(chatterbox, "Start");

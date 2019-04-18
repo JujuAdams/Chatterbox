@@ -183,6 +183,14 @@
             }
         },
         {
+            "Key": "6ea95fbf-928f-40c7-b8cf-3569b68beb05",
+            "Value": {
+                "id": "6be618c4-8aeb-43ff-af6e-03f3522d3863",
+                "resourcePath": "objects\\oSuspendExample\\oSuspendExample.yy",
+                "resourceType": "GMObject"
+            }
+        },
+        {
             "Key": "6f508094-c871-48eb-a955-07e2b6794dac",
             "Value": {
                 "id": "c3e764d0-bd68-4ec7-960c-8034d03d7157",
@@ -282,7 +290,7 @@
             "Key": "8f58bbbe-3dba-44de-b201-00643bc3496c",
             "Value": {
                 "id": "e179358f-4862-4635-a37d-92551f8bac2c",
-                "resourcePath": "objects\\oExample\\oExample.yy",
+                "resourcePath": "objects\\oBeginnerExample\\oBeginnerExample.yy",
                 "resourceType": "GMObject"
             }
         },
