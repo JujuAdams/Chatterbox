@@ -2,9 +2,10 @@
 ///     https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
 /// (YarnSpinner is the Unity implementation of Yarn.)
 /// 
-/// Chatterbox is a full implementation of the Yarn scripting language, though Chatterbox does slightly extend its functionality,
+/// Chatterbox is a full implementation of the Yarn scripting language. However, Chatterbox does slightly extend its functionality,
 /// adding more control to variable handling. This enables convenient direct access of GML variables from inside the dialogue script.
-/// Please see the "Variables & Conditionals" section for more information.
+/// Please see the "Variables & Conditionals" section for more information. Chatterbox additionally allows redirects and options to
+/// point to nodes found in other source files.
 /// 
 /// 
 /// 
@@ -40,9 +41,20 @@
 /// Nodes link to other nodes through options. An option is composed of a label (optional) and a node name separated by a vertical
 /// bar (|), like so:
 /// 
-///     [[A Link To A Node|Node1]]
+///     [[This is a link to a node.|DestinationNode]]
 /// 
-/// If a node link with no label is provided ([[Node1]]), Yarn will automatically navigate to the linked node.
+/// If a node link with no label is provided Yarn will automatically navigate to the linked node:
+/// 
+///     [[DestinationNode]]
+/// 
+/// Chatterbox adds the ability to target nodes in other files:
+/// 
+///     [[A link to a node in another file.|TheOtherFile.json:DestinationNode]]
+/// 
+/// The name of the file (with that file's extension!) comes first, followed by a colon (":"), followed by the name of the node.
+/// This syntax also works for redirects too:
+/// 
+///     [[TheOtherFile.json:DestinationNode]]
 /// 
 /// 
 /// 
