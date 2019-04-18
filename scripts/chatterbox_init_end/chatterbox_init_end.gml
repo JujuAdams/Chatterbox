@@ -1,7 +1,23 @@
 /// Completes initialisation for Chatterbox
 /// This script should be called after chatterbox_init_start() and chatterbox_init_add()
+/// 
+/// This script goes through a number of steps to parse Yarn source files to prepare them for internal use.
+/// 1) Load the source file into a buffer, and break it down into individual nodes
+/// 2) Perform bulk findreplace tasks (via init_permit_script())
+/// 2) Get the text body of the node, and break it down into individual lines and substrings
 ///
-/// https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
+/// Once we have the body broken down into substrings, we can start to store "instructions".
+/// Instructions represent the logic that Chatterbox will execute to work out what text needs to be displayed.
+/// Instructions are all stored in a single enormous global list - this helps with redirects and options.
+///
+/// 3) For each substring, detect whether it's a) text or a shortcut b) a redirect or option c) an action
+/// 3a) If a substring is text or shortcut, store it as a simple instruction
+/// 3b) If a substring is a redirect or option, work out where it's pointing and store that instruction
+/// 3c) If a substring is an action: tokenise, build a syntax tree, add an instruction that holds the syntax tree
+/// 4) Add a STOP instruction to the end of the node's instructions to catch any weird behaviour
+///
+/// "Actions" give Chatterbox an enormous amount of flexibility!
+/// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax().
 /// 
 /// Once this script has been run, Chatterbox is ready for use!
 
@@ -143,7 +159,15 @@ repeat(_font_count)
                 //Strip whitespace from the start of the string
                 _line_string = __chatterbox_remove_whitespace(_line_string, true);
                 var _indent = global.__chatterbox_indent_size;
-                if (CHATTERBOX_ROUND_UP_INDENTS) _indent = CHATTERBOX_TAB_INDENT_SIZE*ceil(_indent/CHATTERBOX_TAB_INDENT_SIZE);
+                
+                if (CHATTERBOX_ERROR_ON_BAD_INDENTS)
+                {
+                    if (_indent != CHATTERBOX_INDENT_UNIT_SIZE*floor(_indent/CHATTERBOX_INDENT_UNIT_SIZE))
+                    {
+                        show_error("Chatterbox:\nLine has an invalid amount of indentation (" + string(_indent) + "). It must be a multiple of " + string(CHATTERBOX_INDENT_UNIT_SIZE) + ".\n(Line was \"" + string(_line_string) + "\")", false);
+                    }
+                }
+                
                 if (_line_string == "") continue;
                 
                 //Strip whitespace from the end of the string

@@ -1,8 +1,8 @@
-/// Adds a Yarn .json file definition to Chatterbox
+/// Adds a Yarn .json file definition to Chatterbox. This file is loaded and parsed in chatterbox_init_end().
 ///
-/// https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
+/// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax().
 ///
-/// @param fileName       Name of the Yarn .json file to add
+/// @param fileName  Name of the Yarn .json file to add
 
 if ( !variable_global_exists("__chatterbox_init_complete") )
 {

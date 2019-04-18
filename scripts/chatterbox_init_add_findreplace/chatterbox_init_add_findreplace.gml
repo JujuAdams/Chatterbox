@@ -1,3 +1,7 @@
+///
+/// <<hammertime>>
+/// <<stop>>
+///
 /// @param oldString
 /// @param newString
 

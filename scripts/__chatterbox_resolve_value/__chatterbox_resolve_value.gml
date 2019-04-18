@@ -1,7 +1,7 @@
 /// @param chatterbox
 /// @param value
 
-global.__chatterbox_scope         = __CHATTERBOX_SCOPE_INVALID;
+global.__chatterbox_scope         = CHATTERBOX_SCOPE_INVALID;
 global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
 
 var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"

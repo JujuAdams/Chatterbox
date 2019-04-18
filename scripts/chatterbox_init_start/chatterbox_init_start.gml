@@ -1,9 +1,9 @@
 /// Starts initialisation for Chatterbox
-/// This script should be called before chatterbox_init_add() and chatterbox_init_end()
+/// This script should be called before chatterbox_init_add() and chatterbox_init_end().
 ///
-/// @param fontDirectory     Directory to look in (relative to game_save_id) for Yarn .json files
+/// Initialisation is only fully complete once chatterbox_init_end() is called.
 ///
-/// Initialisation is only fully complete once chatterbox_init_end() is called
+/// @param fontDirectory  Directory to look in (relative to game_save_id) for Yarn sourceS files
 
 #region Internal Macro Definitions
 
@@ -43,7 +43,6 @@ enum __CHATTERBOX_CHILD
     __SIZE             //4
 }
 
-#macro __CHATTERBOX_SCOPE_INVALID     -1
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
@@ -106,7 +105,7 @@ global.__chatterbox_vm                     = ds_list_create();
 global.__chatterbox_init_complete          = false;
 global.__chatterbox_default_file           = "";
 global.__chatterbox_indent_size            = 0;
-global.__chatterbox_scope                  = __CHATTERBOX_SCOPE_INVALID;
+global.__chatterbox_scope                  = CHATTERBOX_SCOPE_INVALID;
 global.__chatterbox_variable_name          = __CHATTERBOX_VARIABLE_INVALID;
 global.__chatterbox_actions                = ds_map_create();
 global.__chatterbox_permitted_scripts      = ds_map_create();

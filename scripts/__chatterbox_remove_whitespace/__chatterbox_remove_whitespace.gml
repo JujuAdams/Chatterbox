@@ -14,7 +14,7 @@ if (_leading)
         var _ord = ord(string_char_at(_string, _i));
         if (_ord  > 32) break;
         if (_ord == 32) global.__chatterbox_indent_size++;
-        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_TAB_INDENT_SIZE;
+        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_UNIT_SIZE;
         _i++;
     }
     
@@ -28,7 +28,7 @@ else
         var _ord = ord(string_char_at(_string, _i));
         if (_ord  > 32) break;
         if (_ord == 32) global.__chatterbox_indent_size++;
-        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_TAB_INDENT_SIZE;
+        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_UNIT_SIZE;
         _i--;
     }
     

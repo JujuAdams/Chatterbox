@@ -141,7 +141,7 @@ if (is_real(_selected_index))
             if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":     instruction indent " + string(_instruction_indent) + " > indent " + string(_indent));
             if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       _permit_greater_indent=" + string(_permit_greater_indent));
             if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":       indent difference=" + string(_instruction_indent - _indent));
-            if (_permit_greater_indent && ((_instruction_indent - _indent) <= CHATTERBOX_TAB_INDENT_SIZE))
+            if (_permit_greater_indent && ((_instruction_indent - _indent) <= CHATTERBOX_INDENT_UNIT_SIZE))
             {
                 _indent = _instruction_indent;
                 if (CHATTERBOX_DEBUG_SELECT) show_debug_message("Chatterbox: " + string(_instruction) + ":         Set indent = " + string(_indent));

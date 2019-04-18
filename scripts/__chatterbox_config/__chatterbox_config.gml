@@ -3,47 +3,36 @@
 //  @jujuadams
 //  With thanks to Els White
 //  
-//  https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md
+/// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax().
 
-#macro CHATTERBOX_OPTION_DEFAULT_TEXT     "..."
-#macro CHATTERBOX_TAB_INDENT_SIZE         4
-#macro CHATTERBOX_ROUND_UP_INDENTS        true
-#macro CHATTERBOX_FILENAME_SEPARATOR      ":"
-#macro CHATTERBOX_DEBUG                   false
-#macro CHATTERBOX_DEFAULT_VARIABLE_VALUE  0      //Default value if a variable cannot be found
+#macro CHATTERBOX_OPTION_DEFAULT_TEXT     "..."  //The option text to display if no option text has been found
+#macro CHATTERBOX_DEBUG                   false  //Whether or not to show addition debug information whilst running Chatterbox
 #macro CHATTERBOX_VARIABLES_MAP           global.chatterbox_variables_map
 
 //chatterbox_get_string() and chatterbox_get_string_count() constants
 #macro CHATTERBOX_BODY    1
 #macro CHATTERBOX_OPTION  2
 
-#region Variables and scoping
+#region Variables and Scoping
 
-//Supported variable prefixes for if-statements:
-// The $ prefix is what's specified in the Yarn documentation but Chatterbox gives you some additional options
-// 
-// <<if $variable == 42>>          :  CHATTERBOX_DOLLAR_VARIABLE_SCOPE
-// <<if variable == 42>>           :  CHATTERBOX_NAKED_VARIABLE_SCOPE
-// <<if global.variable == 42>>    :  Global GML scope
-// <<if g.variable == 42>>         :  Global GML scope
-// <<if local.variable == 42>>     :  Local GML (instance) scope
-// <<if l.variable == 42>>         :  Local GML (instance) scope
-// <<if internal.variable == 42>>  :  Internal Chatterbox variable
-// <<if i.variable == 42>>         :  Internal Chatterbox variable
-// 
-// Internal Chatterbox variables are, in reality, key:value pairs in a globally scoped ds_map (CHATTERBOX_VARIABLES_MAP_map)
-// Use chatterbox_variable_export() and chatterbox_variable_import() to handle these variables
+#macro CHATTERBOX_DEFAULT_VARIABLE_VALUE  0  //Default value if a variable cannot be found
 
+//More for information, please read "Variables & Conditionals" in __chatterbox_syntax()
+
+#macro CHATTERBOX_SCOPE_INVALID    -1
 #macro CHATTERBOX_SCOPE_INTERNAL    0
 #macro CHATTERBOX_SCOPE_GML_LOCAL   1
 #macro CHATTERBOX_SCOPE_GML_GLOBAL  2
 
-#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  CHATTERBOX_SCOPE_INTERNAL    //If a variable starts if a $, what scope should it take?
-#macro CHATTERBOX_NAKED_VARIABLE_SCOPE   CHATTERBOX_SCOPE_GML_LOCAL   //If a variable has no prefix, what scope should it take?
+#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  CHATTERBOX_SCOPE_INTERNAL  //If a variable starts if a $, what scope should it take?
+#macro CHATTERBOX_NAKED_VARIABLE_SCOPE   CHATTERBOX_SCOPE_INTERNAL  //If a variable has no prefix, what scope should it take?
 
 #endregion
 
 #region Advanced
+
+#macro CHATTERBOX_INDENT_UNIT_SIZE    4    //The fundamental ident unit, usually 4. This is typically the width of a tab character. This is a critical property for correct execution!
+#macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
 //These variables control which delimiters to use for [[options]] and <<actions>>
 //For compatibility with Yarn editors you probably don't want to change these
@@ -57,5 +46,6 @@
 #macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false  //Throw an error if a variable (in any scope) is missing
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false  //Throw an error when two values of different datatypes are being compared
+#macro CHATTERBOX_ERROR_ON_BAD_INDENTS          true   //Whether to check for misaligned indentation. Idents must be an integer multiple of CHATTERBOX_INDENT_UNIT_SIZE
 
 #endregion

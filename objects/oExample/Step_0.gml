@@ -12,6 +12,6 @@ if (_select != undefined)
 //If we press F5 then restart the demo
 if (keyboard_check_released(vk_f5))
 {
-    chatterbox_variables_clear();
+    ds_map_clear(CHATTERBOX_VARIABLES_MAP);
     chatterbox_goto(chatterbox, "Start");
 }
