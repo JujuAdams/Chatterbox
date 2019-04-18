@@ -162,7 +162,7 @@
 /// support $-prefixed variables. The scope of $-prefixed variables is determined by CHATTERBOX_NAKED_VARIABLE_SCOPE, found in __chatterbox_config().
 /// By default, a variable that starts with a $-sign is scoped to be an internal Chatterbox variable.
 /// 
-///     <<set yarnful to "okey dokey">>     This (by default) sets the internal Chatterbox variable "yarnful" to the value "okey dokey"
+///     <<set $yarnful to "okey dokey">>     This (by default) sets the internal Chatterbox variable "yarnful" to the value "okey dokey"
 /// 
 /// If a variable has no prefix then its scope is determined by CHATTERBOX_NAKED_VARIABLE_SCOPE, found in __chatterbox_config().
 /// By default, a variable with no prefix is scoped to be an internal Chatterbox variable.
