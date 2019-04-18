@@ -1,3 +1,7 @@
+/// Removes whitespace from either the front or back of a string
+///
+/// This is an internal script, please don't modify it.
+///
 /// @param string
 /// @param leading
 

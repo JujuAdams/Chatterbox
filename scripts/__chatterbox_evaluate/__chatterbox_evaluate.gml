@@ -1,3 +1,7 @@
+/// Takes a syntax tree and evaluate it
+///
+/// This is an internal script, please don't modify it.
+///
 /// @param chatterboxHost
 /// @param contentArray
 
@@ -220,9 +224,9 @@ repeat(9999)
                 {
                     switch(_a_scope)
                     {                   
-                        case CHATTERBOX_SCOPE_INTERNAL:   CHATTERBOX_VARIABLES_MAP[? _a ] = _result;        break;
-                        case CHATTERBOX_SCOPE_GML_LOCAL:  variable_instance_set(id, _a, _result); break;
-                        case CHATTERBOX_SCOPE_GML_GLOBAL: variable_global_set(_a, _result);       break;
+                        case CHATTERBOX_SCOPE_INTERNAL:   CHATTERBOX_VARIABLES_MAP[? _a ] = _result; break;
+                        case CHATTERBOX_SCOPE_GML_LOCAL:  variable_instance_set(id, _a, _result);    break;
+                        case CHATTERBOX_SCOPE_GML_GLOBAL: variable_global_set(_a, _result);          break;
                     }
                 }
                 

@@ -1,3 +1,7 @@
+/// Takes a string and figures out if it's a real, a "-delimited string, or a variable
+///
+/// This is an internal script, please don't modify it.
+/// 
 /// @param chatterboxHost
 /// @param value
 
