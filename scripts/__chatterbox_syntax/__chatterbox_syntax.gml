@@ -234,32 +234,31 @@
 /// 
 /// 
 /// 
+/// Here's a list of supported operators (in no particular order) that are supported in expressions:
 /// 
-/// Supported operators:
-/// 
-///     WORD  |  SYMBOL
-///     ------+--------
-///           |    !
-///           |    +
-///           |    -
-///           |    *
-///           |    /
-///       Assignemnt
-///     to    |    =
-///           |   +=
-///           |   -=
-///           |   *=
-///           |   /=
-///       Comparison
-///     and   |   &&
-///     le    |    <
-///     gt    |    >
-///     or    |   ||
-///     leq   |   <=
-///     geq   |   >=
-///     eq    |   ==
-///     is    |   ==
-///     neq   |   !=
-///     not   |    !
-/// 
-/// NB: For compatibility with other Yarn files, "`", "&", and "|" are also supported.
+///     WORD  |  SYMBOL  | USE
+///   --------+----------+---------------------------------------------
+///      not  |    !     | Logical negation
+///           |    +     | Real addition, or string concatenation
+///           |    -     | Real substraction, or negative
+///           |    *     | Real multiplication
+///           |    /     | Real division
+///      Assignment      |
+///     to    |    =     | Assignment
+///           |   +=     | Add or concatenate, then assign
+///           |   -=     | Subtract, then assign
+///           |   *=     | Multiply, then assign
+///           |   /=     | Divide, then assign
+///      Comparison      |
+///     and   |   &&     | Logical AND
+///           |    &     | Logical AND. Included for compatibility with other Yarn documents
+///     le    |    <     | Less than
+///     gt    |    >     | Greater than
+///     or    |   ||     | Logical OR
+///           |    |     | Logical OR. Included for compatibility with other Yarn documents
+///           |    `     | Logical OR. Included for compatibility with other Yarn documents
+///     leq   |   <=     | Less-than-or-equal-to
+///     geq   |   >=     | Greater-than-or-equal-to
+///     eq    |   ==     | Equal to
+///     is    |   ==     | Equal to
+///     neq   |   !=     | Not equal to
