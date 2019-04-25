@@ -20,13 +20,13 @@ var _file = argument0;
 
 if (ds_map_exists(global.__chatterbox_file_data, _file))
 {
-    show_error("Chatterbox:\nYarn .json \"" + _file + "\" has already been defined\n ", false);
+    show_error("Chatterbox:\n\"" + _file + "\" has already been defined\n ", false);
     return undefined;
 }
 
 if (!is_string(_file))
 {
-    show_error("Chatterbox:\nYarn .json files should be initialised using their filename as a string.\n(Input was an invalid datatype)\n ", false);
+    show_error("Chatterbox:\nSource files should be initialised using their filename as a string.\n(Input was an invalid datatype)\n ", false);
     return undefined;
 }
 
@@ -38,4 +38,4 @@ _data[ __CHATTERBOX_FILE.NAME     ] = _file;
 _data[ __CHATTERBOX_FILE.TYPE     ] = __CHATTERBOX_FILE_JSON;
 global.__chatterbox_file_data[? _file ] = _data;
 
-show_debug_message("Chatterbox: Defined \"" + _file + "\" as a Yarn .json file");
+show_debug_message("Chatterbox: Added \"" + _file + "\" as a source file");
