@@ -40,7 +40,8 @@ repeat(_font_count)
     var _font_data = global.__chatterbox_file_data[? _name ];
     show_debug_message("Chatterbox:   Processing file \"" + _name + "\"");
     
-    var _filename = _font_data[ __CHATTERBOX_FILE.FILENAME ];
+    var _filename  = _font_data[ __CHATTERBOX_FILE.FILENAME ];
+    var _file_type = _font_data[ __CHATTERBOX_FILE.TYPE     ];
     
     
     
@@ -56,23 +57,85 @@ repeat(_font_count)
     var _string = buffer_read(_buffer, buffer_string);
     buffer_delete(_buffer);
     
-    var _yarn_json = json_decode(_string);
-    
-    //Test for JSON made by the standard Yarn editor
-    var _node_list = _yarn_json[? "default" ];
-    if (_node_list != undefined) show_debug_message("Chatterbox:     File was made in standard Yarn editor");
-    
-    //Test for JSON made by Jacquard
-    if (_node_list == undefined)
+    if (_file_type == __CHATTERBOX_FILE_YARN)
     {
-        var _node_list = _yarn_json[? "nodes" ];
-        if (_node_list != undefined) show_debug_message("Chatterbox:     File was made by Jacquard");
+        #region Parse .yarn file into a JSON
+        
+        var _node_list = ds_list_create();
+        
+        _string = string_replace_all(_string, "\n\r", "\n");
+        _string = string_replace_all(_string, "\r\n", "\n");
+        _string = string_replace_all(_string, "\r"  , "\n");
+        _string += "\n";
+        
+        var _body      = "";
+        var _title     = "";
+        var _in_header = true;
+        
+        var _pos = string_pos("\n", _string);
+        while(_pos > 0)
+        {
+            var _substring = string_copy(_string, 1, _pos-1);
+            _string = string_delete(_string, 1, _pos);
+            _pos = string_pos("\n", _string);
+            
+            if (_in_header)
+            {
+                if (string_copy(_substring, 1, 6) == "title:")
+                {
+                    _title = string_delete(_substring, 1, 6);
+                    _title = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_title, true), false);
+                }
+                
+                if (string_copy(_substring, 1, 3) == "---")
+                {
+                    _in_header = false;
+                    _body = "";
+                }
+            }
+            else
+            {
+                if (string_copy(_substring, 1, 3) == "===")
+                {
+                    var _map = ds_map_create();
+                    _map[? "body"  ] = _body;
+                    _map[? "title" ] = _title;
+                    ds_list_add(_node_list, _map);
+                    ds_list_mark_as_map(_node_list, ds_list_size(_node_list)-1);
+                    
+                    _in_header = true;
+                    _body = "";
+                    _title = "";
+                }
+                else
+                {
+                    _body += _substring + "\n";
+                }
+            }
+        }
+        
+        #endregion
+    }
+    else
+    {
+        var _yarn_json = json_decode(_string);
+        
+        //Test for JSON made by the standard Yarn editor
+        var _node_list = _yarn_json[? "default" ];
+        if (_node_list != undefined) show_debug_message("Chatterbox:     File was made in standard Yarn editor");
+        
+        //Test for JSON made by Jacquard
+        if (_node_list == undefined)
+        {
+            var _node_list = _yarn_json[? "nodes" ];
+            if (_node_list != undefined) show_debug_message("Chatterbox:     File was made by Jacquard");
+        }
     }
     
     //If both of these fail, it's some wacky JSON that we don't recognise
     if (_node_list == undefined)
     {
-        show_error("Chatterbox:\nJSON format for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.\n ", false);
+        show_error("Chatterbox:\nFormat for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.\n ", false);
         _name = ds_map_find_next(global.__chatterbox_file_data, _name);
         continue;
     }
@@ -712,7 +775,14 @@ repeat(_font_count)
     }
     
     _name = ds_map_find_next(global.__chatterbox_file_data, _name);
-    ds_map_destroy(_yarn_json);
+    if (_file_type == __CHATTERBOX_FILE_YARN)
+    {
+        ds_list_destroy(_node_list);
+    }
+    else
+    {
+        ds_map_destroy(_yarn_json);
+    }
 }
 
 

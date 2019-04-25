@@ -159,6 +159,14 @@
             }
         },
         {
+            "Key": "5dbb4614-c49b-4056-8ef0-5531f8ec6484",
+            "Value": {
+                "id": "2700399b-e22d-46ba-aa23-1f44226d9207",
+                "resourcePath": "datafiles_yy\\Yarn\\Test2.yarn.txt.yy",
+                "resourceType": "GMIncludedFile"
+            }
+        },
+        {
             "Key": "5f87550b-7fb8-44c6-b07e-5cd3c4197c31",
             "Value": {
                 "id": "244a3f26-f5b6-460d-8319-1a09772016e4",
@@ -431,6 +439,14 @@
             }
         },
         {
+            "Key": "f15d55bc-151d-4270-b176-8a9a3e0115da",
+            "Value": {
+                "id": "717852e5-4781-441b-9f0f-11ffbcfa366d",
+                "resourcePath": "scripts\\chatterbox_init_add_yarn\\chatterbox_init_add_yarn.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "f418569b-3bdd-4706-a0e4-364317f54032",
             "Value": {
                 "id": "f0cb9727-2298-4848-9f10-5fabdd8d25b9",
@@ -476,6 +492,7 @@
         "25021e7e-8142-4fbb-8f3f-aeefd5d03271",
         "ffc75b87-7243-4a9b-8f82-a7aec1b436ba",
         "48de0644-428c-4f83-84dc-d8f4ed174f63",
+        "f15d55bc-151d-4270-b176-8a9a3e0115da",
         "7078f18e-cab5-4718-9cff-70420fb20d03",
         "36f2c371-0af7-4281-bef1-c48ce4fbbb54",
         "9ac119d1-18d4-4e8d-b6fe-3a55f9192a0b",

@@ -35,7 +35,7 @@ if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _
 var _data;
 _data[ __CHATTERBOX_FILE.FILENAME ] = _file;
 _data[ __CHATTERBOX_FILE.NAME     ] = _file;
-_data[ __CHATTERBOX_FILE.TYPE     ] = __CHATTERBOX_FILE_JSON;
+_data[ __CHATTERBOX_FILE.TYPE     ] = __CHATTERBOX_FILE_YARN;
 global.__chatterbox_file_data[? _file ] = _data;
 
 show_debug_message("Chatterbox: Defined \"" + _file + "\" as a Yarn .json file");

@@ -14,7 +14,8 @@ enum __CHATTERBOX_FILE
 {
     FILENAME, //0
     NAME,     //1
-    __SIZE    //2
+    TYPE,     //2
+    __SIZE    //3
 }
 
 enum __CHATTERBOX_INSTRUCTION
@@ -59,6 +60,9 @@ enum __CHATTERBOX_CHILD
 #macro __CHATTERBOX_VM_SET             "SET"
 #macro __CHATTERBOX_VM_STOP            "STOP"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
+
+#macro __CHATTERBOX_FILE_JSON  1
+#macro __CHATTERBOX_FILE_YARN  2
 
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
