@@ -31,6 +31,8 @@ if ( !variable_global_exists("__chatterbox_init_complete" ) )
 
 show_debug_message("Chatterbox: Chatterbox initialisation started");
 
+var _body_substring_list = ds_list_create();
+
 
 
 var _font_count = ds_map_size(global.__chatterbox_file_data);
@@ -48,7 +50,7 @@ repeat(_font_count)
     ds_list_add(global.__chatterbox_vm, _filename);
     var _instruction_file_offset = ds_list_size(global.__chatterbox_vm);
     global.__chatterbox_goto[? _filename ] = _instruction_file_offset;
-    if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:     File instruction offset is " + string(_instruction_file_offset));
+    if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:   File instruction offset is " + string(_instruction_file_offset));
     
     
     
@@ -209,9 +211,82 @@ repeat(_font_count)
         ds_list_add(global.__chatterbox_vm, _filename + CHATTERBOX_FILENAME_SEPARATOR + _title);
         var _instruction_node_offset = ds_list_size(global.__chatterbox_vm);
         global.__chatterbox_goto[? _filename + CHATTERBOX_FILENAME_SEPARATOR + _title ] = _instruction_node_offset;
-        if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:       Node instruction offset is " + string(_instruction_node_offset));
+        if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:     Node instruction offset is " + string(_instruction_node_offset));
         
         
+        
+        #region Break down body into substrings
+        
+        var _in_action = false;
+        var _in_option = false;
+        
+        var     _pos = string_pos("\n", _body);
+        var _new_pos = string_pos(CHATTERBOX_OPTION_OPEN_DELIMITER + CHATTERBOX_OPTION_OPEN_DELIMITER, _body); _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
+        var _new_pos = string_pos(CHATTERBOX_ACTION_OPEN_DELIMITER + CHATTERBOX_ACTION_OPEN_DELIMITER, _body); _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
+        while(_pos > 0)
+        {
+            var _char = string_char_at(_body, _pos);
+            if ((_char == CHATTERBOX_OPTION_CLOSE_DELIMITER)
+             || (_char == CHATTERBOX_ACTION_CLOSE_DELIMITER)
+             || (_char == CHATTERBOX_OPTION_OPEN_DELIMITER)
+             || (_char == CHATTERBOX_ACTION_OPEN_DELIMITER))
+            {
+                var _body_substring = string_copy(_body, 1, _pos-1);
+                _body = string_delete(_body, 1, _pos+1);
+            }
+            else
+            {
+                var _body_substring = string_copy(_body, 1, _pos-1);
+                _body = string_delete(_body, 1, _pos);
+            }
+            
+            _body_substring = __chatterbox_remove_whitespace(_body_substring, false);
+            
+            if (_body_substring != "")
+            {
+                if (_in_option)
+                {
+                    ds_list_add(_body_substring_list, "[", _body_substring);
+                }
+                else if (_in_action)
+                {
+                    ds_list_add(_body_substring_list, "<", _body_substring);
+                }
+                else
+                {
+                    ds_list_add(_body_substring_list, "\n", _body_substring);
+                }
+            }
+            
+            if (_char == CHATTERBOX_OPTION_OPEN_DELIMITER) _in_option = true;
+            if (_char == CHATTERBOX_ACTION_OPEN_DELIMITER) _in_action = true;
+            if ((_char == CHATTERBOX_OPTION_CLOSE_DELIMITER) || (_char == "")) _in_option = false;
+            if ((_char == CHATTERBOX_ACTION_CLOSE_DELIMITER) || (_char == "")) _in_action = false;
+            
+            var _pos = string_pos("\n", _body);
+            
+            if (_in_option)
+            {
+                var _new_pos = string_pos(CHATTERBOX_OPTION_CLOSE_DELIMITER + CHATTERBOX_OPTION_CLOSE_DELIMITER, _body);
+                _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
+            }
+            else if (_in_action)
+            {
+                var _new_pos = string_pos(CHATTERBOX_ACTION_CLOSE_DELIMITER + CHATTERBOX_ACTION_CLOSE_DELIMITER, _body);
+                _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
+            }
+            else
+            {
+                var _new_pos = string_pos(CHATTERBOX_OPTION_OPEN_DELIMITER + CHATTERBOX_OPTION_OPEN_DELIMITER, _body); _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
+                var _new_pos = string_pos(CHATTERBOX_ACTION_OPEN_DELIMITER + CHATTERBOX_ACTION_OPEN_DELIMITER, _body); _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
+            }
+        }
+        
+        #endregion
+        
+        
+        
+        _body = _node_map[? "body" ];
         
         #region Parse the body text for this node
         
@@ -742,6 +817,8 @@ repeat(_font_count)
         
         #endregion
         
+        
+        
         //Make sure we always have an STOP instruction at the end
         var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
         _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_STOP;
@@ -781,15 +858,17 @@ repeat(_font_count)
                 _i++;
             }
         }
+        
+        #endregion
     }
-    
-    #endregion
     
     _name = ds_map_find_next(global.__chatterbox_file_data, _name);
     ds_list_destroy(_node_list);
 }
 
 
+
+ds_list_destroy(_body_substring_list);
 
 show_debug_message("Chatterbox: VM has " + string(ds_list_size(global.__chatterbox_vm)) + " instructions");
 show_debug_message("Chatterbox: Initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");

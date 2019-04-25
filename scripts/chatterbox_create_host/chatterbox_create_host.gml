@@ -21,13 +21,13 @@ var _singleton_text = ((argument_count > 1) && (argument[1] != undefined))? argu
 
 if (!is_string(_filename))
 {
-    show_error("Chatterbox:\nYarn .json filenames must be strings (Got \"" + string(_filename) + "\")\n ", false);
+    show_error("Chatterbox:\nSource files must be strings (Got \"" + string(_filename) + "\")\n ", false);
     return undefined;
 }
 
 if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 {
-    show_error("Chatterbox:\nCannot find Yarn .json \"" + _filename + "\"\n ", false);
+    show_error("Chatterbox:\nCannot find \"" + _filename + "\"\n ", false);
     return undefined;
 }
 

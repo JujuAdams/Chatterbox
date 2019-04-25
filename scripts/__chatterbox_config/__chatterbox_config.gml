@@ -41,7 +41,7 @@
 #macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
 #macro CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
 
-#macro CHATTERBOX_DEBUG_PARSER                  false  //Debug the file parser. This can be useful in tracking down formatting issues with source files
+#macro CHATTERBOX_DEBUG_PARSER                  true   //Debug the file parser. This can be useful in tracking down formatting issues with source files
 #macro CHATTERBOX_DEBUG_SELECT                  false  //chatterbox_select() is the heart of Chatterbox and executes all dialogue logic
 #macro CHATTERBOX_ERROR_ON_MISSING_VARIABLE     false  //Throw an error if a variable (in any scope) is missing
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
