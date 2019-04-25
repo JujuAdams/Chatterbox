@@ -130,6 +130,11 @@ repeat(_font_count)
             var _node_list = _yarn_json[? "nodes" ];
             if (_node_list != undefined) show_debug_message("Chatterbox:     File was made by Jacquard");
         }
+        
+        //Divorce the node list from the JSON
+        _yarn_json[? "default" ] = undefined;
+        _yarn_json[? "nodes"   ] = undefined;
+        ds_map_destroy(_yarn_json);
     }
     
     //If both of these fail, it's some wacky JSON that we don't recognise
@@ -142,13 +147,14 @@ repeat(_font_count)
     
     
     
+    #region Debug output that displays all the nodes in a file
+    
     var _node_count = ds_list_size(_node_list);
     if (_node_count > 0)
     {
         show_debug_message("Chatterbox:     Found " + string(_node_count) + " titles:");
         var _string = "Chatterbox:       ";
         
-        //Debug output that displays all the nodes in a file
         var _i = 0;
         for(var _node = 0; _node < _node_count; _node++)
         {
@@ -169,6 +175,8 @@ repeat(_font_count)
         }
         if (_i > 0) show_debug_message(_string);
     }
+    
+    #endregion
     
     
     
@@ -743,7 +751,8 @@ repeat(_font_count)
         
         
         
-        //Debug output that enumerates all instructions for this node
+        #region Debug output that enumerates all instructions for this node
+        
         if (CHATTERBOX_DEBUG_PARSER)
         {
             var _i = _instruction_node_offset;
@@ -774,15 +783,10 @@ repeat(_font_count)
         }
     }
     
+    #endregion
+    
     _name = ds_map_find_next(global.__chatterbox_file_data, _name);
-    if (_file_type == __CHATTERBOX_FILE_YARN)
-    {
-        ds_list_destroy(_node_list);
-    }
-    else
-    {
-        ds_map_destroy(_yarn_json);
-    }
+    ds_list_destroy(_node_list);
 }
 
 
