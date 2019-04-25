@@ -20,7 +20,7 @@ var _file = argument0;
 
 if (ds_map_exists(global.__chatterbox_file_data, _file))
 {
-    show_error("Chatterbox:\n\"" + _file + "\" has already been defined\n ", false);
+    show_error("Chatterbox:\n\"" + _file + "\" has already been added\n ", false);
     return undefined;
 }
 
