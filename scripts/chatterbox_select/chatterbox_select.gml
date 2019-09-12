@@ -22,17 +22,17 @@ if (_node_title == undefined)
 }
 
 //VM state
-var _key                   = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
-var _start_indent          = 0;
-var _indent_bottom_limit   = 0;
-var _text_instruction      = 0;
-var _start_instruction     = global.__chatterbox_goto[? _key ];
-var _end_instruction       = -1;
-var _scan_from_text        = false;
-var _scan_from_last_wait      = false;
-var _at_scan_end_instruction  = false;
-var _if_state              = true;
-var _permit_greater_indent = false;
+var _key                     = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
+var _start_indent            = 0;
+var _indent_bottom_limit     = 0;
+var _text_instruction        = 0;
+var _start_instruction       = global.__chatterbox_goto[? _key ];
+var _end_instruction         = -1;
+var _scan_from_text          = false;
+var _scan_from_last_wait     = false;
+var _at_scan_end_instruction = false;
+var _if_state                = true;
+var _permit_greater_indent   = false;
 
 if (is_real(_selected_index))
 {
