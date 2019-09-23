@@ -218,10 +218,11 @@ repeat(_font_count)
         #region Break down body into substrings
         
         ds_list_clear(_body_substring_list);
-        var _in_action = false;
-        var _in_option = false;
-        var _indent    = 0;
-        var _line      = -1;
+        var _in_action    = false;
+        var _in_option    = false;
+        var _indent       = 0;
+        var _line         = -1;
+        var _last_newline = 0;
         
         var     _pos = string_pos("\n", _body);
         var _new_pos = string_pos(CHATTERBOX_OPTION_OPEN_DELIMITER + CHATTERBOX_OPTION_OPEN_DELIMITER, _body); _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
@@ -238,13 +239,14 @@ repeat(_font_count)
                 _body = string_delete(_body, 1, _pos+1);
                 _body_substring = __chatterbox_remove_whitespace(_body_substring, true);
             }
-            else
+            else //Is a newline
             {
                 var _body_substring = string_copy(_body, 1, _pos-1);
                 _body = string_delete(_body, 1, _pos);
                 
                 _body_substring = __chatterbox_remove_whitespace(_body_substring, true);
                 _line++;
+                _last_newline = ds_list_size(_body_substring_list);
                 _indent = global.__chatterbox_indent_size;
             }
             
@@ -254,7 +256,16 @@ repeat(_font_count)
             {
                 if (_in_option)
                 {
-                    ds_list_add(_body_substring_list, [_body_substring, "option", _line, _indent]);
+                    if (ds_list_size(_body_substring_list) == _last_newline)
+                    {
+                        ds_list_add(_body_substring_list, [_body_substring, "option", _line, _indent]);
+                    }
+                    else
+                    {
+                        var _prev_array   = _body_substring_list[| ds_list_size(_body_substring_list)-1];
+                        _prev_array[@ 0] += CHATTERBOX_OPTION_OPEN_DELIMITER + CHATTERBOX_OPTION_OPEN_DELIMITER + _body_substring + CHATTERBOX_OPTION_CLOSE_DELIMITER + CHATTERBOX_OPTION_CLOSE_DELIMITER;
+                        _prev_array[@ 1]  = "text"; //Change the previous substring's type to text to force raw text display
+                    }
                 }
                 else if (_in_action)
                 {
