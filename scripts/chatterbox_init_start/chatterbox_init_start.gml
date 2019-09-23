@@ -56,7 +56,7 @@ enum __CHATTERBOX_CHILD
 #macro __CHATTERBOX_VM_IF              "IF"
 #macro __CHATTERBOX_VM_ELSE            "ELSE"
 #macro __CHATTERBOX_VM_ELSEIF          "ELSE IF"
-#macro __CHATTERBOX_VM_IF_END          "END"
+#macro __CHATTERBOX_VM_IF_END          "IF END"
 #macro __CHATTERBOX_VM_SET             "SET"
 #macro __CHATTERBOX_VM_STOP            "STOP"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
