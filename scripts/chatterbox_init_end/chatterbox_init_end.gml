@@ -218,11 +218,11 @@ repeat(_font_count)
         #region Break down body into substrings
         
         ds_list_clear(_body_substring_list);
-        var _in_action    = false;
-        var _in_option    = false;
-        var _indent       = 0;
-        var _line         = -1;
-        var _last_newline = 0;
+        var _in_action     = false;
+        var _in_option     = false;
+        var _indent        = 0;
+        var _line          = -1;
+        var _first_on_line = true;
         
         var     _pos = string_pos("\n", _body);
         var _new_pos = string_pos(CHATTERBOX_OPTION_OPEN_DELIMITER + CHATTERBOX_OPTION_OPEN_DELIMITER, _body); _pos = (_new_pos > 0)? min(_pos, _new_pos) : _pos;
@@ -246,7 +246,6 @@ repeat(_font_count)
                 
                 _body_substring = __chatterbox_remove_whitespace(_body_substring, true);
                 _line++;
-                _last_newline = ds_list_size(_body_substring_list);
                 _indent = global.__chatterbox_indent_size;
             }
             
@@ -256,7 +255,7 @@ repeat(_font_count)
             {
                 if (_in_option)
                 {
-                    if (ds_list_size(_body_substring_list) == _last_newline)
+                    if (_first_on_line)
                     {
                         ds_list_add(_body_substring_list, [_body_substring, "option", _line, _indent]);
                     }
@@ -275,8 +274,11 @@ repeat(_font_count)
                 {
                     ds_list_add(_body_substring_list, [_body_substring, "text", _line, _indent]);
                 }
+                
+                _first_on_line = false;
             }
             
+            if (_char == "\n") _first_on_line = true;
             if (_char == CHATTERBOX_OPTION_OPEN_DELIMITER) _in_option = true;
             if (_char == CHATTERBOX_ACTION_OPEN_DELIMITER) _in_action = true;
             if ((_char == CHATTERBOX_OPTION_CLOSE_DELIMITER) || (_char == "")) _in_option = false;
