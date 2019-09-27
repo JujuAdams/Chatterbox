@@ -249,12 +249,11 @@ repeat(_font_count)
                 _indent = global.__chatterbox_indent_size;
             }
             
-            _body_substring = __chatterbox_remove_whitespace(_body_substring, false);
-            
             if (_body_substring != "")
             {
                 if (_in_option)
                 {
+                    _body_substring = __chatterbox_remove_whitespace(_body_substring, false);
                     if (_first_on_line)
                     {
                         ds_list_add(_body_substring_list, [_body_substring, "option", _line, _indent]);
@@ -268,11 +267,27 @@ repeat(_font_count)
                 }
                 else if (_in_action)
                 {
+                    _body_substring = __chatterbox_remove_whitespace(_body_substring, false);
                     ds_list_add(_body_substring_list, [_body_substring, "action", _line, _indent]);
                 }
                 else
                 {
-                    ds_list_add(_body_substring_list, [_body_substring, "text", _line, _indent]);
+                    if (_first_on_line)
+                    {
+                        ds_list_add(_body_substring_list, [_body_substring, "text", _line, _indent]);
+                    }
+                    else
+                    {
+                        var _prev_array = _body_substring_list[| ds_list_size(_body_substring_list)-1];
+                        if (_prev_array[1] == "text")
+                        {
+                            _prev_array[@ 0] += " " + _body_substring;
+                        }
+                        else
+                        {
+                            ds_list_add(_body_substring_list, [_body_substring, "text", _line, _indent]);
+                        }
+                    }
                 }
                 
                 _first_on_line = false;

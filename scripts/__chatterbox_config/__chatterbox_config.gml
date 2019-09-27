@@ -1,7 +1,7 @@
-//  Chatterbox v0.1.3
-//  2019/04/15
+//  Chatterbox v0.1.4
+//  2019/09/27
 //  @jujuadams
-//  With thanks to Els White
+//  With thanks to Els White and Jukio Kallio
 //  
 /// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax().
 
