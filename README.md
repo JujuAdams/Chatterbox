@@ -13,7 +13,7 @@ http://infiniteammo.com/Yarn/Yarn-2016-08-15-mac.zip
 
 Further examples for Yarn can be found here - https://github.com/thesecretlab/YarnSpinner
 
-&nbps;
+&nbsp;
 
 **How do I import chatterbox into my game?**
 
