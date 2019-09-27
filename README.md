@@ -2,6 +2,8 @@
 
 ### @jujuadams
 
+*A big thank you to Els White and Jukio Kallio for helping me test and develop this library.*
+
 Chatterbox is a GameMaker implementation of the [Yarn language](https://github.com/YarnSpinnerTool/YarnSpinner), used in games such as [Far From Noise](https://www.georgebatchelor.com/farfromnoise), [Kinghts and Bikes](https://foamswordgames.com/#knights), and [Night In The Woods](http://www.nightinthewoods.com/).
 
 Yarn is designed to be accessible to writers who have little or no programming knowledge. It makes no assumptions about how your game presents dialogue to the player, or about how the player chooses their responses. Yarn has lots of [thorough documentation](https://github.com/YarnSpinnerTool/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/README.md).
