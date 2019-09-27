@@ -552,28 +552,31 @@ if (is_real(_selected_index))
         _instruction++;
     }
     
-    #region Create a new option from a TEXT instruction if no option or shortcut was found
-    
-    //Scan through all children to find the selected option
-    var _size = array_length_1d(_child_array);
-    for(var _i = 0; _i < _size; _i++)
+    if (CHATTERBOX_OPTION_FALLBACK_ENABLE)
     {
-        var _array = _child_array[ _i ];
-        if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION) break;
+        #region Create a new option from a TEXT instruction if no option or shortcut was found
+        
+        //Scan through all children to find the selected option
+        var _size = array_length_1d(_child_array);
+        for(var _i = 0; _i < _size; _i++)
+        {
+            var _array = _child_array[ _i ];
+            if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION) break;
+        }
+        
+        if (_i >= _size)
+        {
+            //We haven't found an option so we should create one!
+            var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
+            _new_array[@ __CHATTERBOX_CHILD.STRING            ] = CHATTERBOX_OPTION_FALLBACK_TEXT;
+            _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
+            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
+            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
+            _child_array[@ array_length_1d(_child_array) ] = _new_array;
+        }
+        
+        #endregion
     }
-    
-    if (_i >= _size)
-    {
-        //We haven't found an option so we should create one!
-        var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-        _new_array[@ __CHATTERBOX_CHILD.STRING            ] = CHATTERBOX_OPTION_DEFAULT_TEXT;
-        _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
-        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-        _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
-        _child_array[@ array_length_1d(_child_array) ] = _new_array;
-    }
-    
-    #endregion
     
     return true;
 }
