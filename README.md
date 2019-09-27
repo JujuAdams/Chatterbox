@@ -2,7 +2,9 @@
 
 ### @jujuadams
 
-*A big thank you to Els White and Jukio Kallio for helping me test and develop this library.*
+*A big thank you to Els White and Jukio Kallio for helping to test and develop this library.*
+
+&nbsp;
 
 Chatterbox is a GameMaker implementation of the [Yarn language](https://github.com/YarnSpinnerTool/YarnSpinner), used in games such as [Far From Noise](https://www.georgebatchelor.com/farfromnoise), [Kinghts and Bikes](https://foamswordgames.com/#knights), and [Night In The Woods](http://www.nightinthewoods.com/).
 
