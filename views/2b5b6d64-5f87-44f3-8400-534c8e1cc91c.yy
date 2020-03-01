@@ -9,7 +9,7 @@
         "6a735733-e38d-4fc8-ad9e-24d8b97c6adb"
     ],
     "filterType": "GMScript",
-    "folderName": "Additional",
+    "folderName": "Extra",
     "isDefaultView": false,
     "localisedFolderName": ""
 }

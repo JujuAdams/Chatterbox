@@ -32,10 +32,10 @@ if (!is_string(_file))
 
 if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _file;
 
-var _data;
-_data[ __CHATTERBOX_FILE.FILENAME ] = _file;
-_data[ __CHATTERBOX_FILE.NAME     ] = _file;
-_data[ __CHATTERBOX_FILE.TYPE     ] = __CHATTERBOX_FILE_YARN;
-global.__chatterbox_file_data[? _file ] = _data;
+var _data = array_create(__CHATTERBOX_FILE.__SIZE);
+global.__chatterbox_file_data[? _file] = _data;
+_data[@ __CHATTERBOX_FILE.FILENAME] = _file;
+_data[@ __CHATTERBOX_FILE.NAME    ] = _file;
+_data[@ __CHATTERBOX_FILE.FORMAT  ] = __CHATTERBOX_FORMAT.YARN;
 
 __chatterbox_trace("Added \"" + _file + "\" as a source file");

@@ -14,7 +14,7 @@ enum __CHATTERBOX_FILE
 {
     FILENAME, //0
     NAME,     //1
-    TYPE,     //2
+    FORMAT,   //2
     __SIZE    //3
 }
 
@@ -44,6 +44,18 @@ enum __CHATTERBOX_CHILD
     __SIZE             //4
 }
 
+enum __CHATTERBOX_CHILD_TYPE
+{
+    BODY,
+    OPTION
+}
+
+enum __CHATTERBOX_FORMAT
+{
+    JSON,
+    YARN
+}
+
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
@@ -55,14 +67,11 @@ enum __CHATTERBOX_CHILD
 #macro __CHATTERBOX_VM_GENERIC_ACTION  "ACTION"
 #macro __CHATTERBOX_VM_IF              "IF"
 #macro __CHATTERBOX_VM_ELSE            "ELSE"
-#macro __CHATTERBOX_VM_ELSEIF          "ELSE IF"
-#macro __CHATTERBOX_VM_IF_END          "IF END"
+#macro __CHATTERBOX_VM_ELSEIF          "ELSEIF"
+#macro __CHATTERBOX_VM_ENDIF           "ENDIF"
 #macro __CHATTERBOX_VM_SET             "SET"
 #macro __CHATTERBOX_VM_STOP            "STOP"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
-
-#macro __CHATTERBOX_FILE_JSON  1
-#macro __CHATTERBOX_FILE_YARN  2
 
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
@@ -70,7 +79,7 @@ enum __CHATTERBOX_CHILD
 
 if ( variable_global_exists("__chatterbox_init_complete") )
 {
-    show_error("Chatterbox:\nchatterbox_init_start() should not be called twice!\n ", false);
+    __chatterbox_error("chatterbox_init_start() should not be called twice!");
     exit;
 }
 
@@ -83,7 +92,7 @@ if (__CHATTERBOX_ON_MOBILE)
     if (_font_directory != "")
     {
         __chatterbox_trace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
-        show_error("Chatterbox:\nGameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
+        __chatterbox_error("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
         exit;
     }
 }

@@ -10,10 +10,10 @@
 var _chatterbox     = argument0;
 var _selected_index = argument1;
 
-var _node_title     = _chatterbox[ __CHATTERBOX_HOST.TITLE          ];
-var _filename       = _chatterbox[ __CHATTERBOX_HOST.FILENAME       ];
-var _child_array    = _chatterbox[ __CHATTERBOX_HOST.CHILDREN       ];
-var _singleton_text = _chatterbox[ __CHATTERBOX_HOST.SINGLETON_TEXT ];
+var _node_title     = _chatterbox[__CHATTERBOX_HOST.TITLE         ];
+var _filename       = _chatterbox[__CHATTERBOX_HOST.FILENAME      ];
+var _child_array    = _chatterbox[__CHATTERBOX_HOST.CHILDREN      ];
+var _singleton_text = _chatterbox[__CHATTERBOX_HOST.SINGLETON_TEXT];
 
 if (_node_title == undefined)
 {
@@ -42,8 +42,8 @@ if (is_real(_selected_index))
     var _size = array_length_1d(_child_array);
     for(var _i = 0; _i < _size; _i++)
     {
-        var _array = _child_array[ _i ];
-        if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION)
+        var _array = _child_array[_i];
+        if (_array[__CHATTERBOX_CHILD.TYPE] == __CHATTERBOX_CHILD_TYPE.OPTION)
         {
             if (_count == _selected_index) break;
             _count++;
@@ -53,32 +53,32 @@ if (is_real(_selected_index))
     //If we can't find the selected option, bail
     if ((_i >= _size) || !is_array(_array))
     {
-        if (CHATTERBOX_DEBUG) __chatterbox_trace("Selected option (" + string(_selected_index) + ") could not be found. Total number of options is " + string(_count));
+        if (CHATTERBOX_DEBUG) __chatterbox_trace("Selected option (", _selected_index, ") could not be found. Total number of options is ", _count);
         return false;
     }
     
-    var _start_instruction = _array[ __CHATTERBOX_CHILD.INSTRUCTION_START ];
-    var _end_instruction   = _array[ __CHATTERBOX_CHILD.INSTRUCTION_END   ];
-    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set start instruction = " + string(_start_instruction));
-    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set end instruction = " + string(_end_instruction));
+    var _start_instruction = _array[__CHATTERBOX_CHILD.INSTRUCTION_START];
+    var _end_instruction   = _array[__CHATTERBOX_CHILD.INSTRUCTION_END  ];
+    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set start instruction = ", _start_instruction);
+    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set end instruction = ", _end_instruction);
     
     _scan_from_last_wait = true;
-    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set _scan_from_last_wait=" + string(_scan_from_last_wait));
+    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set _scan_from_last_wait=", _scan_from_last_wait);
     
     var _array = global.__chatterbox_vm[| _start_instruction ];
     if (!is_array(_array))
     {
-        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Non-array: \"" + string(_array) + "\"");
+        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Non-array: \"", _array, "\"");
     }
     else
     {
-        _start_indent = _array[ __CHATTERBOX_INSTRUCTION.INDENT ];
-        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set start indent = " + string(_start_indent));
-        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Starting scan from option index=" + string(_selected_index) + ", \"" + string(_array[ __CHATTERBOX_INSTRUCTION.CONTENT ]) + "\"");
+        _start_indent = _array[__CHATTERBOX_INSTRUCTION.INDENT];
+        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set start indent = ", _start_indent);
+        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Starting scan from option index=", _selected_index, ", \"", _array[__CHATTERBOX_INSTRUCTION.CONTENT], "\"");
     }
     
     _child_array = []; //Wipe all children
-    _chatterbox[@ __CHATTERBOX_HOST.CHILDREN ] = _child_array;
+    _chatterbox[@ __CHATTERBOX_HOST.CHILDREN] = _child_array;
     
     var _instruction = _start_instruction;
     var _indent      = _start_indent;
@@ -89,33 +89,33 @@ if (is_real(_selected_index))
         var _continue = false;
             _at_scan_end_instruction = false;
         
-        var _instruction_array   = global.__chatterbox_vm[| _instruction ];
+        var _instruction_array = global.__chatterbox_vm[| _instruction];
         if (!is_array(_instruction_array))
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("  Non-array: \"" + string(_instruction_array) + "\"");
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("  Non-array: \"", _instruction_array, "\"");
             _instruction++;
             if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("    <- Continue <-");
             continue;
         }
         
-        var _instruction_type    = _instruction_array[ __CHATTERBOX_INSTRUCTION.TYPE    ];
-        var _instruction_indent  = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT  ];
-        var _instruction_content = _instruction_array[ __CHATTERBOX_INSTRUCTION.CONTENT ];
-        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":   " + _instruction_type + ":   " + string(_instruction_indent) + ":   " + string(_instruction_content));
+        var _instruction_type    = _instruction_array[__CHATTERBOX_INSTRUCTION.TYPE   ];
+        var _instruction_indent  = _instruction_array[__CHATTERBOX_INSTRUCTION.INDENT ];
+        var _instruction_content = _instruction_array[__CHATTERBOX_INSTRUCTION.CONTENT];
+        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":   ", string_format(_instruction_indent, 3, 0), " ", _instruction_type + ": ", _instruction_content);
         
         if (_scan_from_last_wait)
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":     _scan_from_last_wait == " + string(_scan_from_last_wait));
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":     _scan_from_last_wait == ", _scan_from_last_wait);
             
             if (_instruction == _end_instruction)
             {
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":     instruction " + string(_instruction) + " == end " + string(_end_instruction));
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":     instruction ", _instruction, " == end ", _end_instruction);
                 _indent                  = _instruction_indent;
                 _scan_from_last_wait     = false;
                 _at_scan_end_instruction = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       Set indent = " + string(_indent));
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       Set _scan_from_last_wait=" + string(_scan_from_last_wait));
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       Set _at_scan_end_instruction=" + string(_at_scan_end_instruction));
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       Set indent = ", _indent);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       Set _scan_from_last_wait=", _scan_from_last_wait);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       Set _at_scan_end_instruction=", _at_scan_end_instruction);
             }
             else if (_instruction > _end_instruction)
             {
@@ -129,33 +129,33 @@ if (is_real(_selected_index))
         
         if (_instruction_indent < _indent)
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":     instruction indent " + string(_instruction_indent) + " < indent " + string(_indent));
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":     instruction indent ", _instruction_indent, " < indent ", _indent);
             if (!_scan_from_text)
             {
                 _indent = _instruction_indent;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       Set indent = " + string(_indent));
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       Set indent = ", _indent);
             }
             else if (_instruction_indent < _indent_bottom_limit)
             {
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       instruction indent " + string(_instruction_indent) + " < _indent_bottom_limit " + string(_indent_bottom_limit));
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       instruction indent ", _instruction_indent, " < _indent_bottom_limit ", _indent_bottom_limit);
                 _break = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":   -> BREAK ->");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":   -> BREAK ->");
             }
         }
         else if (_instruction_indent > _indent)
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":     instruction indent " + string(_instruction_indent) + " > indent " + string(_indent));
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       _permit_greater_indent=" + string(_permit_greater_indent));
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       indent difference=" + string(_instruction_indent - _indent));
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":     instruction indent ", _instruction_indent, " > indent " , _indent);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       _permit_greater_indent=", _permit_greater_indent);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":       indent difference=", _instruction_indent - _indent);
             if (_permit_greater_indent && ((_instruction_indent - _indent) <= CHATTERBOX_INDENT_UNIT_SIZE))
             {
                 _indent = _instruction_indent;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":         Set indent = " + string(_indent));
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":         Set indent = ", _indent);
             }
             else
             {
                 _continue = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":   <- Continue <-");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace(_instruction, ":   <- Continue <-");
             }
         }
         
@@ -229,7 +229,7 @@ if (is_real(_selected_index))
                     }
                 break;
                 
-                case __CHATTERBOX_VM_IF_END:
+                case __CHATTERBOX_VM_ENDIF:
                     _if_state = true;
                     if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":     Set _if_state = " + string(_if_state));
                 break;
@@ -293,10 +293,10 @@ if (is_real(_selected_index))
                     if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":     Set _scan_from_text = " + string(_scan_from_text));
                     
                     var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-                    _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _instruction_content[0];
-                    _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_BODY;
-                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = undefined;
-                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = undefined;
+                    _new_array[@ __CHATTERBOX_CHILD.STRING           ] = _instruction_content[0];
+                    _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.BODY;
+                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = undefined;
+                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = undefined;
                     _child_array[@ array_length_1d(_child_array) ] = _new_array;
                     
                     if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":       Created text");
@@ -538,11 +538,11 @@ if (is_real(_selected_index))
                 _new_option = false;
                 
                 var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-                _new_array[@ __CHATTERBOX_CHILD.STRING            ] = _new_option_text;
-                _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
-                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
-                _child_array[@ array_length_1d(_child_array) ] = _new_array;
+                _child_array[@ array_length_1d(_child_array)] = _new_array;
+                _new_array[@ __CHATTERBOX_CHILD.STRING           ] = _new_option_text;
+                _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.OPTION;
+                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = _text_instruction;
+                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = _instruction;
             }
             #endregion
         }
@@ -561,18 +561,18 @@ if (is_real(_selected_index))
         for(var _i = 0; _i < _size; _i++)
         {
             var _array = _child_array[ _i ];
-            if (_array[ __CHATTERBOX_CHILD.TYPE ] == CHATTERBOX_OPTION) break;
+            if (_array[ __CHATTERBOX_CHILD.TYPE ] == __CHATTERBOX_CHILD_TYPE.OPTION) break;
         }
         
         if (_i >= _size)
         {
             //We haven't found an option so we should create one!
             var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-            _new_array[@ __CHATTERBOX_CHILD.STRING            ] = CHATTERBOX_OPTION_FALLBACK_TEXT;
-            _new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
-            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _text_instruction;
-            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
-            _child_array[@ array_length_1d(_child_array) ] = _new_array;
+            _new_array[@ __CHATTERBOX_CHILD.STRING           ] = CHATTERBOX_OPTION_FALLBACK_TEXT;
+            _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.OPTION;
+            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = _text_instruction;
+            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = _instruction;
+            _child_array[@ array_length_1d(_child_array)] = _new_array;
         }
         
         #endregion

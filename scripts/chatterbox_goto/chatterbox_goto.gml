@@ -59,13 +59,13 @@ if (CHATTERBOX_DEBUG) __chatterbox_trace("  Set \"visited(" + _key + ")\" to <tr
 
 //Create a fake option
 var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
-_new_array[@ __CHATTERBOX_CHILD.STRING            ] = "";
-_new_array[@ __CHATTERBOX_CHILD.TYPE              ] = CHATTERBOX_OPTION;
-_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START ] = _instruction;
-_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END   ] = _instruction;
+_new_array[@ __CHATTERBOX_CHILD.STRING           ] = "";
+_new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.OPTION;
+_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = _instruction;
+_new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = _instruction;
 
 var _child_array = []; //Wipe all children
-_chatterbox[@ __CHATTERBOX_HOST.CHILDREN ] = _child_array;
-_child_array[@ array_length_1d(_child_array) ] = _new_array;
+_chatterbox[@ __CHATTERBOX_HOST.CHILDREN] = _child_array;
+_child_array[@ array_length_1d(_child_array)] = _new_array;
 
 return chatterbox_select(_chatterbox, 0); //Now select the fake option!
