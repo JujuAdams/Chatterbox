@@ -3,7 +3,7 @@
 ///
 /// Initialisation is only fully complete once chatterbox_init_end() is called.
 ///
-/// @param fontDirectory  Directory to look in (relative to game_save_id) for Yarn sourceS files
+/// @param fileDirectory  Directory to look in (relative to game_save_id) for Yarn source files
 
 #region Internal Macro Definitions
 
