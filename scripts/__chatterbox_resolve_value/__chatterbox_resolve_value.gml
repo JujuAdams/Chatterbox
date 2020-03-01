@@ -138,7 +138,7 @@ else
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
-                        show_error("Chatterbox:\nInternal variable \"" + _value + "\" doesn't exist\n ", false);
+                        __chatterbox_error("Internal variable \"" + _value + "\" doesn't exist");
                     }
                     else
                     {
@@ -158,7 +158,7 @@ else
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
-                        show_error("Chatterbox:\nLocal variable \"" + _value + "\" doesn't exist\n ", false);
+                        __chatterbox_error("Local variable \"" + _value + "\" doesn't exist");
                     }
                     else
                     {
@@ -178,7 +178,7 @@ else
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
-                        show_error("Chatterbox:\nGlobal variable \"" + _value + "\" doesn't exist!\n ", false);
+                        __chatterbox_error("Global variable \"" + _value + "\" doesn't exist!");
                     }
                     else
                     {
@@ -199,7 +199,7 @@ else
         {
             if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
             {
-                show_error("Chatterbox:\nVariable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")\n ", false);
+                __chatterbox_error("Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
             }
             else
             {

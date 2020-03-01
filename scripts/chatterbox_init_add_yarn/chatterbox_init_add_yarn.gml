@@ -6,13 +6,13 @@
 
 if ( !variable_global_exists("__chatterbox_init_complete") )
 {
-    show_error("Chatterbox:\nchatterbox_init_add() should be called after chatterbox_init_start()\n ", true);
+    __chatterbox_error("chatterbox_init_add() should be called after chatterbox_init_start()\n ", true);
     return undefined;
 }
 
 if (global.__chatterbox_init_complete)
 {
-    show_error("Chatterbox:\nchatterbox_init_add() should be called before chatterbox_init_end()\n ", true);
+    __chatterbox_error("chatterbox_init_add() should be called before chatterbox_init_end()\n ", true);
     return undefined;
 }
 
@@ -20,13 +20,13 @@ var _file = argument0;
 
 if (ds_map_exists(global.__chatterbox_file_data, _file))
 {
-    show_error("Chatterbox:\n\"" + _file + "\" has already been added\n ", false);
+    __chatterbox_error("\"" + _file + "\" has already been added");
     return undefined;
 }
 
 if (!is_string(_file))
 {
-    show_error("Chatterbox:\nSource files should be initialised using their filename as a string.\n(Input was an invalid datatype)\n ", false);
+    __chatterbox_error("Source files should be initialised using their filename as a string.\n(Input was an invalid datatype)");
     return undefined;
 }
 

@@ -25,7 +25,7 @@ var _timer = get_timer();
 
 if ( !variable_global_exists("__chatterbox_init_complete" ) )
 {
-    show_error("Chatterbox:\nchatterbox_init_end() should be called after chatterbox_init_start()\n ", false);
+    __chatterbox_error("chatterbox_init_end() should be called after chatterbox_init_start()");
     exit;
 }
 
@@ -142,7 +142,7 @@ repeat(_font_count)
     //If both of these fail, it's some wacky JSON that we don't recognise
     if (_node_list == undefined)
     {
-        show_error("Chatterbox:\nFormat for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.\n ", false);
+        __chatterbox_error("Format for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.");
         _name = ds_map_find_next(global.__chatterbox_file_data, _name);
         continue;
     }
@@ -585,7 +585,7 @@ repeat(_font_count)
                                     else
                                     {
                                         //Error!
-                                        show_error("Chatterbox:\nSyntax error\n ", false);
+                                        __chatterbox_error("Syntax error");
                                         _content[_element_index] = undefined;
                                     }
                                 
@@ -614,7 +614,7 @@ repeat(_font_count)
                                     else
                                     {
                                         //Error!
-                                        show_error("Chatterbox:\nSyntax error\n ", false);
+                                        __chatterbox_error("Syntax error");
                                         _content[_element_index] = undefined;
                                     }
                                 
@@ -629,7 +629,7 @@ repeat(_font_count)
                                         if !((_operator == "-") && (_op == 8) && (_e == 0)) //Don't report this error if the subtraction sign might be a negative sign
                                         {
                                             //Error!
-                                            show_error("Chatterbox:\nSyntax error\n ", false);
+                                            __chatterbox_error("Syntax error");
                                             _content[_element_index] = undefined;
                                         }
                                     }
@@ -638,7 +638,7 @@ repeat(_font_count)
                                         if !((_operator == "-") && (_op == 8) && (_e == 0)) //Don't report this error if the subtraction sign might be a negative sign
                                         {
                                             //Error!
-                                            show_error("Chatterbox:\nSyntax error\n ", false);
+                                            __chatterbox_error("Syntax error");
                                             _content[_element_index] = undefined;
                                         }
                                     }

@@ -119,7 +119,7 @@ if (is_real(_selected_index))
             }
             else if (_instruction > _end_instruction)
             {
-                show_error("Chatterbox:\nVM instruction overstepped bounds!\n ", true);
+                __chatterbox_error("VM instruction overstepped bounds!\n ", true);
                 _instruction = _end_instruction;
                 continue;
             }
@@ -344,12 +344,12 @@ if (is_real(_selected_index))
                         {
                             if (!ds_map_exists(global.__chatterbox_file_data, _filename))
                             {
-                                show_error("Chatterbox:\nFile \"" + string(_filename) + "\" not initialised.\n ", true);
+                                __chatterbox_error("File \"" + string(_filename) + "\" not initialised.\n ", true);
                                 exit;
                             }
                             else
                             {
-                                show_error("Chatterbox:\nNode title \"" + string(_node_title) + "\" not found in file \"" + string(_filename) + "\".\n ", true);
+                                __chatterbox_error("Node title \"" + string(_node_title) + "\" not found in file \"" + string(_filename) + "\".\n ", true);
                                 exit;
                             }
                         }
@@ -397,12 +397,12 @@ if (is_real(_selected_index))
                             {
                                 if (!ds_map_exists(global.__chatterbox_file_data, _filename))
                                 {
-                                    show_error("Chatterbox:\nFile \"" + string(_filename) + "\" not initialised.\n ", true);
+                                    __chatterbox_error("File \"" + string(_filename) + "\" not initialised.\n ", true);
                                     exit;
                                 }
                                 else
                                 {
-                                    show_error("Chatterbox:\nNode title \"" + string(_node_title) + "\" not found in file \"" + string(_filename) + "\".\n ", true);
+                                    __chatterbox_error("Node title \"" + string(_node_title) + "\" not found in file \"" + string(_filename) + "\".\n ", true);
                                     exit;
                                 }
                             }

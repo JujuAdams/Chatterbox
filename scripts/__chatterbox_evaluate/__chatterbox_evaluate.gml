@@ -74,7 +74,7 @@ repeat(9999)
                         {
                             if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
                             {
-                                show_error("Chatterbox:\nVariable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")\n ", false);
+                                __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
                             }
                             else
                             {
@@ -177,7 +177,7 @@ repeat(9999)
                     {
                         if (CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE)
                         {
-                            show_error("Chatterbox:\nMismatched datatypes\n ", false);
+                            __chatterbox_error("Mismatched datatypes");
                         }
                         else
                         {

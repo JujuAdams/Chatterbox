@@ -24,13 +24,13 @@ if (argument_count > 2) && (argument[2] != undefined)
     
     if (!is_string(_filename))
     {
-        show_error("Chatterbox:\nYarn .json filenames must be strings (Got \"" + string(_filename) + "\")\n ", false);
+        __chatterbox_error("Yarn .json filenames must be strings (Got \"" + string(_filename) + "\")");
         return undefined;
     }
     
     if (!ds_map_exists(global.__chatterbox_file_data, _filename))
     {
-        show_error("Chatterbox:\nCannot find Yarn .json \"" + _filename + "\"\n ", false);
+        __chatterbox_error("Cannot find Yarn .json \"" + _filename + "\"");
         return undefined;
     }
     
@@ -45,7 +45,7 @@ var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
 var _instruction = global.__chatterbox_goto[? _key ];
 if (_instruction == undefined)
 {
-    show_error("Chatterbox:\nCouldn't find title \"" + string(_node_title) + "\" from Yarn .json file \"" + string(_filename) + "\"\n ", false);
+    __chatterbox_error("Couldn't find title \"" + string(_node_title) + "\" from Yarn .json file \"" + string(_filename) + "\"");
     return false;
 }
 
