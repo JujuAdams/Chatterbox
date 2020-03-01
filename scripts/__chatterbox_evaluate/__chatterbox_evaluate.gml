@@ -78,7 +78,7 @@ repeat(9999)
                             }
                             else
                             {
-                                show_debug_message("Chatterbox: WARNING! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
+                                __chatterbox_trace("WARNING! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
                             }
                             
                             _result = string(_result);
@@ -137,7 +137,7 @@ repeat(9999)
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
+                        __chatterbox_trace("WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
                     }
                 }
                 
@@ -181,7 +181,7 @@ repeat(9999)
                         }
                         else
                         {
-                            show_debug_message("Chatterbox: WARNING! Mismatched datatypes");
+                            __chatterbox_trace("WARNING! Mismatched datatypes");
                         }
                     }
                 }

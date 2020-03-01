@@ -29,7 +29,7 @@ if ( !variable_global_exists("__chatterbox_init_complete" ) )
     exit;
 }
 
-show_debug_message("Chatterbox: Chatterbox initialisation started");
+__chatterbox_trace("Chatterbox initialisation started");
 
 var _body_substring_list = ds_list_create();
 
@@ -40,7 +40,7 @@ var _name = ds_map_find_first(global.__chatterbox_file_data);
 repeat(_font_count)
 {
     var _font_data = global.__chatterbox_file_data[? _name ];
-    show_debug_message("Chatterbox:   Processing file \"" + _name + "\"");
+    __chatterbox_trace("  Processing file \"" + _name + "\"");
     
     var _filename  = _font_data[ __CHATTERBOX_FILE.FILENAME ];
     var _file_type = _font_data[ __CHATTERBOX_FILE.TYPE     ];
@@ -50,7 +50,7 @@ repeat(_font_count)
     ds_list_add(global.__chatterbox_vm, _filename);
     var _instruction_file_offset = ds_list_size(global.__chatterbox_vm);
     global.__chatterbox_goto[? _filename ] = _instruction_file_offset;
-    if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:   File instruction offset is " + string(_instruction_file_offset));
+    if (CHATTERBOX_DEBUG_PARSER) __chatterbox_trace("  File instruction offset is " + string(_instruction_file_offset));
     
     
     
@@ -124,13 +124,13 @@ repeat(_font_count)
         
         //Test for JSON made by the standard Yarn editor
         var _node_list = _yarn_json[? "default" ];
-        if (_node_list != undefined) show_debug_message("Chatterbox:     File was made in standard Yarn editor");
+        if (_node_list != undefined) __chatterbox_trace("    File was made in standard Yarn editor");
         
         //Test for JSON made by Jacquard
         if (_node_list == undefined)
         {
             var _node_list = _yarn_json[? "nodes" ];
-            if (_node_list != undefined) show_debug_message("Chatterbox:     File was made by Jacquard");
+            if (_node_list != undefined) __chatterbox_trace("    File was made by Jacquard");
         }
         
         //Divorce the node list from the JSON
@@ -154,7 +154,7 @@ repeat(_font_count)
     var _node_count = ds_list_size(_node_list);
     if (_node_count > 0)
     {
-        show_debug_message("Chatterbox:     Found " + string(_node_count) + " titles:");
+        __chatterbox_trace("    Found " + string(_node_count) + " titles:");
         var _string = "Chatterbox:       ";
         
         var _i = 0;
@@ -204,14 +204,14 @@ repeat(_font_count)
         
         if (CHATTERBOX_DEBUG_PARSER)
         {
-            show_debug_message("Chatterbox:     Processing \"" + string(_title) + "\" = \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
+            __chatterbox_trace("    Processing \"" + string(_title) + "\" = \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
         }
         _body += "\n";
         
         ds_list_add(global.__chatterbox_vm, _filename + CHATTERBOX_FILENAME_SEPARATOR + _title);
         var _instruction_node_offset = ds_list_size(global.__chatterbox_vm);
         global.__chatterbox_goto[? _filename + CHATTERBOX_FILENAME_SEPARATOR + _title ] = _instruction_node_offset;
-        if (CHATTERBOX_DEBUG_PARSER) show_debug_message("Chatterbox:     Node instruction offset is " + string(_instruction_node_offset));
+        if (CHATTERBOX_DEBUG_PARSER) __chatterbox_trace("    Node instruction offset is " + string(_instruction_node_offset));
         
         
         
@@ -815,7 +815,7 @@ repeat(_font_count)
                     _string = string(_array);
                 }
                 
-                show_debug_message("Chatterbox:       " + _string);
+                __chatterbox_trace("      " + _string);
                 
                 _i++;
             }
@@ -832,8 +832,8 @@ repeat(_font_count)
 
 ds_list_destroy(_body_substring_list);
 
-show_debug_message("Chatterbox: VM has " + string(ds_list_size(global.__chatterbox_vm)) + " instructions");
-show_debug_message("Chatterbox: Initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");
-show_debug_message("Chatterbox: Thanks for using Chatterbox!");
+__chatterbox_trace("VM has " + string(ds_list_size(global.__chatterbox_vm)) + " instructions");
+__chatterbox_trace("Initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");
+__chatterbox_trace("Thanks for using Chatterbox!");
 
 global.__chatterbox_init_complete = true;

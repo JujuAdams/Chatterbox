@@ -74,7 +74,7 @@ if ( variable_global_exists("__chatterbox_init_complete") )
     exit;
 }
 
-show_debug_message("Chatterbox: Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
+__chatterbox_trace("Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
 
 var _font_directory = argument0;
 
@@ -82,7 +82,7 @@ if (__CHATTERBOX_ON_MOBILE)
 {
     if (_font_directory != "")
     {
-        show_debug_message("Chatterbox: Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
+        __chatterbox_trace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
         show_error("Chatterbox:\nGameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
         exit;
     }
@@ -97,7 +97,7 @@ else
 //Check if the directory exists
 if ( !directory_exists(_font_directory) )
 {
-    show_debug_message("Chatterbox: WARNING! Font directory \"" + string(_font_directory) + "\" could not be found in \"" + game_save_id + "\"!");
+    __chatterbox_trace("WARNING! Font directory \"" + string(_font_directory) + "\" could not be found in \"" + game_save_id + "\"!");
 }
 
 //Declare global variables

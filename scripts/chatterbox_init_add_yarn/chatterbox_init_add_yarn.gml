@@ -38,4 +38,4 @@ _data[ __CHATTERBOX_FILE.NAME     ] = _file;
 _data[ __CHATTERBOX_FILE.TYPE     ] = __CHATTERBOX_FILE_YARN;
 global.__chatterbox_file_data[? _file ] = _data;
 
-show_debug_message("Chatterbox: Added \"" + _file + "\" as a source file");
+__chatterbox_trace("Added \"" + _file + "\" as a source file");

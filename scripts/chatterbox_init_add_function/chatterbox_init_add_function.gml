@@ -70,9 +70,9 @@ switch(_name)
 var _old_script = global.__chatterbox_permitted_scripts[? _name ];
 if ( is_real(_old_script) )
 {
-    show_debug_message("Chatterbox: WARNING! Overwriting script name \"" + _name + "\" tied to \"" + script_get_name(_old_script) + "()\"" );
+    __chatterbox_trace("WARNING! Overwriting script name \"" + _name + "\" tied to \"" + script_get_name(_old_script) + "()\"" );
 }
 
 global.__chatterbox_permitted_scripts[? _name ] = _script;
-show_debug_message("Chatterbox: Permitting script \"" + _name + "\", calling \"" + script_get_name(_script) + "()\"" );
+__chatterbox_trace("Permitting script \"" + _name + "\", calling \"" + script_get_name(_script) + "()\"" );
 return true;

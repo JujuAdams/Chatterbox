@@ -85,9 +85,9 @@ switch(_name)
 var _old_script = global.__chatterbox_actions[? _name ];
 if ( is_real(_old_script) )
 {
-    show_debug_message("Chatterbox: WARNING! Overwriting action \"" + _name + "\" tied to script \"" + script_get_name(_old_script) + "()\"" );
+    __chatterbox_trace("WARNING! Overwriting action \"" + _name + "\" tied to script \"" + script_get_name(_old_script) + "()\"" );
 }
 
 global.__chatterbox_actions[? _name ] = _script;
-show_debug_message("Chatterbox: Tying action \"" + _name + "\" to script \"" + script_get_name(_script) + "()\"" );
+__chatterbox_trace("Tying action \"" + _name + "\" to script \"" + script_get_name(_script) + "()\"" );
 return true;

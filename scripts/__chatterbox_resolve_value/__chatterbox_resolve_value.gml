@@ -142,7 +142,7 @@ else
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! Internal variable \"" + _value + "\" doesn't exist");
+                        __chatterbox_trace("WARNING! Internal variable \"" + _value + "\" doesn't exist");
                     }
                                                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -162,7 +162,7 @@ else
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! Local variable \"" + _value + "\" doesn't exist");
+                        __chatterbox_trace("WARNING! Local variable \"" + _value + "\" doesn't exist");
                     }
                                                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -182,7 +182,7 @@ else
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! Global variable \"" + _value + "\" doesn't exist");
+                        __chatterbox_trace("WARNING! Global variable \"" + _value + "\" doesn't exist");
                     }
                                                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -203,7 +203,7 @@ else
             }
             else
             {
-                show_debug_message("Chatterbox: WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
+                __chatterbox_trace("WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
             }
             
             _value = string(_value);

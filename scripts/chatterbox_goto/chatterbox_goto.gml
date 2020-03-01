@@ -13,7 +13,7 @@ var _node_title = argument[1];
 
 if (!is_string(_node_title))
 {
-    show_debug_message("Chatterbox: Stopping");
+    __chatterbox_trace("Stopping");
     _chatterbox[@ __CHATTERBOX_HOST.TITLE ] = undefined;
     exit;
 }
@@ -52,10 +52,10 @@ if (_instruction == undefined)
 _chatterbox[@ __CHATTERBOX_HOST.TITLE    ] = _node_title;
 _chatterbox[@ __CHATTERBOX_HOST.FILENAME ] = _filename;
 
-show_debug_message("Chatterbox: Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
+__chatterbox_trace("Starting node \"" + _node_title + "\" from \"" + _filename + "\"");
 
 CHATTERBOX_VARIABLES_MAP[? "visited(" + _key + ")" ] = true;
-if (CHATTERBOX_DEBUG) show_debug_message("Chatterbox:   Set \"visited(" + _key + ")\" to <true>");
+if (CHATTERBOX_DEBUG) __chatterbox_trace("  Set \"visited(" + _key + ")\" to <true>");
 
 //Create a fake option
 var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
