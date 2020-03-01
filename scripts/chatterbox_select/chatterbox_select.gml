@@ -94,7 +94,7 @@ if (is_real(_selected_index))
         {
             if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Non-array: \"", _instruction_array, "\"");
             _instruction++;
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("<- Continue <-");
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("<- CONTINUE <-");
             continue;
         }
         
@@ -113,9 +113,9 @@ if (is_real(_selected_index))
                 _indent                  = _instruction_indent;
                 _scan_from_last_wait     = false;
                 _at_scan_end_instruction = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Set indent = ", _indent);
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Set _scan_from_last_wait = ", _scan_from_last_wait);
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Set _at_scan_end_instruction = ", _at_scan_end_instruction);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent = ", _indent);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _scan_from_last_wait = ", _scan_from_last_wait);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _at_scan_end_instruction = ", _at_scan_end_instruction);
             }
             else if (_instruction > _end_instruction)
             {
@@ -155,7 +155,7 @@ if (is_real(_selected_index))
             else
             {
                 _continue = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
             }
         }
         
@@ -178,7 +178,7 @@ if (is_real(_selected_index))
                         {
                             if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state == " + string(_if_state));
                             _continue = true;
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                             break;
                         }
                     }
@@ -192,7 +192,7 @@ if (is_real(_selected_index))
                             _if_state = false;
                             if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Set _if_state = ", _if_state);
                             _continue = true;
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                             break;
                         }
                     }
@@ -244,7 +244,7 @@ if (is_real(_selected_index))
             {
                 if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state == " + string(_if_state));
                 _continue = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
             }
         }
         
@@ -370,7 +370,7 @@ if (is_real(_selected_index))
                         if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("Set indent = " + string(_indent));
                         
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("" + string(_instruction) + ":   <- Continue <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                         break;
                     }
                     
@@ -424,7 +424,7 @@ if (is_real(_selected_index))
                         }
                         
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                         break;
                     }
                     
@@ -453,7 +453,7 @@ if (is_real(_selected_index))
                         }
                         
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                         break;
                     }
                     
@@ -474,7 +474,7 @@ if (is_real(_selected_index))
                     {
                         if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _scan_from_text == " + string(_scan_from_text));
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                         break;
                     }
                     
@@ -491,7 +491,7 @@ if (is_real(_selected_index))
                     {
                         if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _scan_from_text == " + string(_scan_from_text));
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- Continue <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
                         break;
                     }
                     
