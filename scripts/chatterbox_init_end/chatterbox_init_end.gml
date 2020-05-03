@@ -746,7 +746,6 @@ repeat(_font_count)
                 else if ((_content[0] == "endif") || (_content[0] == "end if"))
                 {
                     _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ENDIF;
-                    _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] -= CHATTERBOX_INDENT_UNIT_SIZE;
                 }
                 else if (_content[0] == "set")
                 {
