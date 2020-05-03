@@ -101,21 +101,21 @@ if (is_real(_selected_index))
         var _instruction_type    = _instruction_array[__CHATTERBOX_INSTRUCTION.TYPE   ];
         var _instruction_indent  = _instruction_array[__CHATTERBOX_INSTRUCTION.INDENT ];
         var _instruction_content = _instruction_array[__CHATTERBOX_INSTRUCTION.CONTENT];
-        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("inst", string_format(_instruction, 5, 0), "  >> ", string_format(_instruction_indent, 2, 0), "    ", _instruction_type, "  ", _instruction_content);
+        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("instr", string_format(_instruction, 5, 0), "  >> ", string_format(_instruction_indent, 2, 0), "    ", _instruction_type, "  ", _instruction_content);
         
         if (_scan_from_last_wait)
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _scan_from_last_wait == ", _scan_from_last_wait);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _scan_from_last_wait == ", _scan_from_last_wait);
             
             if (_instruction == _end_instruction)
             {
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    ", _instruction, " == ", _end_instruction, ", scan end");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     ", _instruction, " == ", _end_instruction, ", scan end");
                 _indent                  = _instruction_indent;
                 _scan_from_last_wait     = false;
                 _at_scan_end_instruction = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent = ", _indent);
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _scan_from_last_wait = ", _scan_from_last_wait);
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _at_scan_end_instruction = ", _at_scan_end_instruction);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     indent = ", _indent);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _scan_from_last_wait = ", _scan_from_last_wait);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _at_scan_end_instruction = ", _at_scan_end_instruction);
             }
             else if (_instruction > _end_instruction)
             {
@@ -129,33 +129,33 @@ if (is_real(_selected_index))
         
         if (_instruction_indent < _indent)
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent ", _instruction_indent, " < indent ", _indent);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     indent ", _instruction_indent, " < indent ", _indent);
             if (!_post_text)
             {
                 _indent = _instruction_indent;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent = ", _indent);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     indent = ", _indent);
             }
             else if (_instruction_indent < _indent_bottom_limit)
             {
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    instruction indent ", _instruction_indent, " < _indent_bottom_limit ", _indent_bottom_limit);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     instruction indent ", _instruction_indent, " < _indent_bottom_limit ", _indent_bottom_limit);
                 _break = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    -> BREAK ->");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     -> BREAK ->");
             }
         }
         else if (_instruction_indent > _indent)
         {
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    instruction indent ", _instruction_indent, " > indent " , _indent);
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _permit_greater_indent=", _permit_greater_indent);
-            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent difference=", _instruction_indent - _indent);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     instruction indent ", _instruction_indent, " > indent " , _indent);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _permit_greater_indent=", _permit_greater_indent);
+            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     indent difference=", _instruction_indent - _indent);
             if (_permit_greater_indent && ((_instruction_indent - _indent) <= CHATTERBOX_INDENT_UNIT_SIZE))
             {
                 _indent = _instruction_indent;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent = ", _indent);
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     indent = ", _indent);
             }
             else
             {
                 _continue = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
             }
         }
         
@@ -188,17 +188,17 @@ if (is_real(_selected_index))
                     {
                         if (_if_state)
                         {
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state == ", _if_state);
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _if_state == ", _if_state);
                             _if_state = false;
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state = ", _if_state);
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _if_state = ", _if_state);
                             _continue = true;
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                             break;
                         }
                     }
                     
                     var _result = __chatterbox_evaluate(_chatterbox, _instruction_content);
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Evaluator returned \"" + string(_result) + "\" (" + typeof(_result) + ")");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     Evaluator returned \"" + string(_result) + "\" (" + typeof(_result) + ")");
                     
                     if (!is_bool(_result) && !is_real(_result))
                     {
@@ -209,29 +209,29 @@ if (is_real(_selected_index))
                     {
                         var _if_state = _result;
                     }
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state = " + string(_if_state));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _if_state = " + string(_if_state));
                     
                     if (_if_state)
                     {
                         _permit_greater_indent = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _permit_greater_indent = " + string(_permit_greater_indent));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _permit_greater_indent = " + string(_permit_greater_indent));
                     }
                 break;
                 
                 case __CHATTERBOX_VM_ELSE:
                     _if_state = !_if_state;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Invert _if_state = " + string(_if_state));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     Invert _if_state = " + string(_if_state));
                     
                     if (_if_state)
                     {
                         _permit_greater_indent = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _permit_greater_indent = " + string(_permit_greater_indent));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _permit_greater_indent = " + string(_permit_greater_indent));
                     }
                 break;
                 
                 case __CHATTERBOX_VM_ENDIF:
                     _if_state = true;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state = " + string(_if_state));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _if_state = " + string(_if_state));
                 break;
             }
             
@@ -242,9 +242,9 @@ if (is_real(_selected_index))
             //If we're inside a branch that has been evaluated as <false> then keep skipping until we close the branch
             if (!_if_state)
             {
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _if_state == " + string(_if_state));
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _if_state == " + string(_if_state));
                 _continue = true;
-                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
             }
         }
         
@@ -261,9 +261,9 @@ if (is_real(_selected_index))
                     
                     if (_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                         _break = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    -> BREAK ->");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     -> BREAK ->");
                         break;
                     }
                     
@@ -275,22 +275,22 @@ if (is_real(_selected_index))
                     
                     if (_scan_from_last_wait)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _scan_from_last_wait == " + string(_scan_from_last_wait));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _scan_from_last_wait == " + string(_scan_from_last_wait));
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                         break;
                     }
                     
                     if (_post_text && _singleton_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                         _break = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    -> BREAK ->");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     -> BREAK ->");
                         break;
                     }
                     
                     _post_text = true;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text = " + string(_post_text));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text = " + string(_post_text));
                     
                     var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
                     _new_array[@ __CHATTERBOX_CHILD.STRING           ] = _instruction_content[0];
@@ -299,12 +299,12 @@ if (is_real(_selected_index))
                     _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = undefined;
                     _child_array[@ array_length_1d(_child_array) ] = _new_array;
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    Added body string \"", _instruction_content[0], "\"");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     Added body string \"", _instruction_content[0], "\"");
                     
                     var _text_instruction = _instruction; //Record the instruction position of the text
                     
                     _indent_bottom_limit = _instruction_indent;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _indent_for_options = " + string(_indent_bottom_limit));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _indent_for_options = " + string(_indent_bottom_limit));
                     
                     #endregion
                 break;
@@ -312,10 +312,10 @@ if (is_real(_selected_index))
                 case __CHATTERBOX_VM_REDIRECT:
                     #region Redirect
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                     if (_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    -> BREAK ->");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     -> BREAK ->");
                         _break = true;
                         break;
                     }
@@ -370,7 +370,7 @@ if (is_real(_selected_index))
                         if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("indent = " + string(_indent));
                         
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                         break;
                     }
                     
@@ -380,10 +380,10 @@ if (is_real(_selected_index))
                 case __CHATTERBOX_VM_OPTION:
                     #region Option
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                     if (!_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _at_scan_end_instruction == " + string(_at_scan_end_instruction));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _at_scan_end_instruction == " + string(_at_scan_end_instruction));
                         if (_at_scan_end_instruction)
                         {
                             _node_title = _instruction_content[1];
@@ -415,7 +415,7 @@ if (is_real(_selected_index))
                             var _permit_greater_indent   = false;
                             var _at_scan_end_instruction = false;
                             
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    >>> JUMP >>>  " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)");
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     >>> JUMP >>>  " + string(_key) + ", instruction = " + string(_instruction) + " (inc. -1 offset)");
                             
                             var _instruction_array   = global.__chatterbox_vm[| _instruction+1];
                                 _indent              = _instruction_array[ __CHATTERBOX_INSTRUCTION.INDENT ];
@@ -424,16 +424,16 @@ if (is_real(_selected_index))
                         }
                         
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                         break;
                     }
                     
                     _indent_bottom_limit = _instruction_indent;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _indent_for_options = " + string(_indent_bottom_limit));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _indent_for_options = " + string(_indent_bottom_limit));
                     
                     _new_option = true;
                     _new_option_text = _instruction_content[0];
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    New option \"" + string(_new_option_text) + "\"");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     New option \"" + string(_new_option_text) + "\"");
                     
                     #endregion
                 break;
@@ -441,28 +441,28 @@ if (is_real(_selected_index))
                 case __CHATTERBOX_VM_SHORTCUT:
                     #region Shortcut
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                     if (!_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    instruction=" + string(_instruction) + " vs. end=" + string(_end_instruction));
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    indent=" + string(_indent) + " >= start=" + string(_start_indent));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     instruction=" + string(_instruction) + " vs. end=" + string(_end_instruction));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     indent=" + string(_indent) + " >= start=" + string(_start_indent));
                         if ((_instruction == _end_instruction) && (_indent >= _start_indent))
                         {
                             _permit_greater_indent = true;
-                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _permit_greater_indent = " + string(_permit_greater_indent));
+                            if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _permit_greater_indent = " + string(_permit_greater_indent));
                         }
                         
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                         break;
                     }
                     
                     _indent_bottom_limit = _instruction_indent;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _indent_for_options = " + string(_indent_bottom_limit));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _indent_for_options = " + string(_indent_bottom_limit));
                     
                     _new_option = true;
                     _new_option_text = _instruction_content[0];
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    New option \"" + string(_new_option_text) + "\"");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     New option \"" + string(_new_option_text) + "\"");
                     
                     #endregion
                 break;
@@ -472,13 +472,13 @@ if (is_real(_selected_index))
                     
                     if (_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                         break;
                     }
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    now executing");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     now executing");
                     __chatterbox_evaluate(_chatterbox, _instruction_content);
                     
                     #endregion
@@ -489,13 +489,13 @@ if (is_real(_selected_index))
                     
                     if (_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                         _continue = true;
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    <- CONTINUE <-");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     <- CONTINUE <-");
                         break;
                     }
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    now executing");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     now executing");
                     
                     var _argument_array = array_create(array_length_1d(_instruction_content)-3);
                     array_copy(_argument_array, 0, _instruction_content, 3, array_length_1d(_instruction_content)-3);
@@ -517,14 +517,14 @@ if (is_real(_selected_index))
                     
                     if (_post_text)
                     {
-                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    -> BREAK ->");
+                        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     -> BREAK ->");
                         _break = true;
                         break;
                     }
                     
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    _post_text == " + string(_post_text));
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
                     _chatterbox[@ __CHATTERBOX_HOST.TITLE ] = undefined;
-                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                    !! STOP !!");
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     !! STOP !!");
                     exit;
                     
                     #endregion
