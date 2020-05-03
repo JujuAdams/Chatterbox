@@ -101,7 +101,7 @@ if (is_real(_selected_index))
         var _instruction_type    = _instruction_array[__CHATTERBOX_INSTRUCTION.TYPE   ];
         var _instruction_indent  = _instruction_array[__CHATTERBOX_INSTRUCTION.INDENT ];
         var _instruction_content = _instruction_array[__CHATTERBOX_INSTRUCTION.CONTENT];
-        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("instr", string_format(_instruction, 5, 0), "  >> ", string_format(_instruction_indent, 2, 0), "    ", _instruction_type, "  ", _instruction_content);
+        if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("instr", string_format(_instruction, 5, 0), "  >> ", string_format(_instruction_indent, 2, 0), "    ", _instruction_type, "  ", ((!is_undefined(_instruction_content))? _instruction_content : ""));
         
         if (_scan_from_last_wait)
         {
@@ -125,7 +125,7 @@ if (is_real(_selected_index))
             }
         }
         
-        #region Identation behaviours
+        #region Identation
         
         if (_instruction_indent < _indent)
         {
@@ -163,7 +163,7 @@ if (is_real(_selected_index))
         
         #endregion
         
-        #region Handle branches
+        #region Branching
         
         if (!_break && !_continue)
         {
@@ -528,6 +528,10 @@ if (is_real(_selected_index))
                     exit;
                     
                     #endregion
+                break;
+                
+                case __CHATTERBOX_VM_GENERIC_ACTION:
+                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     WARNING! Generic action called");
                 break;
             }
         
