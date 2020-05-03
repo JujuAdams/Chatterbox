@@ -45,5 +45,6 @@
 #macro CHATTERBOX_ERROR_ON_INVALID_DATATYPE     true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE  false  //Throw an error when two values of different datatypes are being compared
 #macro CHATTERBOX_ERROR_ON_BAD_INDENTS          true   //Whether to check for misaligned indentation. Idents must be an integer multiple of CHATTERBOX_INDENT_UNIT_SIZE
+#macro CHATTERBOX_ERROR_ON_NONSTANDARD_SYNTAX   false
 
 #endregion
