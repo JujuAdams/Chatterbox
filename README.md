@@ -2,17 +2,17 @@
 
 ### @jujuadams
 
-*A big thank you to Els White and Jukio Kallio for helping to test and develop this library.*
+*A big thank you to Els White, Jukio Kallio, and Sean Oxspring for helping to test and develop this library.*
 
 &nbsp;
 
-Chatterbox is a GameMaker implementation of the [Yarn language](https://github.com/YarnSpinnerTool/YarnSpinner), used in games such as [Far From Noise](https://www.georgebatchelor.com/farfromnoise), [Kinghts and Bikes](https://foamswordgames.com/#knights), and [Night In The Woods](http://www.nightinthewoods.com/).
+Chatterbox is a GameMaker implementation of the [Yarn language](https://yarnspinner.dev/), used in games such as [Far From Noise](https://www.georgebatchelor.com/farfromnoise), [Kinghts and Bikes](https://foamswordgames.com/#knights), and [Night In The Woods](http://www.nightinthewoods.com/).
 
-Yarn is designed to be accessible to writers who have little or no programming knowledge. It makes no assumptions about how your game presents dialogue to the player, or about how the player chooses their responses. Yarn has lots of [thorough documentation](https://github.com/YarnSpinnerTool/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/README.md).
+Yarn is designed to be accessible to writers who have little or no programming knowledge. It makes no assumptions about how your game presents dialogue to the player, or about how the player chooses their responses. Yarn has lots of [thorough documentation](https://yarnspinner.dev/docs/tutorial).
 
 Syntax and features specific to Chatterbox [can be found here](https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/scripts/__chatterbox_syntax/__chatterbox_syntax.gml). Chatterbox attempts to be a full implementation of the [Yarn specification](https://github.com/YarnSpinnerTool/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/General-Usage.md).
 
-Yarn files can be written by hand, but the best way to start with Yarn is to use an editor. The [Yarn Spinner]() tool is available as a [web-based editor](https://github.com/YarnSpinnerTool/YarnEditor) or as binaries that you can run offline on your machine. [Windows and MacOS](https://github.com/blurymind/Yarn/releases/tag/0.3.6) are supported.
+Yarn files can be written by hand, but the best way to start with Yarn is to use an editor. The [Yarn Spinner]() tool is available as a [web-based editor](https://yarnspinnertool.github.io/YarnEditor/) or as binaries that you can run offline on your machine. [Windows and MacOS](https://github.com/YarnSpinnerTool/YarnEditor/releases/tag/v0.2.4) are supported.
 
 &nbsp;
 
