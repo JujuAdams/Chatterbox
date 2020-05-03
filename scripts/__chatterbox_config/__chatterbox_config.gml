@@ -1,10 +1,3 @@
-//  Chatterbox v0.1.5
-//  2019/09/27
-//  @jujuadams
-//  With thanks to Els White and Jukio Kallio
-//  
-/// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax().
-
 #macro CHATTERBOX_OPTION_FALLBACK_ENABLE   true  //
 #macro CHATTERBOX_OPTION_FALLBACK_TEXT     "..."  //The option text to display if no option text has been found
 #macro CHATTERBOX_DEBUG                    false  //Whether or not to show addition debug information whilst running Chatterbox

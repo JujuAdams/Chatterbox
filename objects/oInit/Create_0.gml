@@ -1,9 +1,3 @@
-//  Chatterbox v0.1.5
-//  2019/09/27
-//  @jujuadams
-//  With thanks to Els White and Jukio Kallio
-
-//Initialise Chatterbox
 chatterbox_init_start("Yarn");
 chatterbox_init_add_findreplace("<<suspend>>", "<<suspend>>\n<<wait>>\n...\n<<wait>>");
 chatterbox_init_add_action("suspend", suspend_dialogue);
