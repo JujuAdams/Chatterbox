@@ -12,7 +12,7 @@ Yarn is designed to be accessible to writers who have little or no programming k
 
 Syntax and features specific to Chatterbox [can be found here](https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/scripts/__chatterbox_syntax/__chatterbox_syntax.gml). Chatterbox attempts to be a full implementation of the Yarn specification.
 
-Yarn files can be written by hand, but the best way to start with Yarn is to use an editor. The [Yarn Spinner]() tool is available as a [web-based editor](https://yarnspinnertool.github.io/YarnEditor/) or as binaries that you can run offline on your machine. [Windows and MacOS](https://github.com/YarnSpinnerTool/YarnEditor/releases/tag/v0.2.4) are supported.
+Yarn files can be written by hand, but the best way to start with Yarn is to use an editor. The standard Yarn Editor tool is available on [Windows and MacOS](https://github.com/YarnSpinnerTool/YarnEditor/releases/], or as a [web-based editor](https://yarnspinnertool.github.io/YarnEditor/).
 
 &nbsp;
 
