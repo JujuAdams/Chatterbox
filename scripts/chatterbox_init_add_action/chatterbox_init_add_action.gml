@@ -45,7 +45,7 @@ if ( !variable_global_exists("__chatterbox_init_complete") )
 
 if (global.__chatterbox_init_complete)
 {
-    __chatterbox_error("chatterbox_init_add_action() should be called before chatterbox_init_end()\n ", true);
+    __chatterbox_error("chatterbox_init_add_action() should be called before chatterbox_init_end()");
     return false;
 }
 

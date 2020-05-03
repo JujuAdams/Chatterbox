@@ -6,13 +6,13 @@
 
 if ( !variable_global_exists("__chatterbox_init_complete") )
 {
-    __chatterbox_error("chatterbox_init_add() should be called after chatterbox_init_start()\n ", true);
+    __chatterbox_error("chatterbox_init_add() should be called after chatterbox_init_start()");
     return undefined;
 }
 
 if (global.__chatterbox_init_complete)
 {
-    __chatterbox_error("chatterbox_init_add() should be called before chatterbox_init_end()\n ", true);
+    __chatterbox_error("chatterbox_init_add() should be called before chatterbox_init_end()");
     return undefined;
 }
 
