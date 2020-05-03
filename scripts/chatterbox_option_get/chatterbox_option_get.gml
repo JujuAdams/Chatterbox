@@ -11,7 +11,7 @@ var _i = 0;
 repeat(array_length_1d(_child_array))
 {
     var _array = _child_array[ _i ];
-    if (_array[ __CHATTERBOX_CHILD.TYPE ] == __CHATTERBOX_CHILD_TYPE.BODY)
+    if (_array[__CHATTERBOX_CHILD.TYPE] == __CHATTERBOX_CHILD_TYPE.OPTION)
     {
         if (_count == _index) return _array[__CHATTERBOX_CHILD.STRING];
         _count++;
