@@ -87,6 +87,14 @@
             }
         },
         {
+            "Key": "211c822a-303c-4c26-ad78-e2435f3a28a2",
+            "Value": {
+                "id": "aaf7d80a-09fb-4c45-831d-91d1f38033b7",
+                "resourcePath": "scripts\\__chatterbox_tokenize_action\\__chatterbox_tokenize_action.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "25021e7e-8142-4fbb-8f3f-aeefd5d03271",
             "Value": {
                 "id": "8099805f-8424-42f0-ae48-237f812b9a83",
@@ -543,6 +551,14 @@
             }
         },
         {
+            "Key": "fb0ac65c-2f27-415b-806a-ba3ed448100d",
+            "Value": {
+                "id": "cb917961-7a2d-4453-86cd-90343fb869c0",
+                "resourcePath": "scripts\\__chatterbox_new_instruction\\__chatterbox_new_instruction.yy",
+                "resourceType": "GMScript"
+            }
+        },
+        {
             "Key": "ffc75b87-7243-4a9b-8f82-a7aec1b436ba",
             "Value": {
                 "id": "30b84997-6b5c-4017-813c-18c0e609825d",
@@ -575,6 +591,8 @@
         "0728437b-b2e3-4875-bbba-74bc28b777b0",
         "1c424e6a-baa6-493c-be83-daf99575559b",
         "e808db90-cb59-47eb-bd8f-ff2d1072801a",
+        "fb0ac65c-2f27-415b-806a-ba3ed448100d",
+        "211c822a-303c-4c26-ad78-e2435f3a28a2",
         "5035acc2-d809-4bf5-b251-ea72c52874d4"
     ],
     "tutorial": ""
