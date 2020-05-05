@@ -7,8 +7,8 @@
 
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.2.0"
-#macro __CHATTERBOX_DATE     "2020/05/03"
+#macro __CHATTERBOX_VERSION  "0.3.0"
+#macro __CHATTERBOX_DATE     "2020/05/05"
 
 enum __CHATTERBOX_FILE
 {
@@ -20,10 +20,11 @@ enum __CHATTERBOX_FILE
 
 enum __CHATTERBOX_INSTRUCTION
 {
-    TYPE,    //0
-    INDENT,  //1
-    CONTENT, //2  //A nested array, which is turn might have arrays in it (!)
-    __SIZE   //3
+    TYPE,      //0
+    INDENT,    //1
+    CONTENT,   //2  //A nested array, which is turn might have arrays in it (!)
+    BLOCK_END, //3
+    __SIZE     //4
 }
 
 enum __CHATTERBOX_HOST
@@ -62,6 +63,7 @@ enum __CHATTERBOX_FORMAT
 #macro __CHATTERBOX_VM_WAIT            "WAIT"
 #macro __CHATTERBOX_VM_TEXT            "TEXT"
 #macro __CHATTERBOX_VM_SHORTCUT        "SHORTCUT"
+#macro __CHATTERBOX_VM_SHORTCUT_END    "SHORTCUTEND"
 #macro __CHATTERBOX_VM_OPTION          "OPTION"
 #macro __CHATTERBOX_VM_REDIRECT        "REDIRECT"
 #macro __CHATTERBOX_VM_GENERIC_ACTION  "ACTION"

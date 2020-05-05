@@ -340,6 +340,8 @@ repeat(_font_count)
         
         
         
+        global.__chatterbox_insert_pos = ds_list_size(global.__chatterbox_vm);
+        var _branch_stack = ds_list_create();
         var _previous_line = -1;
         var _body_substring_count = ds_list_size(_body_substring_list);
         for(var _sub = 0; _sub < _body_substring_count; _sub++)
@@ -350,10 +352,16 @@ repeat(_font_count)
             var _substring_line   = _substring_array[2];
             var _substring_indent = _substring_array[3];
             
-            var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
-            _array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_UNKNOWN;
-            _array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _substring_indent;
-            _array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = undefined;
+            if (_substring_line > _previous_line)
+            {
+                var _branch_top = _branch_stack[| ds_list_size(_branch_stack)-1];
+                while (is_array(_branch_top) && (_substring_indent <= _branch_top[2]))
+                {
+                    ds_list_delete(_branch_stack, ds_list_size(_branch_stack)-1);
+                    if (_branch_top[3]) __chatterbox_new_instruction(_branch_top[0], _branch_top[2]);
+                    _branch_top = _branch_stack[| ds_list_size(_branch_stack)-1];
+                }
+            }
             
             if (_substring_type == "option")
             {
@@ -362,359 +370,21 @@ repeat(_font_count)
                 var _pos = string_pos("|", _string);
                 if (_pos < 1)
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_REDIRECT;
-                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_REDIRECT, _substring_indent,
+                                                 [__chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false)]);
                 }
                 else
                 {
-                    var _content = [__chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
-                                    __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true)];
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_OPTION;
-                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_OPTION, _substring_indent,
+                                                 [__chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
+                                                  __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true)]);
                 }
             
                 #endregion
             }
             else if (_substring_type == "action")
             {
-                #region <<action>>
-                
-                var _content = [];
-                
-                if ((_string == "end if") || (_string == "elseif") || (_string == "else if"))
-                {
-                    if (CHATTERBOX_ERROR_ON_NONSTANDARD_SYNTAX) __chatterbox_error("<<" + _string + ">> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_ON_NONSTANDARD_SYNTAX to <false> to hide this error)");
-                    _content[0] = _string;
-                }
-                else
-                {
-                    #region Break down string into tokens
-            
-                    //show_debug_message("Working on \"" + _string + "\"");
-            
-                    var _in_string = false;
-                    var _in_symbol = false;
-            
-                    _string += " ";
-                    var _work_length = string_length(_string);
-                    var _work_char = "";
-                    var _work_char_prev = "";
-                    var _work_read_prev = 1;
-                    for(var _work_read = 1; _work_read <= _work_length; _work_read++)
-                    {
-                        var _read = false;
-                        var _read_add_char = 0;
-                        var _read_parse_operator = false;
-                
-                        _work_char_prev = _work_char;
-                        var _work_char = string_char_at(_string, _work_read);
-                
-                        if (_in_string)
-                        {
-                            //Ignore all behaviours until we hit a quote mark
-                            if (_work_char == "\"") && (_work_char_prev != "\\")
-                            {
-                                _read_add_char = 1; //Make sure we get the quote mark in the string
-                                _in_string = false;
-                                _read = true;
-                                //show_debug_message("  found closing quote mark");
-                            }
-                        }
-                        else if (_work_char == "\"") && (_work_char_prev != "\\")
-                        {
-                            //If we've got an unescaped quote mark, start a string
-                            _in_string = true;
-                            _read = true;
-                            //show_debug_message("  found open quote mark");
-                        }
-                        else if (_work_char == "!")
-                                || (_work_char == "=")
-                                || (_work_char == "<")
-                                || (_work_char == ">")
-                                || (_work_char == "+")
-                                || (_work_char == "-")
-                                || (_work_char == "*")
-                                || (_work_char == "/")
-                                || (_work_char == "&")
-                                || (_work_char == "|")
-                                || (_work_char == "^")
-                                || (_work_char == "`")
-                        {
-                            if (!_in_symbol)
-                            {
-                                //If we've found an operator symbol then do a standard read and begin reading a symbol
-                                _in_symbol = true;
-                                _read = true;
-                                //show_debug_message("  found symbol start");
-                            }
-                        }
-                        else if (_in_symbol)
-                        {
-                            //If we're reading a symbol but this character *isn't* a symbol character, do a read
-                            _in_symbol = false;
-                            _read = true;
-                            _read_parse_operator = true;
-                            //show_debug_message("  found symbol end");
-                        }
-                        else if (_work_char == " ")
-                                || (_work_char == ",")
-                        {
-                            //Always read at spaces and commas
-                            _read = true;
-                            //show_debug_message("  found space or comma");
-                        }
-                        else if (_work_char == "(") || (_work_char == ")")
-                        {
-                            //Always read at brackets
-                            _read = true;
-                            //show_debug_message("  found bracket");
-                        }
-                        else if (_work_char_prev == "(") || (_work_char_prev == ")")
-                        {
-                            //Always read at brackets
-                            _read = true;
-                            //show_debug_message("  found bracket pt.2");
-                        }
-                
-                        if (_read)
-                        {
-                            var _out_string = string_copy(_string, _work_read_prev, _work_read + _read_add_char - _work_read_prev);
-                            //show_debug_message("    copied \"" + _out_string + "\"");
-                            _out_string = __chatterbox_remove_whitespace(_out_string, true);
-                            _out_string = __chatterbox_remove_whitespace(_out_string, false);
-                            _out_string = string_replace_all(_out_string, "\\\"", "\""); //Replace \" with "
-                    
-                            switch(_out_string)
-                            {
-                                case "and": _out_string = "&&"; break;
-                                case "&"  : _out_string = "&&"; break;
-                                case "le" : _out_string = "<";  break;
-                                case "gt" : _out_string = ">";  break;
-                                case "or" : _out_string = "||"; break;
-                                case "`"  : _out_string = "||"; break;
-                                case "|"  : _out_string = "||"; break;
-                                case "leq": _out_string = "<="; break;
-                                case "geq": _out_string = ">="; break;
-                                case "eq" : _out_string = "=="; break;
-                                case "is" : _out_string = "=="; break;
-                                case "neq": _out_string = "!="; break;
-                                case "to" : _out_string = "=";  break;
-                                case "not": _out_string = "!";  break;
-                            }
-                    
-                            if (_out_string != "")
-                            {
-                                _content[array_length_1d(_content)] = _out_string;
-                                if (array_length_1d(_content) == 1)
-                                {
-                                    _content[1] = undefined; //Reserve a slot for the top-level node in the evaluation tree
-                                    _content[2] = "()";      //Reserve a slot for the generic function token
-                                }
-                            }
-                    
-                            _work_read_prev = _work_read + _read_add_char;
-                        }
-                    }
-            
-                    #endregion
-                
-                    #region Collect tokens together to make an evaluation tree
-                
-                    var _content_length = array_length_1d(_content);
-                    var _eval_tree_root = array_create(_content_length-3);
-                    for(var _i = 3; _i < _content_length; _i++) _eval_tree_root[_i-3] = _i;
-                    _content[1] = _eval_tree_root;
-                    _content[2] = "()";
-                
-                    var _queue = ds_list_create();
-                    ds_list_add(_queue, 1);
-                
-                    repeat(9999)
-                    {
-                        if (ds_list_empty(_queue)) break;
-                    
-                        var _element_index = _queue[| 0];
-                        ds_list_delete(_queue, 0);
-                    
-                        var _element = _content[_element_index];
-                        if (!is_array(_element)) continue;
-                        var _element_length = array_length_1d(_element);
-                    
-                        var _break = false;
-                        for(var _op = 0; _op < global.__chatterbox_op_count; _op++)
-                        {
-                            var _operator = global.__chatterbox_op_list[| _op];
-                        
-                            for(var _e = _element_length-1; _e > 0; _e--) //Go backwards. This solves issues with nested brackets
-                            {
-                                var _value = _content[_element[_e]];
-                            
-                                if (_value == _operator)
-                                {
-                                    if (_operator == "(")
-                                    {
-                                        #region Split up bracketed expressions
-                                    
-                                        //Find the first close bracket token
-                                        for(var _f = _e+1; _f < _element_length; _f++) if (_content[_element[_f]] == ")") break;
-                                    
-                                        if (_f < _element_length)
-                                        {
-                                            var _function = undefined;
-                                            if (_e > 0)
-                                            {
-                                                _function = _content[_element[_e-1]];
-                                                if (!is_string(_function) || (_function == "()") || (ds_list_find_index(global.__chatterbox_op_list, _function) >= 0)) _function = undefined;
-                                            }
-                                        
-                                            if (_function == undefined)
-                                            {
-                                                //Standard "structural" bracket
-                                            
-                                                var _new_element = [];
-                                                array_copy(_new_element, 0,   _element, _e+1, _f-_e-1);
-                                            
-                                                _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
-                                                ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
-                                            
-                                                _replacement_element = array_create(_element_length + _e - _f); //Create a new element array
-                                                array_copy(_replacement_element, 0,   _element, 0, _e);
-                                                _replacement_element[_e] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
-                                                array_copy(_replacement_element, _e+1,   _element, _f+1, _element_length-_f);
-                                            
-                                                _content[_element_index] = _replacement_element;
-                                                ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
-                                            }
-                                            else
-                                            {
-                                                //Function call
-                                            
-                                                var _new_element = [_element[_e-1], 2];
-                                                array_copy(_new_element, 2,   _element, _e+1, _f-_e-1);
-                                            
-                                                _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
-                                                ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
-                                            
-                                                _replacement_element = array_create(_element_length - 1 + _e - _f); //Create a new element array
-                                                array_copy(_replacement_element, 0,   _element, 0, _e-1);
-                                                _replacement_element[_e-1] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
-                                                array_copy(_replacement_element, _e+1,   _element, _f+1, _element_length-_f);
-                                            
-                                                _content[_element_index] = _replacement_element;
-                                                ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
-                                            }
-                                        }
-                                        else
-                                        {
-                                            //Error!
-                                            __chatterbox_error("Syntax error");
-                                            _content[_element_index] = undefined;
-                                        }
-                                    
-                                        #endregion
-                                    }
-                                    else if (_operator == "!") || ((_operator == "-") && (_op == global.__chatterbox_negative_op_index))
-                                    {
-                                        #region Unary operators
-                                    
-                                        if (_e < _element_length-1) //For a unary operator, we cannot be the last element
-                                        {
-                                            var _new_element = [];
-                                            array_copy(_new_element, 0,   _element, _e, 2);
-                                        
-                                            _content[array_length_1d(_content)] = _new_element; //Add the new sub-array to the overall content array
-                                            ds_list_add(_queue, array_length_1d(_content)-1);   //Add the index of the new sub-array to the processing queue
-                                        
-                                            _replacement_element = array_create(_element_length-1); //Create a new element array
-                                            array_copy(_replacement_element, 0,   _element, 0, _e);
-                                            _replacement_element[_e] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
-                                            array_copy(_replacement_element, _e+1,   _element, _e+2, _element_length-(_e+2));
-                                        
-                                            _content[_element_index] = _replacement_element;
-                                            ds_list_add(_queue, _element_index); //Add the index of the replacement array to the processing queue
-                                        }
-                                        else
-                                        {
-                                            //Error!
-                                            __chatterbox_error("Syntax error");
-                                            _content[_element_index] = undefined;
-                                        }
-                                    
-                                        #endregion
-                                    }
-                                    else
-                                    {
-                                        #region Binary operators
-                                    
-                                        if (_element_length < 3) //For a binary operator, we need at least three tokens in the array
-                                        {
-                                            if !((_operator == "-") && (_op == 8) && (_e == 0)) //Don't report this error if the subtraction sign might be a negative sign
-                                            {
-                                                //Error!
-                                                __chatterbox_error("Syntax error");
-                                                _content[_element_index] = undefined;
-                                            }
-                                        }
-                                        else if (_e <= 0) || (_e >= _element_length-1) //A binary operator must be in-between two tokens
-                                        {
-                                            if !((_operator == "-") && (_op == 8) && (_e == 0)) //Don't report this error if the subtraction sign might be a negative sign
-                                            {
-                                                //Error!
-                                                __chatterbox_error("Syntax error");
-                                                _content[_element_index] = undefined;
-                                            }
-                                        }
-                                        else if (_element_length > 3)
-                                        {
-                                            var _replacement_element = [_element[0],
-                                                                        _element[_e],
-                                                                        _element[_element_length-1]];
-                                        
-                                            //Split up the left-hand side of the array
-                                            if (_e > 1)
-                                            {
-                                                var _new_element = [];
-                                                array_copy(_new_element, 0,   _element, 0, _e);
-                                            
-                                                _content[array_length_1d(_content)] = _new_element;    //Add the new sub-array to the overall content array
-                                                ds_list_add(_queue, array_length_1d(_content)-1);      //Add the index of the new sub-array to the processing queue
-                                                _replacement_element[0] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
-                                            }
-                                        
-                                            //Split up the right-hand side of the array
-                                            if (_e < _element_length-2)
-                                            {
-                                                var _new_element = [];
-                                                array_copy(_new_element, 0,   _element, _e+1, _element_length-_e-1);
-                                            
-                                                _content[array_length_1d(_content)] = _new_element;    //Add the new sub-array to the overall content array
-                                                ds_list_add(_queue, array_length_1d(_content)-1);      //Add the index of the new sub-array to the processing queue
-                                                _replacement_element[2] = array_length_1d(_content)-1; //Set the index of the new sub-array in the replacement element array
-                                            }
-                                        
-                                            _content[_element_index] = _replacement_element;
-                                        }
-                                        else
-                                        {
-                                            //No action needed
-                                        }
-                                    
-                                        #endregion
-                                    }
-                                
-                                    _break = true;
-                                    break;
-                                }
-                            }
-                        
-                            if (_break) break;
-                        }
-                    }
-                
-                    ds_list_destroy(_queue);
-                
-                    #endregion
-                }
+                var _content = __chatterbox_tokenize_action(_string);
                 
                 #region Add instruction based on content array
             
@@ -723,90 +393,78 @@ repeat(_font_count)
                     if (_substring_line > _previous_line)
                     {
                         //If-statement on its own on a line
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                        __chatterbox_new_instruction(__CHATTERBOX_VM_IF, _substring_indent, _content);
+                        ds_list_add(_branch_stack, [__CHATTERBOX_VM_ENDIF,            //Type
+                                                    global.__chatterbox_insert_pos-1, //Start position
+                                                    _substring_indent,                //Indentation
+                                                    false]);                          //Automatically create an ENDIF
                     }
                     else
                     {
                         //If-statement suffixed to another token
-                        var _insert_array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
-                        _insert_array[ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_IF;
-                        _insert_array[ __CHATTERBOX_INSTRUCTION.INDENT  ] = _substring_indent;
-                        _insert_array[ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
-                        ds_list_insert(global.__chatterbox_vm, ds_list_size(global.__chatterbox_vm)-1, _insert_array);
-                                        
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ENDIF;
+                        __chatterbox_new_instruction(__CHATTERBOX_VM_IF, _substring_indent, _content, global.__chatterbox_insert_pos-1);
+                        ds_list_insert(_branch_stack, ds_list_size(_branch_stack)-1,
+                                                      [__CHATTERBOX_VM_ENDIF,            //Type
+                                                       global.__chatterbox_insert_pos-1, //Start position
+                                                       _substring_indent,                //Indentation
+                                                       true]);                           //Automatically create an ENDIF
+                        global.__chatterbox_insert_pos++;
                     }
                 }
                 else if ((_content[0] == "else") || (_content[0] == "elseif") || (_content[0] == "else if"))
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_ELSEIF;
-                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_ELSEIF, _substring_indent, _content);
                 }
                 else if ((_content[0] == "endif") || (_content[0] == "end if"))
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_ENDIF;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_ENDIF, _substring_indent);
                 }
                 else if (_content[0] == "set")
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_SET;
-                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_SET, _substring_indent, _content);
                 }
                 else if (_content[0] == "stop")
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_STOP;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_STOP, _substring_indent);
                 }
                 else if (_content[0] == "wait")
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE ] = __CHATTERBOX_VM_WAIT;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_WAIT, _substring_indent);
                 }
                 else if (ds_map_exists(global.__chatterbox_actions, _content[0]))
                 {
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_CUSTOM_ACTION;
-                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = _content;
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_CUSTOM_ACTION, _substring_indent, _content);
                 }
                 else
                 {
-                    //show_message(_content);
-                    //show_message(string(_content[0]) + ", length=" + string(string_length(_content[0])));
-                    _array[@ __CHATTERBOX_INSTRUCTION.TYPE    ] = __CHATTERBOX_VM_GENERIC_ACTION;
-                    _array[@ __CHATTERBOX_INSTRUCTION.CONTENT ] = [_string];
+                    __chatterbox_new_instruction(__CHATTERBOX_VM_GENERIC_ACTION, _substring_indent, [_string]);
                 }
             
                 #endregion
                 
                 #endregion
             }
-            else
+            else if (string_copy(_string, 1, 2) == "->") //Shortcut
             {
-                #region Text
-                    
-                    if (string_copy(_string, 1, 2) == "->")
-                    {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_SHORTCUT;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT] = [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)];
-                    }
-                    else
-                    {
-                        _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_TEXT;
-                        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT] = [_string];
-                    }
-                    
-                #endregion
+                __chatterbox_new_instruction(__CHATTERBOX_VM_SHORTCUT, _substring_indent,
+                                             [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)]);
+                
+                ds_list_add(_branch_stack, [__CHATTERBOX_VM_SHORTCUT_END,     //Type
+                                            global.__chatterbox_insert_pos-1, //Start position
+                                            _substring_indent,                //Indentation
+                                            true]);                           //Automatically create a SHORTCUT_END
+            }
+            else //Text
+            {
+                __chatterbox_new_instruction(__CHATTERBOX_VM_TEXT, _substring_indent, [_string]);
             }
             
-            ds_list_add(global.__chatterbox_vm, _array);
             _previous_line = _substring_line;
         }
         
+        ds_list_destroy(_branch_stack);
         
-        
-        //Make sure we always have an STOP instruction at the end
-        var _array = array_create(__CHATTERBOX_INSTRUCTION.__SIZE);
-        ds_list_add(global.__chatterbox_vm, _array);
-        _array[@ __CHATTERBOX_INSTRUCTION.TYPE   ] = __CHATTERBOX_VM_STOP;
-        _array[@ __CHATTERBOX_INSTRUCTION.INDENT ] = 0;
-        _array[@ __CHATTERBOX_INSTRUCTION.CONTENT] = undefined;
+        __chatterbox_new_instruction(__CHATTERBOX_VM_STOP, 0, undefined, ds_list_size(global.__chatterbox_vm));
         
         
         
