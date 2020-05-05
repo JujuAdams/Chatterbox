@@ -74,11 +74,11 @@ repeat(9999)
                         {
                             if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
                             {
-                                show_error("Chatterbox:\nVariable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")\n ", false);
+                                __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
                             }
                             else
                             {
-                                show_debug_message("Chatterbox: WARNING! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
+                                __chatterbox_trace("WARNING! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
                             }
                             
                             _result = string(_result);
@@ -137,7 +137,7 @@ repeat(9999)
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
+                        __chatterbox_trace("WARNING! 2-length evaluation element with unrecognised operator: \"" + string(_operator) + "\"");
                     }
                 }
                 
@@ -177,11 +177,11 @@ repeat(9999)
                     {
                         if (CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE)
                         {
-                            show_error("Chatterbox:\nMismatched datatypes\n ", false);
+                            __chatterbox_error("Mismatched datatypes");
                         }
                         else
                         {
-                            show_debug_message("Chatterbox: WARNING! Mismatched datatypes");
+                            __chatterbox_trace("WARNING! Mismatched datatypes");
                         }
                     }
                 }

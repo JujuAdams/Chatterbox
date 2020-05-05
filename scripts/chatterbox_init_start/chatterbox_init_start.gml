@@ -7,14 +7,14 @@
 
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.1.5"
-#macro __CHATTERBOX_DATE     "2019/09/27"
+#macro __CHATTERBOX_VERSION  "0.2.0"
+#macro __CHATTERBOX_DATE     "2020/05/03"
 
 enum __CHATTERBOX_FILE
 {
     FILENAME, //0
     NAME,     //1
-    TYPE,     //2
+    FORMAT,   //2
     __SIZE    //3
 }
 
@@ -44,6 +44,18 @@ enum __CHATTERBOX_CHILD
     __SIZE             //4
 }
 
+enum __CHATTERBOX_CHILD_TYPE
+{
+    BODY,
+    OPTION
+}
+
+enum __CHATTERBOX_FORMAT
+{
+    JSON,
+    YARN
+}
+
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
 
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
@@ -55,14 +67,11 @@ enum __CHATTERBOX_CHILD
 #macro __CHATTERBOX_VM_GENERIC_ACTION  "ACTION"
 #macro __CHATTERBOX_VM_IF              "IF"
 #macro __CHATTERBOX_VM_ELSE            "ELSE"
-#macro __CHATTERBOX_VM_ELSEIF          "ELSE IF"
-#macro __CHATTERBOX_VM_IF_END          "IF END"
+#macro __CHATTERBOX_VM_ELSEIF          "ELSEIF"
+#macro __CHATTERBOX_VM_ENDIF           "ENDIF"
 #macro __CHATTERBOX_VM_SET             "SET"
 #macro __CHATTERBOX_VM_STOP            "STOP"
 #macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
-
-#macro __CHATTERBOX_FILE_JSON  1
-#macro __CHATTERBOX_FILE_YARN  2
 
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
@@ -70,11 +79,11 @@ enum __CHATTERBOX_CHILD
 
 if ( variable_global_exists("__chatterbox_init_complete") )
 {
-    show_error("Chatterbox:\nchatterbox_init_start() should not be called twice!\n ", false);
+    __chatterbox_error("chatterbox_init_start() should not be called twice!");
     exit;
 }
 
-show_debug_message("Chatterbox: Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
+__chatterbox_trace("Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
 
 var _font_directory = argument0;
 
@@ -82,8 +91,8 @@ if (__CHATTERBOX_ON_MOBILE)
 {
     if (_font_directory != "")
     {
-        show_debug_message("Chatterbox: Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
-        show_error("Chatterbox:\nGameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
+        __chatterbox_trace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
+        __chatterbox_error("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
         exit;
     }
 }
@@ -97,7 +106,7 @@ else
 //Check if the directory exists
 if ( !directory_exists(_font_directory) )
 {
-    show_debug_message("Chatterbox: WARNING! Font directory \"" + string(_font_directory) + "\" could not be found in \"" + game_save_id + "\"!");
+    __chatterbox_trace("WARNING! Font directory \"" + string(_font_directory) + "\" could not be found in \"" + game_save_id + "\"!");
 }
 
 //Declare global variables

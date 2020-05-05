@@ -6,13 +6,13 @@
 
 if ( !variable_global_exists("__chatterbox_init_complete") )
 {
-    show_error("Chatterbox:\nchatterbox_init_add() should be called after chatterbox_init_start()\n ", true);
+    __chatterbox_error("chatterbox_init_add() should be called after chatterbox_init_start()");
     return undefined;
 }
 
 if (global.__chatterbox_init_complete)
 {
-    show_error("Chatterbox:\nchatterbox_init_add() should be called before chatterbox_init_end()\n ", true);
+    __chatterbox_error("chatterbox_init_add() should be called before chatterbox_init_end()");
     return undefined;
 }
 
@@ -20,22 +20,22 @@ var _file = argument0;
 
 if (ds_map_exists(global.__chatterbox_file_data, _file))
 {
-    show_error("Chatterbox:\n\"" + _file + "\" has already been added\n ", false);
+    __chatterbox_error("\"" + _file + "\" has already been added");
     return undefined;
 }
 
 if (!is_string(_file))
 {
-    show_error("Chatterbox:\nSource files should be initialised using their filename as a string.\n(Input was an invalid datatype)\n ", false);
+    __chatterbox_error("Source files should be initialised using their filename as a string.\n(Input was an invalid datatype)");
     return undefined;
 }
 
 if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _file;
 
-var _data;
-_data[ __CHATTERBOX_FILE.FILENAME ] = _file;
-_data[ __CHATTERBOX_FILE.NAME     ] = _file;
-_data[ __CHATTERBOX_FILE.TYPE     ] = __CHATTERBOX_FILE_JSON;
+var _data = array_create(__CHATTERBOX_FILE.__SIZE);
 global.__chatterbox_file_data[? _file ] = _data;
+_data[@ __CHATTERBOX_FILE.FILENAME] = _file;
+_data[@ __CHATTERBOX_FILE.NAME    ] = _file;
+_data[@ __CHATTERBOX_FILE.FORMAT  ] = __CHATTERBOX_FORMAT.JSON;
 
-show_debug_message("Chatterbox: Added \"" + _file + "\" as a source file");
+__chatterbox_trace("Added \"" + _file + "\" as a source file");

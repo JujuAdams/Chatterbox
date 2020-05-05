@@ -138,11 +138,11 @@ else
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
-                        show_error("Chatterbox:\nInternal variable \"" + _value + "\" doesn't exist\n ", false);
+                        __chatterbox_error("Internal variable \"" + _value + "\" doesn't exist");
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! Internal variable \"" + _value + "\" doesn't exist");
+                        __chatterbox_trace("WARNING! Internal variable \"" + _value + "\" doesn't exist");
                     }
                                                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -158,11 +158,11 @@ else
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
-                        show_error("Chatterbox:\nLocal variable \"" + _value + "\" doesn't exist\n ", false);
+                        __chatterbox_error("Local variable \"" + _value + "\" doesn't exist");
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! Local variable \"" + _value + "\" doesn't exist");
+                        __chatterbox_trace("WARNING! Local variable \"" + _value + "\" doesn't exist");
                     }
                                                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -178,11 +178,11 @@ else
                 {
                     if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
                     {
-                        show_error("Chatterbox:\nGlobal variable \"" + _value + "\" doesn't exist!\n ", false);
+                        __chatterbox_error("Global variable \"" + _value + "\" doesn't exist!");
                     }
                     else
                     {
-                        show_debug_message("Chatterbox: WARNING! Global variable \"" + _value + "\" doesn't exist");
+                        __chatterbox_trace("WARNING! Global variable \"" + _value + "\" doesn't exist");
                     }
                                                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -199,11 +199,11 @@ else
         {
             if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
             {
-                show_error("Chatterbox:\nVariable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")\n ", false);
+                __chatterbox_error("Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
             }
             else
             {
-                show_debug_message("Chatterbox: WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
+                __chatterbox_trace("WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
             }
             
             _value = string(_value);

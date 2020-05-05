@@ -21,13 +21,13 @@ var _singleton_text = ((argument_count > 1) && (argument[1] != undefined))? argu
 
 if (!is_string(_filename))
 {
-    show_error("Chatterbox:\nSource files must be strings (Got \"" + string(_filename) + "\")\n ", false);
+    __chatterbox_error("Source files must be strings (Got \"" + string(_filename) + "\")");
     return undefined;
 }
 
 if (!ds_map_exists(global.__chatterbox_file_data, _filename))
 {
-    show_error("Chatterbox:\nCannot find \"" + _filename + "\"\n ", false);
+    __chatterbox_error("Cannot find \"" + _filename + "\"");
     return undefined;
 }
 
