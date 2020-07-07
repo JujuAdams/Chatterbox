@@ -1,8 +1,8 @@
 <h1 align="center">Chatterbox 0.1.5</h1>
 
-### @jujuadams
-
 <p align="center">Chat about Chatterbox on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
+
+### @jujuadams
 
 *A big thank you to Els White, Jukio Kallio, and Sean Oxspring for helping to test and develop this library.*
 
