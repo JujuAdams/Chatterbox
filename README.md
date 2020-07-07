@@ -2,6 +2,8 @@
 
 ### @jujuadams
 
+<p align="center">Chat about Chatterbox on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
+
 *A big thank you to Els White, Jukio Kallio, and Sean Oxspring for helping to test and develop this library.*
 
 &nbsp;
