@@ -33,61 +33,65 @@
 /// 
 /// @param name     Action name, as a string
 /// @param script   Numerical script index e.g. your_script
+function chatterbox_init_add_action(argument0, argument1) {
 
-var _name   = argument0;
-var _script = argument1;
+	var _name   = argument0;
+	var _script = argument1;
 
-if ( !variable_global_exists("__chatterbox_init_complete") )
-{
-    __chatterbox_error("chatterbox_add_action() should be called after initialising Chatterbox.");
-    return false;
+	if ( !variable_global_exists("__chatterbox_init_complete") )
+	{
+	    __chatterbox_error("chatterbox_add_action() should be called after initialising Chatterbox.");
+	    return false;
+	}
+
+	if (global.__chatterbox_init_complete)
+	{
+	    __chatterbox_error("chatterbox_init_add_action() should be called before chatterbox_init_end()");
+	    return false;
+	}
+
+	if ( !is_string(_name) )
+	{
+	    __chatterbox_error("Action names should be strings.\n(Input to script was \"" + string(_name) + "\")");
+	    return false;
+	}
+
+	if ( !is_real(_script) )
+	{
+	    __chatterbox_error("Scripts should be numerical script indices e.g. chatterbox_add_action(\"example\", your_script);\n(Input to script was \"" + string(_name) + "\")");
+	    return false;
+	}
+
+	if ( !script_exists(_script) )
+	{
+	    __chatterbox_error("Script (" + string(_script) + ") doesn't exist!");
+	    return false;
+	}
+
+	switch(_name)
+	{
+	    case "if":
+	    case "else":
+	    case "elseif":
+	    case "end":
+	    case "set":
+	    case "stop":
+	    case "wait":
+	    case "visited":
+	        __chatterbox_error("Action name \"" + _name + "\" is reserved for internal Chatterbox use.\nPlease choose another action name.");
+	        return false;
+	    break;
+	}
+
+	var _old_script = global.__chatterbox_actions[? _name ];
+	if ( is_real(_old_script) )
+	{
+	    __chatterbox_trace("WARNING! Overwriting action \"" + _name + "\" tied to script \"" + script_get_name(_old_script) + "()\"" );
+	}
+
+	global.__chatterbox_actions[? _name ] = _script;
+	__chatterbox_trace("Tying action \"" + _name + "\" to script \"" + script_get_name(_script) + "()\"" );
+	return true;
+
+
 }
-
-if (global.__chatterbox_init_complete)
-{
-    __chatterbox_error("chatterbox_init_add_action() should be called before chatterbox_init_end()");
-    return false;
-}
-
-if ( !is_string(_name) )
-{
-    __chatterbox_error("Action names should be strings.\n(Input to script was \"" + string(_name) + "\")");
-    return false;
-}
-
-if ( !is_real(_script) )
-{
-    __chatterbox_error("Scripts should be numerical script indices e.g. chatterbox_add_action(\"example\", your_script);\n(Input to script was \"" + string(_name) + "\")");
-    return false;
-}
-
-if ( !script_exists(_script) )
-{
-    __chatterbox_error("Script (" + string(_script) + ") doesn't exist!");
-    return false;
-}
-
-switch(_name)
-{
-    case "if":
-    case "else":
-    case "elseif":
-    case "end":
-    case "set":
-    case "stop":
-    case "wait":
-    case "visited":
-        __chatterbox_error("Action name \"" + _name + "\" is reserved for internal Chatterbox use.\nPlease choose another action name.");
-        return false;
-    break;
-}
-
-var _old_script = global.__chatterbox_actions[? _name ];
-if ( is_real(_old_script) )
-{
-    __chatterbox_trace("WARNING! Overwriting action \"" + _name + "\" tied to script \"" + script_get_name(_old_script) + "()\"" );
-}
-
-global.__chatterbox_actions[? _name ] = _script;
-__chatterbox_trace("Tying action \"" + _name + "\" to script \"" + script_get_name(_script) + "()\"" );
-return true;

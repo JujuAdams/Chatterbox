@@ -15,26 +15,30 @@
 /// 
 /// @param [filename]
 /// @param [singletonText]
+function chatterbox_create_host() {
 
-var _filename       = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
-var _singleton_text = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : true;
+	var _filename       = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
+	var _singleton_text = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : true;
 
-if (!is_string(_filename))
-{
-    __chatterbox_error("Source files must be strings (Got \"" + string(_filename) + "\")");
-    return undefined;
+	if (!is_string(_filename))
+	{
+	    __chatterbox_error("Source files must be strings (Got \"" + string(_filename) + "\")");
+	    return undefined;
+	}
+
+	if (!ds_map_exists(global.__chatterbox_file_data, _filename))
+	{
+	    __chatterbox_error("Cannot find \"" + _filename + "\"");
+	    return undefined;
+	}
+
+	//Create the Chatterbox data structure
+	var _chatterbox = array_create(__CHATTERBOX_HOST.__SIZE);
+	_chatterbox[@ __CHATTERBOX_HOST.FILENAME       ] = _filename;
+	_chatterbox[@ __CHATTERBOX_HOST.TITLE          ] = undefined;
+	_chatterbox[@ __CHATTERBOX_HOST.SINGLETON_TEXT ] = _singleton_text;
+	_chatterbox[@ __CHATTERBOX_HOST.CHILDREN       ] = [];
+	return _chatterbox;
+
+
 }
-
-if (!ds_map_exists(global.__chatterbox_file_data, _filename))
-{
-    __chatterbox_error("Cannot find \"" + _filename + "\"");
-    return undefined;
-}
-
-//Create the Chatterbox data structure
-var _chatterbox = array_create(__CHATTERBOX_HOST.__SIZE);
-_chatterbox[@ __CHATTERBOX_HOST.FILENAME       ] = _filename;
-_chatterbox[@ __CHATTERBOX_HOST.TITLE          ] = undefined;
-_chatterbox[@ __CHATTERBOX_HOST.SINGLETON_TEXT ] = _singleton_text;
-_chatterbox[@ __CHATTERBOX_HOST.CHILDREN       ] = [];
-return _chatterbox;

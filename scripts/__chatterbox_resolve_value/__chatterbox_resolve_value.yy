@@ -1,8 +1,12 @@
 {
-    "id": "60990149-1dae-4f22-88d9-53025cbd7878",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "__chatterbox_resolve_value",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "__Private",
+    "path": "folders/Scripts/Chatterbox/__Private.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "__chatterbox_resolve_value",
+  "tags": [],
+  "resourceType": "GMScript",
 }

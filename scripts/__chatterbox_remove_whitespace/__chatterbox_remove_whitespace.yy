@@ -1,8 +1,12 @@
 {
-    "id": "f7061cd5-abb7-47d5-9afb-0c61c4101a56",
-    "modelName": "GMScript",
-    "mvc": "1.0",
-    "name": "__chatterbox_remove_whitespace",
-    "IsCompatibility": false,
-    "IsDnD": false
+  "isDnD": false,
+  "isCompatibility": false,
+  "parent": {
+    "name": "__Private",
+    "path": "folders/Scripts/Chatterbox/__Private.yy",
+  },
+  "resourceVersion": "1.0",
+  "name": "__chatterbox_remove_whitespace",
+  "tags": [],
+  "resourceType": "GMScript",
 }
