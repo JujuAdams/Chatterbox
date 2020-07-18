@@ -10,15 +10,6 @@
 #macro __CHATTERBOX_VERSION  "0.3.0"
 #macro __CHATTERBOX_DATE     "2020/07/18"
 
-enum __CHATTERBOX_CHILD
-{
-    STRING,            //0
-    TYPE,              //1
-    INSTRUCTION_START, //2
-    INSTRUCTION_END,   //3
-    __SIZE             //4
-}
-
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
     
 #macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
@@ -92,37 +83,40 @@ global.__chatterbox_op_count = ds_list_size(global.__chatterbox_op_list);
 #region Class Definitions
 
 /// @param filename
-/// @param name
-/// @param format
-function __chatterbox_class_file(_filename, _name, _format) constructor
+function __chatterbox_class_file(_filename) constructor
 {
     filename = _filename;
-    name     = _name;
-    format   = _format;
+    name     = _filename;
+    format   = undefined;
     nodes    = [];
-    
-    variable_struct_set(global.chatterbox_files, filename, self);
-    __chatterbox_trace("Added \"", filename, "\" as a source file named \"", name, "\" (format=\"", format, "\")");
     
 	//Fix the font directory name if it's weird
     var _font_directory = CHATTERBOX_FONT_DIRECTORY;
 	var _char = string_char_at(_font_directory , string_length(_font_directory ));
 	if (_char != "\\") && (_char != "/") _font_directory += "\\";
     
+    //Read this file in as a big string
 	var _buffer = buffer_load(_font_directory + filename);
 	var _string = buffer_read(_buffer, buffer_string);
 	buffer_delete(_buffer);
     
-	switch(format)
-	{
-	    case "yarn": var _node_list = __chatterbox_parse_yarn(_string); break;
-	    case "json": var _node_list = __chatterbox_parse_json(_string); break;
+    //Try to decode the string as a JSON
+    var _json = json_decode(_string);
+    if (_json >= 0)
+    {
+        var _node_list = __chatterbox_parse_json(_json);
+        format = "json";
+    }
+    else
+    {
+        var _node_list = __chatterbox_parse_yarn(_string);
+        format = "yarn";
     }
 	
 	//If both of these fail, it's some wacky JSON that we don't recognise
 	if (_node_list == undefined)
 	{
-	    __chatterbox_error("Format for \"" + _name + "\" is unrecognised.\nThis source file will be ignored.");
+	    __chatterbox_error("File format for \"" + filename + "\" is unrecognised.\nThis source file will be ignored");
 	    return undefined;
 	}
     

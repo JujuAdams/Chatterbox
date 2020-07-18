@@ -4,11 +4,10 @@
     {"id":{"name":"__chatterbox_syntax","path":"scripts/__chatterbox_syntax/__chatterbox_syntax.yy",},"order":1,},
     {"id":{"name":"__chatterbox_system","path":"scripts/__chatterbox_system/__chatterbox_system.yy",},"order":0,},
     {"id":{"name":"__chatterbox_parse_yarn","path":"scripts/__chatterbox_parse_yarn/__chatterbox_parse_yarn.yy",},"order":7,},
-    {"id":{"name":"chatterbox_load_json","path":"scripts/chatterbox_load_json/chatterbox_load_json.yy",},"order":6,},
+    {"id":{"name":"chatterbox_load","path":"scripts/chatterbox_load/chatterbox_load.yy",},"order":2,},
     {"id":{"name":"__chatterbox_old_vm_builder","path":"scripts/__chatterbox_old_vm_builder/__chatterbox_old_vm_builder.yy",},"order":12,},
     {"id":{"name":"chatterbox_is_loaded","path":"scripts/chatterbox_is_loaded/chatterbox_is_loaded.yy",},"order":4,},
-    {"id":{"name":"chatterbox_load_yarn","path":"scripts/chatterbox_load_yarn/chatterbox_load_yarn.yy",},"order":7,},
-    {"id":{"name":"chatterbox","path":"scripts/chatterbox/chatterbox.yy",},"order":2,},
+    {"id":{"name":"chatterbox","path":"scripts/chatterbox/chatterbox.yy",},"order":3,},
     {"id":{"name":"chatterbox_add_action","path":"scripts/chatterbox_add_action/chatterbox_add_action.yy",},"order":0,},
     {"id":{"name":"chatterbox_add_function","path":"scripts/chatterbox_add_function/chatterbox_add_function.yy",},"order":1,},
     {"id":{"name":"chatterbox_add_findreplace","path":"scripts/chatterbox_add_findreplace/chatterbox_add_findreplace.yy",},"order":2,},
@@ -54,7 +53,7 @@
   "Folders": [
     {"folderPath":"folders/Chatterbox.yy","order":6,"resourceVersion":"1.0","name":"Chatterbox","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Chatterbox/Advanced Things for Serious People/__Private.yy","order":5,"resourceVersion":"1.0","name":"__Private","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Chatterbox/Advanced Things for Serious People.yy","order":10,"resourceVersion":"1.0","name":"Advanced Things for Serious People","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Chatterbox/Advanced Things for Serious People.yy","order":4,"resourceVersion":"1.0","name":"Advanced Things for Serious People","tags":[],"resourceType":"GMFolder",},
   ],
   "AudioGroups": [
     {"targets":461609314234257646,"resourceVersion":"1.0","name":"audiogroup_default","resourceType":"GMAudioGroup",},
