@@ -114,5 +114,6 @@ function __chatterbox_split_body(_body)
     
 	buffer_delete(_body_buffer);
     
+    ds_list_add(_body_substring_list, ["stop", "action", _line, 0]);
     return _body_substring_list;
 }

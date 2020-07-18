@@ -136,7 +136,7 @@ function __chatterbox_class_file(_filename) constructor
 function __chatterbox_class_node(_title, _body_string) constructor
 {
     title            = _title;
-    root_instruction = undefined;
+    root_instruction = new __chatterbox_class_instruction("null", 0);
     
 	//Prepare body string for parsing
 	_body_string = string_replace_all(_body_string, "\n\r", "\n");
@@ -157,7 +157,7 @@ function __chatterbox_class_node(_title, _body_string) constructor
     _body_string += "\n";
     
     var _substring_list = __chatterbox_split_body(_body_string);
-    __chatterbox_compile(_substring_list);
+    __chatterbox_compile(_substring_list, root_instruction);
     
 	ds_list_destroy(_substring_list);
 }
@@ -173,6 +173,10 @@ function __chatterbox_class_instruction(_type, _line) constructor
     //condition   = undefined;
     //destination = undefined; //Used for options/redirects
     //parameters  = undefined;
+    //next_option = undefined;
+    //expression  = undefined;
+    
+    __chatterbox_trace(_type);
 }
 
 #endregion

@@ -29,8 +29,9 @@ function chatterbox() constructor
     
     filename            = _filename;
     file                = variable_struct_get(global.chatterbox_files, filename);
-    strings             = [];
-    options             = [];
+    content             = [];
+    option              = [];
+    option_instruction  = [];
     current_node        = undefined;
     current_instruction = undefined;
     
@@ -50,25 +51,21 @@ function chatterbox() constructor
             return undefined;
         }
         
-        current_node = _node;
-        current_instruction = undefined;
-        execute();
-        
-        return _node;
+        current_node        = _node;
+        current_instruction = current_node.root_instruction;
+        __chatterbox_execute();
     }
     
     /// @param optionIndex
     function select(_index)
     {
-        if ((_index < 0) || (_index >= array_length(options)))
+        if ((_index < 0) || (_index >= array_length(option)))
         {
-            __chatterbox_trace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(options)-1, ")");
+            __chatterbox_trace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
             return undefined;
         }
-    }
-    
-    execute = function()
-    {
         
+        current_instruction = option_instruction[_index];
+        __chatterbox_execute();
     }
 }
