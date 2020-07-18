@@ -20,13 +20,8 @@ function chatterbox_load(_filename)
     
 	if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _filename;
     var _file = new __chatterbox_class_file(_filename);
-    
     if (instanceof(_file) == "__chatterbox_class_file")
     {
-        with(_file)
-        {
-            variable_struct_set(global.chatterbox_files, filename, self);
-            __chatterbox_trace("Added \"", filename, "\" as a source file named \"", name, "\" (format=\"", format, "\")");
-        }
+        variable_struct_set(global.chatterbox_files, _filename, _file);
     }
 }

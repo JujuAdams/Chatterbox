@@ -18,7 +18,7 @@
 
 #region Advanced
 
-#macro CHATTERBOX_INDENT_UNIT_SIZE    4    //The fundamental ident unit, usually 4. This is typically the width of a tab character. This is a critical property for correct execution!
+#macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
 //These variables control which delimiters to use for [[options]] and <<actions>>

@@ -12,22 +12,6 @@
 
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
     
-#macro __CHATTERBOX_VM_UNKNOWN         "UNKNOWN"
-#macro __CHATTERBOX_VM_WAIT            "WAIT"
-#macro __CHATTERBOX_VM_TEXT            "TEXT"
-#macro __CHATTERBOX_VM_SHORTCUT        "SHORTCUT"
-#macro __CHATTERBOX_VM_SHORTCUT_END    "SHORTCUTEND"
-#macro __CHATTERBOX_VM_OPTION          "OPTION"
-#macro __CHATTERBOX_VM_REDIRECT        "REDIRECT"
-#macro __CHATTERBOX_VM_GENERIC_ACTION  "ACTION"
-#macro __CHATTERBOX_VM_IF              "IF"
-#macro __CHATTERBOX_VM_ELSE            "ELSE"
-#macro __CHATTERBOX_VM_ELSEIF          "ELSEIF"
-#macro __CHATTERBOX_VM_ENDIF           "ENDIF"
-#macro __CHATTERBOX_VM_SET             "SET"
-#macro __CHATTERBOX_VM_STOP            "STOP"
-#macro __CHATTERBOX_VM_CUSTOM_ACTION   "CUSTOM"
-    
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
     
 #endregion
@@ -120,6 +104,8 @@ function __chatterbox_class_file(_filename) constructor
 	    return undefined;
 	}
     
+    __chatterbox_trace("Processing \"", filename, "\" as a source file named \"", name, "\" (format=\"", format, "\")");
+    
 	//Iterate over all the nodes we found in this source file
     var _node = 0;
     repeat(ds_list_size(_node_list))
@@ -149,27 +135,44 @@ function __chatterbox_class_file(_filename) constructor
 /// @param bodyString
 function __chatterbox_class_node(_title, _body_string) constructor
 {
-    title        = _title;
-    body         = _body_string;
-    instructions = [];
+    title            = _title;
+    root_instruction = undefined;
     
-    body = __chatterbox_body_findreplace(body) + "\n";
-    var _substring_list = __chatterbox_split_body(body);
+	//Prepare body string for parsing
+	_body_string = string_replace_all(_body_string, "\n\r", "\n");
+	_body_string = string_replace_all(_body_string, "\r\n", "\n");
+	_body_string = string_replace_all(_body_string, "\r"  , "\n");
+    
+	//Perform find-replace
+    var _i = 0;
+    repeat(ds_list_size(global.__chatterbox_findreplace_old_string))
+    {
+	    _body_string = string_replace_all(_body_string,
+	                                      global.__chatterbox_findreplace_old_string[| _i],
+	                                      global.__chatterbox_findreplace_new_string[| _i]);
+        ++_i;
+    }
+    
+    //Add a trailing newline to make sure we parse correctly
+    _body_string += "\n";
+    
+    var _substring_list = __chatterbox_split_body(_body_string);
     __chatterbox_compile(_substring_list);
+    
 	ds_list_destroy(_substring_list);
 }
 
 /// @param type
-/// @param indent
-/// @param [content]
-/// @param [insertPosition]
-function __chatterbox_class_instruction() constructor
+/// @param line
+function __chatterbox_class_instruction(_type, _line) constructor
 {
-	type      = argument[0];
-	indent    = argument[1];
-	content   = (argument_count > 2)? argument[2] : undefined;
-	position  = (argument_count > 3)? argument[3] : undefined;
-    block_end = undefined;
+	type        = _type;
+    line        = _line;
+    //text        = undefined;
+    //branch_end  = undefined;
+    //condition   = undefined;
+    //destination = undefined; //Used for options/redirects
+    //parameters  = undefined;
 }
 
 #endregion

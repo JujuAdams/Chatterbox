@@ -1,9 +1,10 @@
+//Load in some source files
 chatterbox_load("Test.json");
 chatterbox_load("Test2.json");
 chatterbox_load("Test2.yarn");
 
-//Create a host
+//Create a chatterbox
 box = new chatterbox("Test.json");
 
-//Tell the host to jump to a node
+//Tell the chatterbox to jump to a node
 box.goto("Start");

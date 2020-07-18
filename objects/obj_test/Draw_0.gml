@@ -2,6 +2,7 @@
 var _x = 10;
 var _y = 10;
 
+//All the spoken text
 var _i = 0;
 repeat(array_length(box.strings))
 {
@@ -10,8 +11,10 @@ repeat(array_length(box.strings))
     ++_i;
 }
 
+//Bit of spacing...
 _y += 20;
 
+//All the options
 var _i = 0;
 repeat(array_length(box.options))
 {

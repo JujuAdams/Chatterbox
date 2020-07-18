@@ -1,7 +1,13 @@
-/// Creates a Chatterbox host
+/// Creates a chatterbox
 /// 
-/// Chatterbox uses a "host" to keep track of various bits of data.
-/// Hosts are structs and, as a result, are automatically cleaned up by GameMaker without needing to be explicitly destroyed
+/// Chatterboxes have some important member variables and methods that you should be aware of:
+/// Variables:
+///     strings    An array of text strings that were found by running your Yarn system
+///     options    An array of options that were found by running your Yarn system
+/// 
+/// Methods:
+///     goto(nodeTitle)        Immediately starts reading from a Yarn node
+///     select(optionIndex)    Selects an option, as presented in the options array above
 /// 
 /// @param [filename]
 

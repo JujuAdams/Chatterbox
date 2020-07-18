@@ -17,7 +17,7 @@ function __chatterbox_remove_whitespace(_string, _leading)
 	        var _ord = ord(string_char_at(_string, _i));
 	        if (_ord  > 32) break;
 	        if (_ord == 32) global.__chatterbox_indent_size++;
-	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_UNIT_SIZE;
+	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
 	        _i++;
 	    }
         
@@ -31,7 +31,7 @@ function __chatterbox_remove_whitespace(_string, _leading)
 	        var _ord = ord(string_char_at(_string, _i));
 	        if (_ord  > 32) break;
 	        if (_ord == 32) global.__chatterbox_indent_size++;
-	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_UNIT_SIZE;
+	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
 	        _i--;
 	    }
         

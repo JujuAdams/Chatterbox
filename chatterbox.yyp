@@ -20,7 +20,6 @@
     {"id":{"name":"__chatterbox_string","path":"scripts/__chatterbox_string/__chatterbox_string.yy",},"order":5,},
     {"id":{"name":"__chatterbox_tokenize_action","path":"scripts/__chatterbox_tokenize_action/__chatterbox_tokenize_action.yy",},"order":6,},
     {"id":{"name":"__chatterbox_split_body","path":"scripts/__chatterbox_split_body/__chatterbox_split_body.yy",},"order":9,},
-    {"id":{"name":"__chatterbox_body_findreplace","path":"scripts/__chatterbox_body_findreplace/__chatterbox_body_findreplace.yy",},"order":10,},
     {"id":{"name":"obj_test","path":"objects/obj_test/obj_test.yy",},"order":3,},
     {"id":{"name":"__chatterbox_compile","path":"scripts/__chatterbox_compile/__chatterbox_compile.yy",},"order":11,},
     {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":5,},
