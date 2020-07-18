@@ -20,132 +20,45 @@
 /// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax().
 /// 
 /// Once this script has been run, Chatterbox is ready for use!
-function chatterbox_init_end() {
 
+function chatterbox_init_end()
+{
 	var _timer = get_timer();
-
-	if ( !variable_global_exists("__chatterbox_init_complete" ) )
+    
+	if (!variable_global_exists("__chatterbox_init_complete"))
 	{
 	    __chatterbox_error("chatterbox_init_end() should be called after chatterbox_init_start()");
 	    exit;
 	}
-
+    
 	__chatterbox_trace("Completing initialisation");
-
+    
 	var _body_substring_list = ds_list_create();
-
+    
 	//Iterate over every source file added
-	var _font_count = ds_map_size(global.__chatterbox_file_data);
 	var _name = ds_map_find_first(global.__chatterbox_file_data);
-	repeat(_font_count)
+	repeat(ds_map_size(global.__chatterbox_file_data))
 	{
-	    var _font_data = global.__chatterbox_file_data[? _name ];
+	    var _file_data = global.__chatterbox_file_data[? _name];
 	    __chatterbox_trace("  Processing file \"" + _name + "\"");
-    
-	    var _filename  = _font_data[__CHATTERBOX_FILE.FILENAME];
-	    var _file_type = _font_data[__CHATTERBOX_FILE.FORMAT  ];
-    
-    
-    
-	    ds_list_add(global.__chatterbox_vm, _filename);
+        
+	    ds_list_add(global.__chatterbox_vm, _file_data.filename);
 	    var _instruction_file_offset = ds_list_size(global.__chatterbox_vm);
-	    global.__chatterbox_goto[? _filename] = _instruction_file_offset;
+	    global.__chatterbox_goto[? _file_data.filename] = _instruction_file_offset;
 	    if (CHATTERBOX_DEBUG_PARSER) __chatterbox_trace("  File instruction offset is " + string(_instruction_file_offset));
-    
-    
-    
+        
 	    var _node_list = undefined;
-    
-	    var _buffer = buffer_load(global.__chatterbox_font_directory + _filename);
+        
+	    var _buffer = buffer_load(global.__chatterbox_font_directory + _file_data.filename);
 	    var _string = buffer_read(_buffer, buffer_string);
 	    buffer_delete(_buffer);
-    
-	    switch(_file_type)
-	    {
-	        case __CHATTERBOX_FORMAT.YARN:
-            #region Parse .yarn file into a JSON
-            
-	            var _node_list = ds_list_create();
-            
-	            _string = string_replace_all(_string, "\n\r", "\n");
-	            _string = string_replace_all(_string, "\r\n", "\n");
-	            _string = string_replace_all(_string, "\r"  , "\n");
-	            _string += "\n";
-            
-	            var _body      = "";
-	            var _title     = "";
-	            var _in_header = true;
-            
-	            var _pos = string_pos("\n", _string);
-	            while(_pos > 0)
-	            {
-	                var _substring = string_copy(_string, 1, _pos-1);
-	                _string        = string_delete(_string, 1, _pos);
-	                _pos           = string_pos("\n", _string);
-                
-	                if (_in_header)
-	                {
-	                    if (string_copy(_substring, 1, 6) == "title:")
-	                    {
-	                        _title = string_delete(_substring, 1, 6);
-	                        _title = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_title, true), false);
-	                    }
-                    
-	                    if (string_copy(_substring, 1, 3) == "---")
-	                    {
-	                        _in_header = false;
-	                        _body = "";
-	                    }
-	                }
-	                else
-	                {
-	                    if (string_copy(_substring, 1, 3) == "===")
-	                    {
-	                        var _map = ds_map_create();
-	                        _map[? "body" ] = _body;
-	                        _map[? "title"] = _title;
-	                        ds_list_add(_node_list, _map);
-	                        ds_list_mark_as_map(_node_list, ds_list_size(_node_list)-1);
-                        
-	                        _in_header = true;
-	                        _body      = "";
-	                        _title     = "";
-	                    }
-	                    else
-	                    {
-	                        _body += _substring + "\n";
-	                    }
-	                }
-	            }
-            
-            #endregion
-	        break;
         
-	        case __CHATTERBOX_FORMAT.JSON:
-            #region Read and verify JSON
-            
-	            var _yarn_json = json_decode(_string);
-            
-	            //Test for JSON made by the standard Yarn editor
-	            var _node_list = _yarn_json[? "default" ];
-	            if (_node_list != undefined) __chatterbox_trace("    File was made in standard Yarn editor");
-            
-	            //Test for JSON made by Jacquard
-	            if (_node_list == undefined)
-	            {
-	                var _node_list = _yarn_json[? "nodes" ];
-	                if (_node_list != undefined) __chatterbox_trace("    File was made by Jacquard");
-	            }
-            
-	            //Divorce the node list from the JSON
-	            _yarn_json[? "default" ] = undefined;
-	            _yarn_json[? "nodes"   ] = undefined;
-	            ds_map_destroy(_yarn_json);
-            
-            #endregion
-	        break;
-	    }
-    
+	    switch(_file_data.format)
+	    {
+	        case "yarn": _node_list = __chatterbox_parse_yarn(_string); break;
+	        case "json": _node_list = __chatterbox_parse_json(_string); break;
+        }
+	    
 	    //If both of these fail, it's some wacky JSON that we don't recognise
 	    if (_node_list == undefined)
 	    {
@@ -153,23 +66,23 @@ function chatterbox_init_end() {
 	        _name = ds_map_find_next(global.__chatterbox_file_data, _name);
 	        continue;
 	    }
-    
+        
 	    var _node_count = ds_list_size(_node_list);
-    
+        
 	    if (CHATTERBOX_DEBUG_TITLES)
 	    {
-        #region Debug output that displays all the nodes in a file
-        
+            #region Debug output that displays all the nodes in a file
+            
 	        if (_node_count > 0)
 	        {
 	            __chatterbox_trace("    Found " + string(_node_count) + " nodes/titles:");
 	            var _string = "      ";
-            
+                
 	            var _i = 0;
 	            for(var _node = 0; _node < _node_count; _node++)
 	            {
 	                var _node_map = _node_list[| _node];
-                
+                    
 	                _string += "\"" + _node_map[? "title" ] + "\"";
 	                if (_node < _node_count-1)
 	                {
@@ -183,24 +96,25 @@ function chatterbox_init_end() {
 	                    }
 	                }
 	            }
+                
 	            if (_i > 0) __chatterbox_trace(_string);
 	        }
-        
-        #endregion
+            
+            #endregion
 	    }
-    
+        
 	    //Iterate over all the nodes we found in this source file
 	    for(var _node = 0; _node < _node_count; _node++)
 	    {
 	        var _node_map = _node_list[| _node];
 	        var _title = _node_map[? "title"];
 	        var _body  = _node_map[? "body" ];
-        
+            
 	        //Prepare body string for parsing
 	        _body = string_replace_all(_body, "\n\r", "\n");
 	        _body = string_replace_all(_body, "\r\n", "\n");
 	        _body = string_replace_all(_body, "\r"  , "\n");
-        
+            
 	        //Perform find-replace
 	        var _size = ds_list_size(global.__chatterbox_findreplace_old_string);
 	        for(var _i = 0; _i < _size; _i++)
@@ -209,28 +123,28 @@ function chatterbox_init_end() {
 	                                       global.__chatterbox_findreplace_old_string[| _i ],
 	                                       global.__chatterbox_findreplace_new_string[| _i ]);
 	        }
-        
+            
 	        if (CHATTERBOX_DEBUG_PARSER)
 	        {
 	            __chatterbox_trace("    Processing \"" + string(_title) + "\" = \"" + string_replace_all(string(_body), "\n", "\\n") + "\"");
 	        }
 	        _body += "\n";
-        
-	        ds_list_add(global.__chatterbox_vm, _filename + CHATTERBOX_FILENAME_SEPARATOR + _title);
+            
+	        ds_list_add(global.__chatterbox_vm, _file_data.filename + CHATTERBOX_FILENAME_SEPARATOR + _title);
 	        var _instruction_node_offset = ds_list_size(global.__chatterbox_vm);
-	        global.__chatterbox_goto[? _filename + CHATTERBOX_FILENAME_SEPARATOR + _title ] = _instruction_node_offset;
+	        global.__chatterbox_goto[? _file_data.filename + CHATTERBOX_FILENAME_SEPARATOR + _title ] = _instruction_node_offset;
 	        if (CHATTERBOX_DEBUG_PARSER) __chatterbox_trace("    Node instruction offset is " + string(_instruction_node_offset));
-        
-        
-        
-        #region Break down body into substring
-        
+            
+            
+            
+            #region Break down body into substring
+            
 	        ds_list_clear(_body_substring_list);
-        
+            
 	        var _body_byte_length = string_byte_length(_body);
 	        var _body_buffer = buffer_create(_body_byte_length+1, buffer_fixed, 1);
 	        buffer_poke(_buffer, 0, buffer_string, _body);
-        
+            
 	        var _line          = 0;
 	        var _first_on_line = true;
 	        var _indent        = undefined;
@@ -240,16 +154,16 @@ function chatterbox_init_end() {
 	        var _prev_value    = 0;
 	        var _value         = 0;
 	        var _next_value    = buffer_read(_body_buffer, buffer_u8);
-        
+            
 	        repeat(_body_byte_length)
 	        {
 	            _prev_value = _value;
 	            _value      = _next_value;
 	            _next_value = buffer_read(_body_buffer, buffer_u8);
-            
+                
 	            var _write_cache = true;
 	            var _pop_cache   = false;
-            
+                
 	            if ((_value == ord("\n")) || (_value == ord("\r")))
 	            {
 	                _newline     = true;
@@ -306,9 +220,9 @@ function chatterbox_init_end() {
 	                    _write_cache = false;
 	                }
 	            }
-            
+                
 	            if (_write_cache) _cache += chr(_value);
-            
+                
 	            if (_pop_cache)
 	            {
 	                if (_first_on_line)
@@ -316,11 +230,11 @@ function chatterbox_init_end() {
 	                    _cache = __chatterbox_remove_whitespace(_cache, true);
 	                    _indent = global.__chatterbox_indent_size;
 	                }
-                
+                    
 	                if (_cache != "") ds_list_add(_body_substring_list, [_cache, _cache_type, _line, _indent]);
 	                _cache = "";
 	                _cache_type = "text";
-                
+                    
 	                if (_newline)
 	                {
 	                    _newline = false;
@@ -334,13 +248,13 @@ function chatterbox_init_end() {
 	                }
 	            }
 	        }
-        
+            
 	        buffer_delete(_body_buffer);
-        
-        #endregion
-        
-        
-        
+            
+            #endregion
+            
+            
+            
 	        global.__chatterbox_insert_pos = ds_list_size(global.__chatterbox_vm);
 	        var _branch_stack = ds_list_create();
 	        var _previous_line = -1;
@@ -352,7 +266,7 @@ function chatterbox_init_end() {
 	            var _substring_type   = _substring_array[1];
 	            var _substring_line   = _substring_array[2];
 	            var _substring_indent = _substring_array[3];
-            
+                
 	            if (_substring_line > _previous_line)
 	            {
 	                var _branch_top = _branch_stack[| ds_list_size(_branch_stack)-1];
@@ -363,11 +277,11 @@ function chatterbox_init_end() {
 	                    _branch_top = _branch_stack[| ds_list_size(_branch_stack)-1];
 	                }
 	            }
-            
+                
 	            if (_substring_type == "option")
 	            {
-                #region [[option]]
-            
+                    #region [[option]]
+                    
 	                var _pos = string_pos("|", _string);
 	                if (_pos < 1)
 	                {
@@ -380,15 +294,15 @@ function chatterbox_init_end() {
 	                                                 [__chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false),
 	                                                  __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true)]);
 	                }
-            
-                #endregion
+                    
+                    #endregion
 	            }
 	            else if (_substring_type == "action")
 	            {
 	                var _content = __chatterbox_tokenize_action(_string);
-                
-                #region Add instruction based on content array
-            
+                    
+                    #region Add instruction based on content array
+                    
 	                if (_content[0] == "if")
 	                {
 	                    if (_substring_line > _previous_line)
@@ -440,16 +354,16 @@ function chatterbox_init_end() {
 	                {
 	                    __chatterbox_new_instruction(__CHATTERBOX_VM_GENERIC_ACTION, _substring_indent, [_string]);
 	                }
-            
-                #endregion
-                
-                #endregion
+                    
+                    #endregion
+                    
+                    #endregion
 	            }
 	            else if (string_copy(_string, 1, 2) == "->") //Shortcut
 	            {
 	                __chatterbox_new_instruction(__CHATTERBOX_VM_SHORTCUT, _substring_indent,
 	                                             [__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true)]);
-                
+                    
 	                ds_list_add(_branch_stack, [__CHATTERBOX_VM_SHORTCUT_END,     //Type
 	                                            global.__chatterbox_insert_pos-1, //Start position
 	                                            _substring_indent,                //Indentation
@@ -459,36 +373,36 @@ function chatterbox_init_end() {
 	            {
 	                __chatterbox_new_instruction(__CHATTERBOX_VM_TEXT, _substring_indent, [_string]);
 	            }
-            
+                
 	            _previous_line = _substring_line;
 	        }
-        
+            
 	        ds_list_destroy(_branch_stack);
-        
+            
 	        __chatterbox_new_instruction(__CHATTERBOX_VM_STOP, 0, undefined, ds_list_size(global.__chatterbox_vm));
-        
-        
-        
+            
+            
+            
 	        if (CHATTERBOX_DEBUG_PARSER)
 	        {
-            #region Debug output that enumerates all instructions for this node
-            
+                #region Debug output that enumerates all instructions for this node
+                
 	            var _i = _instruction_node_offset;
 	            repeat(ds_list_size(global.__chatterbox_vm) - _instruction_node_offset)
 	            {
 	                var _array = global.__chatterbox_vm[| _i];
-                
+                    
 	                if (is_array(_array))
 	                {
 	                    _string = "";
-                    
+                        
 	                    var _type    = _array[__CHATTERBOX_INSTRUCTION.TYPE   ];
 	                    var _indent  = _array[__CHATTERBOX_INSTRUCTION.INDENT ];
 	                    var _content = _array[__CHATTERBOX_INSTRUCTION.CONTENT];
-                    
+                        
 	                    repeat(_indent) _string += " ";
 	                    _string += string(_type);
-                    
+                        
 	                    if (_content != undefined)
 	                    {
 	                        if (is_array(_content))
@@ -505,28 +419,26 @@ function chatterbox_init_end() {
 	                {
 	                    _string = string(_array);
 	                }
-                
+                    
 	                __chatterbox_trace("      " + _string);
-                
+                    
 	                _i++;
 	            }
-            
-            #endregion
+                
+                #endregion
 	        }
 	    }
-    
+        
 	    _name = ds_map_find_next(global.__chatterbox_file_data, _name);
 	    ds_list_destroy(_node_list);
 	}
-
-
-
+    
+    
+    
 	ds_list_destroy(_body_substring_list);
-
+    
 	__chatterbox_trace("VM has " + string(ds_list_size(global.__chatterbox_vm)) + " instructions");
 	__chatterbox_trace("Initialisation complete, took " + string((get_timer() - _timer)/1000) + "ms");
-
+    
 	global.__chatterbox_init_complete = true;
-
-
 }

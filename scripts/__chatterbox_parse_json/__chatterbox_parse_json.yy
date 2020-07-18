@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Setup",
-    "path": "folders/Chatterbox/Setup.yy",
+    "name": "__Private",
+    "path": "folders/Chatterbox/__Private.yy",
   },
   "resourceVersion": "1.0",
-  "name": "chatterbox_init_add_json",
+  "name": "__chatterbox_parse_json",
   "tags": [],
   "resourceType": "GMScript",
 }

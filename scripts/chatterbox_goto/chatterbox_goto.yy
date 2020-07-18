@@ -3,7 +3,7 @@
   "isCompatibility": false,
   "parent": {
     "name": "Chatterbox",
-    "path": "folders/Scripts/Chatterbox.yy",
+    "path": "folders/Chatterbox.yy",
   },
   "resourceVersion": "1.0",
   "name": "chatterbox_goto",

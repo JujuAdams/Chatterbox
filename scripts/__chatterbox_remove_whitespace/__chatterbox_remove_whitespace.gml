@@ -4,13 +4,11 @@
 ///
 /// @param string
 /// @param leading
-function __chatterbox_remove_whitespace(argument0, argument1) {
 
-	var _string  = argument0;
-	var _leading = argument1;
-
+function __chatterbox_remove_whitespace(_string, _leading)
+{
 	global.__chatterbox_indent_size = 0;
-
+    
 	if (_leading)
 	{
 	    var _i = 1;
@@ -22,7 +20,7 @@ function __chatterbox_remove_whitespace(argument0, argument1) {
 	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_UNIT_SIZE;
 	        _i++;
 	    }
-    
+        
 	    return string_delete(_string, 1, _i-1);
 	}
 	else
@@ -36,9 +34,7 @@ function __chatterbox_remove_whitespace(argument0, argument1) {
 	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_UNIT_SIZE;
 	        _i--;
 	    }
-    
+        
 	    return string_copy(_string, 1, _i);
 	}
-
-
 }

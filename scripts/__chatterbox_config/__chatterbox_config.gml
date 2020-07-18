@@ -1,4 +1,3 @@
-function __chatterbox_config() {
 #macro CHATTERBOX_OPTION_FALLBACK_ENABLE   true  //
 #macro CHATTERBOX_OPTION_FALLBACK_TEXT     "..."  //The option text to display if no option text has been found
 #macro CHATTERBOX_DEBUG                    false  //Whether or not to show addition debug information whilst running Chatterbox
@@ -8,8 +7,7 @@ function __chatterbox_config() {
 
 #macro CHATTERBOX_DEFAULT_VARIABLE_VALUE  0  //Default value if a variable cannot be found
 
-	//More for information, please read "Variables & Conditionals" in __chatterbox_syntax()
-
+//More for information, please read "Variables & Conditionals" in __chatterbox_syntax()
 #macro CHATTERBOX_SCOPE_INVALID    -1
 #macro CHATTERBOX_SCOPE_INTERNAL    0
 #macro CHATTERBOX_SCOPE_GML_LOCAL   1
@@ -25,8 +23,8 @@ function __chatterbox_config() {
 #macro CHATTERBOX_INDENT_UNIT_SIZE    4    //The fundamental ident unit, usually 4. This is typically the width of a tab character. This is a critical property for correct execution!
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
-	//These variables control which delimiters to use for [[options]] and <<actions>>
-	//For compatibility with Yarn editors you probably don't want to change these
+//These variables control which delimiters to use for [[options]] and <<actions>>
+//For compatibility with Yarn editors you probably don't want to change these
 #macro CHATTERBOX_OPTION_OPEN_DELIMITER   "["
 #macro CHATTERBOX_OPTION_CLOSE_DELIMITER  "]"
 #macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
@@ -42,6 +40,3 @@ function __chatterbox_config() {
 #macro CHATTERBOX_ERROR_ON_NONSTANDARD_SYNTAX   true   //Throws an error when using a reasonable, though technically illegal, syntax e.g. <<end if>> or <<elseif>>
 
 #endregion
-
-
-}

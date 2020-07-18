@@ -4,14 +4,12 @@
 /// 
 /// @param chatterboxHost
 /// @param value
-function __chatterbox_resolve_value(argument0, argument1) {
 
+function __chatterbox_resolve_value(_chatterbox, _value)
+{
 	global.__chatterbox_scope         = CHATTERBOX_SCOPE_INVALID;
 	global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
-
-	var _chatterbox = argument0; _chatterbox = _chatterbox; //Stop "only used once error"
-	var _value      = argument1;
-
+    
 	if (is_real(_value))
 	{
 	    //It's a real!
@@ -25,8 +23,8 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	{
 	    var _variable = false;
                                     
-    #region Figure out if this value is a real
-                                    
+        #region Figure out if this value is a real
+        
 	    var _hit_number = false;
 	    var _j = string_length(_value);
 	    repeat(string_length(_value))
@@ -45,23 +43,23 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	        }
 	        _j--;
 	    }
-                                    
+        
 	    if (!_variable)
 	    {
 	        if (string_count("-", _value) > 1) _variable = true;
 	        if (string_count(".", _value) > 1) _variable = true;
-                                        
+            
 	        var _negative_pos = string_pos("-", _value);
 	        if (_negative_pos > 1) _variable = true;
 	        if (string_pos(".", _value) == (1+_negative_pos)) _variable = true;
-                                        
+            
 	        if (!_variable) _value = real(_value);
 	    }
-                                    
-    #endregion
-                                    
-    #region Figure out if this value is a keyword: true / false / undefined / null
-                                    
+        
+        #endregion
+        
+        #region Figure out if this value is a keyword: true / false / undefined / null
+        
 	    if (_variable)
 	    {
 	        if (_value == "true")
@@ -80,15 +78,15 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	            _variable = false;
 	        }
 	    }
-                                    
-    #endregion
-                                    
+        
+        #endregion
+        
 	    if (_variable)
 	    {
-        #region Find the variable's scope based on prefix
-        
+            #region Find the variable's scope based on prefix
+            
 	        var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
-        
+            
 	        if (string_char_at(_value, 1) == "$")
 	        {
 	            _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
@@ -124,14 +122,14 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	            _scope = CHATTERBOX_SCOPE_INTERNAL;
 	            _value = string_delete(_value, 1, 9);
 	        }
-        
+            
 	        global.__chatterbox_scope = _scope;
 	        global.__chatterbox_variable_name = _value;
-        
-        #endregion
-        
-        #region Collect variable value depending on scope and check its datatype
-        
+            
+            #endregion
+            
+            #region Collect variable value depending on scope and check its datatype
+            
 	        switch(_scope)
 	        {                   
 	            case CHATTERBOX_SCOPE_INTERNAL:
@@ -145,7 +143,7 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	                    {
 	                        __chatterbox_trace("WARNING! Internal variable \"" + _value + "\" doesn't exist");
 	                    }
-                                                    
+                        
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
 	                }
 	                else
@@ -153,7 +151,7 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	                    _value = CHATTERBOX_VARIABLES_MAP[? _value ];
 	                }
 	            break;
-            
+                
 	            case CHATTERBOX_SCOPE_GML_LOCAL:
 	                if (!variable_instance_exists(id, _value))
 	                {
@@ -173,7 +171,7 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	                    _value = variable_instance_get(id, _value);
 	                }
 	            break;
-            
+                
 	            case CHATTERBOX_SCOPE_GML_GLOBAL:
 	                if (!variable_global_exists(_value))
 	                {
@@ -194,7 +192,7 @@ function __chatterbox_resolve_value(argument0, argument1) {
 	                }
 	            break;
 	        }
-        
+            
 	        var _typeof = typeof(_value);
 	        if (_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4")
 	        {
@@ -209,17 +207,15 @@ function __chatterbox_resolve_value(argument0, argument1) {
             
 	            _value = string(_value);
 	        }
-        
+            
 	        if (_typeof == "bool") || (_typeof == "int32") || (_typeof == "int64")
 	        {
 	            _value = real(_value);
 	        }
-                                        
-        #endregion
+            
+            #endregion
 	    }
 	}
-
+    
 	return _value;
-
-
 }

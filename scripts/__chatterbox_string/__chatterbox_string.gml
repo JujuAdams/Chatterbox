@@ -1,8 +1,7 @@
 /// @param value
-function __chatterbox_string(argument0) {
 
-	if (is_array(argument0)) return __chatterbox_array_to_string(argument0);
-	return string(argument0);
-
-
+function __chatterbox_string(_value)
+{
+	if (is_array(_value)) return __chatterbox_array_to_string(_value);
+	return string(_value);
 }

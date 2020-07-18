@@ -6,15 +6,13 @@
 ///
 /// @param chatterboxHost
 /// @param optionIndex
-function chatterbox_select(argument0, argument1) {
 
-	var _chatterbox     = argument0;
-	var _selected_index = argument1;
-
-	var _node_title     = _chatterbox[__CHATTERBOX_HOST.TITLE         ];
-	var _filename       = _chatterbox[__CHATTERBOX_HOST.FILENAME      ];
-	var _child_array    = _chatterbox[__CHATTERBOX_HOST.CHILDREN      ];
-	var _singleton_text = _chatterbox[__CHATTERBOX_HOST.SINGLETON_TEXT];
+function chatterbox_select(_chatterbox, _selected_index)
+{
+	var _node_title     = _chatterbox.title;
+	var _filename       = _chatterbox.filename;
+	var _child_array    = _chatterbox.children;
+	var _singleton_text = false;
 
 	if (_node_title == undefined)
 	{
@@ -44,7 +42,7 @@ function chatterbox_select(argument0, argument1) {
 	    for(var _i = 0; _i < _size; _i++)
 	    {
 	        var _array = _child_array[_i];
-	        if (_array[__CHATTERBOX_CHILD.TYPE] == __CHATTERBOX_CHILD_TYPE.OPTION)
+	        if (_array[__CHATTERBOX_CHILD.TYPE] == "option")
 	        {
 	            if (_count == _selected_index) break;
 	            _count++;
@@ -79,7 +77,7 @@ function chatterbox_select(argument0, argument1) {
 	    }
     
 	    _child_array = []; //Wipe all children
-	    _chatterbox[@ __CHATTERBOX_HOST.CHILDREN] = _child_array;
+	    _chatterbox.children = _child_array;
     
 	    var _instruction = _start_instruction;
 	    var _indent      = _start_indent;
@@ -295,7 +293,7 @@ function chatterbox_select(argument0, argument1) {
                     
 	                    var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
 	                    _new_array[@ __CHATTERBOX_CHILD.STRING           ] = _instruction_content[0];
-	                    _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.BODY;
+	                    _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = "body";
 	                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = undefined;
 	                    _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = undefined;
 	                    _child_array[@ array_length_1d(_child_array) ] = _new_array;
@@ -333,10 +331,10 @@ function chatterbox_select(argument0, argument1) {
 	                        {
 	                            _node_title = _string;
 	                        }
-                        
-	                        _chatterbox[@ __CHATTERBOX_HOST.TITLE    ] = _node_title;
-	                        _chatterbox[@ __CHATTERBOX_HOST.FILENAME ] = _filename;
-                        
+                            
+	                        _chatterbox.title    = _node_title;
+	                        _chatterbox.filename = _filename;
+                            
 	                        var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
 	                        CHATTERBOX_VARIABLES_MAP[? "visited(" + _key + ")" ] = true;
 	                        if (CHATTERBOX_DEBUG) __chatterbox_trace("  \"visited(" + _key + ")\" to <true>");
@@ -388,7 +386,7 @@ function chatterbox_select(argument0, argument1) {
 	                        if (_at_scan_end_instruction)
 	                        {
 	                            _node_title = _instruction_content[1];
-	                            _chatterbox[@ __CHATTERBOX_HOST.TITLE] = _node_title;
+	                            _chatterbox.title = _node_title;
                             
 	                            var _key = _filename + CHATTERBOX_FILENAME_SEPARATOR + _node_title;
 	                            CHATTERBOX_VARIABLES_MAP[? "visited(" + _key + ")" ] = true;
@@ -524,7 +522,7 @@ function chatterbox_select(argument0, argument1) {
 	                    }
                     
 	                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     _post_text == " + string(_post_text));
-	                    _chatterbox[@ __CHATTERBOX_HOST.TITLE ] = undefined;
+	                    _chatterbox.title = undefined;
 	                    if (CHATTERBOX_DEBUG_SELECT) __chatterbox_trace("                     !! STOP !!");
 	                    exit;
                     
@@ -545,7 +543,7 @@ function chatterbox_select(argument0, argument1) {
 	                var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
 	                _child_array[@ array_length_1d(_child_array)] = _new_array;
 	                _new_array[@ __CHATTERBOX_CHILD.STRING           ] = _new_option_text;
-	                _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.OPTION;
+	                _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = "option";
 	                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = _text_instruction;
 	                _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = _instruction;
 	            }
@@ -566,7 +564,7 @@ function chatterbox_select(argument0, argument1) {
 	        for(var _i = 0; _i < _size; _i++)
 	        {
 	            var _array = _child_array[ _i ];
-	            if (_array[ __CHATTERBOX_CHILD.TYPE ] == __CHATTERBOX_CHILD_TYPE.OPTION) break;
+	            if (_array[ __CHATTERBOX_CHILD.TYPE ] == "option") break;
 	        }
         
 	        if (_i >= _size)
@@ -574,7 +572,7 @@ function chatterbox_select(argument0, argument1) {
 	            //We haven't found an option so we should create one!
 	            var _new_array = array_create(__CHATTERBOX_CHILD.__SIZE);
 	            _new_array[@ __CHATTERBOX_CHILD.STRING           ] = CHATTERBOX_OPTION_FALLBACK_TEXT;
-	            _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = __CHATTERBOX_CHILD_TYPE.OPTION;
+	            _new_array[@ __CHATTERBOX_CHILD.TYPE             ] = "option";
 	            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_START] = _text_instruction;
 	            _new_array[@ __CHATTERBOX_CHILD.INSTRUCTION_END  ] = _instruction;
 	            _child_array[@ array_length_1d(_child_array)] = _new_array;
