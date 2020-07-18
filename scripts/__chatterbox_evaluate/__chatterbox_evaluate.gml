@@ -63,7 +63,7 @@ function __chatterbox_evaluate(_chatterbox, _content)
 	                }
 	                else
 	                {
-	                    _function = global.__chatterbox_permitted_scripts[? _function ];
+	                    _function = global.__chatterbox_permitted_functions[? _function ];
 	                    if (_function != undefined)
 	                    {
 	                        _result = script_execute(_function, _function_args);
