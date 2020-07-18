@@ -41,7 +41,7 @@ enum __CHATTERBOX_CHILD
     
 #endregion
 
-#region Boot initialisation
+#region Boot Initialisation
 
 __chatterbox_trace("Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
     
@@ -89,38 +89,7 @@ global.__chatterbox_op_count = ds_list_size(global.__chatterbox_op_list);
 
 #endregion
 
-/// @param [value...]
-function __chatterbox_trace()
-{
-	var _string = "";
-	var _i = 0;
-	repeat(argument_count)
-	{
-	    _string += __chatterbox_string(argument[_i]);
-	    ++_i;
-	}
-
-	show_debug_message(string_format(current_time, 8, 0) + " Chatterbox: " + _string);
-
-	return _string;
-}
-
-/// @param [value...]
-function __chatterbox_error()
-{
-	var _string = "";
-    
-	var _i = 0;
-	repeat(argument_count)
-	{
-	    _string += string(argument[_i]);
-	    ++_i;
-	}
-    
-	show_error("Chatterbox:\n" + _string + "\n ", false);
-    
-	return _string;
-}
+#region Class Definitions
 
 /// @param filename
 /// @param name
@@ -162,26 +131,45 @@ function __chatterbox_class_file(_filename, _name, _format) constructor
     repeat(ds_list_size(_node_list))
 	{
 	    var _node_map = _node_list[| _node];
-	    var _title = _node_map[? "title"];
-	    var _body  = _node_map[? "body" ];
-            
-        _body = __chatterbox_body_findreplace(_body) + "\n";
-        var _body_substring_list = __chatterbox_split_body(_body);
-        __chatterbox_compile(_body_substring_list);
-            
-	    ds_list_destroy(_body_substring_list);
-            
+        __chatterbox_array_add(nodes, new __chatterbox_class_node(_node_map[? "title"], _node_map[? "body"]));
         _node++;
 	}
     
 	ds_list_destroy(_node_list);
+    
+    /// @param nodeTitle
+    find_node = function(_title)
+    {
+        var _i = 0;
+        repeat(array_length(nodes))
+        {
+            if (nodes[_i].title == _title) return nodes[_i];
+            ++_i;
+        }
+        
+        return undefined;
+    }
+}
+
+/// @param title
+/// @param bodyString
+function __chatterbox_class_node(_title, _body_string) constructor
+{
+    title        = _title;
+    body         = _body_string;
+    instructions = [];
+    
+    body = __chatterbox_body_findreplace(body) + "\n";
+    var _substring_list = __chatterbox_split_body(body);
+    __chatterbox_compile(_substring_list);
+	ds_list_destroy(_substring_list);
 }
 
 /// @param type
 /// @param indent
 /// @param [content]
 /// @param [insertPosition]
-function __chatterbox_class_instruction()
+function __chatterbox_class_instruction() constructor
 {
 	type      = argument[0];
 	indent    = argument[1];
@@ -189,3 +177,49 @@ function __chatterbox_class_instruction()
 	position  = (argument_count > 3)? argument[3] : undefined;
     block_end = undefined;
 }
+
+#endregion
+
+#region Utility
+
+/// @param array
+/// @param value
+function __chatterbox_array_add(_array, _value)
+{
+    _array[@ array_length(_array)] = _value;
+}
+
+/// @param [value...]
+function __chatterbox_trace()
+{
+	var _string = "";
+	var _i = 0;
+	repeat(argument_count)
+	{
+	    _string += __chatterbox_string(argument[_i]);
+	    ++_i;
+	}
+
+	show_debug_message(string_format(current_time, 8, 0) + " Chatterbox: " + _string);
+
+	return _string;
+}
+
+/// @param [value...]
+function __chatterbox_error()
+{
+	var _string = "";
+    
+	var _i = 0;
+	repeat(argument_count)
+	{
+	    _string += string(argument[_i]);
+	    ++_i;
+	}
+    
+	show_error("Chatterbox:\n" + _string + "\n ", false);
+    
+	return _string;
+}
+
+#endregion

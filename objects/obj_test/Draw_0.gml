@@ -3,9 +3,9 @@ var _x = 10;
 var _y = 10;
 
 var _i = 0;
-repeat(chatterbox_body_count(chatterbox))
+repeat(array_length(box.strings))
 {
-    draw_text(_x, _y, chatterbox_body_get(chatterbox, _i));
+    draw_text(_x, _y, box.strings[_i]);
     _y += 20;
     ++_i;
 }
@@ -13,9 +13,9 @@ repeat(chatterbox_body_count(chatterbox))
 _y += 20;
 
 var _i = 0;
-repeat(chatterbox_option_count(chatterbox))
+repeat(array_length(box.options))
 {
-    draw_text(_x, _y, string(_i+1) + ") " + chatterbox_option_get(chatterbox, _i));
+    draw_text(_x, _y, string(_i+1) + ") " + string(box.options[_i]));
     _y += 20;
     ++_i;
 }
