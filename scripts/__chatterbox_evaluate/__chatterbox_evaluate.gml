@@ -2,13 +2,11 @@
 ///
 /// This is an internal script, please don't modify it.
 ///
-/// @param chatterboxHost
+/// @param filename
 /// @param contentArray
 
-function __chatterbox_evaluate(_chatterbox, _content)
+function __chatterbox_evaluate(_filename, _content)
 {
-	var _filename = _chatterbox.filename;
-    
 	var _resolved_array = array_create(array_length(_content), pointer_null); //Copy the array
     
 	var _queue = ds_list_create();
@@ -30,7 +28,7 @@ function __chatterbox_evaluate(_chatterbox, _content)
             #region Check if all elements have been resolved
             
 	        var _fully_resolved = true;
-	        var _element_length = array_length_1d(_element);
+	        var _element_length = array_length(_element);
 	        for(var _i = 0; _i < _element_length; _i++)
 	        {
 	            var _child_index = _element[_i];
@@ -53,7 +51,7 @@ function __chatterbox_evaluate(_chatterbox, _content)
 	                var _function = _resolved_array[_element[0]];
                     
 	                var _function_args = array_create(_element_length-2);
-	                for(var _i = 2; _i < _element_length; _i++) _function_args[_i-2] = __chatterbox_resolve_value(_chatterbox, _resolved_array[_element[_i]]);
+	                for(var _i = 2; _i < _element_length; _i++) _function_args[_i-2] = __chatterbox_resolve_value(_resolved_array[_element[_i]]);
                     
 	                if (_function == "visited")
 	                {
@@ -69,7 +67,7 @@ function __chatterbox_evaluate(_chatterbox, _content)
 	                        _result = script_execute(_function, _function_args);
                             
 	                        var _typeof = typeof(_result);
-	                        if (_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4")
+	                        if ((_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4") || (_typeof == "struct") || (_typeof == "method") || (_typeof == "unknown"))
 	                        {
 	                            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
 	                            {
@@ -121,7 +119,7 @@ function __chatterbox_evaluate(_chatterbox, _content)
                     
 	                var _operator = _resolved_array[_element[0]];
 	                var _value    = _resolved_array[_element[1]];
-	                    _value    = __chatterbox_resolve_value(_chatterbox, _value);
+	                    _value    = __chatterbox_resolve_value(_value);
                     
 	                var _result = undefined;
 	                if (is_real(_value))
@@ -152,11 +150,11 @@ function __chatterbox_evaluate(_chatterbox, _content)
 	                var _operator = _resolved_array[_element[1]];
 	                var _b        = _resolved_array[_element[2]];
                     
-	                var _a_value = __chatterbox_resolve_value(_chatterbox, _a);
+	                var _a_value = __chatterbox_resolve_value(_a);
 	                var _a_scope = global.__chatterbox_scope;
 	                _a = (global.__chatterbox_variable_name != __CHATTERBOX_VARIABLE_INVALID)? global.__chatterbox_variable_name : _a;
 	                global.__chatterbox_scope = CHATTERBOX_SCOPE_INVALID;
-	                var _b_value = __chatterbox_resolve_value(_chatterbox, _b);
+	                var _b_value = __chatterbox_resolve_value(_b);
                     
                     #endregion
                     
@@ -241,5 +239,5 @@ function __chatterbox_evaluate(_chatterbox, _content)
     
 	ds_list_destroy(_queue);
     
-	return __chatterbox_resolve_value(_chatterbox, _resolved_array[1]);
+	return __chatterbox_resolve_value(_resolved_array[1]);
 }

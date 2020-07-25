@@ -2,10 +2,9 @@
 ///
 /// This is an internal script, please don't modify it.
 /// 
-/// @param chatterboxHost
 /// @param value
 
-function __chatterbox_resolve_value(_chatterbox, _value)
+function __chatterbox_resolve_value(_value)
 {
 	global.__chatterbox_scope         = CHATTERBOX_SCOPE_INVALID;
 	global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;

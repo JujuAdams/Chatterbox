@@ -66,6 +66,36 @@ global.__chatterbox_op_count = ds_list_size(global.__chatterbox_op_list);
 
 #region Class Definitions
 
+/// @param [filename]
+function __chatterbox_class(_filename) constructor
+{
+	if (!is_string(_filename))
+	{
+	    __chatterbox_error("Source files must be strings (got \"" + string(_filename) + "\")");
+	    return undefined;
+	}
+    
+	if (!chatterbox_is_loaded(_filename))
+	{
+	    __chatterbox_error("\"" + _filename + "\" has not been loaded");
+	    return undefined;
+	}
+    
+    filename            = _filename;
+    file                = variable_struct_get(global.chatterbox_files, filename);
+    content             = [];
+    option              = [];
+    option_instruction  = [];
+    current_node        = undefined;
+    current_instruction = undefined;
+    
+    /// @param nodeTitle
+    find_node = function(_title)
+    {
+        return file.find_node(_title);
+    }
+}
+
 /// @param filename
 function __chatterbox_class_file(_filename) constructor
 {
@@ -136,7 +166,7 @@ function __chatterbox_class_file(_filename) constructor
 function __chatterbox_class_node(_title, _body_string) constructor
 {
     title            = _title;
-    root_instruction = new __chatterbox_class_instruction("null", 0);
+    root_instruction = new __chatterbox_class_instruction(undefined, 0, 0);
     
 	//Prepare body string for parsing
 	_body_string = string_replace_all(_body_string, "\n\r", "\n");
@@ -164,19 +194,50 @@ function __chatterbox_class_node(_title, _body_string) constructor
 
 /// @param type
 /// @param line
-function __chatterbox_class_instruction(_type, _line) constructor
+/// @param indent
+function __chatterbox_class_instruction(_type, _line, _indent) constructor
 {
-	type        = _type;
-    line        = _line;
-    //text        = undefined;
-    //branch_end  = undefined;
-    //condition   = undefined;
-    //destination = undefined; //Used for options/redirects
-    //parameters  = undefined;
-    //next_option = undefined;
-    //expression  = undefined;
+	type   = _type;
+    line   = _line;
+    indent = _indent;
+}
+
+/// @param parentInstruction
+/// @param child
+function __chatterbox_instruction_add(_parent, _child)
+{
+    if ((_child.indent > _parent.indent) && (_parent.type == "shortcut"))
+    {
+        _parent.shortcut_branch = _child;
+        _child.shortcut_branch_parent = _parent;
+    }
+    else
+    {
+        if (variable_struct_exists(_parent, "shortcut_branch_parent"))
+        {
+            if (_child.indent <= _parent.shortcut_branch_parent.indent)
+            {
+                __chatterbox_instruction_add(_parent.shortcut_branch_parent, _child);
+                
+                //Add a marker to the end of a branch. This helps the VM understand what's going on!
+                var _branch_end = new __chatterbox_class_instruction("shortcut end", _parent.line, _parent.indent);
+                __chatterbox_instruction_add(_parent, _branch_end);
+                
+                _branch_end.next = _child;
+            }
+            else
+            {
+                _parent.next = _child;
+                _child.shortcut_branch_parent = _parent.shortcut_branch_parent;
+            }
+        }
+        else
+        {
+            _parent.next = _child;
+        }
+    }
     
-    __chatterbox_trace(_type);
+    return _child;
 }
 
 #endregion

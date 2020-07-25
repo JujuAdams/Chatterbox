@@ -4,94 +4,107 @@ function __chatterbox_execute()
     option             = [];
     option_instruction = [];
     
+    entered_shortcut = false;
+    leaving_shortcut = false;
+    
     switch(current_instruction.type)
     {
-        case "goto":
         case "option":
-            return goto(current_instruction.destination);
+            current_node = file.find_node(current_instruction.destination);
+            current_instruction = current_node.root_instruction;
         break;
         
         case "wait":
-            current_instruction = current_instruction.next;
+            current_instruction = current_node.next;
         break;
     }
     
-    global.__chatterbox_in_option = false;
-    __chatterbox_execute_inner();
+    __chatterbox_execute_inner(current_instruction);
+    __chatterbox_trace("HALT");
 }
 
-function __chatterbox_execute_inner()
+function __chatterbox_execute_inner(_instruction)
 {
-    __chatterbox_trace(current_instruction.type, " l", current_instruction.line, ":    ", variable_struct_get(current_instruction, "text"));
+    var _do_next = true;
     
-    switch(current_instruction.type)
+    if (is_string(_instruction.type))
     {
-        case "shortcut":
-        case "option":
-            var _write_option = true;
+        if (((_instruction.type == "shortcut") || (_instruction.type == "option")) && !leaving_shortcut)
+        {
+            entered_shortcut = true;
             
-            if (!global.__chatterbox_in_option)
+            if (_instruction.type == "shortcut")
             {
-                if (variable_struct_exists(current_instruction, "previous_option"))
-                {
-                    _write_option = false;
-                    
-                    current_instruction = current_instruction.next_option;
-                    __chatterbox_execute_inner();
-                }
-                else
-                {
-                    global.__chatterbox_in_option = true;
-                }
-            }
-            
-            if (_write_option)
-            {
-                __chatterbox_array_add(option, current_instruction.text);
-                __chatterbox_array_add(option_instruction, current_instruction);
+                var _branch = variable_struct_get(_instruction, "shortcut_branch");
+                if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                 
-                if (variable_struct_exists(current_instruction, "next_option"))
-                {
-                    current_instruction = current_instruction.next_option;
-                    __chatterbox_execute_inner();
-                }
+                __chatterbox_array_add(option, _instruction.text);
+                __chatterbox_array_add(option_instruction, _branch);
+                
+                __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "-> \"", _instruction.text, "\"    ", instanceof(_branch));
             }
-        break;
-        
-        case "content":
-            __chatterbox_array_add(content, current_instruction.text);
-            current_instruction = current_instruction.next;
-            __chatterbox_execute_inner();
-        break;
-        
-        case "wait":
-            __chatterbox_array_add(option, undefined);
-            __chatterbox_array_add(option_instruction, current_instruction);
-        break;
-        
-        case "stop":
-        break;
-        
-        case "set":
-        case "if":
-        case "else":
-        case "else if":
-        case "end if":
-            current_instruction = current_instruction.next;
-            __chatterbox_execute_inner();
-        break;
-        
-        case "end options":
-            if (!global.__chatterbox_in_option)
+            else if (_instruction.type == "option")
             {
-                current_instruction = current_instruction.next;
-                __chatterbox_execute_inner();
+                __chatterbox_array_add(option, _instruction.text);
+                __chatterbox_array_add(option_instruction, _instruction);
+                
+                __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "[\"", _instruction.text, "\" --> ", _instruction.destination, "]");
             }
-        break;
+        }
+        else
+        {
+            if (((_instruction.type != "shortcut") && (_instruction.type != "option")) && leaving_shortcut) leaving_shortcut = false;
+        }
         
-        case "null":
-            current_instruction = current_instruction.next;
-            __chatterbox_execute_inner();
-        break;
+        if (entered_shortcut)
+        {
+            if ((_instruction.type != "shortcut") && (_instruction.type != "option"))
+            {
+                _do_next = false;
+            }
+        }
+        else
+        {
+            switch(_instruction.type)
+            {
+                case "content":
+                    __chatterbox_array_add(content, _instruction.text);
+                    __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "\"", _instruction.text, "\"");
+                break;
+                
+                case "wait":
+                    __chatterbox_array_add(option, undefined);
+                    __chatterbox_array_add(option_instruction, _instruction.next);
+                    _do_next = false;
+                
+                    __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>>");
+                break;
+                
+                case "stop":
+                    _do_next = false;
+                    
+                    __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<stop>>");
+                break;
+                
+                case "shortcut end":
+                    leaving_shortcut = true;
+                    
+                    __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<shortcut end>>");
+                break;
+            }
+        }
+    }
+    
+    if (_do_next)
+    {
+        var _next = variable_struct_get(_instruction, "next");
+        if (instanceof(_next) == "__chatterbox_class_instruction")
+        {
+            __chatterbox_execute_inner(_next);
+        }
+        else
+        {
+            __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "Warning! Instruction found without <next>");
+        }
     }
 }
