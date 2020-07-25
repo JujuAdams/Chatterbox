@@ -6,6 +6,7 @@ function __chatterbox_execute()
     
     entered_shortcut    = false;
     leaving_shortcut    = false;
+    rejected_if         = false;
     found_first_content = false;
     
     switch(current_instruction.type)
@@ -82,7 +83,7 @@ function __chatterbox_execute_inner(_instruction)
                         }
                         else
                         {
-                            found_first_content = true;
+                            if (singleton_text) found_first_content = true;
                             __chatterbox_array_add(content, _instruction.text);
                             if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text);
                         }
@@ -165,11 +166,43 @@ function __chatterbox_execute_inner(_instruction)
                     break;
                     
                     case "if":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.condition);
-                        if (!__chatterbox_evaluate(filename, _instruction.condition)) _next = variable_struct_get(_instruction, "branch_reject");
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<if>> ", _instruction.condition);
+                        
+                        if (__chatterbox_evaluate(filename, _instruction.condition))
+                        {
+                            rejected_if = false;
+                        }
+                        else
+                        {
+                            rejected_if = true;
+                            _next = variable_struct_get(_instruction, "branch_reject");
+                        }
+                    break;
+                    
+                    case "else":
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<else>>");
+                        
+                        if (!rejected_if)
+                        {
+                            _next = variable_struct_get(_instruction, "branch_reject");
+                        }
+                    break;
+                    
+                    case "else if":
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<else if>> ", _instruction.condition);
+                        
+                        if (rejected_if && __chatterbox_evaluate(filename, _instruction.condition))
+                        {
+                            rejected_if = false;
+                        }
+                        else
+                        {
+                            _next = variable_struct_get(_instruction, "branch_reject");
+                        }
                     break;
                     
                     case "end if":
+                        rejected_if = false;
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<end if>>");
                     break;
                     
