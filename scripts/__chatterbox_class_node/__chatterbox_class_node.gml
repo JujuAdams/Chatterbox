@@ -8,7 +8,7 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     
     filename         = _filename;
     title            = _title;
-    root_instruction = new __chatterbox_class_instruction(undefined, 0, 0);
+    root_instruction = new __chatterbox_class_instruction(undefined, -1, 0);
     
 	//Prepare body string for parsing
     var _work_string = _body_string;
