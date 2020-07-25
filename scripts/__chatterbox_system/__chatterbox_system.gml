@@ -1,10 +1,3 @@
-/// Starts initialisation for Chatterbox
-/// This script should be called before chatterbox_init_add() and chatterbox_init_end().
-///
-/// Initialisation is only fully complete once chatterbox_init_end() is called.
-///
-/// @param fileDirectory  Directory to look in (relative to game_save_id) for Yarn source files
-
 #region Internal Macro Definitions
 
 #macro __CHATTERBOX_VERSION  "0.3.1"
@@ -37,8 +30,7 @@ global.__chatterbox_default_file           = "";
 global.__chatterbox_indent_size            = 0;
 global.__chatterbox_scope                  = CHATTERBOX_SCOPE_INVALID;
 global.__chatterbox_variable_name          = __CHATTERBOX_VARIABLE_INVALID;
-global.__chatterbox_actions                = ds_map_create();
-global.__chatterbox_permitted_functions    = ds_map_create();
+global.__chatterbox_functions              = ds_map_create();
 global.__chatterbox_findreplace_old_string = ds_list_create();
 global.__chatterbox_findreplace_new_string = ds_list_create();
     

@@ -16,6 +16,6 @@ function chatterbox_goto(_chatterbox, _title)
         current_instruction = current_node.root_instruction;
         current_node.mark_visited();
         
-        __chatterbox_execute();
+        __chatterbox_vm();
     }
 }

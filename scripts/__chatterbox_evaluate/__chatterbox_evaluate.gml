@@ -61,7 +61,7 @@ function __chatterbox_evaluate(_filename, _content)
 	                }
 	                else
 	                {
-	                    var _function = global.__chatterbox_permitted_functions[? _function_name];
+	                    var _function = global.__chatterbox_functions[? _function_name];
 	                    if (is_method(_function))
 	                    {
 	                        _result = _function(_function_args);

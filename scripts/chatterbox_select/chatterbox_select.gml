@@ -12,6 +12,6 @@ function chatterbox_select(_chatterbox, _index)
         }
         
         current_instruction = option_instruction[_index];
-        __chatterbox_execute();
+        __chatterbox_vm();
     }
 }

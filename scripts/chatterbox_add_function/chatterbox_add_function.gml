@@ -6,10 +6,8 @@
 /// Parameters should be separated by spaces and are passed into a script as an array of values in argument0.
 /// Custom functions can return values, but they should be reals or strings.
 /// 
-///     GML:    chatterbox_init_start("Yarn");
-///             chatterbox_init_add_function("AmIDead", am_i_dead);
-///             chatterbox_init_add_json("example.json");
-///             chatterbox_init_end();
+///     GML:    chatterbox_load("example.json");
+///             chatterbox_add_function("AmIDead", am_i_dead);
 /// 
 ///     Yarn:   Am I dead?
 ///             <<if AmIDead("player")>>
@@ -61,13 +59,13 @@ function chatterbox_add_function(_name, _in_function)
 	    break;
 	}
     
-	var _old_function = global.__chatterbox_permitted_functions[? _name];
+	var _old_function = global.__chatterbox_functions[? _name];
 	if (is_method(_old_function))
 	{
 	    __chatterbox_trace("WARNING! Overwriting script name \"", _name, "\" tied to \"", _old_function, "()\"" );
 	}
     
-	global.__chatterbox_permitted_functions[? _name ] = _function;
+	global.__chatterbox_functions[? _name ] = _function;
 	__chatterbox_trace("Permitting script \"", _name, "\", calling \"", _function, "()\"" );
 	return true;
 }

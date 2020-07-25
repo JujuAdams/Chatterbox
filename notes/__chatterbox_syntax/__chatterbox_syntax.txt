@@ -109,13 +109,11 @@ Chatterbox has the following native actions:
     <<stop>>
     <<wait>>
 
-Custom actions can be added to Chatterbox by using the chatterbox_init_add_action() script. Custom actions must be added after calling
-chatterbox_init_start() and before calling chatterbox_init_end(). Custom action names cannot contain spaces or commas.
+Custom actions can be added to Chatterbox by using the chatterbox_add_function() script. Custom actions should be added before
+calling chatterbox_create().
 
-    GML:    chatterbox_init_start("Yarn");
-            chatterbox_init_add_action("playMusic", play_background_music);
-            chatterbox_init_add_json("example.json");
-            chatterbox_init_end();
+    GML:    chatterbox_load("example.json");
+            chatterbox_add_function("playMusic", play_background_music);
 
     Yarn:   Here's some text!
             <<playMusic>>
@@ -127,10 +125,8 @@ whenever <<playMusic>> is processed by Chatterbox.
 Custom actions can also have parameters. These parameters can be any Chatterbox value - a real number, a string, or a variable.
 Parameters should separated by spaces. Parameters are passed into a script as an array of values in argument0.
 
-    GML:    chatterbox_init_start("Yarn");
-            chatterbox_init_add_action("gotoRoom", go_to_room);
-            chatterbox_init_add_json("example.json");
-            chatterbox_init_end();
+    GML:    chatterbox_load("example.json");
+            chatterbox_add_function("gotoRoom", go_to_room);
 
     Yarn:   Let's go see what the priest is up to.
             <<gotoRoom "rChapel" $entrance>>
@@ -209,18 +205,15 @@ By default, Chatterbox includes a visited() function, used to check whether a no
         We have gone to the city before!
     <<endif>>
 
-Other custom functions can be added to Chatterbox using the chatterbox_init_add_function() script.
-Much like custom actions, custom functions can have parameters. Custom functions can be added at any
-point, after calling chatterbox_init_start(), but should be added before using chatterbox_goto() or
-chatterbox_select().
+Other custom functions can be added to Chatterbox using the chatterbox_add_function() script.
+Much like custom actions, custom functions can have parameters. Custom functions should be defined
+before calling chatterbox_create().
 
 Parameters should be separated by spaces and are passed into a script as an array of values in argument0.
 Custom functions can return values, but they should be reals or strings.
 
-    GML:    chatterbox_init_start("Yarn");
-            chatterbox_init_add_function("AmIDead", am_i_dead);
-            chatterbox_init_add_json("example.json");
-            chatterbox_init_end();
+    GML:    chatterbox_load("example.json");
+            chatterbox_add_function("AmIDead", am_i_dead);
 
     Yarn:   Am I dead?
             <<if AmIDead("player")>>

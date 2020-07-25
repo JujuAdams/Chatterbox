@@ -1,4 +1,4 @@
-function __chatterbox_execute()
+function __chatterbox_vm()
 {
     content            = [];
     option             = [];
@@ -18,11 +18,11 @@ function __chatterbox_execute()
         break;
     }
     
-    __chatterbox_execute_inner(current_instruction);
+    __chatterbox_vm_inner(current_instruction);
     if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("HALT");
 }
 
-function __chatterbox_execute_inner(_instruction)
+function __chatterbox_vm_inner(_instruction)
 {
     var _do_next = true;
     var _next = variable_struct_get(_instruction, "next");
@@ -143,7 +143,7 @@ function __chatterbox_execute_inner(_instruction)
                     case "action":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
                         
-                        var _method = global.__chatterbox_actions[? _instruction.expression[0]];
+                        var _method = global.__chatterbox_functions[? _instruction.expression[0]];
                         
                         if (is_method(_method))
                         {
@@ -218,7 +218,7 @@ function __chatterbox_execute_inner(_instruction)
     {
         if (instanceof(_next) == "__chatterbox_class_instruction")
         {
-            __chatterbox_execute_inner(_next);
+            __chatterbox_vm_inner(_next);
         }
         else
         {
