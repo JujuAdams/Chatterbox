@@ -2,6 +2,7 @@
 #macro CHATTERBOX_FONT_DIRECTORY     "Yarn"
 #macro CHATTERBOX_DEFAULT_SINGLETON  false
 #macro CHATTERBOX_WAIT_OPTION_TEXT   "<<wait>>"
+#macro CHATTERBOX_ALLOW_SCRIPTS      true
 
 #region Variables and Scoping
 

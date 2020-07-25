@@ -24,17 +24,25 @@
 /// @param name        Script name, as a string
 /// @param [function]  Function to call
 
-function chatterbox_add_function(_name, _function)
+function chatterbox_add_function(_name, _in_function)
 {
+    var _function = _in_function;
+    
 	if (!is_string(_name))
 	{
 	    __chatterbox_error("Function names should be strings\n(Input was \"", _name, "\")");
 	    return false;
 	}
     
+    if (CHATTERBOX_ALLOW_SCRIPTS && is_numeric(_function) && script_exists(_function))
+    {
+	    __chatterbox_trace("Warning! Function provided for \"", _name, "\" was a script index (", _function, "=", script_get_name(_function), "), binding to <undefined> scope");
+        _function = method(undefined, _function);
+    }
+    
 	if (!is_method(_function))
 	{
-	    __chatterbox_error("Function supplied is invalid\n(Input was \"", _name, "\")");
+	    __chatterbox_error("Function/method supplied for \"", _name, "\" is invalid (", _in_function, ")");
 	    return false;
 	}
     

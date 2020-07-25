@@ -15,8 +15,8 @@
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
 #macro __CHATTERBOX_DEBUG_LOADER    false
-#macro __CHATTERBOX_DEBUG_VM        false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
+#macro __CHATTERBOX_DEBUG_VM        false
     
 #endregion
 
