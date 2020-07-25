@@ -19,3 +19,35 @@ function chatterbox_create()
 	var _singleton = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
     return new __chatterbox_class(_filename, _singleton);
 }
+
+/// @param filename
+/// @param singletonText
+function __chatterbox_class(_filename, _singleton) constructor
+{
+	if (!is_string(_filename))
+	{
+	    __chatterbox_error("Source files must be strings (got \"" + string(_filename) + "\")");
+	    return undefined;
+	}
+    
+	if (!chatterbox_is_loaded(_filename))
+	{
+	    __chatterbox_error("\"" + _filename + "\" has not been loaded");
+	    return undefined;
+	}
+    
+    singleton_text      = _singleton;
+    filename            = _filename;
+    file                = variable_struct_get(global.chatterbox_files, filename);
+    content             = [];
+    option              = [];
+    option_instruction  = [];
+    current_node        = undefined;
+    current_instruction = undefined;
+    
+    /// @param nodeTitle
+    find_node = function(_title)
+    {
+        return file.find_node(_title);
+    }
+}

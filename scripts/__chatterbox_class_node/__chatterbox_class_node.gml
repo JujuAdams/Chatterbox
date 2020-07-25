@@ -1,5 +1,326 @@
-/// @param string
+/// @param filename
+/// @param nodeTitle
+/// @param bodyString
 
+function __chatterbox_class_node(_filename, _title, _body_string) constructor
+{
+    if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("[", _title, "]");
+    
+    filename         = _filename;
+    title            = _title;
+    root_instruction = new __chatterbox_class_instruction(undefined, 0, 0);
+    
+	//Prepare body string for parsing
+    var _work_string = _body_string;
+	_work_string = string_replace_all(_work_string, "\n\r", "\n");
+	_work_string = string_replace_all(_work_string, "\r\n", "\n");
+	_work_string = string_replace_all(_work_string, "\r"  , "\n");
+    
+	//Perform find-replace
+    var _i = 0;
+    repeat(ds_list_size(global.__chatterbox_findreplace_old_string))
+    {
+	    _work_string = string_replace_all(_work_string,
+	                                      global.__chatterbox_findreplace_old_string[| _i],
+	                                      global.__chatterbox_findreplace_new_string[| _i]);
+        ++_i;
+    }
+    
+    //Add a trailing newline to make sure we parse correctly
+    _work_string += "\n";
+    
+    var _substring_list = __chatterbox_split_body(_work_string);
+    __chatterbox_compile(_substring_list, root_instruction);
+    
+	ds_list_destroy(_substring_list);
+    
+    function mark_visited()
+    {
+        var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
+        
+        var _value = CHATTERBOX_VARIABLES_MAP[? _long_name];
+        if (_value == undefined)
+        {
+            CHATTERBOX_VARIABLES_MAP[? _long_name] = 1;
+        }
+        else
+        {
+            CHATTERBOX_VARIABLES_MAP[? _long_name]++;
+        }
+    }
+    
+    function toString()
+    {
+        return "Node " + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title);
+    }
+}
+
+/// @param bodyString
+function __chatterbox_split_body(_body)
+{
+	var _body_substring_list = ds_list_create();
+    
+	var _body_byte_length = string_byte_length(_body);
+	var _body_buffer = buffer_create(_body_byte_length+1, buffer_fixed, 1);
+	buffer_poke(_body_buffer, 0, buffer_string, _body);
+    
+	var _line          = 0;
+	var _first_on_line = true;
+	var _indent        = undefined;
+	var _newline       = false;
+	var _cache         = "";
+	var _cache_type    = "text";
+	var _prev_value    = 0;
+	var _value         = 0;
+	var _next_value    = buffer_read(_body_buffer, buffer_u8);
+    
+	repeat(_body_byte_length)
+	{
+	    _prev_value = _value;
+	    _value      = _next_value;
+	    _next_value = buffer_read(_body_buffer, buffer_u8);
+        
+	    var _write_cache = true;
+	    var _pop_cache   = false;
+        
+	    if ((_value == ord("\n")) || (_value == ord("\r")))
+	    {
+	        _newline     = true;
+	        _pop_cache   = true;
+	        _write_cache = false;
+	    }
+	    else if (_value == ord(CHATTERBOX_OPTION_OPEN_DELIMITER))
+	    {
+	        if (_next_value == ord(CHATTERBOX_OPTION_OPEN_DELIMITER))
+	        {
+	            _write_cache = false;
+	            _pop_cache   = true;
+	        }
+	        else if (_prev_value == ord(CHATTERBOX_OPTION_OPEN_DELIMITER))
+	        {
+	            _write_cache = false;
+	            _cache_type = "option";
+	        }
+	    }
+	    else if (_value == ord(CHATTERBOX_OPTION_CLOSE_DELIMITER))
+	    {
+	        if (_next_value == ord(CHATTERBOX_OPTION_CLOSE_DELIMITER))
+	        {
+	            _write_cache = false;
+	            _pop_cache   = true;
+	        }
+	        else if (_prev_value == ord(CHATTERBOX_OPTION_CLOSE_DELIMITER))
+	        {
+	            _write_cache = false;
+	        }
+	    }
+	    else if (_value == ord(CHATTERBOX_ACTION_OPEN_DELIMITER))
+	    {
+	        if (_next_value == ord(CHATTERBOX_ACTION_OPEN_DELIMITER))
+	        {
+	            _write_cache = false;
+	            _pop_cache   = true;
+	        }
+	        else if (_prev_value == ord(CHATTERBOX_ACTION_OPEN_DELIMITER))
+	        {
+	            _write_cache = false;
+	            _cache_type = "action";
+	        }
+	    }
+	    else if (_value == ord(CHATTERBOX_ACTION_CLOSE_DELIMITER))
+	    {
+	        if (_next_value == ord(CHATTERBOX_ACTION_CLOSE_DELIMITER))
+	        {
+	            _write_cache = false;
+	            _pop_cache   = true;
+	        }
+	        else if (_prev_value == ord(CHATTERBOX_ACTION_CLOSE_DELIMITER))
+	        {
+	            _write_cache = false;
+	        }
+	    }
+        
+	    if (_write_cache) _cache += chr(_value);
+        
+	    if (_pop_cache)
+	    {
+	        if (_first_on_line)
+	        {
+	            _cache = __chatterbox_remove_whitespace(_cache, true);
+	            _indent = global.__chatterbox_indent_size;
+	        }
+            
+	        if (_cache != "") ds_list_add(_body_substring_list, [_cache, _cache_type, _line, _indent]);
+	        _cache = "";
+	        _cache_type = "text";
+            
+	        if (_newline)
+	        {
+	            _newline = false;
+	            ++_line;
+	            _first_on_line = true;
+	            _indent = undefined;
+	        }
+	        else
+	        {
+	            _first_on_line = false;
+	        }
+	    }
+	}
+    
+	buffer_delete(_body_buffer);
+    
+    ds_list_add(_body_substring_list, ["stop", "action", _line, 0]);
+    return _body_substring_list;
+}
+
+/// @param substringList
+/// @param rootInstruction
+function __chatterbox_compile(_substring_list, _root_instruction)
+{
+    if (ds_list_size(_substring_list) <= 0) exit;
+    
+    var _previous_instruction = _root_instruction;
+    
+    var _if_stack = [];
+    var _if_depth = -1;
+    
+    var _substring_count = ds_list_size(_substring_list);
+    var _s = 0;
+    while(_s < _substring_count)
+	{
+	    var _substring_array = _substring_list[| _s];
+	    var _string          = _substring_array[0];
+	    var _type            = _substring_array[1];
+	    var _line            = _substring_array[2];
+	    var _indent          = _substring_array[3];
+        
+        var _instruction = undefined;
+        
+        if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("ln ", string_format(_line, 4, 0), " ", __chatterbox_generate_indent(_indent), _string);
+        
+        if (string_copy(_string, 1, 2) == "->") //Shortcut //TODO - Make this part of the substring splitting step
+    	{
+            var _instruction = new __chatterbox_class_instruction("shortcut", _line, _indent);
+            _instruction.text = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true), false);
+    	}
+        else if (_type == "action")
+        {
+            #region <<action>>   (includes if/elseif/endif)
+            
+            var _content = __chatterbox_tokenize_action(_string);
+            switch(_content[0])
+            {
+                case "if":
+                    if (_previous_instruction.line == _line)
+                    {
+                        _previous_instruction.condition = _content;
+                        //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
+                    }
+                    else
+                    {
+                        var _instruction = new __chatterbox_class_instruction("if", _line, _indent);
+                        _instruction.condition = _content;
+                        _if_depth++;
+                        _if_stack[@ _if_depth] = _instruction;
+                    }
+            	break;
+                    
+                case "else":
+                    var _instruction = new __chatterbox_class_instruction("else", _line, _indent);
+                    if (_if_depth < 0)
+                    {
+                        __chatterbox_error("<<else>> found without matching <<if>>");
+                    }
+                    else
+                    {
+                        _if_stack[_if_depth].branch_reject = _instruction;
+                    }
+            	break;
+                    
+                case "elseif":
+                case "else if":
+                    var _instruction = new __chatterbox_class_instruction("else if", _line, _indent);
+                    _instruction.condition = _content;
+                    if (_if_depth < 0)
+                    {
+                        __chatterbox_error("<<else if>> found without matching <<if>>");
+                    }
+                    else
+                    {
+                        _if_stack[_if_depth].branch_reject = _instruction;
+                        _if_stack[@ _if_depth] = _instruction;
+                    }
+            	break;
+                    
+                case "endif":
+                case "end if":
+                    var _instruction = new __chatterbox_class_instruction("end if", _line, _indent);
+                    if (_if_depth < 0)
+                    {
+                        __chatterbox_error("<<endif>> found without matching <<if>>");
+                    }
+                    else
+                    {
+                        _if_stack[_if_depth].branch_reject = _instruction;
+                        _if_depth--;
+                    }
+            	break;
+                    
+            	case "set":
+                    var _instruction = new __chatterbox_class_instruction(_content[0], _line, _indent);
+                    _instruction.expression = _content;
+                break;
+                
+            	case "wait":
+            	case "stop":
+                    var _instruction = new __chatterbox_class_instruction(_content[0], _line, _indent);
+                break;
+                    
+            	default:
+                    var _instruction = new __chatterbox_class_instruction("action", _line, _indent);
+                    _instruction.expression = _content;
+                break;
+        	}
+            
+            #endregion
+        }
+        else if (_type == "option")
+        {
+            #region [[option]]
+            
+        	var _pos = string_pos("|", _string);
+        	if (_pos < 1)
+        	{
+                var _instruction = new __chatterbox_class_instruction("goto", _line, _indent);
+                _instruction.destination = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false);
+        	}
+        	else
+        	{
+                var _instruction = new __chatterbox_class_instruction("option", _line, _indent);
+                _instruction.text = __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false);
+                _instruction.destination = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
+        	}
+            
+            #endregion
+        }
+        else
+        {
+            var _instruction = new __chatterbox_class_instruction("content", _line, _indent);
+            _instruction.text = _string;
+        }
+        
+        if (_instruction != undefined)
+        {
+            __chatterbox_instruction_add(_previous_instruction, _instruction);
+            _previous_instruction = _instruction;
+        }
+        
+        ++_s;
+    }
+}
+
+/// @param string
 function __chatterbox_tokenize_action(_string)
 {
 	var _content = [];
