@@ -1,5 +1,7 @@
-#macro CHATTERBOX_VARIABLES_MAP    global.chatterbox_variables_map
-#macro CHATTERBOX_FONT_DIRECTORY   "Yarn"
+#macro CHATTERBOX_VARIABLES_MAP      global.chatterbox_variables_map
+#macro CHATTERBOX_FONT_DIRECTORY     "Yarn"
+#macro CHATTERBOX_DEFAULT_SINGLETON  false
+#macro CHATTERBOX_WAIT_OPTION_TEXT   "<<wait>>"
 
 #region Variables and Scoping
 

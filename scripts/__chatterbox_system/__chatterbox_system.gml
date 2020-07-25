@@ -15,8 +15,8 @@
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
 #macro __CHATTERBOX_DEBUG_LOADER    false
-#macro __CHATTERBOX_DEBUG_VM        true
-#macro __CHATTERBOX_DEBUG_COMPILER  true
+#macro __CHATTERBOX_DEBUG_VM        false
+#macro __CHATTERBOX_DEBUG_COMPILER  false
     
 #endregion
 
@@ -70,8 +70,9 @@ global.__chatterbox_op_count = ds_list_size(global.__chatterbox_op_list);
 
 #region Class Definitions
 
-/// @param [filename]
-function __chatterbox_class(_filename) constructor
+/// @param filename
+/// @param singletonText
+function __chatterbox_class(_filename, _singleton) constructor
 {
 	if (!is_string(_filename))
 	{
@@ -85,6 +86,7 @@ function __chatterbox_class(_filename) constructor
 	    return undefined;
 	}
     
+    singleton_text      = _singleton;
     filename            = _filename;
     file                = variable_struct_get(global.chatterbox_files, filename);
     content             = [];
@@ -201,7 +203,7 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     //Add a trailing newline to make sure we parse correctly
     _work_string += "\n";
     
-    var _substring_list = __chatterbox_split_body(_body_string);
+    var _substring_list = __chatterbox_split_body(_work_string);
     __chatterbox_compile(_substring_list, root_instruction);
     
 	ds_list_destroy(_substring_list);

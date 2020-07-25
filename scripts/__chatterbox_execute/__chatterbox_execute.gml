@@ -4,8 +4,9 @@ function __chatterbox_execute()
     option             = [];
     option_instruction = [];
     
-    entered_shortcut = false;
-    leaving_shortcut = false;
+    entered_shortcut    = false;
+    leaving_shortcut    = false;
+    found_first_content = false;
     
     switch(current_instruction.type)
     {
@@ -13,10 +14,6 @@ function __chatterbox_execute()
             current_node = file.find_node(current_instruction.destination);
             current_node.mark_visited();
             current_instruction = current_node.root_instruction;
-        break;
-        
-        case "wait":
-            current_instruction = current_node.next;
         break;
     }
     
@@ -77,12 +74,22 @@ function __chatterbox_execute_inner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        __chatterbox_array_add(content, _instruction.text);
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text);
+                        if (found_first_content)
+                        {
+                            __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
+                            __chatterbox_array_add(option_instruction, _instruction);
+                            _do_next = false;
+                        }
+                        else
+                        {
+                            found_first_content = true;
+                            __chatterbox_array_add(content, _instruction.text);
+                            if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text);
+                        }
                     break;
                     
                     case "wait":
-                        __chatterbox_array_add(option, undefined);
+                        __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
                         __chatterbox_array_add(option_instruction, _instruction.next);
                         _do_next = false;
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>>");
