@@ -48,12 +48,12 @@ function __chatterbox_evaluate(_filename, _content)
                     #region Function execution
                     
 	                var _result = undefined;
-	                var _function = _resolved_array[_element[0]];
+	                var _function_name = _resolved_array[_element[0]];
                     
 	                var _function_args = array_create(_element_length-2);
 	                for(var _i = 2; _i < _element_length; _i++) _function_args[_i-2] = __chatterbox_resolve_value(_resolved_array[_element[_i]]);
                     
-	                if (_function == "visited")
+	                if (_function_name == "visited")
 	                {
 	                    if (_element_length == 3) _function_args[1] = _filename;
 	                    _result = CHATTERBOX_VARIABLES_MAP[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")"];
@@ -61,32 +61,33 @@ function __chatterbox_evaluate(_filename, _content)
 	                }
 	                else
 	                {
-	                    _function = global.__chatterbox_permitted_functions[? _function];
-	                    if (_function != undefined)
+	                    var _function = global.__chatterbox_permitted_functions[? _function_name];
+	                    if (is_method(_function))
 	                    {
-	                        _result = script_execute(_function, _function_args);
+	                        _result = _function(_function_args);
                             if (!is_numeric(_result) && !is_string(_result))
                             {
     	                        var _typeof = typeof(_result);
-    	                        if ((_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4") || (_typeof == "struct") || (_typeof == "method") || (_typeof == "unknown"))
+    	                        if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
     	                        {
-    	                            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
-    	                            {
-    	                                __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
-    	                            }
-    	                            else
-    	                            {
-    	                                __chatterbox_trace("Warning! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
-    	                            }
-                                
-    	                            _result = string(_result);
+    	                            __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
     	                        }
+    	                        else
+    	                        {
+    	                            __chatterbox_trace("Warning! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
+    	                        }
+                                
+    	                        _result = string(_result);
                             }
 	                    }
-	                    else
+	                    else if (is_undefined(_function))
 	                    {
-	                        //Error!
+    	                    __chatterbox_error("Function definition for \"", _function_name, "\" not found");
 	                    }
+                        else
+                        {
+    	                    __chatterbox_error("Function definition for \"", _function_name, "\" is invalid (datatype=", typeof(_function), ")");
+                        }
 	                }
                     
 	                _resolved_array[_element_index] = is_string(_result)? ("\"" + string(_result) + "\"") : string(_result);
