@@ -68,7 +68,7 @@ function __chatterbox_evaluate(_filename, _content)
                             if (!is_numeric(_result) && !is_string(_result))
                             {
     	                        var _typeof = typeof(_result);
-    	                        if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
+    	                        if (CHATTERBOX_ERROR_INVALID_DATATYPE)
     	                        {
     	                            __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
     	                        }
@@ -151,7 +151,7 @@ function __chatterbox_evaluate(_filename, _content)
 	                var _a_value = __chatterbox_resolve_value(_a);
 	                var _a_scope = global.__chatterbox_scope;
 	                _a = (global.__chatterbox_variable_name != __CHATTERBOX_VARIABLE_INVALID)? global.__chatterbox_variable_name : _a;
-	                global.__chatterbox_scope = CHATTERBOX_SCOPE_INVALID;
+	                global.__chatterbox_scope = undefined;
 	                var _b_value = __chatterbox_resolve_value(_b);
                     
                     #endregion
@@ -170,13 +170,13 @@ function __chatterbox_evaluate(_filename, _content)
 	                {
 	                    if (_operator != "+") && (_operator != "+=") && (_operator != "==") && (_operator != "!=")
 	                    {
-	                        if (CHATTERBOX_ERROR_ON_MISMATCHED_DATATYPE)
+	                        if (CHATTERBOX_ERROR_MISMATCHED_DATATYPE)
 	                        {
 	                            __chatterbox_error("Mismatched datatypes");
 	                        }
 	                        else
 	                        {
-	                            __chatterbox_trace("WARNING! Mismatched datatypes");
+	                            __chatterbox_trace("Error! Mismatched datatypes");
 	                        }
 	                    }
 	                }
@@ -219,9 +219,9 @@ function __chatterbox_evaluate(_filename, _content)
 	                {
 	                    switch(_a_scope)
 	                    {                   
-	                        case CHATTERBOX_SCOPE_INTERNAL:   CHATTERBOX_VARIABLES_MAP[? _a ] = _result; break;
-	                        case CHATTERBOX_SCOPE_GML_LOCAL:  variable_instance_set(id, _a, _result);    break;
-	                        case CHATTERBOX_SCOPE_GML_GLOBAL: variable_global_set(_a, _result);          break;
+	                        case "internal": CHATTERBOX_VARIABLES_MAP[? _a] = _result; break;
+	                        case "self":     variable_instance_set(self, _a, _result); break;
+	                        case "global":   variable_global_set(_a, _result);         break;
 	                    }
 	                }
                     
@@ -246,7 +246,7 @@ function __chatterbox_resolve_value(_in_value)
 {
     var _value = _in_value;
     
-	global.__chatterbox_scope         = CHATTERBOX_SCOPE_INVALID;
+	global.__chatterbox_scope         = undefined;
 	global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
     
 	if (is_numeric(_value))
@@ -313,32 +313,32 @@ function __chatterbox_resolve_value(_in_value)
 	        }
 	        else if (string_copy(_value, 1, 2) == "g.")
 	        {
-	            _scope = CHATTERBOX_SCOPE_GML_GLOBAL;
+	            _scope = "global";
 	            _value = string_delete(_value, 1, 2);
 	        }
 	        else if (string_copy(_value, 1, 7) == "global.")
 	        {
-	            _scope = CHATTERBOX_SCOPE_GML_GLOBAL;
+	            _scope = "global";
 	            _value = string_delete(_value, 1, 7);
 	        }
-	        else if (string_copy(_value, 1, 2) == "l.")
+	        else if (string_copy(_value, 1, 2) == "s.")
 	        {
-	            _scope = CHATTERBOX_SCOPE_GML_LOCAL;
+	            _scope = "self";
 	            _value = string_delete(_value, 1, 2);
 	        }
-	        else if (string_copy(_value, 1, 6) == "local.")
+	        else if (string_copy(_value, 1, 6) == "self.")
 	        {
-	            _scope = CHATTERBOX_SCOPE_GML_LOCAL;
+	            _scope = "self";
 	            _value = string_delete(_value, 1, 6);
 	        }
 	        else if (string_copy(_value, 1, 2) == "i.")
 	        {
-	            _scope = CHATTERBOX_SCOPE_INTERNAL;
+	            _scope = "internal";
 	            _value = string_delete(_value, 1, 2);
 	        }
 	        else if (string_copy(_value, 1, 9) == "internal.")
 	        {
-	            _scope = CHATTERBOX_SCOPE_INTERNAL;
+	            _scope = "internal";
 	            _value = string_delete(_value, 1, 9);
 	        }
             
@@ -351,16 +351,16 @@ function __chatterbox_resolve_value(_in_value)
             
 	        switch(_scope)
 	        {                   
-	            case CHATTERBOX_SCOPE_INTERNAL:
+	            case "internal":
 	                if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _value))
 	                {
-	                    if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
+	                    if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
 	                    {
 	                        __chatterbox_error("Internal variable \"" + _value + "\" doesn't exist");
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("Warning! Internal variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Error! Internal variable \"" + _value + "\" doesn't exist");
 	                    }
                         
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -371,36 +371,36 @@ function __chatterbox_resolve_value(_in_value)
 	                }
 	            break;
                 
-	            case CHATTERBOX_SCOPE_GML_LOCAL:
-	                if (!variable_instance_exists(id, _value))
+	            case "self":
+	                if (!variable_instance_exists(self, _value))
 	                {
-	                    if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
+	                    if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
 	                    {
 	                        __chatterbox_error("Local variable \"" + _value + "\" doesn't exist");
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("WARNING! Local variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Error! Local variable \"" + _value + "\" doesn't exist");
 	                    }
                                                     
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
 	                }
 	                else
 	                {
-	                    _value = variable_instance_get(id, _value);
+	                    _value = variable_instance_get(self, _value);
 	                }
 	            break;
                 
-	            case CHATTERBOX_SCOPE_GML_GLOBAL:
+	            case "global":
 	                if (!variable_global_exists(_value))
 	                {
-	                    if (CHATTERBOX_ERROR_ON_MISSING_VARIABLE)
+	                    if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
 	                    {
 	                        __chatterbox_error("Global variable \"" + _value + "\" doesn't exist!");
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("WARNING! Global variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Error! Global variable \"" + _value + "\" doesn't exist");
 	                    }
                                                     
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -415,7 +415,7 @@ function __chatterbox_resolve_value(_in_value)
             if (!is_numeric(_value) && !is_string(_value))
             {
 	            var _typeof = typeof(_value);
-	            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
+	            if (CHATTERBOX_ERROR_INVALID_DATATYPE)
 	            {
 	                __chatterbox_error("Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
 	            }

@@ -327,7 +327,7 @@ function __chatterbox_tokenize_action(_string)
     
 	if ((_string == "end if") || (_string == "else if"))
 	{
-	    if (CHATTERBOX_ERROR_ON_NONSTANDARD_SYNTAX) __chatterbox_error("<<" + _string + ">> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_ON_NONSTANDARD_SYNTAX to <false> to hide this error)");
+	    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<" + _string + ">> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
 	    _content[0] = _string;
 	}
 	else

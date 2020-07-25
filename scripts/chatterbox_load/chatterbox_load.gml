@@ -6,7 +6,7 @@
 
 function chatterbox_load(_filename)
 {
-	if (chatterbox_is_loaded(_filename))
+	if (variable_struct_exists(global.chatterbox_files, _filename))
 	{
 	    __chatterbox_error("\"" + _filename + "\" has already been loaded");
 	    return undefined;
@@ -20,7 +20,7 @@ function chatterbox_load(_filename)
     
 	if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _filename;
     var _file = new __chatterbox_class_file(_filename);
-    if (instanceof(_file) == "__chatterbox_class_file")
+    if ((instanceof(_file) == "__chatterbox_class_file") && !is_undefined(_file.format))
     {
         variable_struct_set(global.chatterbox_files, _filename, _file);
     }

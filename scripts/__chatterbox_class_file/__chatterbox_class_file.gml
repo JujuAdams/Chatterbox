@@ -12,19 +12,27 @@ function __chatterbox_class_file(_filename) constructor
 	var _char = string_char_at(_font_directory , string_length(_font_directory ));
 	if (_char != "\\") && (_char != "/") _font_directory += "\\";
     
+    if (!file_exists(_font_directory + filename))
+    {
+	    __chatterbox_error("\"", _filename, "\" could not be found");
+	    return undefined;
+    }
+    
     //Read this file in as a big string
 	var _buffer = buffer_load(_font_directory + filename);
 	var _string = buffer_read(_buffer, buffer_string);
 	buffer_delete(_buffer);
     
     //Try to decode the string as a JSON
+    var _node_list = undefined;
     var _json = json_decode(_string);
     if (_json >= 0)
     {
         var _node_list = __chatterbox_parse_json(_json);
-        format = "json";
+        if (is_numeric(_node_list)) format = "json";
     }
-    else
+    
+    if (is_undefined(_node_list))
     {
         var _node_list = __chatterbox_parse_yarn(_string);
         format = "yarn";
@@ -147,7 +155,6 @@ function __chatterbox_parse_json(_json)
         else
         {
             _node_list = undefined;
-            __chatterbox_trace("File format unrecognised");
         }
 	}
     

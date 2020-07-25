@@ -30,7 +30,7 @@ function __chatterbox_class(_filename, _singleton) constructor
 	    return undefined;
 	}
     
-	if (!chatterbox_is_loaded(_filename))
+	if (!variable_struct_exists(global.chatterbox_files, _filename))
 	{
 	    __chatterbox_error("\"" + _filename + "\" has not been loaded");
 	    return undefined;
