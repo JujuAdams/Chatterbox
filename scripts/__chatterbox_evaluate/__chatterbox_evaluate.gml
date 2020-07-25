@@ -61,30 +61,27 @@ function __chatterbox_evaluate(_filename, _content)
 	                }
 	                else
 	                {
-	                    _function = global.__chatterbox_permitted_functions[? _function ];
+	                    _function = global.__chatterbox_permitted_functions[? _function];
 	                    if (_function != undefined)
 	                    {
 	                        _result = script_execute(_function, _function_args);
-                            
-	                        var _typeof = typeof(_result);
-	                        if ((_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4") || (_typeof == "struct") || (_typeof == "method") || (_typeof == "unknown"))
-	                        {
-	                            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
-	                            {
-	                                __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
-	                            }
-	                            else
-	                            {
-	                                __chatterbox_trace("WARNING! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
-	                            }
+                            if (!is_numeric(_result) && !is_string(_result))
+                            {
+    	                        var _typeof = typeof(_result);
+    	                        if ((_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4") || (_typeof == "struct") || (_typeof == "method") || (_typeof == "unknown"))
+    	                        {
+    	                            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
+    	                            {
+    	                                __chatterbox_error("Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
+    	                            }
+    	                            else
+    	                            {
+    	                                __chatterbox_trace("Warning! Variable \"" + _result + "\" has an unsupported datatype (" + _typeof + ")");
+    	                            }
                                 
-	                            _result = string(_result);
-	                        }
-                            
-	                        if (_typeof == "bool") || (_typeof == "int32") || (_typeof == "int64")
-	                        {
-	                            _result = real(_result);
-	                        }
+    	                            _result = string(_result);
+    	                        }
+                            }
 	                    }
 	                    else
 	                    {

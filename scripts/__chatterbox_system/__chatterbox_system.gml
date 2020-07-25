@@ -206,6 +206,21 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     
 	ds_list_destroy(_substring_list);
     
+    function mark_visited()
+    {
+        var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
+        
+        var _value = CHATTERBOX_VARIABLES_MAP[? _long_name];
+        if (_value == undefined)
+        {
+            CHATTERBOX_VARIABLES_MAP[? _long_name] = 1;
+        }
+        else
+        {
+            CHATTERBOX_VARIABLES_MAP[? _long_name]++;
+        }
+    }
+    
     function toString()
     {
         return "Node " + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title);

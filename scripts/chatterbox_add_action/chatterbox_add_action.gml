@@ -31,8 +31,8 @@
 /// of two values from Chatterbox. The first (index 0) element of the array will be "rChapel" and the second (index 1) element will
 /// hold whatever value is in the "$entrance" variable.
 /// 
-/// @param name       Action name, as a string
-/// @param function   Function to call
+/// @param name              Action name, as a string
+/// @param function/method   Function to call
 
 function chatterbox_add_action(_name, _function)
 {

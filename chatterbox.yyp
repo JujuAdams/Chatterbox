@@ -26,7 +26,6 @@
     {"id":{"name":"__chatterbox_split_body","path":"scripts/__chatterbox_split_body/__chatterbox_split_body.yy",},"order":9,},
     {"id":{"name":"obj_test","path":"objects/obj_test/obj_test.yy",},"order":3,},
     {"id":{"name":"__chatterbox_compile","path":"scripts/__chatterbox_compile/__chatterbox_compile.yy",},"order":11,},
-    {"id":{"name":"__chatterbox_mark_visited","path":"scripts/__chatterbox_mark_visited/__chatterbox_mark_visited.yy",},"order":17,},
     {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":5,},
   ],
   "Options": [

@@ -103,7 +103,6 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                 break;
                     
             	default:
-                    //TODO - Check against global.__chatterbox_actions
                     var _instruction = new __chatterbox_class_instruction("action", _line, _indent);
                     _instruction.expression = _content;
                 break;

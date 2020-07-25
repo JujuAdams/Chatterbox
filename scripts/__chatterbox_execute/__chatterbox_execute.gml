@@ -11,7 +11,7 @@ function __chatterbox_execute()
     {
         case "option":
             current_node = file.find_node(current_instruction.destination);
-            __chatterbox_mark_visited(current_node);
+            current_node.mark_visited();
             current_instruction = current_node.root_instruction;
         break;
         
@@ -95,7 +95,7 @@ function __chatterbox_execute_inner(_instruction)
                         if (_split.filename == undefined)
                         {
                             var _next_node = find_node(_split.node);
-                            __chatterbox_mark_visited(_next_node);
+                            _next_node.mark_visited();
                             _next = _next_node.root_instruction;
                         }
                         else
@@ -107,7 +107,7 @@ function __chatterbox_execute_inner(_instruction)
                                 filename = file.filename;
                                 
                                 _next_node = find_node(_split.node);
-                                __chatterbox_mark_visited(_next_node);
+                                _next_node.mark_visited();
                                 _next = _next_node.root_instruction;
                             }
                             else
@@ -128,13 +128,38 @@ function __chatterbox_execute_inner(_instruction)
                     break;
                     
                     case "set":
-                        __chatterbox_evaluate(filename, _instruction.expression);
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
+                        __chatterbox_evaluate(filename, _instruction.expression);
+                    break;
+                    
+                    case "action":
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
+                        
+                        var _method = global.__chatterbox_actions[? _instruction.expression[0]];
+                        
+                        if (is_method(_method))
+                        {
+    	                    var _argument_array = array_create(array_length(_instruction.expression)-3);
+    	                    array_copy(_argument_array, 0, _instruction.expression, 3, array_length(_instruction.expression)-3);
+                            
+    	                    var _i = 0;
+    	                    repeat(array_length(_argument_array))
+    	                    {
+    	                        _argument_array[_i] = __chatterbox_resolve_value(_argument_array[_i]);
+    	                        _i++;
+    	                    }
+                            
+                            _method(_argument_array);
+                        }
+                        else
+                        {
+                            __chatterbox_error("Action \"", _instruction.expression[0], "\" not defined with chatterbox_add_action()");
+                        }
                     break;
                     
                     case "if":
-                        if (!__chatterbox_evaluate(filename, _instruction.condition)) _next = variable_struct_get(_instruction, "branch_reject");
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.condition);
+                        if (!__chatterbox_evaluate(filename, _instruction.condition)) _next = variable_struct_get(_instruction, "branch_reject");
                     break;
                     
                     case "end if":

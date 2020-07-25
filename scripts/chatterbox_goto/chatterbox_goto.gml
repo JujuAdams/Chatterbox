@@ -12,9 +12,9 @@ function chatterbox_goto(_chatterbox, _title)
             return undefined;
         }
         
-        current_node        = _node;
+        current_node = _node;
         current_instruction = current_node.root_instruction;
-        __chatterbox_mark_visited(current_node);
+        current_node.mark_visited();
         
         __chatterbox_execute();
     }

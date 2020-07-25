@@ -1,6 +1,4 @@
-/// Takes a string and figures out if it's a real, a "-delimited string, or a variable
-///
-/// This is an internal script, please don't modify it.
+/// Takes a string and figures out if it's a real, a delimited string, or a variable
 /// 
 /// @param value
 
@@ -9,53 +7,33 @@ function __chatterbox_resolve_value(_value)
 	global.__chatterbox_scope         = CHATTERBOX_SCOPE_INVALID;
 	global.__chatterbox_variable_name = __CHATTERBOX_VARIABLE_INVALID;
     
-	if (is_real(_value))
+	if (is_numeric(_value))
 	{
-	    //It's a real!
+	    //It's a number!
+        return _value;
 	}
-	else if (string_char_at(_value, 1) == "\"") && (string_char_at(_value, string_length(_value)) == "\"")
+	else if (!is_string(_value))
+    {
+	    __chatterbox_error("__chatterbox_resolve_value() given invalid datatype (", typeof(_value), ")");
+        return undefined;
+    }
+    else if (string_char_at(_value, 1) == "\"") && (string_char_at(_value, string_length(_value)) == "\"")
 	{
 	    //It's a string!
-	    _value = string_copy(_value, 2, string_length(_value)-2);
+	    return string_copy(_value, 2, string_length(_value)-2);
 	}
 	else
 	{
-	    var _variable = false;
-                                    
-        #region Figure out if this value is a real
-        
-	    var _hit_number = false;
-	    var _j = string_length(_value);
-	    repeat(string_length(_value))
-	    {
-	        var _character = string_char_at(_value, _j);
-	        if (_character == "0") || (_character == "1") || (_character == "2") || (_character == "3")
-	        || (_character == "4") || (_character == "5") || (_character == "6") || (_character == "7")
-	        || (_character == "8") || (_character == "9") || (_character == ".") || (_character == "-")
-	        {
-	            _hit_number = true;
-	        }
-	        else
-	        {
-	            _variable = true;
-	            break;
-	        }
-	        _j--;
-	    }
-        
-	    if (!_variable)
-	    {
-	        if (string_count("-", _value) > 1) _variable = true;
-	        if (string_count(".", _value) > 1) _variable = true;
-            
-	        var _negative_pos = string_pos("-", _value);
-	        if (_negative_pos > 1) _variable = true;
-	        if (string_pos(".", _value) == (1+_negative_pos)) _variable = true;
-            
-	        if (!_variable) _value = real(_value);
-	    }
-        
-        #endregion
+        //Figure out if this value is a real
+        try
+        {
+            _value = real(_value);
+	        var _variable = false;
+        }
+        catch(_)
+        {
+	        var _variable = true;
+        }
         
         #region Figure out if this value is a keyword: true / false / undefined / null
         
@@ -192,24 +170,19 @@ function __chatterbox_resolve_value(_value)
 	            break;
 	        }
             
-	        var _typeof = typeof(_value);
-	        if (_typeof == "array") || (_typeof == "ptr") || (_typeof == "null") || (_typeof == "vec3") || (_typeof == "vec4")
-	        {
+            if (!is_numeric(_value) && !is_string(_value))
+            {
+	            var _typeof = typeof(_value);
 	            if (CHATTERBOX_ERROR_ON_INVALID_DATATYPE)
 	            {
 	                __chatterbox_error("Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
 	            }
 	            else
 	            {
-	                __chatterbox_trace("WARNING! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
+	                __chatterbox_trace("Warning! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
 	            }
             
 	            _value = string(_value);
-	        }
-            
-	        if (_typeof == "bool") || (_typeof == "int32") || (_typeof == "int64")
-	        {
-	            _value = real(_value);
 	        }
             
             #endregion
