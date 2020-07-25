@@ -56,7 +56,7 @@ function __chatterbox_evaluate(_filename, _content)
 	                if (_function == "visited")
 	                {
 	                    if (_element_length == 3) _function_args[1] = _filename;
-	                    _result = CHATTERBOX_VARIABLES_MAP[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")" ];
+	                    _result = CHATTERBOX_VARIABLES_MAP[? "visited(" + _function_args[1] + CHATTERBOX_FILENAME_SEPARATOR + _function_args[0] + ")"];
 	                    _result = (_result == undefined)? false : _result;
 	                }
 	                else

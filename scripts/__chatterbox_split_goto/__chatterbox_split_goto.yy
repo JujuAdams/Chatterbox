@@ -6,7 +6,7 @@
     "path": "folders/Chatterbox/__Private.yy",
   },
   "resourceVersion": "1.0",
-  "name": "__chatterbox_jump_to_end_of_options",
+  "name": "__chatterbox_split_goto",
   "tags": [],
   "resourceType": "GMScript",
 }

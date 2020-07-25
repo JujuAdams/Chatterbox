@@ -22,7 +22,7 @@ function __chatterbox_compile(_substring_list, _root_instruction)
         
         var _instruction = undefined;
         
-        __chatterbox_trace(string_format(_indent, 4, 0), ": " + _string, "    ", _type, "    ", _line);
+        if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("ln ", string_format(_line, 4, 0), " ", __chatterbox_generate_indent(_indent), _string);
         
         if (string_copy(_string, 1, 2) == "->") //Shortcut //TODO - Make this part of the substring splitting step
     	{
@@ -40,6 +40,7 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                     if (_previous_instruction.line == _line)
                     {
                         _previous_instruction.condition = _content;
+                        //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
                     }
                     else
                     {

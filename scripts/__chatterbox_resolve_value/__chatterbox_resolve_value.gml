@@ -140,7 +140,7 @@ function __chatterbox_resolve_value(_value)
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("WARNING! Internal variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Warning! Internal variable \"" + _value + "\" doesn't exist");
 	                    }
                         
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;

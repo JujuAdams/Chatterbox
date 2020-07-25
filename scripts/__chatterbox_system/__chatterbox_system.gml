@@ -13,6 +13,10 @@
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
     
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
+
+#macro __CHATTERBOX_DEBUG_LOADER    false
+#macro __CHATTERBOX_DEBUG_VM        true
+#macro __CHATTERBOX_DEBUG_COMPILER  true
     
 #endregion
 
@@ -137,12 +141,13 @@ function __chatterbox_class_file(_filename) constructor
     __chatterbox_trace("Processing \"", filename, "\" as a source file named \"", name, "\" (format=\"", format, "\")");
     
 	//Iterate over all the nodes we found in this source file
-    var _node = 0;
+    var _n = 0;
     repeat(ds_list_size(_node_list))
 	{
-	    var _node_map = _node_list[| _node];
-        __chatterbox_array_add(nodes, new __chatterbox_class_node(_node_map[? "title"], _node_map[? "body"]));
-        _node++;
+	    var _node_map = _node_list[| _n];
+        var _node = new __chatterbox_class_node(filename, _node_map[? "title"], _node_map[? "body"]);
+        __chatterbox_array_add(nodes, _node);
+        _n++;
 	}
     
 	ds_list_destroy(_node_list);
@@ -159,37 +164,52 @@ function __chatterbox_class_file(_filename) constructor
         
         return undefined;
     }
+    
+    function toString()
+    {
+        return "File " + string(filename) + " " + string(nodes);
+    }
 }
 
-/// @param title
+/// @param filename
+/// @param nodeTitle
 /// @param bodyString
-function __chatterbox_class_node(_title, _body_string) constructor
+function __chatterbox_class_node(_filename, _title, _body_string) constructor
 {
+    if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("[", _title, "]");
+    
+    filename         = _filename;
     title            = _title;
     root_instruction = new __chatterbox_class_instruction(undefined, 0, 0);
     
 	//Prepare body string for parsing
-	_body_string = string_replace_all(_body_string, "\n\r", "\n");
-	_body_string = string_replace_all(_body_string, "\r\n", "\n");
-	_body_string = string_replace_all(_body_string, "\r"  , "\n");
+    var _work_string = _body_string;
+	_work_string = string_replace_all(_work_string, "\n\r", "\n");
+	_work_string = string_replace_all(_work_string, "\r\n", "\n");
+	_work_string = string_replace_all(_work_string, "\r"  , "\n");
     
 	//Perform find-replace
     var _i = 0;
     repeat(ds_list_size(global.__chatterbox_findreplace_old_string))
     {
-	    _body_string = string_replace_all(_body_string,
+	    _work_string = string_replace_all(_work_string,
 	                                      global.__chatterbox_findreplace_old_string[| _i],
 	                                      global.__chatterbox_findreplace_new_string[| _i]);
         ++_i;
     }
     
     //Add a trailing newline to make sure we parse correctly
-    _body_string += "\n";
+    _work_string += "\n";
     
     var _substring_list = __chatterbox_split_body(_body_string);
     __chatterbox_compile(_substring_list, root_instruction);
     
 	ds_list_destroy(_substring_list);
+    
+    function toString()
+    {
+        return "Node " + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title);
+    }
 }
 
 /// @param type
@@ -200,6 +220,11 @@ function __chatterbox_class_instruction(_type, _line, _indent) constructor
 	type   = _type;
     line   = _line;
     indent = _indent;
+    
+    function toString()
+    {
+        return "Instr " + string(type);
+    }
 }
 
 /// @param parentInstruction
@@ -213,6 +238,17 @@ function __chatterbox_instruction_add(_parent, _child)
     }
     else
     {
+        if ((_parent.type == "shortcut")
+        &&  (_child.indent <= _parent.indent)
+        &&  !variable_struct_exists(_parent, "shortcut_branch"))
+        {
+            //Add a marker to the end of a branch. This helps the VM understand what's going on!
+            var _branch_end = new __chatterbox_class_instruction("shortcut end", _parent.line, _parent.indent);
+            _parent.shortcut_branch = _branch_end;
+            _branch_end.shortcut_branch_parent = _parent;
+            _branch_end.next = _child;
+        }
+        
         if (variable_struct_exists(_parent, "shortcut_branch_parent"))
         {
             if (_child.indent <= _parent.shortcut_branch_parent.indent)
