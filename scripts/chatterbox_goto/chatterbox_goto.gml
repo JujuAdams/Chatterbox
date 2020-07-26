@@ -12,6 +12,8 @@ function chatterbox_goto(_chatterbox, _title)
             return undefined;
         }
         
+        local_scope = other;
+        
         current_node = _node;
         current_instruction = current_node.root_instruction;
         current_node.mark_visited();

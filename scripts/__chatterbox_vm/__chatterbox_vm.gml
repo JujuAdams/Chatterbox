@@ -33,7 +33,7 @@ function __chatterbox_vm_inner(_instruction)
         
         if ((_instruction.type != "if") && variable_struct_exists(_instruction, "condition"))
         {
-            if (!__chatterbox_evaluate(filename, _instruction.condition)) _condition_failed = true;
+            if (!__chatterbox_evaluate(local_scope, filename, _instruction.condition)) _condition_failed = true;
         }
         
         if (!_condition_failed)
@@ -137,7 +137,7 @@ function __chatterbox_vm_inner(_instruction)
                     
                     case "set":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        __chatterbox_evaluate(filename, _instruction.expression);
+                        __chatterbox_evaluate(local_scope, filename, _instruction.expression);
                     break;
                     
                     case "action":
@@ -153,7 +153,7 @@ function __chatterbox_vm_inner(_instruction)
     	                    var _i = 0;
     	                    repeat(array_length(_argument_array))
     	                    {
-    	                        _argument_array[_i] = __chatterbox_resolve_value(_argument_array[_i]);
+    	                        _argument_array[_i] = __chatterbox_resolve_value(local_scope, _argument_array[_i]);
     	                        _i++;
     	                    }
                             
@@ -168,7 +168,7 @@ function __chatterbox_vm_inner(_instruction)
                     case "if":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<if>> ", _instruction.condition);
                         
-                        if (__chatterbox_evaluate(filename, _instruction.condition))
+                        if (__chatterbox_evaluate(local_scope, filename, _instruction.condition))
                         {
                             rejected_if = false;
                         }
@@ -191,7 +191,7 @@ function __chatterbox_vm_inner(_instruction)
                     case "else if":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<else if>> ", _instruction.condition);
                         
-                        if (rejected_if && __chatterbox_evaluate(filename, _instruction.condition))
+                        if (rejected_if && __chatterbox_evaluate(local_scope, filename, _instruction.condition))
                         {
                             rejected_if = false;
                         }

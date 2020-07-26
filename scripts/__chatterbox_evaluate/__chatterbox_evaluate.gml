@@ -2,10 +2,11 @@
 ///
 /// This is an internal script, please don't modify it.
 ///
+/// @param localScope
 /// @param filename
 /// @param contentArray
 
-function __chatterbox_evaluate(_filename, _content)
+function __chatterbox_evaluate(_local_scope, _filename, _content)
 {
 	var _resolved_array = array_create(array_length(_content), pointer_null); //Copy the array
     
@@ -51,7 +52,7 @@ function __chatterbox_evaluate(_filename, _content)
 	                var _function_name = _resolved_array[_element[0]];
                     
 	                var _function_args = array_create(_element_length-2);
-	                for(var _i = 2; _i < _element_length; _i++) _function_args[_i-2] = __chatterbox_resolve_value(_resolved_array[_element[_i]]);
+	                for(var _i = 2; _i < _element_length; _i++) _function_args[_i-2] = __chatterbox_resolve_value(_local_scope, _resolved_array[_element[_i]]);
                     
 	                if (_function_name == "visited")
 	                {
@@ -117,7 +118,7 @@ function __chatterbox_evaluate(_filename, _content)
                     
 	                var _operator = _resolved_array[_element[0]];
 	                var _value    = _resolved_array[_element[1]];
-	                    _value    = __chatterbox_resolve_value(_value);
+	                    _value    = __chatterbox_resolve_value(_local_scope, _value);
                     
 	                var _result = undefined;
 	                if (is_real(_value))
@@ -148,11 +149,11 @@ function __chatterbox_evaluate(_filename, _content)
 	                var _operator = _resolved_array[_element[1]];
 	                var _b        = _resolved_array[_element[2]];
                     
-	                var _a_value = __chatterbox_resolve_value(_a);
+	                var _a_value = __chatterbox_resolve_value(_local_scope, _a);
 	                var _a_scope = global.__chatterbox_scope;
 	                _a = (global.__chatterbox_variable_name != __CHATTERBOX_VARIABLE_INVALID)? global.__chatterbox_variable_name : _a;
 	                global.__chatterbox_scope = undefined;
-	                var _b_value = __chatterbox_resolve_value(_b);
+	                var _b_value = __chatterbox_resolve_value(_local_scope, _b);
                     
                     #endregion
                     
@@ -220,7 +221,7 @@ function __chatterbox_evaluate(_filename, _content)
 	                    switch(_a_scope)
 	                    {                   
 	                        case "internal": CHATTERBOX_VARIABLES_MAP[? _a] = _result; break;
-	                        case "self":     variable_instance_set(self, _a, _result); break;
+	                        case "local":    variable_instance_set(_local_scope, _a, _result); break;
 	                        case "global":   variable_global_set(_a, _result);         break;
 	                    }
 	                }
@@ -237,12 +238,12 @@ function __chatterbox_evaluate(_filename, _content)
     
 	ds_list_destroy(_queue);
     
-	return __chatterbox_resolve_value(_resolved_array[1]);
+	return __chatterbox_resolve_value(_local_scope, _resolved_array[1]);
 }
 
-
+/// @param localScope
 /// @param value
-function __chatterbox_resolve_value(_in_value)
+function __chatterbox_resolve_value(_local_scope, _in_value)
 {
     var _value = _in_value;
     
@@ -323,12 +324,12 @@ function __chatterbox_resolve_value(_in_value)
 	        }
 	        else if (string_copy(_value, 1, 2) == "s.")
 	        {
-	            _scope = "self";
+	            _scope = "local";
 	            _value = string_delete(_value, 1, 2);
 	        }
-	        else if (string_copy(_value, 1, 6) == "self.")
+	        else if (string_copy(_value, 1, 6) == "local.")
 	        {
-	            _scope = "self";
+	            _scope = "local";
 	            _value = string_delete(_value, 1, 6);
 	        }
 	        else if (string_copy(_value, 1, 2) == "i.")
@@ -360,7 +361,7 @@ function __chatterbox_resolve_value(_in_value)
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("Error! Internal variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Warning! Internal variable \"" + _value + "\" doesn't exist");
 	                    }
                         
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -371,8 +372,8 @@ function __chatterbox_resolve_value(_in_value)
 	                }
 	            break;
                 
-	            case "self":
-	                if (!variable_instance_exists(self, _value))
+	            case "local":
+	                if (!variable_instance_exists(_local_scope, _value))
 	                {
 	                    if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
 	                    {
@@ -380,14 +381,14 @@ function __chatterbox_resolve_value(_in_value)
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("Error! Local variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Warning! Local variable \"" + _value + "\" doesn't exist");
 	                    }
                                                     
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
 	                }
 	                else
 	                {
-	                    _value = variable_instance_get(self, _value);
+	                    _value = variable_instance_get(_local_scope, _value);
 	                }
 	            break;
                 
@@ -400,7 +401,7 @@ function __chatterbox_resolve_value(_in_value)
 	                    }
 	                    else
 	                    {
-	                        __chatterbox_trace("Error! Global variable \"" + _value + "\" doesn't exist");
+	                        __chatterbox_trace("Warning! Global variable \"" + _value + "\" doesn't exist");
 	                    }
                                                     
 	                    _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -421,7 +422,7 @@ function __chatterbox_resolve_value(_in_value)
 	            }
 	            else
 	            {
-	                __chatterbox_trace("Warning! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
+	                __chatterbox_trace("Error! Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
 	            }
             
 	            _value = string(_value);

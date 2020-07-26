@@ -10,7 +10,7 @@
 
 //Legal values are strings, one of the following:
 //"internal"
-//"self"
+//"local"
 //"global"
 //For more information, please read "Variables & Conditionals" in __chatterbox_syntax()
 #macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  "internal"  //If a variable starts if a $, what scope should it take?
