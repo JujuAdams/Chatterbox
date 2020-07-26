@@ -6,7 +6,7 @@
     "path": "folders/Chatterbox.yy",
   },
   "resourceVersion": "1.0",
-  "name": "chatterbox_select",
+  "name": "chatterbox_add_findreplace",
   "tags": [],
   "resourceType": "GMScript",
 }

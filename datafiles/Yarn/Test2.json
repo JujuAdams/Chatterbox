@@ -32,7 +32,7 @@
 	{
 		"title": "Node3",
 		"tags": "",
-		"body": "<<TestFunctionDoNotExecute>>\n\n[[Node5]]\n\n\n",
+		"body": "<<TestFunctionDoNotExecute \"Argument0\">>\n\n[[Node5]]\n\n\n",
 		"position": {
 			"x": 1371,
 			"y": 230
