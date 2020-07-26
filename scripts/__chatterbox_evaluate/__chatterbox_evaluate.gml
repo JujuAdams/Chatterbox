@@ -62,10 +62,14 @@ function __chatterbox_evaluate(_local_scope, _filename, _content)
 	                }
 	                else
 	                {
-	                    var _function = global.__chatterbox_functions[? _function_name];
-	                    if (is_method(_function))
+	                    var _method = global.__chatterbox_functions[? _function_name];
+	                    if (is_method(_method))
 	                    {
-	                        _result = _function(_function_args);
+                            with(_local_scope)
+                            {
+	                            var _result = _method(_function_args);
+                            }
+                            
                             if (!is_numeric(_result) && !is_string(_result))
                             {
     	                        var _typeof = typeof(_result);
@@ -81,13 +85,13 @@ function __chatterbox_evaluate(_local_scope, _filename, _content)
     	                        _result = string(_result);
                             }
 	                    }
-	                    else if (is_undefined(_function))
+	                    else if (is_undefined(_method))
 	                    {
     	                    __chatterbox_error("Function definition for \"", _function_name, "\" not found");
 	                    }
                         else
                         {
-    	                    __chatterbox_error("Function definition for \"", _function_name, "\" is invalid (datatype=", typeof(_function), ")");
+    	                    __chatterbox_error("Function definition for \"", _function_name, "\" is invalid (datatype=", typeof(_method), ")");
                         }
 	                }
                     

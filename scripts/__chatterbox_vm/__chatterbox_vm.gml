@@ -157,7 +157,10 @@ function __chatterbox_vm_inner(_instruction)
     	                        _i++;
     	                    }
                             
-                            _method(_argument_array);
+                            with(local_scope)
+                            {
+                                _method(_argument_array);
+                            }
                         }
                         else
                         {
