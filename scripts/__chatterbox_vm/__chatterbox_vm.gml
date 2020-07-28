@@ -4,6 +4,7 @@ function __chatterbox_vm()
     option             = [];
     option_instruction = [];
     
+    stopped          = false;
     entered_shortcut = false;
     leaving_shortcut = false;
     rejected_if      = false;
@@ -14,6 +15,12 @@ function __chatterbox_vm()
             current_node = file.find_node(current_instruction.destination);
             current_node.mark_visited();
             current_instruction = current_node.root_instruction;
+        break;
+        
+        case "stop":
+            stopped = true;
+            if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("STOP");
+            exit;
         break;
     }
     
@@ -234,6 +241,7 @@ function __chatterbox_vm_inner(_instruction)
         else
         {
             __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "Warning! Instruction found without next node (datatype=", instanceof(_next), ")");
+            stopped = true;
         }
     }
 }
