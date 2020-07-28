@@ -140,6 +140,10 @@ function __chatterbox_vm_inner(_instruction)
                             __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
                             __chatterbox_array_add(option_instruction, _instruction);
                         }
+                        else
+                        {
+                            stopped = true;
+                        }
                         
                         _do_next = false;
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<stop>>");
