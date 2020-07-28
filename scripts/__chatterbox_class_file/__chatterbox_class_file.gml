@@ -8,7 +8,7 @@ function __chatterbox_class_file(_filename) constructor
     nodes    = [];
     
 	//Fix the font directory name if it's weird
-    var _font_directory = CHATTERBOX_FONT_DIRECTORY;
+    var _font_directory = CHATTERBOX_SOURCE_DIRECTORY;
 	var _char = string_char_at(_font_directory , string_length(_font_directory ));
 	if (_char != "\\") && (_char != "/") _font_directory += "\\";
     

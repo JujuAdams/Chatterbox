@@ -1,5 +1,5 @@
 #macro CHATTERBOX_VARIABLES_MAP      global.chatterbox_variables_map
-#macro CHATTERBOX_FONT_DIRECTORY     "Yarn"
+#macro CHATTERBOX_SOURCE_DIRECTORY   "Yarn"
 #macro CHATTERBOX_DEFAULT_SINGLETON  true
 #macro CHATTERBOX_WAIT_OPTION_TEXT   "<<wait>>"
 #macro CHATTERBOX_ALLOW_SCRIPTS      true
