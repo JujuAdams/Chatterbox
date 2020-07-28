@@ -4,10 +4,9 @@ function __chatterbox_vm()
     option             = [];
     option_instruction = [];
     
-    entered_shortcut    = false;
-    leaving_shortcut    = false;
-    rejected_if         = false;
-    found_first_content = false;
+    entered_shortcut = false;
+    leaving_shortcut = false;
+    rejected_if      = false;
     
     switch(current_instruction.type)
     {
@@ -75,17 +74,20 @@ function __chatterbox_vm_inner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        if (found_first_content)
+                        __chatterbox_array_add(content, _instruction.text);
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text);
+                        
+                        if (singleton_text)
                         {
-                            __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
-                            __chatterbox_array_add(option_instruction, _instruction);
-                            _do_next = false;
-                        }
-                        else
-                        {
-                            if (singleton_text) found_first_content = true;
-                            __chatterbox_array_add(content, _instruction.text);
-                            if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text);
+                            if (instanceof(_next) == "__chatterbox_class_instruction")
+                            {
+                                if ((_next.type != "shortcut") && (_next.type != "option"))
+                                {
+                                    __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
+                                    __chatterbox_array_add(option_instruction, _next);
+                                    _do_next = false;
+                                }
+                            }
                         }
                     break;
                     
