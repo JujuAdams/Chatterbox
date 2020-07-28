@@ -105,7 +105,7 @@ function __chatterbox_evaluate(_local_scope, _filename, _content)
                     
 	                var _result = undefined;
 	                var _element_value = _element[0];
-	                if (is_real(_element_value))
+	                if (is_numeric(_element_value))
 	                {
 	                    _resolved_array[_element_index] = _resolved_array[_element[0]];
 	                }
@@ -125,7 +125,7 @@ function __chatterbox_evaluate(_local_scope, _filename, _content)
 	                    _value    = __chatterbox_resolve_value(_local_scope, _value, false);
                     
 	                var _result = undefined;
-	                if (is_real(_value))
+	                if (is_numeric(_value))
 	                {
 	                    if (_operator == "!")
 	                    {
@@ -179,7 +179,7 @@ function __chatterbox_evaluate(_local_scope, _filename, _content)
                     
                     if (!_set)
                     {
-    	                var _both_real         = (is_real(_a_value) && is_real(_b_value));
+    	                var _both_real         = (is_numeric(_a_value) && is_numeric(_b_value));
     	                var _matching_types    = (typeof(_a_value) == typeof(_b_value));
     	                var _either_string     = (is_string(_a_value) || is_string(_b_value));
     	                var _neither_undefined = (!is_undefined(_a_value) && !is_undefined(_b_value));
