@@ -153,7 +153,7 @@ function __chatterbox_vm_inner(_instruction)
     	                    var _i = 0;
     	                    repeat(array_length(_argument_array))
     	                    {
-    	                        _argument_array[_i] = __chatterbox_resolve_value(local_scope, _argument_array[_i]);
+    	                        _argument_array[_i] = __chatterbox_resolve_value(local_scope, _argument_array[_i], false);
     	                        _i++;
     	                    }
                             
@@ -164,7 +164,7 @@ function __chatterbox_vm_inner(_instruction)
                         }
                         else
                         {
-                            __chatterbox_error("Action \"", _instruction.expression[0], "\" not defined with chatterbox_add_action()");
+                            __chatterbox_error("Action \"", _instruction.expression[0], "\" not defined with chatterbox_add_function()");
                         }
                     break;
                     

@@ -1,0 +1,24 @@
+title: Start
+tags: 
+section: Section1
+colorID: 0
+position: 534.5534057617188, 350.60845947265625
+---
+
+<<set testVariable to "This is a string in a variable">>
+This is some text.
+This is some more text.
+<<testcaseAction>>
+We called an action with zero arguments.
+<<testcaseAction 42>>
+We called an action with an integer argument.
+<<testcaseAction 3.141>>
+We called an action with a decimal argument.
+<<testcaseAction "Hello world!">>
+We called an action with a string argument.
+<<testcaseAction 42 3.141 "Hello world!">>
+We called an action with many mixed arguments.
+<<testcaseAction testVariable>>
+The test will now end.
+
+===
