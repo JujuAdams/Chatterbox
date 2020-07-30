@@ -1,6 +1,6 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.3.7 preview 002"
+#macro __CHATTERBOX_VERSION  "0.3.7"
 #macro __CHATTERBOX_DATE     "2020/07/30"
 
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
@@ -10,7 +10,6 @@
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
 #macro __CHATTERBOX_DEBUG_VM        false
-#macro __CHATTERBOX_DEBUG_VM        true
     
 #endregion
 
