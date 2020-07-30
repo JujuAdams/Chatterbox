@@ -150,6 +150,8 @@ function __chatterbox_split_body(_body)
 	            _indent = global.__chatterbox_indent_size;
 	        }
             
+            _cache = __chatterbox_remove_whitespace(_cache, false);
+            
 	        if (_cache != "") ds_list_add(_body_substring_list, [_cache, _cache_type, _line, _indent]);
 	        _cache = "";
 	        _cache_type = "text";
