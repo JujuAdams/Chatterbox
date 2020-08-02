@@ -59,6 +59,8 @@ function chatterbox_add_function(_name, _in_function)
 	    break;
 	}
     
+    if (!variable_global_exists("__chatterbox_functions")) global.__chatterbox_functions = ds_map_create();
+    
 	var _old_function = global.__chatterbox_functions[? _name];
 	if (is_method(_old_function))
 	{

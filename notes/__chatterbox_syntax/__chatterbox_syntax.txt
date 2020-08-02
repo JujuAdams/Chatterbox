@@ -148,7 +148,7 @@ This statement serves to set a variable's value. No declarative statement is req
 Variables in Chatterbox can have their scope controlled by using prefixes:
 
     <<set global.meaning to 42>>        This will set the GM global variable "global.meaning" to the value 42.
-    <<set local.variable to 13>>        This will set the GM instance variable "shenanigans" to the value 13.
+    <<set local.shenanigans to 13>>     This will set the GM instance variable "shenanigans" to the value 13.
     <<set internal.organelle to 7>>     This will set the internal Chatterbox variable "organelle" to the value 7.
 
 Internal Chatterbox variables are, in reality, key:value pairs stored in a global ds_map. You can access this ds_map via

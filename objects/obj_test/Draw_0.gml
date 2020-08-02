@@ -2,23 +2,39 @@
 var _x = 10;
 var _y = 10;
 
-//All the spoken text
-var _i = 0;
-repeat(array_length(box.content))
+if (chatterbox_is_stopped(box))
 {
-    draw_text(_x, _y, box.content[_i]);
-    _y += 20;
-    ++_i;
+    //If we're stopped then show that
+    draw_text(_x, _y, "(Chatterbox stopped)");
 }
-
-//Bit of spacing...
-_y += 20;
-
-//All the options
-var _i = 0;
-repeat(array_length(box.option))
+else
 {
-    draw_text(_x, _y, string(_i+1) + ") " + string(box.option[_i]));
+    //All the spoken text
+    var _i = 0;
+    repeat(chatterbox_get_content_count(box))
+    {
+        draw_text(_x, _y, chatterbox_get_content(box, _i));
+        _y += 20;
+        ++_i;
+    }
+    
+    //Bit of spacing...
     _y += 20;
-    ++_i;
+
+    if (chatterbox_is_waiting(box))
+    {
+        //If we're in a "waiting" state then prompt the user for basic input
+        draw_text(_x, _y, "(Press Space)");
+    }
+    else
+    {
+        //All the options
+        var _i = 0;
+        repeat(chatterbox_get_option_count(box))
+        {
+            draw_text(_x, _y, string(_i+1) + ") " + chatterbox_get_option(box, _i));
+            _y += 20;
+            ++_i;
+        }
+    }
 }

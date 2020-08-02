@@ -8,7 +8,7 @@ function chatterbox_load(_filename)
 {
 	if (variable_struct_exists(global.chatterbox_files, _filename))
 	{
-	    __chatterbox_error("\"" + _filename + "\" has already been loaded");
+	    __chatterbox_trace("\"" + _filename + "\" has already been loaded");
 	    return undefined;
 	}
     

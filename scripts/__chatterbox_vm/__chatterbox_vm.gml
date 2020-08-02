@@ -5,6 +5,8 @@ function __chatterbox_vm()
     option_instruction = [];
     
     stopped          = false;
+    waiting          = false;
+    wait_instruction = undefined;
     entered_shortcut = false;
     leaving_shortcut = false;
     rejected_if      = false;
@@ -88,10 +90,10 @@ function __chatterbox_vm_inner(_instruction)
                         {
                             if (instanceof(_next) == "__chatterbox_class_instruction")
                             {
-                                if ((_next.type != "shortcut") && (_next.type != "option"))
+                                if ((_next.type != "shortcut") && (_next.type != "option") && (_next.type != "wait"))
                                 {
-                                    __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
-                                    __chatterbox_array_add(option_instruction, _next);
+                                    waiting = true;
+                                    wait_instruction = _next;
                                     _do_next = false;
                                 }
                             }
@@ -99,8 +101,8 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "wait":
-                        __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
-                        __chatterbox_array_add(option_instruction, _instruction.next);
+                        waiting = true;
+                        wait_instruction = _instruction.next;
                         _do_next = false;
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>>");
                     break;
@@ -137,8 +139,8 @@ function __chatterbox_vm_inner(_instruction)
                     case "stop":
                         if ((array_length(content) > 0) && (array_length(option) <= 0))
                         {
-                            __chatterbox_array_add(option, CHATTERBOX_WAIT_OPTION_TEXT);
-                            __chatterbox_array_add(option_instruction, _instruction);
+                            waiting = true;
+                            wait_instruction = _instruction;
                         }
                         else
                         {

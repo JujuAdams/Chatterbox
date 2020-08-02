@@ -1,3 +1,5 @@
+/// Jumps to a specific node in a source file
+///
 /// @param chatterbox
 /// @param nodeTitle
 
@@ -11,8 +13,6 @@ function chatterbox_goto(_chatterbox, _title)
             __chatterbox_error("Could not find node \"", _title, "\" in host (file=\"", filename, "\")");
             return undefined;
         }
-        
-        local_scope = other;
         
         current_node = _node;
         current_instruction = current_node.root_instruction;
