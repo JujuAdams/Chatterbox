@@ -46,6 +46,7 @@ function __chatterbox_class(_filename, _singleton) constructor
     current_instruction = undefined;
     stopped             = true;
     waiting             = false;
+    wait_instruction    = undefined;
     
     /// @param nodeTitle
     find_node = function(_title)
