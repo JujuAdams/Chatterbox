@@ -1,3 +1,5 @@
+/// Jumps to a specific node in a source file
+///
 /// @param chatterbox
 /// @param nodeTitle
 

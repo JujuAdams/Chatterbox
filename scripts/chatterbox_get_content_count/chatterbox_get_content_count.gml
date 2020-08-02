@@ -1,3 +1,5 @@
+/// Returns the total number of content strings in the given chatterbox
+///
 /// @param chatterbox
 
 function chatterbox_get_content_count(_chatterbox)

@@ -1,3 +1,5 @@
+/// Returns an option string with the given index in the given chatterbox
+///
 /// @param chatterbox
 /// @param index
 

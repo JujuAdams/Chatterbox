@@ -1,3 +1,5 @@
+/// Selects an option, either defined by a Yarn shortcut ( -> ) or a Yarn option ( [[text|node]] )
+///
 /// @param chatterbox
 /// @param optionIndex
 

@@ -1,3 +1,5 @@
+/// Returns the total number of option strings in the given chatterbox
+///
 /// @param chatterbox
 
 function chatterbox_get_option_count(_chatterbox)
