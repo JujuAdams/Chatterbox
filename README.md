@@ -1,4 +1,4 @@
-<p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:300px"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:170px"></p>
 <h1 align="center">0.4.0</h1>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/">Download the .yymp</a></p>
