@@ -30,10 +30,10 @@ global.__chatterbox_default_file           = "";
 global.__chatterbox_indent_size            = 0;
 global.__chatterbox_scope                  = undefined;
 global.__chatterbox_variable_name          = __CHATTERBOX_VARIABLE_INVALID;
-global.__chatterbox_functions              = ds_map_create();
 global.__chatterbox_findreplace_old_string = ds_list_create();
 global.__chatterbox_findreplace_new_string = ds_list_create();
-    
+if (!variable_global_exists("__chatterbox_functions")) global.__chatterbox_functions = ds_map_create();
+
 //Big ol' list of operator dipthongs
 global.__chatterbox_op_list       = ds_list_create();
 global.__chatterbox_op_list[|  0] = "("; 
