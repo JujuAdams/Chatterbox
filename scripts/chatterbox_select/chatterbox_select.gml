@@ -11,8 +11,6 @@ function chatterbox_select(_chatterbox, _index)
             return undefined;
         }
         
-        local_scope = other;
-        
         current_instruction = option_instruction[_index];
         __chatterbox_vm();
     }

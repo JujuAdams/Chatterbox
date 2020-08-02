@@ -36,6 +36,7 @@ function __chatterbox_class(_filename, _singleton) constructor
 	    return undefined;
 	}
     
+    local_scope         = other;
     singleton_text      = _singleton;
     filename            = _filename;
     file                = variable_struct_get(global.chatterbox_files, filename);

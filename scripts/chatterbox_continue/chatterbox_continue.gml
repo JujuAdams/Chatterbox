@@ -10,8 +10,6 @@ function chatterbox_continue(_chatterbox)
             return undefined;
         }
         
-        local_scope = other;
-        
         current_instruction = wait_instruction;
         __chatterbox_vm();
     }
