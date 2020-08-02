@@ -1,6 +1,7 @@
-<h1 align="center">Chatterbox 0.3.7</h1>
+<h1 align="center">Chatterbox 0.4.0</h1>
 
-<p align="center">Chat about Chatterbox on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
+<p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/">Download the .yymp</a></p>
+<p align="center">Talk about Chatterbox on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
 
 ### @jujuadams
 
