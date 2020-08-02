@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:170px"></p>
 <h1 align="center">0.4.0</h1>
 
-<p align="center">Narrative design engine for GameMaker Studio 2.3.0 by <b>@jujuadams</b></p>
+<p align="center">Narrative engine for GameMaker Studio 2.3.0 by <b>@jujuadams</b></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/">Download the .yymp</a></p>
 <p align="center">Talk about Chatterbox on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
