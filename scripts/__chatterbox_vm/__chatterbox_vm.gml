@@ -168,15 +168,15 @@ function __chatterbox_vm_inner(_instruction)
                         
                         if (is_method(_method))
                         {
-    	                    var _argument_array = array_create(array_length(_instruction.expression)-3);
-    	                    array_copy(_argument_array, 0, _instruction.expression, 3, array_length(_instruction.expression)-3);
+                            var _argument_array = array_create(array_length(_instruction.expression)-3);
+                            array_copy(_argument_array, 0, _instruction.expression, 3, array_length(_instruction.expression)-3);
                             
-    	                    var _i = 0;
-    	                    repeat(array_length(_argument_array))
-    	                    {
-    	                        _argument_array[_i] = __chatterbox_resolve_value(local_scope, _argument_array[_i], false);
-    	                        _i++;
-    	                    }
+                            var _i = 0;
+                            repeat(array_length(_argument_array))
+                            {
+                                _argument_array[_i] = __chatterbox_resolve_value(local_scope, _argument_array[_i], false);
+                                _i++;
+                            }
                             
                             with(local_scope)
                             {

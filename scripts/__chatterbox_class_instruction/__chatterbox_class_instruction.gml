@@ -3,7 +3,7 @@
 /// @param indent
 function __chatterbox_class_instruction(_type, _line, _indent) constructor
 {
-	type   = _type;
+    type   = _type;
     line   = _line;
     indent = _indent;
     

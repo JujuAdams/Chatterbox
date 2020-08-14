@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Chatterbox",
-    "path": "folders/Chatterbox.yy",
+    "name": "Getters",
+    "path": "folders/Chatterbox/Getters.yy",
   },
   "resourceVersion": "1.0",
   "name": "chatterbox_get_content_count",
