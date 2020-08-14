@@ -1,7 +1,7 @@
 /// Returns a content string with the given index in the given chatterbox
 ///
 /// @param chatterbox
-/// @param index
+/// @param contentIndex
 
 function chatterbox_get_content(_chatterbox, _index)
 {

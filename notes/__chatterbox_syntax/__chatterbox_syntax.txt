@@ -249,7 +249,6 @@ Here's a list of supported operators (in no particular order) that are supported
     gt    |    >     | Greater than
     or    |   ||     | Logical OR
           |    |     | Logical OR. Included for compatibility with other Yarn documents
-          |    `     | Logical OR. Included for compatibility with other Yarn documents
     leq   |   <=     | Less-than-or-equal-to
     geq   |   >=     | Greater-than-or-equal-to
     eq    |   ==     | Equal to

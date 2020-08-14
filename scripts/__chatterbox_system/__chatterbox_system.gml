@@ -1,7 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.4.0"
-#macro __CHATTERBOX_DATE     "2020/08/02"
+#macro __CHATTERBOX_VERSION  "0.4.1"
+#macro __CHATTERBOX_DATE     "2020/08/14"
 
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
     
@@ -19,8 +19,8 @@ __chatterbox_trace("Welcome to Chatterbox by @jujuadams! This is version " + __C
     
 if (__CHATTERBOX_ON_MOBILE && (CHATTERBOX_SOURCE_DIRECTORY != ""))
 {
-	__chatterbox_trace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
-	__chatterbox_error("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
+    __chatterbox_trace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
+    __chatterbox_error("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
 }
     
 //Declare global variables
@@ -72,96 +72,96 @@ function __chatterbox_array_add(_array, _value)
 /// @param [value...]
 function __chatterbox_trace()
 {
-	var _string = "";
-	var _i = 0;
-	repeat(argument_count)
-	{
-	    _string += __chatterbox_string(argument[_i]);
-	    ++_i;
-	}
+    var _string = "";
+    var _i = 0;
+    repeat(argument_count)
+    {
+        _string += __chatterbox_string(argument[_i]);
+        ++_i;
+    }
 
-	show_debug_message(string_format(current_time, 8, 0) + " Chatterbox: " + _string);
+    show_debug_message(string_format(current_time, 8, 0) + " Chatterbox: " + _string);
 
-	return _string;
+    return _string;
 }
 
 /// @param value
 function __chatterbox_string(_value)
 {
-	if (is_array(_value)) return __chatterbox_array_to_string(_value);
-	return string(_value);
+    if (is_array(_value)) return __chatterbox_array_to_string(_value);
+    return string(_value);
 }
 
 /// @param array
 function __chatterbox_array_to_string(_array)
 {
-	var _string = "[";
+    var _string = "[";
 
-	var _i = 0;
-	var _size = array_length(_array);
-	repeat(_size)
-	{
-	    _string += __chatterbox_string(_array[_i]);
-	    ++_i;
-	    if (_i < _size) _string += " , ";
-	}
+    var _i = 0;
+    var _size = array_length(_array);
+    repeat(_size)
+    {
+        _string += __chatterbox_string(_array[_i]);
+        ++_i;
+        if (_i < _size) _string += " , ";
+    }
     
-	_string += "]";
+    _string += "]";
     
-	return _string;
+    return _string;
 }
 
 /// @param [value...]
 function __chatterbox_error()
 {
-	var _string = "";
+    var _string = "";
     
-	var _i = 0;
-	repeat(argument_count)
-	{
-	    _string += string(argument[_i]);
-	    ++_i;
-	}
+    var _i = 0;
+    repeat(argument_count)
+    {
+        _string += string(argument[_i]);
+        ++_i;
+    }
     
-	show_error("Chatterbox:\n" + _string + "\n ", false);
+    show_error("Chatterbox:\n" + _string + "\n ", false);
     
-	return _string;
+    return _string;
 }
 
 /// @param string
 /// @param leading
 function __chatterbox_remove_whitespace(_string, _leading)
 {
-	global.__chatterbox_indent_size = 0;
+    global.__chatterbox_indent_size = 0;
     
-	if (_leading)
-	{
-	    var _i = 1;
-	    repeat(string_length(_string))
-	    {
-	        var _ord = ord(string_char_at(_string, _i));
-	        if (_ord  > 32) break;
-	        if (_ord == 32) global.__chatterbox_indent_size++;
-	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
-	        _i++;
-	    }
+    if (_leading)
+    {
+        var _i = 1;
+        repeat(string_length(_string))
+        {
+            var _ord = ord(string_char_at(_string, _i));
+            if (_ord  > 32) break;
+            if (_ord == 32) global.__chatterbox_indent_size++;
+            if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
+            _i++;
+        }
         
-	    return string_delete(_string, 1, _i-1);
-	}
-	else
-	{
-	    var _i = string_length(_string);
-	    repeat(string_length(_string))
-	    {
-	        var _ord = ord(string_char_at(_string, _i));
-	        if (_ord  > 32) break;
-	        if (_ord == 32) global.__chatterbox_indent_size++;
-	        if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
-	        _i--;
-	    }
+        return string_delete(_string, 1, _i-1);
+    }
+    else
+    {
+        var _i = string_length(_string);
+        repeat(string_length(_string))
+        {
+            var _ord = ord(string_char_at(_string, _i));
+            if (_ord  > 32) break;
+            if (_ord == 32) global.__chatterbox_indent_size++;
+            if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
+            _i--;
+        }
         
-	    return string_copy(_string, 1, _i);
-	}
+        return string_copy(_string, 1, _i);
+    }
 }
 
 /// @param size
