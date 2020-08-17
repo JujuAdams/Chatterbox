@@ -39,7 +39,7 @@ function __chatterbox_vm_inner(_instruction)
     {
         var _condition_failed = false;
         
-        if ((_instruction.type != "if") && variable_struct_exists(_instruction, "condition"))
+        if (!((_instruction.type == "if") || (_instruction.type == "else if")) && variable_struct_exists(_instruction, "condition"))
         {
             if (!__chatterbox_evaluate(local_scope, filename, _instruction.condition)) _condition_failed = true;
         }

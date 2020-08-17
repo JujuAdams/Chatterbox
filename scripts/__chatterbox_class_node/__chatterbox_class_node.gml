@@ -265,6 +265,7 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                     else
                     {
                         _if_stack[_if_depth].branch_reject = _instruction;
+                        _if_stack[@ _if_depth] = _instruction;
                     }
                 break;
                     
