@@ -172,4 +172,17 @@ function __chatterbox_generate_indent(_size)
     return _string;
 }
 
+/// @param array
+/// @param index
+function __chatterbox_array_delete(_array, _index)
+{
+    var _copy_size = array_length(_array) - (_index+1);
+    if ((_index < 0) || (_copy_size < 0)) throw "Index " + string(_index) + " is greater than maximum array index (" + string(array_length(_array)-1) + ")";
+    
+    var _new_array = array_create(_copy_size);
+    array_copy(_new_array, 0, _array, _index+1, _copy_size);
+    array_copy(_array, _index, _new_array, 0, _copy_size);
+    array_resize(_array, array_length(_array)-1);
+}
+
 #endregion

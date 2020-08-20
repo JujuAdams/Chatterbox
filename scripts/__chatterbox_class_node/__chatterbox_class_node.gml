@@ -238,19 +238,24 @@ function __chatterbox_compile(_substring_list, _root_instruction)
         {
             #region <<action>>   (includes if/elseif/endif)
             
-            var _content = __chatterbox_tokenize_action(_string);
-            switch(_content[0])
+            var _parsed_expression = __chatterbox_parse_expression(_string);
+            switch(_parsed_expression.instruction)
             {
+                case "set":
+                    var _instruction = new __chatterbox_class_instruction("set", _line, _indent);
+                    _instruction.expression = _parsed_expression;
+                break;
+                
                 case "if":
                     if (_previous_instruction.line == _line)
                     {
-                        _previous_instruction.condition = _content;
+                        _previous_instruction.condition = _parsed_expression;
                         //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
                     }
                     else
                     {
                         var _instruction = new __chatterbox_class_instruction("if", _line, _indent);
-                        _instruction.condition = _content;
+                        _instruction.condition = _parsed_expression;
                         _if_depth++;
                         _if_stack[@ _if_depth] = _instruction;
                     }
@@ -272,7 +277,7 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                 case "elseif":
                 case "else if":
                     var _instruction = new __chatterbox_class_instruction("else if", _line, _indent);
-                    _instruction.condition = _content;
+                    _instruction.condition = _parsed_expression;
                     if (_if_depth < 0)
                     {
                         __chatterbox_error("<<else if>> found without matching <<if>>");
@@ -297,20 +302,18 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                         _if_depth--;
                     }
                 break;
-                    
-                case "set":
-                    var _instruction = new __chatterbox_class_instruction(_content[0], _line, _indent);
-                    _instruction.expression = _content;
-                break;
                 
                 case "wait":
+                    var _instruction = new __chatterbox_class_instruction("wait", _line, _indent);
+                break;
+                
                 case "stop":
-                    var _instruction = new __chatterbox_class_instruction(_content[0], _line, _indent);
+                    var _instruction = new __chatterbox_class_instruction("stop", _line, _indent);
                 break;
                     
                 default:
                     var _instruction = new __chatterbox_class_instruction("action", _line, _indent);
-                    _instruction.expression = _content;
+                    _instruction.expression = _parsed_expression;
                 break;
             }
             
@@ -350,6 +353,365 @@ function __chatterbox_compile(_substring_list, _root_instruction)
         ++_s;
     }
 }
+
+/// @param string
+function __chatterbox_parse_expression(_string)
+{
+    _string = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false);
+    
+    if (_string == "end if")
+    {
+        if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+        return { instruction : _string };
+    }
+    else if ((_string == "wait") || (_string == "stop"))
+    {
+        return { instruction : _string };
+    }
+    
+    var _instruction = "expression";
+    if (string_copy(_string, 1, 3) == "if ")
+    {
+        _string = string_delete(_string, 1, 3);
+        _instruction = "if";
+    }
+    else if (string_copy(_string, 1, 4) == "set ")
+    {
+        _string = string_delete(_string, 1, 4);
+        _instruction = "set";
+    }
+    else if (string_copy(_string, 1, 7) == "elseif ")
+    {
+        _string = string_delete(_string, 1, 7);
+        _instruction = "elseif";
+    }
+    else if (string_copy(_string, 1, 8) == "else if ")
+    {
+        if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+    }
+    
+    var _tokens = [];
+    
+    var _buffer = buffer_create(string_byte_length(_string)+1, buffer_fixed, 1);
+    buffer_write(_buffer, buffer_string, _string);
+    
+    var _read_start   = 0;
+    var _state        = 0;
+    var _next_state   = 0;
+    var _last_byte    = 0;
+    var _new          = false;
+    var _change_state = true;
+    
+    var _b = 0;
+    repeat(buffer_get_size(_buffer))
+    {
+        var _byte = buffer_peek(_buffer, _b, buffer_u8);
+        _next_state = (_byte == 0)? -1 : 0;
+        _change_state = true;
+        _new = false;
+        
+        switch(_state)
+        {
+            case 1: //Word/Variable Name
+                #region
+                
+                if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
+                {
+                    _next_state = 1;
+                }
+                else if ((_byte >= 65) && (_byte <= 90)) //a b c...x y z
+                {
+                    _next_state = 1;
+                }
+                else if (_byte == 95) //_
+                {
+                    _next_state = 1;
+                }
+                else if ((_byte >= 97) && (_byte <= 122)) //A B C...X Y Z
+                {
+                    _next_state = 1;
+                }
+                
+                if (_state != _next_state)
+                {
+                    buffer_poke(_buffer, _b, buffer_u8, 0);
+                    buffer_seek(_buffer, buffer_seek_start, _read_start);
+                    var _read = buffer_read(_buffer, buffer_string);
+                    buffer_poke(_buffer, _b, buffer_u8, _byte);
+                    
+                    //Convert friendly humand-readable operators into symbolic operators
+                    var _is_symbol = false;
+                    switch(_read)
+                    {
+                        case "and": _read = "&&"; _is_symbol = true; break;
+                        case "le" : _read = "<";  _is_symbol = true; break;
+                        case "gt" : _read = ">";  _is_symbol = true; break;
+                        case "or" : _read = "||"; _is_symbol = true; break;
+                        case "leq": _read = "<="; _is_symbol = true; break;
+                        case "geq": _read = ">="; _is_symbol = true; break;
+                        case "eq" : _read = "=="; _is_symbol = true; break;
+                        case "is" : _read = "=="; _is_symbol = true; break;
+                        case "neq": _read = "!="; _is_symbol = true; break;
+                        case "to" : _read = "=";  _is_symbol = true; break;
+                        case "not": _read = "!";  _is_symbol = true; break;
+                    }
+                    
+                    if (_is_symbol)
+                    {
+                        __chatterbox_array_add(_tokens, { op : _read });
+                    }
+                    else
+                    {
+                        //TODO - Figure out scope here
+                        __chatterbox_array_add(_tokens, { op : "variable", name : _read, value : undefined });
+                    }
+                    
+                    _new = true;
+                }
+                
+                #endregion
+            break;
+            
+            case 2: //Quote-delimited String
+                #region
+                
+                if ((_byte == 0) || ((_byte == 34) && (_last_byte != 92))) //null "
+                {
+                    _change_state = false;
+                    
+                    if (_read_start < _b - 1)
+                    {
+                        buffer_poke(_buffer, _b, buffer_u8, 0);
+                        buffer_seek(_buffer, buffer_seek_start, _read_start+1);
+                        var _read = buffer_read(_buffer, buffer_string);
+                        buffer_poke(_buffer, _b, buffer_u8, _byte);
+                    }
+                    else
+                    {
+                        var _read = "";
+                    }
+                    
+                    __chatterbox_array_add(_tokens, _read);
+                    _new = true;
+                }
+                
+                #endregion
+            break;
+            
+            case 3: //Number
+                #region
+                
+                if (_byte == 46) //.
+                {
+                    _next_state = 3;
+                }
+                else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
+                {
+                    _next_state = 3;
+                }
+                
+                if (_state != _next_state)
+                {
+                    buffer_poke(_buffer, _b, buffer_u8, 0);
+                    buffer_seek(_buffer, buffer_seek_start, _read_start);
+                    var _read = buffer_read(_buffer, buffer_string);
+                    buffer_poke(_buffer, _b, buffer_u8, _byte);
+                    
+                    try
+                    {
+                        _read = real(_read);
+                    }
+                    catch(_error)
+                    {
+                        __chatterbox_error("Error whilst converting expression value to real\n \n(", _error, ")");
+                        return { instruction : "error", expression : {} };
+                    }
+                    
+                    __chatterbox_array_add(_tokens, _read);
+                    _new = true;
+                }
+                
+                #endregion
+            break;
+            
+            case 4: //Symbol
+                #region
+                
+                if (_byte == 61) //=
+                {
+                    if ((_last_byte == 33)  // !=
+                    ||  (_last_byte == 42)  // *=
+                    ||  (_last_byte == 43)  // +=
+                    ||  (_last_byte == 45)  // +=
+                    ||  (_last_byte == 47)  // /=
+                    ||  (_last_byte == 60)  // <=
+                    ||  (_last_byte == 61)  // ==
+                    ||  (_last_byte == 62)) // >=
+                    {
+                        _next_state = 4; //Symbol
+                    }
+                }
+                else if ((_byte == 38) && (_last_byte == 38)) //&
+                {
+                    _next_state = 4; //Symbol
+                }
+                else if ((_byte == 124) && (_last_byte == 124)) //|
+                {
+                    _next_state = 4; //Symbol
+                }
+                
+                if (_state != _next_state)
+                {
+                    buffer_poke(_buffer, _b, buffer_u8, 0);
+                    buffer_seek(_buffer, buffer_seek_start, _read_start);
+                    var _read = buffer_read(_buffer, buffer_string);
+                    buffer_poke(_buffer, _b, buffer_u8, _byte);
+                    
+                    __chatterbox_array_add(_tokens, { op : _read });
+                    _new = true;
+                }
+                
+                #endregion
+            break;
+        }
+        
+        if (_change_state && (_next_state == 0))
+        {
+            #region
+            
+            if (_byte == 33) //!
+            {
+                _next_state = 4; //Symbol
+            }
+            else if ((_byte == 34) && (_last_byte != 92)) //"
+            {
+                _next_state = 2; //Quote-delimited String
+            }
+            else if (_byte == 36) //$
+            {
+                _next_state = 1; //Word/Variable Name
+            }
+            else if ((_byte == 37) || (_byte == 38)) //% &
+            {
+                _next_state = 4; //Symbol
+            }
+            else if ((_byte == 40) || (_byte == 41)) //( )
+            {
+                _next_state = 4; //Symbol
+            }
+            else if ((_byte == 42) || (_byte == 43)) //* +
+            {
+                _next_state = 4; //Symbol
+            }
+            else if (_byte == 44) //,
+            {
+                _next_state = 4; //Symbol
+            }
+            else if (_byte == 45) //-
+            {
+                _next_state = 4; //Symbol
+            }
+            else if (_byte == 46) //.
+            {
+                _next_state = 3; //Number
+            }
+            else if (_byte == 47) // /
+            {
+                _next_state = 4; //Symbol
+            }
+            else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
+            {
+                _next_state = 3; //Number
+            }
+            else if ((_byte == 60) || (_byte == 61) || (_byte == 62)) //< = >
+            {
+                _next_state = 4; //Symbol
+            }
+            else if ((_byte >= 65) && (_byte <= 90)) //a b c...x y z
+            {
+                _next_state = 1; //Word/Variable Name
+            }
+            else if (_byte == 95) //_
+            {
+                _next_state = 1; //Word/Variable Name
+            }
+            else if ((_byte >= 97) && (_byte <= 122)) //A B C...X Y Z
+            {
+                _next_state = 1; //Word/Variable Name
+            }
+            else if (_byte == 124) // |
+            {
+                _next_state = 4; //Symbol
+            }
+            
+            #endregion
+        }
+        
+        if (_new || (_state != _next_state)) _read_start = _b;
+        _state = _next_state;
+        if (_state < 0) break;
+        _last_byte = _byte;
+        
+        ++_b;
+    }
+    
+    buffer_delete(_buffer);
+    
+    var _compiled = __chatterbox_compile_expression(_tokens);
+    
+    return { instruction : _instruction, expression : _compiled };
+}
+
+
+
+/// @param array
+/// @param operationIndex
+function __chatterbox_compile_expression(_source_array, _operation_index)
+{
+    var _op_string = _source_array[_operation_index];
+    if (_op_string == "-") //Special case for negative signs
+    {
+        if ((_operation_index == 0) || __chatterbox_string_is_symbol(_source_array[_operation_index-1]))
+        {
+            //It's a negative sign
+            exit;
+        }
+    }
+}
+
+
+
+/// @param string
+function __chatterbox_string_is_symbol(_string)
+{
+    if ((_string == "(" )
+    ||  (_string == ")" )
+    ||  (_string == "!" )
+    ||  (_string == "/=")
+    ||  (_string == "/" )
+    ||  (_string == "*=")
+    ||  (_string == "*" )
+    ||  (_string == "+" )
+    ||  (_string == "+=")
+    ||  (_string == "-" )
+    ||  (_string == "-=")
+    ||  (_string == "||")
+    ||  (_string == "&&")
+    ||  (_string == ">=")
+    ||  (_string == "<=")
+    ||  (_string == ">" )
+    ||  (_string == "<" )
+    ||  (_string == "!=")
+    ||  (_string == "==")
+    ||  (_string == "=" ))
+    {
+        return true;
+    }
+    
+    return false;
+}
+
+
 
 /// @param string
 function __chatterbox_tokenize_action(_string)
