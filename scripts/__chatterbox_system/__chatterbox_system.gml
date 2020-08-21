@@ -34,29 +34,26 @@ global.__chatterbox_findreplace_old_string = ds_list_create();
 global.__chatterbox_findreplace_new_string = ds_list_create();
 if (!variable_global_exists("__chatterbox_functions")) global.__chatterbox_functions = ds_map_create();
 
-//Big ol' list of operator dipthongs
-global.__chatterbox_op_list       = ds_list_create();
-global.__chatterbox_op_list[|  0] = "("; 
-global.__chatterbox_op_list[|  1] = "!"; 
-global.__chatterbox_op_list[|  2] = "/=";
-global.__chatterbox_op_list[|  3] = "/"; 
-global.__chatterbox_op_list[|  4] = "*=";
-global.__chatterbox_op_list[|  5] = "*"; 
-global.__chatterbox_op_list[|  6] = "+"; 
-global.__chatterbox_op_list[|  7] = "+=";
-global.__chatterbox_op_list[|  8] = "-"; 
-global.__chatterbox_op_list[|  9] = "-";  global.__chatterbox_negative_op_index = 9;
-global.__chatterbox_op_list[| 10] = "-=";
-global.__chatterbox_op_list[| 11] = "||";
-global.__chatterbox_op_list[| 12] = "&&";
-global.__chatterbox_op_list[| 13] = ">=";
-global.__chatterbox_op_list[| 14] = "<=";
-global.__chatterbox_op_list[| 15] = ">"; 
-global.__chatterbox_op_list[| 16] = "<"; 
-global.__chatterbox_op_list[| 17] = "!=";
-global.__chatterbox_op_list[| 18] = "==";
-global.__chatterbox_op_list[| 19] = "=";
-global.__chatterbox_op_count = ds_list_size(global.__chatterbox_op_list);
+//Big ol' list of operators. Operators at the top at processed first
+//Not included here are negative signs, negation (! / NOT), and parantheses - these are handled separately
+global.__chatterbox_op_list = ds_list_create();
+ds_list_add(global.__chatterbox_op_list, "/" );
+ds_list_add(global.__chatterbox_op_list, "*" );
+ds_list_add(global.__chatterbox_op_list, "+" );
+ds_list_add(global.__chatterbox_op_list, "-" );
+ds_list_add(global.__chatterbox_op_list, ">=");
+ds_list_add(global.__chatterbox_op_list, "<=");
+ds_list_add(global.__chatterbox_op_list, ">" );
+ds_list_add(global.__chatterbox_op_list, "<" );
+ds_list_add(global.__chatterbox_op_list, "!=");
+ds_list_add(global.__chatterbox_op_list, "==");
+ds_list_add(global.__chatterbox_op_list, "||");
+ds_list_add(global.__chatterbox_op_list, "&&");
+ds_list_add(global.__chatterbox_op_list, "/=");
+ds_list_add(global.__chatterbox_op_list, "*=");
+ds_list_add(global.__chatterbox_op_list, "+=");
+ds_list_add(global.__chatterbox_op_list, "-=");
+ds_list_add(global.__chatterbox_op_list, "=" );
 
 #endregion
 
