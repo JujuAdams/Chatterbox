@@ -400,7 +400,11 @@ function __chatterbox_parse_expression(_string, _action_syntax)
             case 1: //Word/Variable Name
                 #region
                 
-                if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
+                if (_byte == 46) //.
+                {
+                    _next_state = 1;
+                }
+                else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
                 {
                     _next_state = 1;
                 }
