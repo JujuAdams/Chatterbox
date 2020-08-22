@@ -236,26 +236,39 @@ function __chatterbox_compile(_substring_list, _root_instruction)
         }
         else if (_type == "action")
         {
-            #region <<action>>   (includes if/elseif/endif)
+            #region <<action>>
             
-            var _parsed_expression = __chatterbox_parse_expression(_string);
-            switch(_parsed_expression.instruction)
+            _string = __chatterbox_remove_whitespace(_string, true);
+            
+            var _pos = string_pos(" ", _string);
+            if (_pos > 0)
+            {
+                var _first_word = string_copy(_string, 1, _pos-1);
+                var _remainder = string_delete(_string, 1, _pos);
+            }
+            else
+            {
+                var _first_word = _string;
+                var _remainder = "";
+            }
+            
+            switch(_first_word)
             {
                 case "set":
                     var _instruction = new __chatterbox_class_instruction("set", _line, _indent);
-                    _instruction.expression = _parsed_expression.expression;
+                    _instruction.expression = __chatterbox_parse_expression(_remainder, false);
                 break;
                 
                 case "if":
                     if (_previous_instruction.line == _line)
                     {
-                        _previous_instruction.condition = _parsed_expression.expression;
+                        _previous_instruction.condition = __chatterbox_parse_expression(_remainder, false);
                         //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
                     }
                     else
                     {
                         var _instruction = new __chatterbox_class_instruction("if", _line, _indent);
-                        _instruction.condition = _parsed_expression.expression;
+                        _instruction.condition = __chatterbox_parse_expression(_remainder, false);
                         _if_depth++;
                         _if_stack[@ _if_depth] = _instruction;
                     }
@@ -274,10 +287,11 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                     }
                 break;
                     
-                case "elseif":
                 case "else if":
+                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                case "elseif":
                     var _instruction = new __chatterbox_class_instruction("else if", _line, _indent);
-                    _instruction.condition = _parsed_expression.expression;
+                    _instruction.condition = __chatterbox_parse_expression(_remainder, false);
                     if (_if_depth < 0)
                     {
                         __chatterbox_error("<<else if>> found without matching <<if>>");
@@ -288,9 +302,10 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                         _if_stack[@ _if_depth] = _instruction;
                     }
                 break;
-                    
-                case "endif":
+                
                 case "end if":
+                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                case "endif":
                     var _instruction = new __chatterbox_class_instruction("end if", _line, _indent);
                     if (_if_depth < 0)
                     {
@@ -313,7 +328,7 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                     
                 default:
                     var _instruction = new __chatterbox_class_instruction("action", _line, _indent);
-                    _instruction.expression = _parsed_expression.expression;
+                    _instruction.expression = __chatterbox_parse_expression(_string, true);
                 break;
             }
             
@@ -354,46 +369,12 @@ function __chatterbox_compile(_substring_list, _root_instruction)
     }
 }
 
+
+
 /// @param string
-function __chatterbox_parse_expression(_string)
+/// @param allowActionSyntax
+function __chatterbox_parse_expression(_string, _action_syntax)
 {
-    _string = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false);
-    
-    if (_string == "endif")
-    {
-        return { instruction : _string };
-    }
-    else if (_string == "end if")
-    {
-        if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
-        return { instruction : _string };
-    }
-    else if ((_string == "wait") || (_string == "stop"))
-    {
-        return { instruction : _string };
-    }
-    
-    var _instruction = "expression";
-    if (string_copy(_string, 1, 3) == "if ")
-    {
-        _string = string_delete(_string, 1, 3);
-        _instruction = "if";
-    }
-    else if (string_copy(_string, 1, 4) == "set ")
-    {
-        _string = string_delete(_string, 1, 4);
-        _instruction = "set";
-    }
-    else if (string_copy(_string, 1, 7) == "elseif ")
-    {
-        _string = string_delete(_string, 1, 7);
-        _instruction = "elseif";
-    }
-    else if (string_copy(_string, 1, 8) == "else if ")
-    {
-        if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
-    }
-    
     var _tokens = [];
     
     var _buffer = buffer_create(string_byte_length(_string)+1, buffer_fixed, 1);
@@ -595,7 +576,7 @@ function __chatterbox_parse_expression(_string)
                     catch(_error)
                     {
                         __chatterbox_error("Error whilst converting expression value to real\n \n(", _error, ")");
-                        return { instruction : "error", expression : {} };
+                        return undefined;
                     }
                     
                     __chatterbox_array_add(_tokens, _read);
@@ -731,7 +712,25 @@ function __chatterbox_parse_expression(_string)
     
     __chatterbox_compile_expression(_tokens);
     
-    return { instruction : _instruction, expression : _tokens[0] };
+    if (!_action_syntax)
+    {
+        return _tokens[0];
+    }
+    else
+    {
+        //We're using the weirdo Python-esque syntax for generic actions
+        
+        //If we've already got a function as the first operation, just return that
+        if (_tokens[0].op == "func") return _tokens[0];
+        
+        //If the first token isn't a variable (i.e. isn't something that might be a function name) then just return the first token
+        if (_tokens[0].op != "var") return _tokens[0];
+        
+        //Otherwise formulate a function operation
+        var _name = _tokens[0].name;
+        __chatterbox_array_delete(_tokens, 0, 1);
+        return { op : "func", name : _name, parameters : _tokens };
+    }
 }
 
 

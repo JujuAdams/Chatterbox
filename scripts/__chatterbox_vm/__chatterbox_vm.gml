@@ -157,36 +157,10 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "set":
+                    case "action":
+                        //Shh don't tell anyone but these use the same exact code
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
                         __chatterbox_evaluate(local_scope, filename, _instruction.expression);
-                    break;
-                    
-                    case "action":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        
-                        var _method = global.__chatterbox_functions[? _instruction.expression[0]];
-                        
-                        if (is_method(_method))
-                        {
-                            var _argument_array = array_create(array_length(_instruction.expression)-3);
-                            array_copy(_argument_array, 0, _instruction.expression, 3, array_length(_instruction.expression)-3);
-                            
-                            var _i = 0;
-                            repeat(array_length(_argument_array))
-                            {
-                                _argument_array[_i] = __chatterbox_resolve_value(local_scope, _argument_array[_i], false);
-                                _i++;
-                            }
-                            
-                            with(local_scope)
-                            {
-                                _method(_argument_array);
-                            }
-                        }
-                        else
-                        {
-                            __chatterbox_error("Action \"", _instruction.expression[0], "\" not defined with chatterbox_add_function()");
-                        }
                     break;
                     
                     case "if":
