@@ -126,11 +126,19 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
         case "!":
         case "neg":
         case "paren":
+        case "param":
             _a = __chatterbox_evaluate(_local_scope, _filename, _expression.a);
         break;
         
         case "func":
-        //TODO
+            var _parameters = _expression.parameters;
+            var _parameter_values = array_create(array_length(_parameters), undefined);
+            var _p = 0;
+            repeat(array_length(_parameters))
+            {
+                _parameter_values[@ _p] = __chatterbox_evaluate(_local_scope, _filename, _parameters[_p]);
+                ++_p;
+            }
         break;
         
         case "=":
@@ -157,23 +165,55 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
         case "!":     return !_a; break;
         case "neg":   return -_a; break;
         case "paren": return  _a; break;
+        case "param": return  _a; break;
+        
+        case "func":
+            if (_expression.name == "visited")
+            {
+                return chatterbox_visited(_parameter_values[0], _filename);
+            }
+            else
+            {
+                var _method = global.__chatterbox_functions[? _expression.name];
+                
+                if (is_method(_method))
+                {
+                    with(_local_scope) return _method(_parameter_values);
+                }
+                else
+                {
+                    __chatterbox_error("Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
+                }
+                
+                return undefined;
+            }
+        break;
         
         case "/=": _a /= _b; _set = true; break;
         case "*=": _a *= _b; _set = true; break;
         case "-=": _a -= _b; _set = true; break;
         case "+=": _a += _b; _set = true; break;
         case "=":  _a  = _b; _set = true; break;
-        
-        default: return undefined; break;
     }
     
     if (_set)
     {
-        switch(_a.scope)
+        switch(_expression.a.scope)
         {                   
-            case "internal": CHATTERBOX_VARIABLES_MAP[? _a.name] = _b; break;
-            case "local":    variable_instance_set(_local_scope, _a.name, _b); break;
-            case "global":   variable_global_set(_a.name, _b); break;
+            case "internal":
+                CHATTERBOX_VARIABLES_MAP[? _expression.a.name] = _a;
+                __chatterbox_trace("Set internal variable \"", _expression.a.name, "\" to ", _a);
+            break;
+            
+            case "local":
+                variable_instance_set(_local_scope, _expression.a.name, _a);
+                __chatterbox_trace("Set local variable \"", _expression.a.name, "\" to ", _a, " (local scope=", _local_scope, ")");
+            break;
+            
+            case "global":
+                variable_global_set(_expression.a.name, _a);
+                __chatterbox_trace("Set global variable \"", _expression.a.name, "\" to ", _a);
+            break;
         }
         
         return _a;

@@ -359,7 +359,11 @@ function __chatterbox_parse_expression(_string)
 {
     _string = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false);
     
-    if (_string == "end if")
+    if (_string == "endif")
+    {
+        return { instruction : _string };
+    }
+    else if (_string == "end if")
     {
         if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
         return { instruction : _string };
@@ -440,28 +444,39 @@ function __chatterbox_parse_expression(_string)
                     buffer_poke(_buffer, _b, buffer_u8, _byte);
                     
                     //Convert friendly humand-readable operators into symbolic operators
+                    //Also handle numeric keywords too
                     var _is_symbol = false;
+                    var _is_number = false;
                     switch(_read)
                     {
-                        case "and": _read = "&&"; _is_symbol = true; break;
-                        case "le" : _read = "<";  _is_symbol = true; break;
-                        case "gt" : _read = ">";  _is_symbol = true; break;
-                        case "or" : _read = "||"; _is_symbol = true; break;
-                        case "leq": _read = "<="; _is_symbol = true; break;
-                        case "geq": _read = ">="; _is_symbol = true; break;
-                        case "eq" : _read = "=="; _is_symbol = true; break;
-                        case "is" : _read = "=="; _is_symbol = true; break;
-                        case "neq": _read = "!="; _is_symbol = true; break;
-                        case "to" : _read = "=";  _is_symbol = true; break;
-                        case "not": _read = "!";  _is_symbol = true; break;
+                        case "and":       _read = "&&";      _is_symbol = true; break;
+                        case "le" :       _read = "<";       _is_symbol = true; break;
+                        case "gt" :       _read = ">";       _is_symbol = true; break;
+                        case "or" :       _read = "||";      _is_symbol = true; break;
+                        case "leq":       _read = "<=";      _is_symbol = true; break;
+                        case "geq":       _read = ">=";      _is_symbol = true; break;
+                        case "eq" :       _read = "==";      _is_symbol = true; break;
+                        case "is" :       _read = "==";      _is_symbol = true; break;
+                        case "neq":       _read = "!=";      _is_symbol = true; break;
+                        case "to" :       _read = "=";       _is_symbol = true; break;
+                        case "not":       _read = "!";       _is_symbol = true; break;
+                        case "true":      _read = true;      _is_number = true; break;
+                        case "false":     _read = false;     _is_number = true; break;
+                        case "undefined": _read = undefined; _is_number = true; break;
+                        case "null":      _read = undefined; _is_number = true; break;
                     }
                     
                     if (_is_symbol)
                     {
                         __chatterbox_array_add(_tokens, { op : _read });
                     }
+                    else if (_is_number)
+                    {
+                        __chatterbox_array_add(_tokens, _read);
+                    }
                     else
                     {
+                        //Parse this variable and figure out what scope we're in
                         var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
                         
                         if (string_char_at(_read, 1) == "$")
@@ -530,6 +545,10 @@ function __chatterbox_parse_expression(_string)
                     
                     __chatterbox_array_add(_tokens, _read);
                     _new = true;
+                }
+                else
+                {
+                    _next_state = 2; //Quote-delimited String
                 }
                 
                 #endregion
@@ -616,6 +635,7 @@ function __chatterbox_parse_expression(_string)
         {
             #region
             
+            //TODO - Compress this down
             if (_byte == 33) //!
             {
                 _next_state = 4; //Symbol
@@ -694,15 +714,9 @@ function __chatterbox_parse_expression(_string)
     
     buffer_delete(_buffer);
     
-    show_message(_string + "\n\n" + string(_tokens));
-    show_debug_message(_tokens);
+    __chatterbox_compile_expression(_tokens);
     
-    __chatterbox_compile_expression(_tokens, 0, array_length(_tokens)-1);
-    
-    show_message(_string + "\n\n" + string(_tokens));
-    show_debug_message(_tokens);
-    
-    return { instruction : _instruction, expression : _tokens };
+    return { instruction : _instruction, expression : _tokens[0] };
 }
 
 
@@ -710,14 +724,15 @@ function __chatterbox_parse_expression(_string)
 /// @param array
 /// @param startIndex
 /// @param endIndex
-function __chatterbox_compile_expression(_source_array, _start, _end)
+function __chatterbox_compile_expression(_source_array)
 {
-    //TODO - Handle function calls ("func" operator)
     //Handle parentheses
     var _depth = 0;
     var _open = undefined;
-    var _t = _start;
-    while(_t <= _end)
+    var _sub_expression_start = undefined;
+    var _is_function = false;
+    var _t = 0;
+    while(_t < array_length(_source_array))
     {
         var _token = _source_array[_t];
         if (is_struct(_token))
@@ -728,9 +743,34 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
                 if (_depth == 1)
                 {
                     _open = _t;
+                    _sub_expression_start = _t;
                     
-                    __chatterbox_array_delete(_source_array, _t);
-                    --_t; //Correct for token deletion
+                    if (_t > 0)
+                    {
+                        var _previous_token = _source_array[_t-1];
+                        _is_function = (_previous_token.op == "var");
+                    }
+                    else
+                    {
+                        _is_function = false;
+                    }
+                    
+                    __chatterbox_array_delete(_source_array, _open, 1);
+                    --_t;
+                }
+            }
+            else if (_token.op == ",")
+            {
+                if (_depth == 1)
+                {
+                    var _sub_array = __chatterbox_array_copy_part(_source_array, _sub_expression_start, _t - _sub_expression_start);
+                    __chatterbox_array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
+                    __chatterbox_compile_expression(_sub_array);
+                    
+                    _source_array[@ _sub_expression_start] = { op : "param", a : _sub_array[0] };
+                    
+                    _t = _sub_expression_start;
+                    ++_sub_expression_start;
                 }
             }
             else if (_token.op == ")")
@@ -738,11 +778,25 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
                 --_depth;
                 if (_depth == 0)
                 {
-                    __chatterbox_array_delete(_source_array, _t);
-                    --_t; //Correct for token deletion
+                    var _sub_array = __chatterbox_array_copy_part(_source_array, _sub_expression_start, _t - _sub_expression_start);
+                    __chatterbox_array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
+                    __chatterbox_compile_expression(_sub_array);
                     
-                    __chatterbox_compile_expression(_source_array, _open, _t);
-                    _source_array[@ _open] = { op : "paren", a : _source_array[_open] };
+                    _source_array[@ _sub_expression_start] = { op : "paren", a : _sub_array[0] };
+                    
+                    if (_is_function)
+                    {
+                        var _parameters = __chatterbox_array_copy_part(_source_array, _open, 1 + _sub_expression_start - _open);
+                        __chatterbox_array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
+                        
+                        _source_array[@ _open-1] = { op : "func", name : _source_array[_open-1].name, parameters : _parameters };
+                        
+                        _t = _open - 1;
+                    }
+                    else
+                    {
+                        _t = _open;
+                    }
                 }
             }
         }
@@ -751,8 +805,8 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
     }
     
     //Scan for negation (! / NOT)
-    var _t = _start;
-    while(_t <= _end)
+    var _t = 0;
+    while(_t < array_length(_source_array))
     {
         var _token = _source_array[_t];
         if (is_struct(_token))
@@ -760,7 +814,7 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
             if (_token.op == "!")
             {
                 _token.a = _source_array[_t+1];
-                __chatterbox_array_delete(_source_array, _t+1);
+                __chatterbox_array_delete(_source_array, _t+1, 1);
                 --_t; //Correct for token deletion
             }
         }
@@ -769,8 +823,8 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
     }
     
     //Scan for negative signs
-    var _t = _start;
-    while(_t <= _end)
+    var _t = 0;
+    while(_t < array_length(_source_array))
     {
         var _token = _source_array[_t];
         if (is_struct(_token))
@@ -778,11 +832,11 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
             if (_token.op == "-")
             {
                 //If this token was preceded by a symbol (or nothing) then it's a negative sign
-                if ((_t == _start) || (__chatterbox_string_is_symbol(_source_array[_t-1], true)))
+                if ((_t == 0) || (__chatterbox_string_is_symbol(_source_array[_t-1], true)))
                 {
                     _token.op = "neg";
                     _token.a = _source_array[_t+1];
-                    __chatterbox_array_delete(_source_array, _t+1);
+                    __chatterbox_array_delete(_source_array, _t+1, 1);
                     --_t; //Correct for token deletion
                 }
             }
@@ -796,8 +850,8 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
     {
         var _operator = global.__chatterbox_op_list[| _o];
         
-        var _t = _start;
-        while(_t <= _end)
+        var _t = 0;
+        while(_t < array_length(_source_array))
         {
             var _token = _source_array[_t];
             if (is_struct(_token))
@@ -808,8 +862,8 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
                     _token.b = _source_array[_t+1];
                     
                     //Order of operation very important here!
-                    __chatterbox_array_delete(_source_array, _t+1);
-                    __chatterbox_array_delete(_source_array, _t-1);
+                    __chatterbox_array_delete(_source_array, _t+1, 1);
+                    __chatterbox_array_delete(_source_array, _t-1, 1);
                     
                     //Correct for token deletion
                     --_t;
@@ -821,6 +875,8 @@ function __chatterbox_compile_expression(_source_array, _start, _end)
         
         ++_o;
     }
+    
+    return _source_array;
 }
 
 

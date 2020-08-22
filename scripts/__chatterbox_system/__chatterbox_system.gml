@@ -35,7 +35,7 @@ global.__chatterbox_findreplace_new_string = ds_list_create();
 if (!variable_global_exists("__chatterbox_functions")) global.__chatterbox_functions = ds_map_create();
 
 //Big ol' list of operators. Operators at the top at processed first
-//Not included here are negative signs, negation (! / NOT), and parantheses - these are handled separately
+//Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
 global.__chatterbox_op_list = ds_list_create();
 ds_list_add(global.__chatterbox_op_list, "/" );
 ds_list_add(global.__chatterbox_op_list, "*" );
@@ -171,15 +171,26 @@ function __chatterbox_generate_indent(_size)
 
 /// @param array
 /// @param index
-function __chatterbox_array_delete(_array, _index)
+/// @param count
+function __chatterbox_array_delete(_array, _index, _count)
 {
-    var _copy_size = array_length(_array) - (_index+1);
+    var _copy_size = array_length(_array) - (_index + _count);
     if ((_index < 0) || (_copy_size < 0)) throw "Index " + string(_index) + " is greater than maximum array index (" + string(array_length(_array)-1) + ")";
     
     var _new_array = array_create(_copy_size);
-    array_copy(_new_array, 0, _array, _index+1, _copy_size);
+    array_copy(_new_array, 0, _array, _index + _count, _copy_size);
     array_copy(_array, _index, _new_array, 0, _copy_size);
-    array_resize(_array, array_length(_array)-1);
+    array_resize(_array, array_length(_array) - _count);
+}
+
+/// @param array
+/// @param index
+/// @param count
+function __chatterbox_array_copy_part(_array, _index, _count)
+{
+    var _new_array = array_create(_count);
+    array_copy(_new_array, 0, _array, _index, _count);
+    return _new_array;
 }
 
 #endregion
