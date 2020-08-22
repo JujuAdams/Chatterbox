@@ -255,7 +255,8 @@ function __chatterbox_compile(_substring_list, _root_instruction)
             switch(_first_word)
             {
                 case "set":
-                    var _instruction = new __chatterbox_class_instruction("set", _line, _indent);
+                case "call":
+                    var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
                     _instruction.expression = __chatterbox_parse_expression(_remainder, false);
                 break;
                 
@@ -319,11 +320,8 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                 break;
                 
                 case "wait":
-                    var _instruction = new __chatterbox_class_instruction("wait", _line, _indent);
-                break;
-                
                 case "stop":
-                    var _instruction = new __chatterbox_class_instruction("stop", _line, _indent);
+                    var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
                 break;
                     
                 default:

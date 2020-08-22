@@ -157,6 +157,7 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "set":
+                    case "call":
                     case "action":
                         //Shh don't tell anyone but these use the same exact code
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);

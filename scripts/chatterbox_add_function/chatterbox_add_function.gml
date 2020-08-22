@@ -52,6 +52,7 @@ function chatterbox_add_function(_name, _in_function)
         case "elseif":
         case "end":
         case "set":
+        case "call":
         case "stop":
         case "wait":
         case "visited":
