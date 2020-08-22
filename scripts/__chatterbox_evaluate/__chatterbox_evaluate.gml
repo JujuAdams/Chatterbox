@@ -22,11 +22,11 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
                 {
                     if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
                     {
-                        __chatterbox_error("Internal variable \"" + _expression.name + "\" doesn't exist");
+                        __chatterbox_error("Internal variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     else
                     {
-                        __chatterbox_trace("Warning! Internal variable \"" + _expression.name + "\" doesn't exist");
+                        __chatterbox_trace("Warning! Internal variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -42,11 +42,11 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
                 {
                     if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
                     {
-                        __chatterbox_error("Local variable \"" + _expression.name + "\" doesn't exist");
+                        __chatterbox_error("Local variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     else
                     {
-                        __chatterbox_trace("Warning! Local variable \"" + _expression.name + "\" doesn't exist");
+                        __chatterbox_trace("Warning! Local variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -62,11 +62,11 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
                 {
                     if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
                     {
-                        __chatterbox_error("Global variable \"" + _expression.name + "\" doesn't exist!");
+                        __chatterbox_error("Global variable \"" + _expression.name + "\" can't be read because it doesn't exist!");
                     }
                     else
                     {
-                        __chatterbox_trace("Warning! Global variable \"" + _expression.name + "\" doesn't exist");
+                        __chatterbox_trace("Warning! Global variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
