@@ -435,35 +435,45 @@ function __chatterbox_parse_expression(_string)
                 {
                     _next_state = 1;
                 }
-                
-                if (_state != _next_state)
+                else if (_byte == 40) //(
                 {
+                    _next_state = 1;
+                }
+                
+                if ((_state != _next_state) || (_last_byte == 40)) //Cheeky hack to find functions
+                {
+                    var _is_symbol   = false;
+                    var _is_number   = false;
+                    var _is_function = (_last_byte == 40); //Cheeky hack to find functions
+                    
+                    //Just a normal keyboard/variable
                     buffer_poke(_buffer, _b, buffer_u8, 0);
                     buffer_seek(_buffer, buffer_seek_start, _read_start);
                     var _read = buffer_read(_buffer, buffer_string);
                     buffer_poke(_buffer, _b, buffer_u8, _byte);
                     
-                    //Convert friendly humand-readable operators into symbolic operators
-                    //Also handle numeric keywords too
-                    var _is_symbol = false;
-                    var _is_number = false;
-                    switch(_read)
+                    if (!_is_function)
                     {
-                        case "and":       _read = "&&";      _is_symbol = true; break;
-                        case "le" :       _read = "<";       _is_symbol = true; break;
-                        case "gt" :       _read = ">";       _is_symbol = true; break;
-                        case "or" :       _read = "||";      _is_symbol = true; break;
-                        case "leq":       _read = "<=";      _is_symbol = true; break;
-                        case "geq":       _read = ">=";      _is_symbol = true; break;
-                        case "eq" :       _read = "==";      _is_symbol = true; break;
-                        case "is" :       _read = "==";      _is_symbol = true; break;
-                        case "neq":       _read = "!=";      _is_symbol = true; break;
-                        case "to" :       _read = "=";       _is_symbol = true; break;
-                        case "not":       _read = "!";       _is_symbol = true; break;
-                        case "true":      _read = true;      _is_number = true; break;
-                        case "false":     _read = false;     _is_number = true; break;
-                        case "undefined": _read = undefined; _is_number = true; break;
-                        case "null":      _read = undefined; _is_number = true; break;
+                        //Convert friendly humand-readable operators into symbolic operators
+                        //Also handle numeric keywords too
+                        switch(_read)
+                        {
+                            case "and":       _read = "&&";      _is_symbol = true; break;
+                            case "le" :       _read = "<";       _is_symbol = true; break;
+                            case "gt" :       _read = ">";       _is_symbol = true; break;
+                            case "or" :       _read = "||";      _is_symbol = true; break;
+                            case "leq":       _read = "<=";      _is_symbol = true; break;
+                            case "geq":       _read = ">=";      _is_symbol = true; break;
+                            case "eq" :       _read = "==";      _is_symbol = true; break;
+                            case "is" :       _read = "==";      _is_symbol = true; break;
+                            case "neq":       _read = "!=";      _is_symbol = true; break;
+                            case "to" :       _read = "=";       _is_symbol = true; break;
+                            case "not":       _read = "!";       _is_symbol = true; break;
+                            case "true":      _read = true;      _is_number = true; break;
+                            case "false":     _read = false;     _is_number = true; break;
+                            case "undefined": _read = undefined; _is_number = true; break;
+                            case "null":      _read = undefined; _is_number = true; break;
+                        }
                     }
                     
                     if (_is_symbol)
@@ -473,6 +483,11 @@ function __chatterbox_parse_expression(_string)
                     else if (_is_number)
                     {
                         __chatterbox_array_add(_tokens, _read);
+                    }
+                    else if (_is_function)
+                    {
+                        _read = string_copy(_read, 1, string_length(_read)-1); //Trim off the open bracket
+                        __chatterbox_array_add(_tokens, { op : "func", name : _read });
                     }
                     else
                     {
@@ -737,26 +752,25 @@ function __chatterbox_compile_expression(_source_array)
         var _token = _source_array[_t];
         if (is_struct(_token))
         {
-            if (_token.op == "(")
+            if ((_token.op == "(") || (_token.op == "func"))
             {
                 ++_depth;
                 if (_depth == 1)
                 {
-                    _open = _t;
-                    _sub_expression_start = _t;
-                    
-                    if (_t > 0)
+                    if (_token.op == "func")
                     {
-                        var _previous_token = _source_array[_t-1];
-                        _is_function = (_previous_token.op == "var");
+                        _is_function = true;
+                        _open = _t + 1;
                     }
                     else
                     {
+                        _open = _t;
                         _is_function = false;
+                        __chatterbox_array_delete(_source_array, _open, 1);
+                        --_t;
                     }
                     
-                    __chatterbox_array_delete(_source_array, _open, 1);
-                    --_t;
+                    _sub_expression_start = _open;
                 }
             }
             else if (_token.op == ",")
@@ -789,8 +803,7 @@ function __chatterbox_compile_expression(_source_array)
                         var _parameters = __chatterbox_array_copy_part(_source_array, _open, 1 + _sub_expression_start - _open);
                         __chatterbox_array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
                         
-                        _source_array[@ _open-1] = { op : "func", name : _source_array[_open-1].name, parameters : _parameters };
-                        
+                        _source_array[_open - 1].parameters = _parameters;
                         _t = _open - 1;
                     }
                     else
