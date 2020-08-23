@@ -9,6 +9,11 @@ else if (chatterbox_is_waiting(box))
     {
         chatterbox_continue(box);
     }
+    else if (keyboard_check_pressed(ord("F")))
+    {
+        //The user can also press F to fast forward through text until they hit a choice
+        chatterbox_fast_forward(box);
+    }
 }
 else
 {

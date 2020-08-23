@@ -12,6 +12,7 @@
     {"id":{"name":"chatterbox_add_findreplace","path":"scripts/chatterbox_add_findreplace/chatterbox_add_findreplace.yy",},"order":4,},
     {"id":{"name":"__chatterbox_syntax","path":"notes/__chatterbox_syntax/__chatterbox_syntax.yy",},"order":0,},
     {"id":{"name":"__chatterbox_vm","path":"scripts/__chatterbox_vm/__chatterbox_vm.yy",},"order":4,},
+    {"id":{"name":"chatterbox_fast_forward","path":"scripts/chatterbox_fast_forward/chatterbox_fast_forward.yy",},"order":5,},
     {"id":{"name":"chatterbox_is_waiting","path":"scripts/chatterbox_is_waiting/chatterbox_is_waiting.yy",},"order":3,},
     {"id":{"name":"chatterbox_select","path":"scripts/chatterbox_select/chatterbox_select.yy",},"order":1,},
     {"id":{"name":"obj_testcase_action","path":"objects/obj_testcase_action/obj_testcase_action.yy",},"order":4,},
