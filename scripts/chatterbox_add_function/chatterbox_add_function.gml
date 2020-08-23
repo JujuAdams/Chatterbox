@@ -50,7 +50,10 @@ function chatterbox_add_function(_name, _in_function)
         case "if":
         case "else":
         case "elseif":
+        case "else if":
         case "end":
+        case "endif":
+        case "end if":
         case "set":
         case "call":
         case "stop":
