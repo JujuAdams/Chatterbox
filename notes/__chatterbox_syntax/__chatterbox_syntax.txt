@@ -149,21 +149,21 @@ Variables in Chatterbox can have their scope controlled by using prefixes:
 
     <<set global.meaning to 42>>        This will set the GM global variable "global.meaning" to the value 42.
     <<set local.shenanigans to 13>>     This will set the GM instance variable "shenanigans" to the value 13.
-    <<set internal.organelle to 7>>     This will set the internal Chatterbox variable "organelle" to the value 7.
+    <<set yarn.organelle to 7>>         This will set the internal Yarn variable "organelle" to the value 7.
 
-Internal Chatterbox variables are, in reality, key:value pairs stored in a global ds_map. You can access this ds_map via
+Internal Yarn variables are, in reality, key:value pairs stored in a global ds_map. You can access this ds_map via
 the CHATTERBOX_VARIABLES_MAP macro, found in __chatterbox_config().
 
 The Yarn specification states that all variables must begin with a $-sign. Whilst Chatterbox expands upon Yarn variables, it does still fully
 support $-prefixed variables. The scope of $-prefixed variables is determined by CHATTERBOX_NAKED_VARIABLE_SCOPE, found in __chatterbox_config().
-By default, a variable that starts with a $-sign is scoped to be an internal Chatterbox variable.
+By default, a variable that starts with a $-sign is scoped to be an internal Yarn variable.
 
-    <<set $yarnful to "okey dokey">>     This (by default) sets the internal Chatterbox variable "yarnful" to the value "okey dokey"
+    <<set $yarnful to "okey dokey">>     This (by default) sets the internal Yarn variable "yarnful" to the value "okey dokey"
 
 If a variable has no prefix then its scope is determined by CHATTERBOX_NAKED_VARIABLE_SCOPE, found in __chatterbox_config().
-By default, a variable with no prefix is scoped to be an internal Chatterbox variable.
+By default, a variable with no prefix is scoped to be an internal Yarn variable.
 
-    <<set noPrefixForMe to "oh ok">>    This (by default) sets the internal Chatterbox variable "noPrefixForMe" to the value "oh ok"
+    <<set noPrefixForMe to "oh ok">>    This (by default) sets the internal Yarn variable "noPrefixForMe" to the value "oh ok"
 
 
 

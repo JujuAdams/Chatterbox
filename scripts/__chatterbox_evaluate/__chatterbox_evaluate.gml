@@ -16,17 +16,17 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
         
         var _value = undefined;
         switch(_expression.scope)
-        {                   
-            case "internal":
+        {
+            case "yarn":
                 if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.name))
                 {
                     if (CHATTERBOX_ERROR_MISSING_VARIABLE_GET)
                     {
-                        __chatterbox_error("Internal variable \"" + _expression.name + "\" can't be read because it doesn't exist");
+                        __chatterbox_error("Yarn variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     else
                     {
-                        __chatterbox_trace("Warning! Internal variable \"" + _expression.name + "\" can't be read because it doesn't exist");
+                        __chatterbox_trace("Warning! Yarn variable \"" + _expression.name + "\" can't be read because it doesn't exist");
                     }
                     
                     _value = CHATTERBOX_DEFAULT_VARIABLE_VALUE;
@@ -200,9 +200,9 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
     {
         switch(_expression.a.scope)
         {                   
-            case "internal":
+            case "yarn":
                 CHATTERBOX_VARIABLES_MAP[? _expression.a.name] = _a;
-                __chatterbox_trace("Set internal variable \"", _expression.a.name, "\" to ", _a);
+                __chatterbox_trace("Set Yarn variable \"", _expression.a.name, "\" to ", _a);
             break;
             
             case "local":

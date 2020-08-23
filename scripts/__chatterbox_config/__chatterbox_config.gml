@@ -8,12 +8,12 @@
 #macro CHATTERBOX_DEFAULT_VARIABLE_VALUE  0  //Default value if a variable cannot be found
 
 //Legal values are strings, one of the following:
-//"internal"
+//"yarn"
 //"local"
 //"global"
 //For more information, please read "Variables & Conditionals" in __chatterbox_syntax()
-#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  "internal"  //If a variable starts if a $, what scope should it take?
-#macro CHATTERBOX_NAKED_VARIABLE_SCOPE   "internal"  //If a variable has no prefix, what scope should it take?
+#macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  "yarn"  //If a variable starts if a $, what scope should it take?
+#macro CHATTERBOX_NAKED_VARIABLE_SCOPE   "yarn"  //If a variable has no prefix, what scope should it take?
 
 #endregion
 

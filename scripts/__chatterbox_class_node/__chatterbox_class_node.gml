@@ -502,14 +502,14 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                             _scope = "local";
                             _read = string_delete(_read, 1, 6);
                         }
-                        else if (string_copy(_read, 1, 2) == "i.")
+                        else if (string_copy(_read, 1, 2) == "y.")
                         {
-                            _scope = "internal";
+                            _scope = "yarn";
                             _read = string_delete(_read, 1, 2);
                         }
-                        else if (string_copy(_read, 1, 9) == "internal.")
+                        else if (string_copy(_read, 1, 9) == "yarn.")
                         {
-                            _scope = "internal";
+                            _scope = "yarn";
                             _read = string_delete(_read, 1, 9);
                         }
                         
