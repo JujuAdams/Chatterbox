@@ -11,17 +11,20 @@
 /// 
 /// @param [filename]
 /// @param [singletonText]
+/// @param [localScope]
 
 function chatterbox_create()
 {
-    var _filename  = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
-    var _singleton = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
-    return new __chatterbox_class(_filename, _singleton);
+    var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
+    var _singleton   = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
+    var _local_scope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
+    
+    return new __chatterbox_class(_filename, _singleton, _local_scope);
 }
 
 /// @param filename
 /// @param singletonText
-function __chatterbox_class(_filename, _singleton) constructor
+function __chatterbox_class(_filename, _singleton, _local_scope) constructor
 {
     if (!is_string(_filename))
     {
@@ -35,7 +38,7 @@ function __chatterbox_class(_filename, _singleton) constructor
         return undefined;
     }
     
-    local_scope         = other;
+    local_scope         = _local_scope;
     singleton_text      = _singleton;
     filename            = _filename;
     file                = variable_struct_get(global.chatterbox_files, filename);
