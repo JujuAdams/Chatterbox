@@ -5,5 +5,6 @@
 function chatterbox_is_stopped(_chatterbox)
 {
     if (!is_chatterbox(_chatterbox)) return undefined;
+    _chatterbox.verify_is_loaded();
     return _chatterbox.stopped;
 }

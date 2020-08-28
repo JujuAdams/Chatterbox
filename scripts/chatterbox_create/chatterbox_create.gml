@@ -38,6 +38,12 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
         return undefined;
     }
     
+    if (!chatterbox_is_loaded(_filename))
+    {
+        __chatterbox_error("Could not create chatterbox because \"", _filename, "\" is not loaded");
+        return undefined;
+    }
+    
     local_scope         = _local_scope;
     singleton_text      = _singleton;
     filename            = _filename;
@@ -55,5 +61,25 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
     find_node = function(_title)
     {
         return file.find_node(_title);
+    }
+    
+    verify_is_loaded = function()
+    {
+        if (chatterbox_is_loaded(filename))
+        {
+            return true;
+        }
+        else
+        {
+            content             = [];
+            option              = [];
+            option_instruction  = [];
+            current_node        = undefined;
+            current_instruction = undefined;
+            stopped             = true;
+            waiting             = false;
+            
+            return false;
+        }
     }
 }

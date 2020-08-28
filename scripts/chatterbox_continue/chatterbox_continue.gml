@@ -6,13 +6,21 @@ function chatterbox_continue(_chatterbox)
 {
     with(_chatterbox)
     {
-        if (!waiting)
+        if (!verify_is_loaded())
         {
-            __chatterbox_error("Can't continue, provided chatterbox isn't waiting");
+            __chatterbox_error("Could not continue because \"", filename, "\" is not loaded");
             return undefined;
         }
-        
-        current_instruction = wait_instruction;
-        __chatterbox_vm();
+        else
+        {
+            if (!waiting)
+            {
+                __chatterbox_error("Can't continue, provided chatterbox isn't waiting");
+                return undefined;
+            }
+            
+            current_instruction = wait_instruction;
+            __chatterbox_vm();
+        }
     }
 }

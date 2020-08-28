@@ -4,6 +4,12 @@
 
 function chatterbox_fast_forward(_chatterbox)
 {
+    if (!_chatterbox.verify_is_loaded())
+    {
+        __chatterbox_error("Could not fast forward because \"", filename, "\" is not loaded");
+        return undefined;
+    }
+    
     if (chatterbox_is_stopped(_chatterbox))
     {
         __chatterbox_trace("Error! Chatterbox has stopped, cannot fast forward");

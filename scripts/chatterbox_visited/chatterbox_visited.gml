@@ -1,4 +1,4 @@
-/// @param name
+/// @param nodeTitle
 /// @param [filename]
 
 function chatterbox_visited()
