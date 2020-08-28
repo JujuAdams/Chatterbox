@@ -4,9 +4,14 @@
 
 function chatterbox_unload(_filename)
 {
-    if (variable_struct_exists(global.chatterbox_files, _filename))
+    var _file = variable_struct_get(global.chatterbox_files, _filename);
+    if (instanceof(_file) == "__chatterbox_class_source")
     {
-        variable_struct_set(global.chatterbox_files, _filename, undefined);
-        if (__CHATTERBOX_DEBUG_LOADER) __chatterbox_trace("\"", _filename, "\" unloaded");
+        if (_file.loaded)
+        {
+            _file.loaded = false;
+            variable_struct_set(global.chatterbox_files, _filename, undefined);
+            if (__CHATTERBOX_DEBUG_LOADER) __chatterbox_trace("\"", _filename, "\" unloaded");
+        }
     }
 }

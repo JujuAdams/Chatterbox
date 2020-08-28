@@ -55,6 +55,7 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
     current_instruction = undefined;
     stopped             = true;
     waiting             = false;
+    loaded              = true;
     wait_instruction    = undefined;
     
     /// @param nodeTitle
@@ -65,21 +66,22 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
     
     verify_is_loaded = function()
     {
-        if (chatterbox_is_loaded(filename))
+        if (!file.loaded)
         {
-            return true;
-        }
-        else
-        {
-            content             = [];
-            option              = [];
-            option_instruction  = [];
-            current_node        = undefined;
-            current_instruction = undefined;
-            stopped             = true;
-            waiting             = false;
+            if (loaded)
+            {
+                content             = [];
+                option              = [];
+                option_instruction  = [];
+                current_node        = undefined;
+                current_instruction = undefined;
+                stopped             = true;
+                waiting             = false;
+            }
             
-            return false;
+            loaded = false;
         }
+        
+        return loaded;
     }
 }

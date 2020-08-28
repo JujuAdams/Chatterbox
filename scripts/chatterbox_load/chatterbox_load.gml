@@ -6,12 +6,6 @@
 
 function chatterbox_load(_filename)
 {
-    if (variable_struct_exists(global.chatterbox_files, _filename))
-    {
-        __chatterbox_trace("\"" + _filename + "\" has already been loaded");
-        return undefined;
-    }
-    
     if (!is_string(_filename))
     {
         __chatterbox_error("Files should be loaded using their filename as a string.\n(Input was an invalid datatype)");
