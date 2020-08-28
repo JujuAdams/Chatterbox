@@ -18,10 +18,16 @@ function chatterbox_load(_filename)
         return undefined;
     }
     
-    if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _filename;
-    var _file = new __chatterbox_class_file(_filename);
-    if ((instanceof(_file) == "__chatterbox_class_file") && !is_undefined(_file.format))
+    //Fix the font directory name if it's weird
+    var _font_directory = CHATTERBOX_SOURCE_DIRECTORY;
+    var _char = string_char_at(_font_directory , string_length(_font_directory ));
+    if (_char != "\\") && (_char != "/") _font_directory += "\\";
+    
+    if (!file_exists(_font_directory + _filename))
     {
-        variable_struct_set(global.chatterbox_files, _filename, _file);
+        __chatterbox_error("\"", _filename, "\" could not be found");
+        return undefined;
     }
+    
+    return chatterbox_load_from_buffer(_filename, buffer_load(_font_directory + _filename));
 }

@@ -1,27 +1,17 @@
 /// @param filename
+/// @param buffer
 
-function __chatterbox_class_file(_filename) constructor
+function __chatterbox_class_source(_filename, _buffer) constructor
 {
     filename = _filename;
     name     = _filename;
     format   = undefined;
     nodes    = [];
     
-    //Fix the font directory name if it's weird
-    var _font_directory = CHATTERBOX_SOURCE_DIRECTORY;
-    var _char = string_char_at(_font_directory , string_length(_font_directory ));
-    if (_char != "\\") && (_char != "/") _font_directory += "\\";
-    
-    if (!file_exists(_font_directory + filename))
-    {
-        __chatterbox_error("\"", _filename, "\" could not be found");
-        return undefined;
-    }
-    
-    //Read this file in as a big string
-    var _buffer = buffer_load(_font_directory + filename);
+    var _old_tell = buffer_tell(_buffer);
+    buffer_seek(_buffer, buffer_seek_start, 0);
     var _string = buffer_read(_buffer, buffer_string);
-    buffer_delete(_buffer);
+    buffer_seek(_buffer, buffer_seek_start, _old_tell);
     
     //Try to decode the string as a JSON
     var _node_list = undefined;

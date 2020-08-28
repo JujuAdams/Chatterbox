@@ -120,7 +120,7 @@ function __chatterbox_vm_inner(_instruction)
                         else
                         {
                             var _file = variable_struct_get(global.chatterbox_files, _split.filename);
-                            if (instanceof(_file) == "__chatterbox_class_file")
+                            if (instanceof(_file) == "__chatterbox_class_source")
                             {
                                 file = _file;
                                 filename = file.filename;
