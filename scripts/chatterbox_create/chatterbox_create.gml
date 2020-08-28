@@ -70,6 +70,8 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
         {
             if (loaded)
             {
+                __chatterbox_trace("Warning! \"", filename, "\" has been unloaded, an in-progress chatterbox has been invalidated");
+                
                 content             = [];
                 option              = [];
                 option_instruction  = [];

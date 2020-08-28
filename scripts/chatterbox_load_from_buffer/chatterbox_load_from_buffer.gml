@@ -7,16 +7,17 @@
 
 function chatterbox_load_from_buffer(_filename, _buffer)
 {
-    if (variable_struct_exists(global.chatterbox_files, _filename))
-    {
-        __chatterbox_trace("\"" + _filename + "\" has already been loaded");
-        return undefined;
-    }
-    
     if (!is_string(_filename))
     {
         __chatterbox_error("Buffers should have a filename specified as a string.\n(Input was an invalid datatype)");
         return undefined;
+    }
+    
+    if (chatterbox_is_loaded(_filename))
+    {
+        //Unload what we have already if needed
+        //This will invalidate any chatterboxes that currently exist and are using the file
+        chatterbox_unload(_filename);
     }
     
     //Set our default file if we don't already have one
