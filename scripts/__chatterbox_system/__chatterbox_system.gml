@@ -25,7 +25,7 @@ if (__CHATTERBOX_ON_MOBILE && (CHATTERBOX_SOURCE_DIRECTORY != ""))
     
 //Declare global variables
 global.chatterbox_variables_map            = ds_map_create();
-global.chatterbox_files                    = {};
+global.chatterbox_files                    = ds_map_create();
 global.__chatterbox_default_file           = "";
 global.__chatterbox_indent_size            = 0;
 global.__chatterbox_scope                  = undefined;

@@ -4,7 +4,5 @@
 
 function chatterbox_is_loaded(_filename)
 {
-    var _value = variable_struct_get(global.chatterbox_files, _filename);
-    if (_value == undefined) return false;
-    return _value;
+    return ds_map_exists(global.chatterbox_files, _filename);
 }

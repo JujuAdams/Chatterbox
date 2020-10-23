@@ -4,13 +4,13 @@
 
 function chatterbox_unload(_filename)
 {
-    var _file = variable_struct_get(global.chatterbox_files, _filename);
-    if (instanceof(_file) == "__chatterbox_class_source")
+    if (ds_map_exists(global.chatterbox_files, _filename))
     {
+        var _file = global.chatterbox_files[? _filename];
         if (_file.loaded)
         {
             _file.loaded = false;
-            variable_struct_set(global.chatterbox_files, _filename, undefined);
+            ds_map_delete(global.chatterbox_files, _filename);
             if (__CHATTERBOX_DEBUG_LOADER) __chatterbox_trace("\"", _filename, "\" unloaded");
         }
     }

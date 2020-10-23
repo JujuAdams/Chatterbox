@@ -32,12 +32,6 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
         return undefined;
     }
     
-    if (!variable_struct_exists(global.chatterbox_files, _filename))
-    {
-        __chatterbox_error("\"" + _filename + "\" has not been loaded");
-        return undefined;
-    }
-    
     if (!chatterbox_is_loaded(_filename))
     {
         __chatterbox_error("Could not create chatterbox because \"", _filename, "\" is not loaded");
@@ -47,7 +41,7 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
     local_scope         = _local_scope;
     singleton_text      = _singleton;
     filename            = _filename;
-    file                = variable_struct_get(global.chatterbox_files, filename);
+    file                = global.chatterbox_files[? filename];
     content             = [];
     option              = [];
     option_instruction  = [];

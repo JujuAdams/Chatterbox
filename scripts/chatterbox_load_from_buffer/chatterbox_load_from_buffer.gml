@@ -29,6 +29,6 @@ function chatterbox_load_from_buffer(_filename, _buffer)
     //If we successfully decoded a buffer add it to our collection of chatterboxes
     if ((instanceof(_source) == "__chatterbox_class_source") && !is_undefined(_source.format))
     {
-        variable_struct_set(global.chatterbox_files, _filename, _source);
+        global.chatterbox_files[? _filename] = _source;
     }
 }
