@@ -182,7 +182,14 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
                 }
                 else
                 {
-                    __chatterbox_error("Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
+                    if (CHATTERBOX_ERROR_MISSING_FUNCTION)
+                    {
+                        __chatterbox_error("Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
+                    }
+                    else
+                    {
+                        __chatterbox_trace("Error! Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
+                    }
                 }
                 
                 return undefined;

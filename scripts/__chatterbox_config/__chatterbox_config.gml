@@ -33,5 +33,6 @@
 #macro CHATTERBOX_ERROR_INVALID_DATATYPE      true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_MISMATCHED_DATATYPE   false  //Throw an error when two values of different datatypes are being compared
 #macro CHATTERBOX_ERROR_NONSTANDARD_SYNTAX    true   //Throws an error when using a reasonable, though technically illegal, syntax e.g. <<end if>> or <<elseif>>
+#macro CHATTERBOX_ERROR_MISSING_FUNCTION      true   //Throw an error if a function name is unrecognised
 
 #endregion
