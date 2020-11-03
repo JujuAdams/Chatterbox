@@ -11,6 +11,7 @@
 //"yarn"
 //"local"
 //"global"
+//"string"
 //For more information, please read "Variables & Conditionals" in __chatterbox_syntax()
 #macro CHATTERBOX_DOLLAR_VARIABLE_SCOPE  "yarn"  //If a variable starts if a $, what scope should it take?
 #macro CHATTERBOX_NAKED_VARIABLE_SCOPE   "yarn"  //If a variable has no prefix, what scope should it take?

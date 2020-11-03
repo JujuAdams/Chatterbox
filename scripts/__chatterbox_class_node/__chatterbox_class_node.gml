@@ -513,7 +513,14 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                             _read = string_delete(_read, 1, 9);
                         }
                         
-                        __chatterbox_array_add(_tokens, { op : "var", scope : _scope, name : _read });
+                        if (_scope == "string")
+                        {
+                            __chatterbox_array_add(_tokens, _read);
+                        }
+                        else
+                        {
+                            __chatterbox_array_add(_tokens, { op : "var", scope : _scope, name : _read });
+                        }
                     }
                     
                     _new = true;
