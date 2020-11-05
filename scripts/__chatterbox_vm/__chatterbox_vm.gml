@@ -157,11 +157,21 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "set":
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
+                        __chatterbox_evaluate(local_scope, filename, _instruction.expression);
+                    break;
+                    
                     case "call":
                     case "action":
                         //Shh don't tell anyone but these use the same exact code
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        __chatterbox_evaluate(local_scope, filename, _instruction.expression);
+                        if (__chatterbox_evaluate(local_scope, filename, _instruction.expression) == "<<wait>>")
+                        {
+                            waiting = true;
+                            wait_instruction = _instruction.next;
+                            _do_next = false;
+                            if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>> (returned by function)");
+                        }
                     break;
                     
                     case "if":
