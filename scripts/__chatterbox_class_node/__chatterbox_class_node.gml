@@ -437,7 +437,7 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                     
                     if (!_is_function)
                     {
-                        //Convert friendly humand-readable operators into symbolic operators
+                        //Convert friendly human-readable operators into symbolic operators
                         //Also handle numeric keywords too
                         switch(_read)
                         {
