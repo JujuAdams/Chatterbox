@@ -321,7 +321,15 @@ function __chatterbox_compile(_substring_list, _root_instruction)
                 
                 case "wait":
                 case "stop":
-                    var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
+                    _remainder = __chatterbox_remove_whitespace(_remainder, true);
+                    if (_remainder != "")
+                    {
+                        __chatterbox_error("Cannot use arguments with <<wait>> or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                    }
+                    else
+                    {
+                        var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
+                    }
                 break;
                     
                 default:
