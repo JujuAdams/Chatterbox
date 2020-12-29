@@ -1,7 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "0.5.4"
-#macro __CHATTERBOX_DATE     "2020/11/02"
+#macro __CHATTERBOX_VERSION  "1.0.0"
+#macro __CHATTERBOX_DATE     "2020/12/29"
 
 #macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
     
