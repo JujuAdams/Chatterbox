@@ -6,6 +6,7 @@
     {"id":{"name":"chatterbox_is_loaded","path":"scripts/chatterbox_is_loaded/chatterbox_is_loaded.yy",},"order":3,},
     {"id":{"name":"chatterbox_get_option_count","path":"scripts/chatterbox_get_option_count/chatterbox_get_option_count.yy",},"order":3,},
     {"id":{"name":"chatterbox_get_option","path":"scripts/chatterbox_get_option/chatterbox_get_option.yy",},"order":2,},
+    {"id":{"name":"chatterbox_get_current","path":"scripts/chatterbox_get_current/chatterbox_get_current.yy",},"order":5,},
     {"id":{"name":"obj_testcase_stop","path":"objects/obj_testcase_stop/obj_testcase_stop.yy",},"order":5,},
     {"id":{"name":"chatterbox_load","path":"scripts/chatterbox_load/chatterbox_load.yy",},"order":0,},
     {"id":{"name":"chatterbox_create","path":"scripts/chatterbox_create/chatterbox_create.yy",},"order":3,},
