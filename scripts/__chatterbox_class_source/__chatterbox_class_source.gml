@@ -15,9 +15,16 @@ function __chatterbox_class_source(_filename, _buffer) constructor
     var _string = buffer_read(_buffer, buffer_string);
     buffer_seek(_buffer, buffer_seek_start, _old_tell);
     
+    if (os_browser != browser_not_a_browser)
+    {
+        __chatterbox_trace("Replacing tabs with spaces to work around GM's janky as f*** JSON parser");
+        _string = string_replace_all(_string, "\t", "    ");
+    }
+    
     //Try to decode the string as a JSON
     var _node_list = undefined;
     var _json = json_decode(_string);
+    
     if (_json >= 0)
     {
         var _node_list = __chatterbox_parse_json(_json);
@@ -148,6 +155,7 @@ function __chatterbox_parse_json(_json)
         }
         else
         {
+            __chatterbox_trace("Node list not found");
             _node_list = undefined;
         }
     }
