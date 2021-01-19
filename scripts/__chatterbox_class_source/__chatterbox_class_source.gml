@@ -59,7 +59,7 @@ function __chatterbox_class_source(_filename, _buffer) constructor
     ds_list_destroy(_node_list);
     
     /// @param nodeTitle
-    find_node = function(_title)
+    static find_node = function(_title)
     {
         var _i = 0;
         repeat(array_length(nodes))
@@ -71,7 +71,7 @@ function __chatterbox_class_source(_filename, _buffer) constructor
         return undefined;
     }
     
-    function toString()
+    static toString = function()
     {
         return "File " + string(filename) + " " + string(nodes);
     }
