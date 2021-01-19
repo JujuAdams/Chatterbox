@@ -2,8 +2,6 @@
 
 #macro __CHATTERBOX_VERSION  "1.1.0"
 #macro __CHATTERBOX_DATE     "2021/01/19"
-
-#macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
     
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
