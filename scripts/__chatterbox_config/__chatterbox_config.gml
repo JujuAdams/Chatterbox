@@ -2,7 +2,7 @@
 #macro CHATTERBOX_SOURCE_DIRECTORY          "Yarn"
 #macro CHATTERBOX_DEFAULT_SINGLETON         true
 #macro CHATTERBOX_ALLOW_SCRIPTS             true
-#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS  false
+#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS  true
 
 #region Variables and Scoping
 
