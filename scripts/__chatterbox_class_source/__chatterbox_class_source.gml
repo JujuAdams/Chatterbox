@@ -1,19 +1,13 @@
 /// @param filename
-/// @param buffer
+/// @param string
 
-function __chatterbox_class_source(_filename, _buffer) constructor
+function __chatterbox_class_source(_filename, _string) constructor
 {
     filename = _filename;
     name     = _filename;
     format   = undefined;
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
-    
-    //Read a string from the buffer
-    var _old_tell = buffer_tell(_buffer);
-    buffer_seek(_buffer, buffer_seek_start, 0);
-    var _string = buffer_read(_buffer, buffer_string);
-    buffer_seek(_buffer, buffer_seek_start, _old_tell);
     
     if (os_browser != browser_not_a_browser)
     {
