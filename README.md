@@ -19,6 +19,7 @@ Yarn files can be written by hand, but the best way to start with Yarn is to use
 
 &nbsp;
 
-**How do I import Chatterbox into my game?**
-
-GameMaker Studio 2.3.1 allows you to import assets, including scripts and shaders, directly into your project via the "Local Package" system. From the [Releases](https://github.com/JujuAdams/chatterbox/releases/) tab for this repo, download the .yymps file for the latest version. In the GMS2 IDE, load up your project and click on "Tools" on the main window toolbar. Select "Import Local Package" from the drop-down menu then import all scripts from the package.
+|[![About & Support](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/faq.png)](https://github.com/JujuAdams/Chatterbox/wiki/About-&-Support)|[![Features](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/features.png)](https://github.com/JujuAdams/Chatterbox/wiki/Features)|[![Functions](https://raw.githubusercontent.com/wiki/JujuAdams/scribble/images/code.png)](https://github.com/JujuAdams/Chatterbox/wiki/Function-Index)|
+|----------------------|----------------------|----------------------|
+|<p align="center">[About & Support](https://github.com/JujuAdams/Chatterbox/wiki/About-&-Support)</p>|<p align="center">[Features](https://github.com/JujuAdams/Chatterbox/wiki/Features)</p>|<p align="center">[Functions](https://github.com/JujuAdams/Chatterbox/wiki/Function-Index)</p>|
+|Who made Chatterbox and how to get help| Synopsis of Chatterbox's features | Every Chatterbox function and how to use them in common situations |
