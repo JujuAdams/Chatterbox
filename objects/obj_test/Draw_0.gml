@@ -1,3 +1,5 @@
+draw_set_font(fnt_default);
+
 //Iterate over all text and draw it
 var _x = 10;
 var _y = 10;

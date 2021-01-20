@@ -175,10 +175,70 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression)
             else
             {
                 var _method = global.__chatterbox_functions[? _expression.name];
-                
                 if (is_method(_method))
                 {
-                    with(_local_scope) return _method(_parameter_values);
+                    if (CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS)
+                    {
+                        with (_local_scope) return _method(_parameter_values);
+                    }
+                    else
+                    {
+                        // with(_local_scope) return _method(_parameter_values);
+                        switch (array_length(_parameter_values))
+                        {
+                            case 0:
+                                with(_local_scope) return _method();
+                                break;
+                            case 1:
+                                with(_local_scope) return _method(_parameter_values[0]);
+                                break;
+                            case 2:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1]);
+                                break;
+                            case 3:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2]);
+                                break;
+                            case 4:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3]);
+                                break;
+                            case 5:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4]);
+                                break;
+                            case 6:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5]);
+                                break;
+                            case 7:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6]);
+                                break;
+                            case 8:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7]);
+                                break;
+                            case 9:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8]);
+                                break;
+                            case 10:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9]);
+                                break;
+                            case 11:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9], _parameter_values[10]);
+                                break;
+                            case 12:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9], _parameter_values[10], _parameter_values[11]);
+                                break;
+                            case 13:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9], _parameter_values[10], _parameter_values[11], _parameter_values[12]);
+                                break;
+                            case 14:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9], _parameter_values[10], _parameter_values[11], _parameter_values[12], _parameter_values[13]);
+                                break;
+                            case 15:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9], _parameter_values[10], _parameter_values[11], _parameter_values[12], _parameter_values[13], _parameter_values[14]);
+                                break;
+                            case 16:
+                                with(_local_scope) return _method(_parameter_values[0], _parameter_values[1], _parameter_values[2], _parameter_values[3], _parameter_values[4], _parameter_values[5], _parameter_values[6], _parameter_values[7], _parameter_values[8], _parameter_values[9], _parameter_values[10], _parameter_values[11], _parameter_values[12], _parameter_values[13], _parameter_values[14], _parameter_values[15]);
+                                break;
+                        }
+                    }
                 }
                 else
                 {

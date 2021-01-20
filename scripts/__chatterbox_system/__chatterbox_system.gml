@@ -1,9 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "1.0.0"
-#macro __CHATTERBOX_DATE     "2020/12/29"
-
-#macro __CHATTERBOX_VARIABLE_INVALID  "__chatterbox_variable_error"
+#macro __CHATTERBOX_VERSION  "1.1.2"
+#macro __CHATTERBOX_DATE     "2021/01/20"
     
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
@@ -28,8 +26,6 @@ global.chatterbox_variables_map            = ds_map_create();
 global.chatterbox_files                    = ds_map_create();
 global.__chatterbox_default_file           = "";
 global.__chatterbox_indent_size            = 0;
-global.__chatterbox_scope                  = undefined;
-global.__chatterbox_variable_name          = __CHATTERBOX_VARIABLE_INVALID;
 global.__chatterbox_findreplace_old_string = ds_list_create();
 global.__chatterbox_findreplace_new_string = ds_list_create();
 if (!variable_global_exists("__chatterbox_functions")) global.__chatterbox_functions = ds_map_create();

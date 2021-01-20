@@ -1,7 +1,7 @@
 /// @param filename
-/// @param buffer
+/// @param string
 
-function __chatterbox_class_source(_filename, _buffer) constructor
+function __chatterbox_class_source(_filename, _string) constructor
 {
     filename = _filename;
     name     = _filename;
@@ -9,15 +9,16 @@ function __chatterbox_class_source(_filename, _buffer) constructor
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
-    //Read a string from the buffer
-    var _old_tell = buffer_tell(_buffer);
-    buffer_seek(_buffer, buffer_seek_start, 0);
-    var _string = buffer_read(_buffer, buffer_string);
-    buffer_seek(_buffer, buffer_seek_start, _old_tell);
+    if (os_browser != browser_not_a_browser)
+    {
+        __chatterbox_trace("Replacing tabs with spaces to work around GM's janky as f*** JSON parser");
+        _string = string_replace_all(_string, "\t", "    ");
+    }
     
     //Try to decode the string as a JSON
     var _node_list = undefined;
     var _json = json_decode(_string);
+    
     if (_json >= 0)
     {
         var _node_list = __chatterbox_parse_json(_json);
@@ -52,7 +53,7 @@ function __chatterbox_class_source(_filename, _buffer) constructor
     ds_list_destroy(_node_list);
     
     /// @param nodeTitle
-    find_node = function(_title)
+    static find_node = function(_title)
     {
         var _i = 0;
         repeat(array_length(nodes))
@@ -64,7 +65,7 @@ function __chatterbox_class_source(_filename, _buffer) constructor
         return undefined;
     }
     
-    function toString()
+    static toString = function()
     {
         return "File " + string(filename) + " " + string(nodes);
     }
@@ -148,6 +149,7 @@ function __chatterbox_parse_json(_json)
         }
         else
         {
+            __chatterbox_trace("Node list not found");
             _node_list = undefined;
         }
     }

@@ -116,6 +116,7 @@ function __chatterbox_vm_inner(_instruction)
                             var _next_node = find_node(_split.node);
                             _next_node.mark_visited();
                             _next = _next_node.root_instruction;
+                            current_node = _next_node;
                         }
                         else
                         {
@@ -128,6 +129,7 @@ function __chatterbox_vm_inner(_instruction)
                                 _next_node = find_node(_split.node);
                                 _next_node.mark_visited();
                                 _next = _next_node.root_instruction;
+                                current_node = _next_node;
                             }
                             else
                             {

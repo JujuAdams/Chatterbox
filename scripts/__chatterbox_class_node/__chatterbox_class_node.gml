@@ -88,7 +88,8 @@ function __chatterbox_split_body(_body)
     
     var _body_byte_length = string_byte_length(_body);
     var _body_buffer = buffer_create(_body_byte_length+1, buffer_fixed, 1);
-    buffer_poke(_body_buffer, 0, buffer_string, _body);
+    buffer_write(_body_buffer, buffer_string, _body);
+    buffer_seek(_body_buffer, buffer_seek_start, 0);
     
     var _line          = 0;
     var _first_on_line = true;
