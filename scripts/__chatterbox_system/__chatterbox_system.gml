@@ -1,7 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "1.1.1"
-#macro __CHATTERBOX_DATE     "2021/01/19"
+#macro __CHATTERBOX_VERSION  "1.1.2"
+#macro __CHATTERBOX_DATE     "2021/01/20"
     
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
