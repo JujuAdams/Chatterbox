@@ -26,23 +26,17 @@ function chatterbox_load_from_file(_filename)
     if (os_browser == browser_not_a_browser)
     {
         var _buffer = buffer_load(_font_directory + _filename);
+        return chatterbox_load_from_buffer(_filename, _buffer);
     }
     else
     {
         __chatterbox_trace("Using legacy file loading method on HTML5");
         
         var _file = file_text_open_read(_font_directory + _filename);
-        
         var _string = "";
         while(!file_text_eof(_file)) _string += file_text_readln(_file);
         file_text_close(_file);
         
-        var _buffer = buffer_create(string_byte_length(_string), buffer_fixed, 1);
-        buffer_write(_buffer, buffer_text, _string);
-        buffer_seek(_buffer, buffer_seek_start, 0);
-        
-        show_debug_message(_string);
+        return chatterbox_load_from_string(_filename, _string);
     }
-    
-    return chatterbox_load_from_buffer(_filename, _buffer);
 }
