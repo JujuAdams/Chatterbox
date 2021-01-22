@@ -3,9 +3,9 @@
 /// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax()
 ///
 /// @param filename  Name of the file to add
-/// @param [optional_alias] Alias for the filename
+/// @param [aliasName] Alias for the filename
 
-function chatterbox_load_from_file(_filename, _alias)
+function chatterbox_load_from_file(_filename, _aliasName)
 {
     if (!is_string(_filename))
     {
@@ -13,7 +13,7 @@ function chatterbox_load_from_file(_filename, _alias)
         return undefined;
     }
 	
-	if (_alias != undefined && !is_string(_alias))
+	if (_aliasName != undefined && !is_string(_aliasName))
 	{
 		__chatterbox_error("Aliases for filenames should be a string.\n(Input was an invalid datatype)");
 		return undefined;
@@ -32,9 +32,9 @@ function chatterbox_load_from_file(_filename, _alias)
     if (os_browser == browser_not_a_browser)
     {
         var _buffer = buffer_load(_font_directory + _filename);
-		if (_alias != undefined)
+		if (_aliasName != undefined)
 		{
-			return chatterbox_load_from_buffer(_alias, _buffer);
+			return chatterbox_load_from_buffer(_aliasName, _buffer);
 		}
 		else
 		{
@@ -50,9 +50,9 @@ function chatterbox_load_from_file(_filename, _alias)
         while(!file_text_eof(_file)) _string += file_text_readln(_file);
         file_text_close(_file);
         
-		if (_alias != undefined)
+		if (_aliasName != undefined)
 		{
-			return chatterbox_load_from_string(_alias, _string);
+			return chatterbox_load_from_string(_aliasName, _string);
 		}
 		else
 		{
