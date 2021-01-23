@@ -21,6 +21,15 @@ function chatterbox_select(_chatterbox, _index)
             }
             
             current_instruction = option_instruction[_index];
+            
+            //If the option directed us to another node, jump to that node
+            if (current_instruction.type == "option")
+            {
+                current_node = file.find_node(current_instruction.destination);
+                current_node.mark_visited();
+                current_instruction = current_node.root_instruction;
+            }
+            
             __chatterbox_vm();
         }
     }
