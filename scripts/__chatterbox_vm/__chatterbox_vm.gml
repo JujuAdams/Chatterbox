@@ -82,7 +82,7 @@ function __chatterbox_vm_inner(_instruction)
                         {
                             if (instanceof(_next) == "__chatterbox_class_instruction")
                             {
-                                if ((_next.type != "shortcut")
+                                if (((_next.type != "shortcut") || CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT)
                                 &&  ((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
                                 &&  (_next.type != "wait"))
                                 {
