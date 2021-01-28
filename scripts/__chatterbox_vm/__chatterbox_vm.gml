@@ -80,15 +80,27 @@ function __chatterbox_vm_inner(_instruction)
                         
                         if (singleton_text)
                         {
+                            __chatterbox_trace("text = ", _instruction.text);
+                            
                             if (instanceof(_next) == "__chatterbox_class_instruction")
                             {
+                                __chatterbox_trace("next.type = ", _next.type);
+                                
                                 if ((_next.type != "shortcut")
                                 &&  ((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
-                                &&  (_next.type != "wait"))
+                                &&  (_next.type != "wait")
+                                &&  (_next.type != "stop"))
                                 {
+                                    __chatterbox_trace("Doing wait");
+                                    
                                     waiting = true;
                                     wait_instruction = _next;
                                     _do_next = false;
+                                }
+                                
+                                if (_next.type == "stop")
+                                {
+                                    show_debug_message("!");
                                 }
                             }
                         }
@@ -133,7 +145,7 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "stop":
-                        if ((array_length(content) > 0) && (array_length(option) <= 0))
+                        if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
                         {
                             waiting = true;
                             wait_instruction = _instruction;
