@@ -87,6 +87,7 @@ function __chatterbox_vm_inner(_instruction)
                                 __chatterbox_trace("next.type = ", _next.type);
                                 
                                 if ((_next.type != "shortcut")
+                                if (((_next.type != "shortcut") || CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT)
                                 &&  ((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
                                 &&  (_next.type != "wait")
                                 &&  (_next.type != "stop"))

@@ -1,10 +1,11 @@
-#macro CHATTERBOX_VARIABLES_MAP                 global.chatterbox_variables_map
-#macro CHATTERBOX_SOURCE_DIRECTORY              "Yarn"
-#macro CHATTERBOX_DEFAULT_SINGLETON             true
-#macro CHATTERBOX_ALLOW_SCRIPTS                 true
-#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS      true
-#macro CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION  false
-#macro CHATTERBOX_WAIT_BEFORE_STOP              true
+#macro CHATTERBOX_VARIABLES_MAP                   global.chatterbox_variables_map
+#macro CHATTERBOX_SOURCE_DIRECTORY                "Yarn"
+#macro CHATTERBOX_DEFAULT_SINGLETON               true
+#macro CHATTERBOX_ALLOW_SCRIPTS                   true
+#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS        true
+#macro CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION    false
+#macro CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT  false
+#macro CHATTERBOX_WAIT_BEFORE_STOP                true
 
 #region Variables and Scoping
 
