@@ -382,14 +382,24 @@ function __chatterbox_compile(_substring_list, _root_instruction)
 /// @param allowActionSyntax
 function __chatterbox_parse_expression(_string, _action_syntax)
 {
+    enum __CHATTERBOX_TOKEN
+    {
+        NULL     = -1,
+        UNKNOWN  =  0,
+        VARIABLE =  1,
+        STRING   =  2,
+        NUMBER   =  3,
+        SYMBOL   =  4,
+    }
+    
     var _tokens = [];
     
     var _buffer = buffer_create(string_byte_length(_string)+1, buffer_fixed, 1);
     buffer_write(_buffer, buffer_string, _string);
     
     var _read_start   = 0;
-    var _state        = 0;
-    var _next_state   = 0;
+    var _state        = __CHATTERBOX_TOKEN.UNKNOWN;
+    var _next_state   = __CHATTERBOX_TOKEN.UNKNOWN;
     var _last_byte    = 0;
     var _new          = false;
     var _change_state = true;
@@ -398,38 +408,38 @@ function __chatterbox_parse_expression(_string, _action_syntax)
     repeat(buffer_get_size(_buffer))
     {
         var _byte = buffer_peek(_buffer, _b, buffer_u8);
-        _next_state = (_byte == 0)? -1 : 0;
+        _next_state = (_byte == 0)? __CHATTERBOX_TOKEN.NULL : __CHATTERBOX_TOKEN.UNKNOWN;
         _change_state = true;
         _new = false;
         
         switch(_state)
         {
-            case 1: //Word/Variable Name
+            case __CHATTERBOX_TOKEN.VARIABLE: //Word/Variable Name
                 #region
                 
                 if (_byte == 46) //.
                 {
-                    _next_state = 1;
+                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
                 }
                 else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
                 {
-                    _next_state = 1;
+                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
                 }
                 else if ((_byte >= 65) && (_byte <= 90)) //a b c...x y z
                 {
-                    _next_state = 1;
+                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
                 }
                 else if (_byte == 95) //_
                 {
-                    _next_state = 1;
+                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
                 }
                 else if ((_byte >= 97) && (_byte <= 122)) //A B C...X Y Z
                 {
-                    _next_state = 1;
+                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
                 }
                 else if (_byte == 40) //(
                 {
-                    _next_state = 1;
+                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
                 }
                 
                 if ((_state != _next_state) || (_last_byte == 40)) //Cheeky hack to find functions
@@ -533,15 +543,13 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                     }
                     
                     _new = true;
-                    
-                    //If we've created a function then the type of the next token is unknown
-                    _next_state = 0;
+                    _next_state = __CHATTERBOX_TOKEN.UNKNOWN;
                 }
                 
                 #endregion
             break;
             
-            case 2: //Quote-delimited String
+            case __CHATTERBOX_TOKEN.STRING: //Quote-delimited String
                 #region
                 
                 if ((_byte == 0) || ((_byte == 34) && (_last_byte != 92))) //null "
@@ -565,22 +573,22 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                 }
                 else
                 {
-                    _next_state = 2; //Quote-delimited String
+                    _next_state = __CHATTERBOX_TOKEN.STRING; //Quote-delimited String
                 }
                 
                 #endregion
             break;
             
-            case 3: //Number
+            case __CHATTERBOX_TOKEN.NUMBER: //Number
                 #region
                 
                 if (_byte == 46) //.
                 {
-                    _next_state = 3;
+                    _next_state = __CHATTERBOX_TOKEN.NUMBER;
                 }
                 else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
                 {
-                    _next_state = 3;
+                    _next_state = __CHATTERBOX_TOKEN.NUMBER;
                 }
                 
                 if (_state != _next_state)
@@ -607,7 +615,7 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                 #endregion
             break;
             
-            case 4: //Symbol
+            case __CHATTERBOX_TOKEN.SYMBOL: //Symbol
                 #region
                 
                 if (_byte == 61) //=
@@ -621,16 +629,16 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                     ||  (_last_byte == 61)  // ==
                     ||  (_last_byte == 62)) // >=
                     {
-                        _next_state = 4; //Symbol
+                        _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
                     }
                 }
                 else if ((_byte == 38) && (_last_byte == 38)) //&
                 {
-                    _next_state = 4; //Symbol
+                    _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
                 }
                 else if ((_byte == 124) && (_last_byte == 124)) //|
                 {
-                    _next_state = 4; //Symbol
+                    _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
                 }
                 
                 if (_state != _next_state)
@@ -648,74 +656,74 @@ function __chatterbox_parse_expression(_string, _action_syntax)
             break;
         }
         
-        if (_change_state && (_next_state == 0))
+        if (_change_state && (_next_state == __CHATTERBOX_TOKEN.UNKNOWN))
         {
             #region
             
             //TODO - Compress this down
             if (_byte == 33) //!
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if ((_byte == 34) && (_last_byte != 92)) //"
             {
-                _next_state = 2; //Quote-delimited String
+                _next_state = __CHATTERBOX_TOKEN.STRING; //Quote-delimited String
             }
             else if (_byte == 36) //$
             {
-                _next_state = 1; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
             }
             else if ((_byte == 37) || (_byte == 38)) //% &
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if ((_byte == 40) || (_byte == 41)) //( )
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if ((_byte == 42) || (_byte == 43)) //* +
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if (_byte == 44) //,
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if (_byte == 45) //-
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if (_byte == 46) //.
             {
-                _next_state = 3; //Number
+                _next_state = __CHATTERBOX_TOKEN.NUMBER; //Number
             }
             else if (_byte == 47) // /
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
             {
-                _next_state = 3; //Number
+                _next_state = __CHATTERBOX_TOKEN.NUMBER; //Number
             }
             else if ((_byte == 60) || (_byte == 61) || (_byte == 62)) //< = >
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             else if ((_byte >= 65) && (_byte <= 90)) //a b c...x y z
             {
-                _next_state = 1; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
             }
             else if (_byte == 95) //_
             {
-                _next_state = 1; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
             }
             else if ((_byte >= 97) && (_byte <= 122)) //A B C...X Y Z
             {
-                _next_state = 1; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
             }
             else if (_byte == 124) // |
             {
-                _next_state = 4; //Symbol
+                _next_state = __CHATTERBOX_TOKEN.SYMBOL; //Symbol
             }
             
             #endregion
@@ -723,7 +731,7 @@ function __chatterbox_parse_expression(_string, _action_syntax)
         
         if (_new || (_state != _next_state)) _read_start = _b;
         _state = _next_state;
-        if (_state < 0) break;
+        if (_state == __CHATTERBOX_TOKEN.NULL) break;
         _last_byte = _byte;
         
         ++_b;
