@@ -1,5 +1,5 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:170px"></p>
-<h1 align="center">1.1.2</h1>
+<h1 align="center">1.1.3</h1>
 
 <p align="center">Narrative engine for GameMaker Studio 2.3.1 by <b>@jujuadams</b></p>
 
