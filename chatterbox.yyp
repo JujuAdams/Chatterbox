@@ -15,7 +15,7 @@
     {"id":{"name":"chatterbox_load_from_buffer","path":"scripts/chatterbox_load_from_buffer/chatterbox_load_from_buffer.yy",},"order":2,},
     {"id":{"name":"chatterbox_unload","path":"scripts/chatterbox_unload/chatterbox_unload.yy",},"order":3,},
     {"id":{"name":"chatterbox_add_function","path":"scripts/chatterbox_add_function/chatterbox_add_function.yy",},"order":5,},
-    {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},"order":8,},
+    {"id":{"name":"fnt_default","path":"fonts/fnt_default/fnt_default.yy",},"order":9,},
     {"id":{"name":"chatterbox_add_findreplace","path":"scripts/chatterbox_add_findreplace/chatterbox_add_findreplace.yy",},"order":6,},
     {"id":{"name":"__chatterbox_syntax","path":"notes/__chatterbox_syntax/__chatterbox_syntax.yy",},"order":0,},
     {"id":{"name":"__chatterbox_vm","path":"scripts/__chatterbox_vm/__chatterbox_vm.yy",},"order":4,},
@@ -25,6 +25,7 @@
     {"id":{"name":"chatterbox_select","path":"scripts/chatterbox_select/chatterbox_select.yy",},"order":1,},
     {"id":{"name":"obj_testcase_action","path":"objects/obj_testcase_action/obj_testcase_action.yy",},"order":4,},
     {"id":{"name":"chatterbox_is_stopped","path":"scripts/chatterbox_is_stopped/chatterbox_is_stopped.yy",},"order":4,},
+    {"id":{"name":"obj_testcase_negate_function","path":"objects/obj_testcase_negate_function/obj_testcase_negate_function.yy",},"order":8,},
     {"id":{"name":"testcase_action_function","path":"scripts/testcase_action_function/testcase_action_function.yy",},"order":1,},
     {"id":{"name":"testcase_numeric_param_function","path":"scripts/testcase_numeric_param_function/testcase_numeric_param_function.yy",},"order":2,},
     {"id":{"name":"chatterbox_continue","path":"scripts/chatterbox_continue/chatterbox_continue.yy",},"order":2,},
@@ -38,7 +39,7 @@
     {"id":{"name":"chatterbox_visited","path":"scripts/chatterbox_visited/chatterbox_visited.yy",},"order":4,},
     {"id":{"name":"__chatterbox_class_node","path":"scripts/__chatterbox_class_node/__chatterbox_class_node.yy",},"order":2,},
     {"id":{"name":"obj_test","path":"objects/obj_test/obj_test.yy",},"order":3,},
-    {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":9,},
+    {"id":{"name":"rm_main","path":"rooms/rm_main/rm_main.yy",},"order":10,},
   ],
   "Options": [
     {"name":"Switch","path":"options/switch/options_switch.yy",},
@@ -218,6 +219,7 @@
     {"CopyToMask":-1,"filePath":"datafiles/Yarn","resourceVersion":"1.0","name":"Test2.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles/Yarn","resourceVersion":"1.0","name":"testcase_stop.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles/Yarn","resourceVersion":"1.0","name":"testcase_numeric_param.yarn","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles/Yarn","resourceVersion":"1.0","name":"testcase_negate_function.yarn","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2.3.1.542",
