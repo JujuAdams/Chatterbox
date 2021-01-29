@@ -533,6 +533,9 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                     }
                     
                     _new = true;
+                    
+                    //If we've created a function then the type of the next token is unknown
+                    _next_state = 0;
                 }
                 
                 #endregion
