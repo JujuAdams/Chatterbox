@@ -11,19 +11,11 @@ function __chatterbox_vm()
     leaving_shortcut = false;
     rejected_if      = false;
     
-    switch(current_instruction.type)
+    if (current_instruction.type == "stop")
     {
-        case "option":
-            current_node = file.find_node(current_instruction.destination);
-            current_node.mark_visited();
-            current_instruction = current_node.root_instruction;
-        break;
-        
-        case "stop":
-            stopped = true;
-            if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("STOP");
-            exit;
-        break;
+        stopped = true;
+        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("STOP");
+        return undefined;
     }
     
     __chatterbox_vm_inner(current_instruction);
@@ -90,7 +82,10 @@ function __chatterbox_vm_inner(_instruction)
                         {
                             if (instanceof(_next) == "__chatterbox_class_instruction")
                             {
-                                if ((_next.type != "shortcut") && (_next.type != "option") && (_next.type != "wait"))
+                                if (((_next.type != "shortcut") || CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT)
+                                &&  ((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
+                                &&  (_next.type != "wait")
+                                &&  (_next.type != "stop"))
                                 {
                                     waiting = true;
                                     wait_instruction = _next;
@@ -139,7 +134,7 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "stop":
-                        if ((array_length(content) > 0) && (array_length(option) <= 0))
+                        if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
                         {
                             waiting = true;
                             wait_instruction = _instruction;
