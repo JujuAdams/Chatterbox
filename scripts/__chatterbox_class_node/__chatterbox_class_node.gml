@@ -609,6 +609,7 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                     }
                     
                     __chatterbox_array_add(_tokens, _read);
+                    
                     _new = true;
                 }
                 
@@ -649,6 +650,7 @@ function __chatterbox_parse_expression(_string, _action_syntax)
                     buffer_poke(_buffer, _b, buffer_u8, _byte);
                     
                     __chatterbox_array_add(_tokens, { op : _read });
+                    
                     _new = true;
                 }
                 
@@ -856,7 +858,6 @@ function __chatterbox_compile_expression(_source_array)
             {
                 _token.a = _source_array[_t+1];
                 __chatterbox_array_delete(_source_array, _t+1, 1);
-                --_t; //Correct for token deletion
             }
         }
         
@@ -878,7 +879,6 @@ function __chatterbox_compile_expression(_source_array)
                     _token.op = "neg";
                     _token.a = _source_array[_t+1];
                     __chatterbox_array_delete(_source_array, _t+1, 1);
-                    --_t; //Correct for token deletion
                 }
             }
         }
