@@ -130,34 +130,39 @@ function __chatterbox_remove_whitespace(_string, _leading)
 {
     global.__chatterbox_indent_size = 0;
     
-    if (_leading)
+    var _result = _string;
+    
+    if ((_leading == true) || (_leading == all))
     {
         var _i = 1;
-        repeat(string_length(_string))
+        repeat(string_length(_result))
         {
-            var _ord = ord(string_char_at(_string, _i));
+            var _ord = ord(string_char_at(_result, _i));
             if (_ord  > 32) break;
             if (_ord == 32) global.__chatterbox_indent_size++;
             if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
             _i++;
         }
         
-        return string_delete(_string, 1, _i-1);
+        _result = string_delete(_result, 1, _i-1);
     }
-    else
+    
+    if ((_leading == false) || (_leading == all))
     {
-        var _i = string_length(_string);
-        repeat(string_length(_string))
+        var _i = string_length(_result);
+        repeat(string_length(_result))
         {
-            var _ord = ord(string_char_at(_string, _i));
+            var _ord = ord(string_char_at(_result, _i));
             if (_ord  > 32) break;
             if (_ord == 32) global.__chatterbox_indent_size++;
             if (_ord ==  9) global.__chatterbox_indent_size += CHATTERBOX_INDENT_TAB_SIZE;
             _i--;
         }
         
-        return string_copy(_string, 1, _i);
+        _result = string_copy(_result, 1, _i);
     }
+    
+    return _result;
 }
 
 /// @param size
