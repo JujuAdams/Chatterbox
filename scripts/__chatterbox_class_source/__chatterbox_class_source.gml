@@ -78,6 +78,9 @@ function __chatterbox_parse_yarn(_string)
 {
     var _node_list = ds_list_create();
     
+    //Remove the byte order mark at the start of the string (if we find it)
+    if (ord(string_char_at(_string, 1)) == 65279) _string = string_delete(_string, 1, 1);
+    
     _string = string_replace_all(_string, "\n\r", "\n");
     _string = string_replace_all(_string, "\r\n", "\n");
     _string = string_replace_all(_string, "\r"  , "\n");
