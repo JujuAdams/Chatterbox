@@ -5,32 +5,45 @@ function __chatterbox_class_source(_filename, _string) constructor
 {
     filename = _filename;
     name     = _filename;
+    tags     = {};
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
+    
+    __chatterbox_trace("Parsing \"", filename, "\" as a source file named \"", name, "\"");
     
     try
     {
         var _file_struct = __chatterbox_parse_yarn(_string);
     }
-    catch(_)
+    catch(_error)
     {
+        show_debug_message(_error);
         __chatterbox_error("\"" + filename + "\" could not be parsed. This source file will be ignored");
         exit;
     }
     
-    __chatterbox_trace("Processing \"", filename, "\" as a source file named \"", name, "\"");
+    tags = _file_struct.tags;
+    var _nodes_temp_array = _file_struct.nodes;
     
     //Iterate over all the nodes we found in this source file
     var _n = 0;
-    repeat(ds_list_size(_node_list))
+    repeat(array_length(_nodes_temp_array))
     {
-        var _node_map = _node_list[| _n];
-        var _node = new __chatterbox_class_node(filename, _node_map[? "title"], _node_map[? "body"]);
-        __chatterbox_array_add(nodes, _node);
+        var _node_temp_struct = _nodes_temp_array[_n];
+        
+        var _node_tags = _node_temp_struct.tags;
+        if (!variable_struct_exists(_node_tags, "title"))
+        {
+            __chatterbox_error("Node in \"", filename, "\" has no title tag");
+        }
+        else
+        {
+            var _node = new __chatterbox_class_node(filename, _node_tags.title, _node_temp_struct.body);
+            __chatterbox_array_add(nodes, _node);
+        }
+        
         _n++;
     }
-    
-    ds_list_destroy(_node_list);
     
     /// @param nodeTitle
     static find_node = function(_title)
@@ -74,16 +87,14 @@ function __chatterbox_parse_yarn(_input_string)
     }
     
     var _string_start     = buffer_tell(_buffer);
+    var _body_start       = undefined;
     var _start_of_line    = true;
     var _seen_first_node  = false;
     var _in_body          = false;
     var _line_is_file_tag = false;
     var _line_is_node_tag = false;
     
-    var _line_array  = [];
-    var _node_tags   = {};
-    var _node_struct = { tags : _node_tags, lines : _line_array };
-    array_push(_node_array, _node_struct);
+    var _node_tags = {};
     
     repeat(buffer_get_size(_buffer) - buffer_tell(_buffer))
     {
@@ -96,8 +107,9 @@ function __chatterbox_parse_yarn(_input_string)
             {
                 buffer_poke(_buffer, buffer_tell(_buffer) - 1, buffer_u8, 0x00);
                 buffer_seek(_buffer, buffer_seek_start, _string_start);
-                
                 var _string = buffer_read(_buffer, buffer_string);
+                buffer_poke(_buffer, buffer_tell(_buffer) - 1, buffer_u8, _byte);
+                
                 var _string_trimmed = __chatterbox_remove_whitespace(_string, all);
                 
                 show_debug_message(_string);
@@ -134,6 +146,7 @@ function __chatterbox_parse_yarn(_input_string)
                         else
                         {
                             _in_body = true;
+                            _body_start = buffer_tell(_buffer);
                         }
                     }
                     else if (_string_trimmed == "===") //Nodew terminator
@@ -144,12 +157,18 @@ function __chatterbox_parse_yarn(_input_string)
                         }
                         else
                         {
-                            _in_body = false;
+                            var _old_tell = buffer_tell(_buffer);
+                            buffer_poke(_buffer, _string_start, buffer_u8, 0x00);
+                            buffer_seek(_buffer, buffer_seek_start, _body_start);
+                            var _string = buffer_read(_buffer, buffer_string);
+                            buffer_poke(_buffer, _string_start, buffer_u8, _byte);
+                            buffer_seek(_buffer, buffer_seek_start, _old_tell);
                             
-                            _line_array  = [];
-                            _node_tags   = {};
-                            _node_struct = { tags : _node_tags, lines : _line_array };
+                            var _node_struct = { tags : _node_tags, body : _string };
                             array_push(_node_array, _node_struct);
+                            
+                            _in_body = false;
+                            _node_tags = {};
                         }
                     }
                     else if (!_in_body) //Treat everything in the header as key:value pairs
@@ -169,10 +188,6 @@ function __chatterbox_parse_yarn(_input_string)
                             
                             _node_tags[$ _key] = _value;
                         }
-                    }
-                    else
-                    {
-                        array_push(_line_array, _string);
                     }
                 }
             }
@@ -197,97 +212,17 @@ function __chatterbox_parse_yarn(_input_string)
         }
     }
     
-    
-    
-    
-    
     buffer_delete(_buffer);
     
-    
-    
-    ////Remove the byte order mark at the start of the string (if we find it)
-    //if (ord(string_char_at(_string, 1)) == 65279) _string = string_delete(_string, 1, 1);
-    //
-    //_string = string_replace_all(_string, "\n\r", "\n");
-    //_string = string_replace_all(_string, "\r\n", "\n");
-    //_string = string_replace_all(_string, "\r"  , "\n");
-    //_string += "\n";
-    //
-    //var _body      = "";
-    //var _title     = "";
-    //var _in_header = true;
-    //
-    //var _pos = string_pos("\n", _string);
-    //while(_pos > 0)
-    //{
-    //    var _substring = string_copy(_string, 1, _pos-1);
-    //    _string        = string_delete(_string, 1, _pos);
-    //    _pos           = string_pos("\n", _string);
-    //    
-    //    if (_in_header)
-    //    {
-    //        if (string_copy(_substring, 1, 6) == "title:")
-    //        {
-    //            _title = string_delete(_substring, 1, 6);
-    //            _title = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_title, true), false);
-    //        }
-    //        
-    //        if (string_copy(_substring, 1, 3) == "---")
-    //        {
-    //            _in_header = false;
-    //            _body = "";
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (string_copy(_substring, 1, 3) == "===")
-    //        {
-    //            var _map = ds_map_create();
-    //            _map[? "body" ] = _body;
-    //            _map[? "title"] = _title;
-    //            ds_list_add(_node_list, _map);
-    //            ds_list_mark_as_map(_node_list, ds_list_size(_node_list)-1);
-    //            
-    //            _in_header = true;
-    //            _body      = "";
-    //            _title     = "";
-    //        }
-    //        else
-    //        {
-    //            _body += _substring + "\n";
-    //        }
-    //    }
-    //}
-    
-    return _node_list;
-}
-
-/// @param JSON
-function __chatterbox_parse_json(_json)
-{
-    //Test for JSON made by the standard Yarn editor
-    var _node_list = _json[? "default"];
-    if (is_numeric(_node_list) && __CHATTERBOX_DEBUG_LOADER) __chatterbox_trace("File was made in standard Yarn editor");
-    
-    //Test for JSON made by Jacquard
-    if (!is_numeric(_node_list))
+    if (_in_body)
     {
-        var _node_list = _json[? "nodes"];
-        if (is_numeric(_node_list) && __CHATTERBOX_DEBUG_LOADER)
-        {
-            __chatterbox_trace("File was made by Jacquard");
-        }
-        else
-        {
-            __chatterbox_trace("Node list not found");
-            _node_list = undefined;
-        }
+        throw "File ended without a final body terminator (===)";
     }
     
-    //Divorce the node list from the JSON and clean up our memory
-    _json[? "default" ] = undefined;
-    _json[? "nodes"   ] = undefined;
-    ds_map_destroy(_json);
+    if (variable_struct_names_count(_node_tags) > 0)
+    {
+        throw "File ended in the middle of a node header";
+    }
     
-    return _node_list;
+    return _file_struct;
 }
