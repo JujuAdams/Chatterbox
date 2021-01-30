@@ -1,10 +1,5 @@
 title: Start
-tags: Test1, Test2, Test3
-section: Section1
-colorID: 0
-position: 534.5534057617188, 350.60845947265625
 ---
-
 This is the starting node.
 
 Calling visited("Start") should return True now, since we have visited this node.
@@ -26,13 +21,8 @@ A variable named "variable1" is now set to True, and the debug log should reflec
 We are auto-advancing to the next node, "Node1".
 
 [[Node1]]
-
 ===
 title: Node1
-tags: Test2, Test3, Test4
-section: Section_Arbitrary
-colorID: 0
-position: 856,356
 ---
 
 
@@ -66,10 +56,6 @@ The next node will use standard choice syntax.
 
 ===
 title: Node2
-tags: 
-section: Section_Secret
-colorID: 0
-position: 1131.69580078125, 400.5177917480469
 ---
 
 
@@ -83,9 +69,8 @@ Standard choice syntax test.
 ===
 title: Node3
 tags: 
-section: 
-colorID: 0
-position: 1371.5650634765625, 230.11917114257812
+colorID: 8
+position: -300,-601
 ---
 <<TestFunctionDoNotExecute>>
 
@@ -94,10 +79,6 @@ position: 1371.5650634765625, 230.11917114257812
 
 ===
 title: Node4
-tags: 
-section: 
-colorID: 0
-position: 1424.5111083984375, 555.9126892089844
 ---
 
 
@@ -106,10 +87,6 @@ position: 1424.5111083984375, 555.9126892089844
 
 ===
 title: Node5
-tags: 
-section: 
-colorID: 0
-position: 1719.0389404296875, 338.7897644042969
 ---
 
 
