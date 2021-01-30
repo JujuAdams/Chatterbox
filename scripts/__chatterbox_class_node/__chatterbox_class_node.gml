@@ -55,32 +55,6 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     }
 }
 
-/// @param buffer
-function __chatterbox_read_utf8_char(_buffer)
-{
-    var _value = buffer_read(_buffer, buffer_u8);
-    if ((_value & $E0) == $C0) //two-byte
-    {
-        _value  = (                         _value & $1F) <<  6;
-        _value += (buffer_read(_buffer, buffer_u8) & $3F);
-    }
-    else if ((_value & $F0) == $E0) //three-byte
-    {
-        _value  = (                         _value & $0F) << 12;
-        _value += (buffer_read(_buffer, buffer_u8) & $3F) <<  6;
-        _value +=  buffer_read(_buffer, buffer_u8) & $3F;
-    }
-    else if ((_value & $F8) == $F0) //four-byte
-    {
-        _value  = (                         _value & $07) << 18;
-        _value += (buffer_read(_buffer, buffer_u8) & $3F) << 12;
-        _value += (buffer_read(_buffer, buffer_u8) & $3F) <<  6;
-        _value +=  buffer_read(_buffer, buffer_u8) & $3F;
-    }
-    
-    return _value;
-}
-
 /// @param bodyString
 function __chatterbox_split_body(_body)
 {
@@ -100,6 +74,7 @@ function __chatterbox_split_body(_body)
     var _prev_value    = 0;
     var _value         = 0;
     var _next_value    = __chatterbox_read_utf8_char(_body_buffer);
+    var _in_comment    = false;
     
     repeat(_body_byte_length)
     {
@@ -117,55 +92,44 @@ function __chatterbox_split_body(_body)
             _newline     = true;
             _pop_cache   = true;
             _write_cache = false;
+            _in_comment  = false;
         }
-        else if (_value == ord(CHATTERBOX_OPTION_OPEN_DELIMITER))
+        else if (_in_comment)
         {
-            if (_next_value == ord(CHATTERBOX_OPTION_OPEN_DELIMITER))
-            {
-                _write_cache = false;
-                _pop_cache   = true;
-            }
-            else if (_prev_value == ord(CHATTERBOX_OPTION_OPEN_DELIMITER))
-            {
-                _write_cache = false;
-                _cache_type = "option";
-            }
+            _write_cache = false;
         }
-        else if (_value == ord(CHATTERBOX_OPTION_CLOSE_DELIMITER))
+        else
         {
-            if (_next_value == ord(CHATTERBOX_OPTION_CLOSE_DELIMITER))
+            if ((_prev_value != "\\") && (_value == "/") && (_next_value == "/"))
             {
-                _write_cache = false;
+                _in_comment  = true;
                 _pop_cache   = true;
-            }
-            else if (_prev_value == ord(CHATTERBOX_OPTION_CLOSE_DELIMITER))
-            {
                 _write_cache = false;
             }
-        }
-        else if (_value == ord(CHATTERBOX_ACTION_OPEN_DELIMITER))
-        {
-            if (_next_value == ord(CHATTERBOX_ACTION_OPEN_DELIMITER))
+            else if (_value == ord(__CHATTERBOX_ACTION_OPEN_DELIMITER))
             {
-                _write_cache = false;
-                _pop_cache   = true;
+                if (_next_value == ord(__CHATTERBOX_ACTION_OPEN_DELIMITER))
+                {
+                    _write_cache = false;
+                    _pop_cache   = true;
+                }
+                else if (_prev_value == ord(__CHATTERBOX_ACTION_OPEN_DELIMITER))
+                {
+                    _write_cache = false;
+                    _cache_type = "action";
+                }
             }
-            else if (_prev_value == ord(CHATTERBOX_ACTION_OPEN_DELIMITER))
+            else if (_value == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER))
             {
-                _write_cache = false;
-                _cache_type = "action";
-            }
-        }
-        else if (_value == ord(CHATTERBOX_ACTION_CLOSE_DELIMITER))
-        {
-            if (_next_value == ord(CHATTERBOX_ACTION_CLOSE_DELIMITER))
-            {
-                _write_cache = false;
-                _pop_cache   = true;
-            }
-            else if (_prev_value == ord(CHATTERBOX_ACTION_CLOSE_DELIMITER))
-            {
-                _write_cache = false;
+                if (_next_value == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER))
+                {
+                    _write_cache = false;
+                    _pop_cache   = true;
+                }
+                else if (_prev_value == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER))
+                {
+                    _write_cache = false;
+                }
             }
         }
         

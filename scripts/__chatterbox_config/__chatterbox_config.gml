@@ -27,13 +27,6 @@
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
-//These variables control which delimiters to use for [[options]] and <<actions>>
-//For compatibility with Yarn editors you probably don't want to change these
-#macro CHATTERBOX_OPTION_OPEN_DELIMITER   "["
-#macro CHATTERBOX_OPTION_CLOSE_DELIMITER  "]"
-#macro CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
-#macro CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
-
 #macro CHATTERBOX_ERROR_MISSING_VARIABLE_GET  false  //Throw an error if a variable (in any scope) is missing when getting a value
 #macro CHATTERBOX_ERROR_INVALID_DATATYPE      true   //Throw an error when a variable returns a datatype that's unsupported (usually arrays)
 #macro CHATTERBOX_ERROR_NONSTANDARD_SYNTAX    true   //Throws an error when using a reasonable, though technically illegal, syntax e.g. <<end if>> or <<elseif>>

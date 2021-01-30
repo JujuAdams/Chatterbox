@@ -112,8 +112,6 @@ function __chatterbox_parse_yarn(_input_string)
                 
                 var _string_trimmed = __chatterbox_remove_whitespace(_string, all);
                 
-                show_debug_message(_string);
-                
                 if (_line_is_file_tag || _line_is_node_tag)
                 {
                     var _colon_pos = string_pos(":", _string_trimmed);
@@ -129,6 +127,7 @@ function __chatterbox_parse_yarn(_input_string)
                         _key   = __chatterbox_remove_whitespace(_key,   all);
                         _value = __chatterbox_remove_whitespace(_value, all);
                         
+                        if (variable_struct_exists(_file_tags, _key)) __chatterbox_trace("Warning! Duplicate file tag \"", _key, "\" found");
                         _file_tags[$ _key] = _value;
                     }
                 }
@@ -186,6 +185,7 @@ function __chatterbox_parse_yarn(_input_string)
                             _key   = __chatterbox_remove_whitespace(_key,   all);
                             _value = __chatterbox_remove_whitespace(_value, all);
                             
+                            if (variable_struct_exists(_file_tags, _key)) __chatterbox_trace("Warning! Duplicate node tag found \"", _key, "\"");
                             _node_tags[$ _key] = _value;
                         }
                     }
@@ -212,12 +212,24 @@ function __chatterbox_parse_yarn(_input_string)
         }
     }
     
-    buffer_delete(_buffer);
-    
     if (_in_body)
     {
-        throw "File ended without a final body terminator (===)";
+        __chatterbox_trace("Warning! File ended without a final body terminator (===)");
+        
+        var _old_tell = buffer_tell(_buffer);
+        buffer_poke(_buffer, _string_start, buffer_u8, 0x00);
+        buffer_seek(_buffer, buffer_seek_start, _body_start);
+        var _string = buffer_read(_buffer, buffer_string);
+        buffer_poke(_buffer, _string_start, buffer_u8, _byte);
+        buffer_seek(_buffer, buffer_seek_start, _old_tell);
+        
+        var _node_struct = { tags : _node_tags, body : _string };
+        array_push(_node_array, _node_struct);
+        
+        _node_tags = {};
     }
+    
+    buffer_delete(_buffer);
     
     if (variable_struct_names_count(_node_tags) > 0)
     {

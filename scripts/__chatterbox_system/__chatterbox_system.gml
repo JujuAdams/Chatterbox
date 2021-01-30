@@ -8,6 +8,11 @@
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
 #macro __CHATTERBOX_DEBUG_VM        false
+
+//These macros control which delimiters to use for <<actions>>
+//You probably don't want to change these
+#macro __CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
+#macro __CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
     
 #endregion
 
@@ -195,6 +200,32 @@ function __chatterbox_array_copy_part(_array, _index, _count)
     var _new_array = array_create(_count);
     array_copy(_new_array, 0, _array, _index, _count);
     return _new_array;
+}
+
+/// @param buffer
+function __chatterbox_read_utf8_char(_buffer)
+{
+    var _value = buffer_read(_buffer, buffer_u8);
+    if ((_value & $E0) == $C0) //two-byte
+    {
+        _value  = (                         _value & $1F) <<  6;
+        _value += (buffer_read(_buffer, buffer_u8) & $3F);
+    }
+    else if ((_value & $F0) == $E0) //three-byte
+    {
+        _value  = (                         _value & $0F) << 12;
+        _value += (buffer_read(_buffer, buffer_u8) & $3F) <<  6;
+        _value +=  buffer_read(_buffer, buffer_u8) & $3F;
+    }
+    else if ((_value & $F8) == $F0) //four-byte
+    {
+        _value  = (                         _value & $07) << 18;
+        _value += (buffer_read(_buffer, buffer_u8) & $3F) << 12;
+        _value += (buffer_read(_buffer, buffer_u8) & $3F) <<  6;
+        _value +=  buffer_read(_buffer, buffer_u8) & $3F;
+    }
+    
+    return _value;
 }
 
 #endregion
