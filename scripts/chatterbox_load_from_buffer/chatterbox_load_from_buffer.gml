@@ -33,7 +33,7 @@ function chatterbox_load_from_buffer(_filename, _buffer)
     var _source = new __chatterbox_class_source(_filename, _string);
     
     //If we successfully decoded a buffer add it to our collection of chatterboxes
-    if ((instanceof(_source) == "__chatterbox_class_source") && !is_undefined(_source.format))
+    if ((instanceof(_source) == "__chatterbox_class_source") && _source.loaded)
     {
         global.chatterbox_files[? _filename] = _source;
     }

@@ -5,40 +5,20 @@ function __chatterbox_class_source(_filename, _string) constructor
 {
     filename = _filename;
     name     = _filename;
-    format   = undefined;
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
-    if (os_browser != browser_not_a_browser)
+    try
     {
-        __chatterbox_trace("Replacing tabs with spaces to work around GM's janky as f*** JSON parser");
-        _string = string_replace_all(_string, "\t", "    ");
+        var _file_struct = __chatterbox_parse_yarn(_string);
+    }
+    catch(_)
+    {
+        __chatterbox_error("\"" + filename + "\" could not be parsed. This source file will be ignored");
+        exit;
     }
     
-    //Try to decode the string as a JSON
-    var _node_list = undefined;
-    var _json = json_decode(_string);
-    
-    if (_json >= 0)
-    {
-        var _node_list = __chatterbox_parse_json(_json);
-        if (is_numeric(_node_list)) format = "json";
-    }
-    
-    if (is_undefined(_node_list))
-    {
-        var _node_list = __chatterbox_parse_yarn(_string);
-        format = "yarn";
-    }
-    
-    //If both of these fail, it's some wacky JSON that we don't recognise
-    if (_node_list == undefined)
-    {
-        __chatterbox_error("File format for \"" + filename + "\" is unrecognised.\nThis source file will be ignored");
-        return undefined;
-    }
-    
-    __chatterbox_trace("Processing \"", filename, "\" as a source file named \"", name, "\" (format=\"", format, "\")");
+    __chatterbox_trace("Processing \"", filename, "\" as a source file named \"", name, "\"");
     
     //Iterate over all the nodes we found in this source file
     var _n = 0;
