@@ -1,6 +1,6 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "1.1.3"
+#macro __CHATTERBOX_VERSION  "2.x.x"
 #macro __CHATTERBOX_DATE     "2021/01/29"
     
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
@@ -33,22 +33,25 @@ if (!variable_global_exists("__chatterbox_functions")) global.__chatterbox_funct
 //Big ol' list of operators. Operators at the top at processed first
 //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
 global.__chatterbox_op_list = ds_list_create();
-ds_list_add(global.__chatterbox_op_list, "/" );
-ds_list_add(global.__chatterbox_op_list, "*" );
 ds_list_add(global.__chatterbox_op_list, "+" );
 ds_list_add(global.__chatterbox_op_list, "-" );
-ds_list_add(global.__chatterbox_op_list, ">=");
-ds_list_add(global.__chatterbox_op_list, "<=");
+ds_list_add(global.__chatterbox_op_list, "*" );
+ds_list_add(global.__chatterbox_op_list, "/" );
+ds_list_add(global.__chatterbox_op_list, "%" );
+ds_list_add(global.__chatterbox_op_list, "==");
+ds_list_add(global.__chatterbox_op_list, "!=");
 ds_list_add(global.__chatterbox_op_list, ">" );
 ds_list_add(global.__chatterbox_op_list, "<" );
-ds_list_add(global.__chatterbox_op_list, "!=");
-ds_list_add(global.__chatterbox_op_list, "==");
+ds_list_add(global.__chatterbox_op_list, ">=");
+ds_list_add(global.__chatterbox_op_list, "<=");
 ds_list_add(global.__chatterbox_op_list, "||");
 ds_list_add(global.__chatterbox_op_list, "&&");
-ds_list_add(global.__chatterbox_op_list, "/=");
-ds_list_add(global.__chatterbox_op_list, "*=");
+ds_list_add(global.__chatterbox_op_list, "^^");
+ds_list_add(global.__chatterbox_op_list, "^" );
 ds_list_add(global.__chatterbox_op_list, "+=");
 ds_list_add(global.__chatterbox_op_list, "-=");
+ds_list_add(global.__chatterbox_op_list, "*=");
+ds_list_add(global.__chatterbox_op_list, "/=");
 ds_list_add(global.__chatterbox_op_list, "=" );
 
 #endregion
