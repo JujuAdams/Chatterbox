@@ -102,7 +102,7 @@ function __chatterbox_vm_inner(_instruction)
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>>");
                     break;
                     
-                    case "goto":
+                    case "jump":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "[goto ", _instruction.destination, "]");
                         
                         var _split = __chatterbox_split_goto(_instruction.destination);
@@ -159,7 +159,7 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "call":
-                    case "action":
+                    case "command":
                         //Shh don't tell anyone but these use the same exact code
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
                         if (__chatterbox_evaluate(local_scope, filename, _instruction.expression) == "<<wait>>")

@@ -1,0 +1,26 @@
+title: Start
+---
+Going to A
+<<jump A>>
+===
+
+title: A
+---
+Going to B?
+-> Sure
+    <<jump B>>
+===
+
+title: B
+---
+Would you like to go to C?
+-> Ok
+    <<jump C>>
+-> No thanks
+===
+
+title: C
+---
+Welcome to C!
+<<jump Start>>
+===

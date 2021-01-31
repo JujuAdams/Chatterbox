@@ -136,7 +136,7 @@ function __chatterbox_split_body(_body)
                 else if (_prev_value == ord(__CHATTERBOX_ACTION_OPEN_DELIMITER))
                 {
                     _write_cache = false;
-                    _cache_type = "action";
+                    _cache_type = "command";
                 }
             }
             else if (_value == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER))
@@ -190,7 +190,7 @@ function __chatterbox_split_body(_body)
     
     buffer_delete(_body_buffer);
     
-    array_push(_in_substring_array, ["stop", "action", _line, 0]);
+    array_push(_in_substring_array, ["stop", "command", _line, 0]);
     return _in_substring_array;
 }
 
@@ -224,9 +224,9 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             var _instruction = new __chatterbox_class_instruction("shortcut", _line, _indent);
             _instruction.text = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true), false);
         }
-        else if (_type == "action")
+        else if (_type == "command")
         {
-            #region <<action>>
+            #region <<command>>
             
             _string = __chatterbox_remove_whitespace(_string, true);
             
@@ -244,10 +244,17 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             
             switch(_first_word)
             {
+                case "declare":
+                break;
+                
                 case "set":
-                case "call":
                     var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
                     _instruction.expression = __chatterbox_parse_expression(_remainder, false);
+                break;
+                
+                case "jump":
+                    var _instruction = new __chatterbox_class_instruction("jump", _line, _indent);
+                    _instruction.destination = __chatterbox_remove_whitespace(_remainder, all);
                 break;
                 
                 case "if":
@@ -323,28 +330,9 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                 break;
                     
                 default:
-                    var _instruction = new __chatterbox_class_instruction("action", _line, _indent);
+                    var _instruction = new __chatterbox_class_instruction("command", _line, _indent);
                     _instruction.expression = __chatterbox_parse_expression(_string, true);
                 break;
-            }
-            
-            #endregion
-        }
-        else if (_type == "option")
-        {
-            #region [[option]]
-            
-            var _pos = string_pos("|", _string);
-            if (_pos < 1)
-            {
-                var _instruction = new __chatterbox_class_instruction("goto", _line, _indent);
-                _instruction.destination = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(_string, true), false);
-            }
-            else
-            {
-                var _instruction = new __chatterbox_class_instruction("option", _line, _indent);
-                _instruction.text = __chatterbox_remove_whitespace(string_copy(_string, 1, _pos-1), false);
-                _instruction.destination = __chatterbox_remove_whitespace(string_delete(_string, 1, _pos), true);
             }
             
             #endregion
@@ -385,6 +373,8 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
         
         ++_s;
     }
+    
+    show_debug_message("!");
 }
 
 
