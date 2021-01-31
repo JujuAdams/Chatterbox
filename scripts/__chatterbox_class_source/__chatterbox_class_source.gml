@@ -93,6 +93,7 @@ function __chatterbox_parse_yarn(_input_string)
     var _in_body          = false;
     var _line_is_file_tag = false;
     var _line_is_node_tag = false;
+    var _in_comment       = false;
     
     var _node_tags = {};
     
@@ -101,9 +102,11 @@ function __chatterbox_parse_yarn(_input_string)
         var _byte = buffer_read(_buffer, buffer_u8);
         if (_byte == 0x00) break;
         
-        if ((_byte == 10) || (_byte == 13))
+        var _entered_comment = (!_in_comment && (_byte == 47) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == 47));
+        
+        if ((_byte == 10) || (_byte == 13) || _entered_comment)
         {
-            if (buffer_tell(_buffer) > _string_start + 1)
+            if (!_in_comment && (buffer_tell(_buffer) > _string_start + 1))
             {
                 buffer_poke(_buffer, buffer_tell(_buffer) - 1, buffer_u8, 0x00);
                 buffer_seek(_buffer, buffer_seek_start, _string_start);
@@ -192,22 +195,28 @@ function __chatterbox_parse_yarn(_input_string)
                 }
             }
             
+            _in_comment = _entered_comment;
+            _entered_comment = false;
+            
             _string_start     = buffer_tell(_buffer);
             _start_of_line    = true;
             _line_is_file_tag = false;
             _line_is_node_tag = false;
         }
-        else if (_start_of_line && !_seen_first_node)
+        else if (!_in_comment)
         {
-            if (_byte == 35)
+            if (_start_of_line && !_seen_first_node)
             {
-                _line_is_file_tag = true;
-                _string_start = buffer_tell(_buffer);
-                _start_of_line = false;
-            }
-            else if (_byte > 32)
-            {
-                _start_of_line = false;
+                if (_byte == 35)
+                {
+                    _line_is_file_tag = true;
+                    _string_start = buffer_tell(_buffer);
+                    _start_of_line = false;
+                }
+                else if (_byte > 32)
+                {
+                    _start_of_line = false;
+                }
             }
         }
     }
