@@ -25,8 +25,8 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "chatterbox",
-    "path": "chatterbox.yyp",
+    "name": "Test Cases",
+    "path": "folders/Test Cases.yy",
   },
   "resourceVersion": "1.0",
   "name": "obj_testcase_negate_function",

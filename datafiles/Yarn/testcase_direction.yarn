@@ -1,0 +1,8 @@
+title: Start
+---
+First line
+<<direction text>>
+Uhuh...
+<<declare $variableTest = "an expression">>
+<<direction text with {$variableTest}>>
+===

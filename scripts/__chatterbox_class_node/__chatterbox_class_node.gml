@@ -32,6 +32,9 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     var _substring_array = __chatterbox_split_body(_work_string);
     __chatterbox_compile(_substring_array, root_instruction);
     
+    var _root_instruction = root_instruction;
+    
+    
     function mark_visited()
     {
         var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
@@ -245,6 +248,8 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             switch(_first_word)
             {
                 case "declare":
+                    var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
+                    _instruction.expression = __chatterbox_parse_expression(_remainder, true);
                 break;
                 
                 case "set":
@@ -330,8 +335,11 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                 break;
                     
                 default:
-                    var _instruction = new __chatterbox_class_instruction("command", _line, _indent);
-                    _instruction.expression = __chatterbox_parse_expression(_string, true);
+                    var _instruction = new __chatterbox_class_instruction("direction", _line, _indent);
+                    _instruction.text = _string;
+                    
+                    //var _instruction = new __chatterbox_class_instruction("command", _line, _indent);
+                    //_instruction.expression = __chatterbox_parse_expression(_string, true);
                 break;
             }
             

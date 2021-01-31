@@ -33,7 +33,7 @@ function __chatterbox_vm_inner(_instruction)
         
         if (!((_instruction.type == "if") || (_instruction.type == "else if")) && variable_struct_exists(_instruction, "condition"))
         {
-            if (!__chatterbox_evaluate(local_scope, filename, _instruction.condition)) _condition_failed = true;
+            if (!__chatterbox_evaluate(local_scope, filename, _instruction.condition, false)) _condition_failed = true;
         }
         
         if (!_condition_failed)
@@ -153,28 +153,41 @@ function __chatterbox_vm_inner(_instruction)
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<shortcut end>>");
                     break;
                     
-                    case "set":
+                    case "declare":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        __chatterbox_evaluate(local_scope, filename, _instruction.expression);
+                        __chatterbox_evaluate(local_scope, filename, _instruction.expression, true);
                     break;
                     
-                    case "call":
-                    case "command":
-                        //Shh don't tell anyone but these use the same exact code
+                    case "set":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        if (__chatterbox_evaluate(local_scope, filename, _instruction.expression) == "<<wait>>")
+                        __chatterbox_evaluate(local_scope, filename, _instruction.expression, false);
+                    break;
+                    
+                    case "direction":
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
+                        
+                        if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
                         {
-                            waiting = true;
-                            wait_instruction = _instruction.next;
-                            _do_next = false;
-                            if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>> (returned by function)");
+                            CHATTERBOX_DIRECTION_FUNCTION(_instruction.text);
                         }
+                        else if (is_numeric(CHATTERBOX_DIRECTION_FUNCTION) && script_exists(CHATTERBOX_DIRECTION_FUNCTION))
+                        {
+                            script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text);
+                        }
+                        
+                        //if (__chatterbox_evaluate(local_scope, filename, _instruction.expression, false) == "<<wait>>")
+                        //{
+                        //    waiting = true;
+                        //    wait_instruction = _instruction.next;
+                        //    _do_next = false;
+                        //    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>> (returned by function)");
+                        //}
                     break;
                     
                     case "if":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<if>> ", _instruction.condition);
                         
-                        if (__chatterbox_evaluate(local_scope, filename, _instruction.condition))
+                        if (__chatterbox_evaluate(local_scope, filename, _instruction.condition, false))
                         {
                             rejected_if = false;
                         }
@@ -197,7 +210,7 @@ function __chatterbox_vm_inner(_instruction)
                     case "else if":
                         if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<else if>> ", _instruction.condition);
                         
-                        if (rejected_if && __chatterbox_evaluate(local_scope, filename, _instruction.condition))
+                        if (rejected_if && __chatterbox_evaluate(local_scope, filename, _instruction.condition, false))
                         {
                             rejected_if = false;
                         }

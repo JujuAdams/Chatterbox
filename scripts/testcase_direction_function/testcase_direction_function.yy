@@ -6,7 +6,7 @@
     "path": "folders/Test Cases.yy",
   },
   "resourceVersion": "1.0",
-  "name": "testcase_numeric_param_function",
+  "name": "testcase_direction_function",
   "tags": [],
   "resourceType": "GMScript",
 }

@@ -228,4 +228,24 @@ function __chatterbox_read_utf8_char(_buffer)
     return _value;
 }
 
+function __chatterbox_readable_value(_value)
+{
+    if (is_string(_value))
+    {
+        return "\"" + _value + "\"";
+    }
+    else if (is_undefined(_value))
+    {
+        return "<undefined>";
+    }
+    else if (is_bool(_value))
+    {
+        return _value? "<true>" : "<false>";
+    }
+    else
+    {
+        return string(_value);
+    }
+}
+
 #endregion
