@@ -35,7 +35,7 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     var _root_instruction = root_instruction;
     
     
-    function mark_visited()
+    static mark_visited = function()
     {
         var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
         
