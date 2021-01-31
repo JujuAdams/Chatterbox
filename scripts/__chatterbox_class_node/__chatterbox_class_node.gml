@@ -29,10 +29,8 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     //Add a trailing newline to make sure we parse correctly
     _work_string += "\n";
     
-    var _substring_list = __chatterbox_split_body(_work_string);
-    __chatterbox_compile(_substring_list, root_instruction);
-    
-    ds_list_destroy(_substring_list);
+    var _substring_array = __chatterbox_split_body(_work_string);
+    __chatterbox_compile(_substring_array, root_instruction);
     
     function mark_visited()
     {
@@ -58,7 +56,7 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
 /// @param bodyString
 function __chatterbox_split_body(_body)
 {
-    var _body_substring_list = ds_list_create();
+    var _in_substring_array = [];
     
     var _body_byte_length = string_byte_length(_body);
     var _body_buffer = buffer_create(_body_byte_length+1, buffer_fixed, 1);
@@ -75,6 +73,7 @@ function __chatterbox_split_body(_body)
     var _value         = 0;
     var _next_value    = __chatterbox_read_utf8_char(_body_buffer);
     var _in_comment    = false;
+    var _in_metadata   = false;
     
     repeat(_body_byte_length)
     {
@@ -93,14 +92,35 @@ function __chatterbox_split_body(_body)
             _pop_cache   = true;
             _write_cache = false;
             _in_comment  = false;
+            _in_metadata = false;
         }
         else if (_in_comment)
         {
             _write_cache = false;
         }
+        else if (_in_metadata)
+        {
+            if ((_value == ord("/")) && (_next_value == ord("/")))
+            {
+                _in_comment  = true;
+                _pop_cache   = true;
+                _write_cache = false;
+            }
+            else if ((_value == ord(",")) || (_value == ord("#")))
+            {
+                _pop_cache   = true;
+                _write_cache = false;
+            }
+        }
         else
         {
-            if ((_prev_value != "\\") && (_value == ord("/")) && (_next_value == ord("/")))
+            if ((_prev_value != ord("\\")) && (_value == ord("#")))
+            {
+                _in_metadata = true;
+                _pop_cache   = true;
+                _write_cache = false;
+            }
+            else if ((_value == ord("/")) && (_next_value == ord("/")))
             {
                 _in_comment  = true;
                 _pop_cache   = true;
@@ -142,12 +162,17 @@ function __chatterbox_split_body(_body)
                 _cache = __chatterbox_remove_whitespace(_cache, true);
                 _indent = global.__chatterbox_indent_size;
             }
+            else if (_in_metadata)
+            {
+                _cache = __chatterbox_remove_whitespace(_cache, true);
+                _indent = 0;
+            }
             
             _cache = __chatterbox_remove_whitespace(_cache, false);
             
-            if (_cache != "") ds_list_add(_body_substring_list, [_cache, _cache_type, _line, _indent]);
+            if (_cache != "") array_push(_in_substring_array, [_cache, _cache_type, _line, _indent]);
             _cache = "";
-            _cache_type = "text";
+            _cache_type = _in_metadata? "metadata" : "text";
             
             if (_newline)
             {
@@ -165,26 +190,26 @@ function __chatterbox_split_body(_body)
     
     buffer_delete(_body_buffer);
     
-    ds_list_add(_body_substring_list, ["stop", "action", _line, 0]);
-    return _body_substring_list;
+    array_push(_in_substring_array, ["stop", "action", _line, 0]);
+    return _in_substring_array;
 }
 
 /// @param substringList
 /// @param rootInstruction
-function __chatterbox_compile(_substring_list, _root_instruction)
+function __chatterbox_compile(_in_substring_array, _root_instruction)
 {
-    if (ds_list_size(_substring_list) <= 0) exit;
+    if (array_length(_in_substring_array) <= 0) exit;
     
     var _previous_instruction = _root_instruction;
     
     var _if_stack = [];
     var _if_depth = -1;
     
-    var _substring_count = ds_list_size(_substring_list);
+    var _substring_count = array_length(_in_substring_array);
     var _s = 0;
     while(_s < _substring_count)
     {
-        var _substring_array = _substring_list[| _s];
+        var _substring_array = _in_substring_array[_s];
         var _string          = _substring_array[0];
         var _type            = _substring_array[1];
         var _line            = _substring_array[2];
@@ -324,7 +349,29 @@ function __chatterbox_compile(_substring_list, _root_instruction)
             
             #endregion
         }
-        else
+        else if (_type == "metadata")
+        {
+            #region #metadata
+            
+            if (_previous_instruction != undefined)
+            {
+                if (_previous_instruction.type != "content")
+                {
+                    __chatterbox_trace("Warning! Previous instruction wasn't content, metadata \"\#", _string, "\" cannot be applied");
+                }
+                else if (_previous_instruction.line != _line)
+                {
+                    __chatterbox_trace("Warning! Previous instruction (ln ", _previous_instruction.line, ") was a different line to metadata (ln ", _line, "), \"\#", _string, "\"");
+                }
+                else
+                {
+                    array_push(_previous_instruction.metadata, _string)
+                }
+            }
+            
+            #endregion
+        }
+        else if (_type == "text")
         {
             var _instruction = new __chatterbox_class_instruction("content", _line, _indent);
             _instruction.text = _string;
