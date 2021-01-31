@@ -30,7 +30,7 @@ function __chatterbox_class_text(_string) constructor
         else if (_byte == ord("{")) //GameMaker will optimise this at compile time
         {
             //Check to see if this character is escaped
-            if (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != "\\")
+            if (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != ord("\\"))
             {
                 //We've hit a sub-expression, add everything before it to the substring array as a simple string
                 buffer_poke(_buffer, buffer_tell(_buffer)-1, buffer_u8, 0x0);
@@ -46,7 +46,7 @@ function __chatterbox_class_text(_string) constructor
         else if (_in_expression && (_byte == ord("}")))
         {
             //Check to see if this character is escaped
-            if (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != "\\")
+            if (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != ord("\\"))
             {
                 //We've hit a sub-expression, add everything before it to the substring array as a simple string
                 buffer_poke(_buffer, buffer_tell(_buffer)-1, buffer_u8, 0x0);
@@ -61,8 +61,8 @@ function __chatterbox_class_text(_string) constructor
             }
         }
         else if ((_byte == ord("/")) //Standard comment // syntax
-             &&  (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == "/")
-             &&  (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != "\\"))
+             &&  (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/"))
+             &&  (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != ord("\\")))
         {
             //Hit a comment
             break;

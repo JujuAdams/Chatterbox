@@ -246,7 +246,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             {
                 case "declare":
                     var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
-                    _instruction.expression = __chatterbox_parse_expression(_remainder, true);
+                    _instruction.expression = __chatterbox_parse_expression(_remainder, false);
                 break;
                 
                 case "set":
@@ -375,8 +375,6 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
         
         ++_s;
     }
-    
-    show_debug_message("!");
 }
 
 
@@ -748,7 +746,18 @@ function __chatterbox_parse_expression(_string, _action_syntax)
     
     if (!_action_syntax)
     {
-        return _tokens[0];
+        if (array_length(_tokens) > 1)
+        {
+            __chatterbox_error("Expression could not be fully resolved into a single token (", _string, ")");
+        }
+        else if (array_length(_tokens) < 1)
+        {
+            __chatterbox_error("No valid expression tokens found (", _string, ")");
+        }
+        else
+        {
+            return _tokens[0];
+        }
     }
     else
     {

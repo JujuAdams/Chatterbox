@@ -1,6 +1,13 @@
 title: Start
 ---
-<<declare $test = "hello world">>
+//Not 100% necessary - <<declare $test = "hello world">>
 <<set $test = "replacement">>
 Test string = {$test}!
+Commented line //{$test}
+//Another commented line {$test}
+Mid-expression comment: {$test//}iofgaoe;grn
+Escaped \{$test}
+Escaped... again {$test\}
+Escaped + error {$test\}soeaihjfgapwiouugjnhae}
+Lol
 ===
