@@ -152,6 +152,8 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression, _behaviour)
                         {
                             switch (array_length(_parameter_values))
                             {
+                                //Reductio Ad Overmars
+                                //"Every GameMaker game has the pyramid of doom"
                                 case  0: return _method();
                                 case  1: return _method(_parameter_values[0]);
                                 case  2: return _method(_parameter_values[0], _parameter_values[1]);

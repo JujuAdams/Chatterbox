@@ -1,4 +1,4 @@
-/ @param filename
+/// param filename
 /// @param nodeTitle
 /// @param bodyString
 
@@ -31,9 +31,6 @@ function __chatterbox_class_node(_filename, _title, _body_string) constructor
     
     var _substring_array = __chatterbox_split_body(_work_string);
     __chatterbox_compile(_substring_array, root_instruction);
-    
-    var _root_instruction = root_instruction;
-    
     
     static mark_visited = function()
     {

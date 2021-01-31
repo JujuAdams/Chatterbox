@@ -1,0 +1,6 @@
+title: Start
+---
+<<declare $test = "hello world">>
+<<set $test = "replacement">>
+Test string = {$test}!
+===
