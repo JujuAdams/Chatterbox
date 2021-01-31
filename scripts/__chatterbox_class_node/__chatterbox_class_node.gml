@@ -100,7 +100,7 @@ function __chatterbox_split_body(_body)
         }
         else
         {
-            if ((_prev_value != "\\") && (_value == "/") && (_next_value == "/"))
+            if ((_prev_value != "\\") && (_value == ord("/")) && (_next_value == ord("/")))
             {
                 _in_comment  = true;
                 _pop_cache   = true;
