@@ -38,7 +38,7 @@ function __chatterbox_vm_inner(_instruction)
         
         if (!_condition_failed)
         {
-            if (((_instruction.type == "shortcut") || (_instruction.type == "option")) && !leaving_shortcut)
+            if ((_instruction.type == "shortcut") && !leaving_shortcut)
             {
                 entered_shortcut = true;
                 
@@ -51,21 +51,15 @@ function __chatterbox_vm_inner(_instruction)
                     __chatterbox_array_add(option_instruction, _branch);
                     if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
-                else if (_instruction.type == "option")
-                {
-                    __chatterbox_array_add(option, _instruction.text.evaluate(local_scope, filename));
-                    __chatterbox_array_add(option_instruction, _instruction);
-                    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "[\"", _instruction.text.raw_string, "\" --> ", _instruction.destination, "]");
-                }
             }
             else
             {
-                if (((_instruction.type != "shortcut") && (_instruction.type != "option")) && leaving_shortcut) leaving_shortcut = false;
+                if ((_instruction.type != "shortcut") && leaving_shortcut) leaving_shortcut = false;
             }
             
             if (entered_shortcut)
             {
-                if ((_instruction.type != "shortcut") && (_instruction.type != "option"))
+                if (_instruction.type != "shortcut")
                 {
                     _do_next = false;
                 }
@@ -83,7 +77,6 @@ function __chatterbox_vm_inner(_instruction)
                             if (instanceof(_next) == "__chatterbox_class_instruction")
                             {
                                 if (((_next.type != "shortcut") || CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT)
-                                &&  ((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
                                 &&  (_next.type != "wait")
                                 &&  (_next.type != "stop"))
                                 {
