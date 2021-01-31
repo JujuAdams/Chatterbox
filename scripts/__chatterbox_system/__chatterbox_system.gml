@@ -248,4 +248,12 @@ function __chatterbox_readable_value(_value)
     }
 }
 
+function __chatterbox_verify_datatypes(_a, _b)
+{
+    if (is_numeric(_a) && is_numeric(_b)) return true;
+    if (is_string( _a) && is_string( _b)) return true;
+    if (is_bool(   _a) && is_bool(   _b)) return true;
+    return false;
+}
+
 #endregion

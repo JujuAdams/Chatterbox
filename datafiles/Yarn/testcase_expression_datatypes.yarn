@@ -1,0 +1,21 @@
+title: Start
+---
+-> Test constants
+    <<jump Constants>>
+-> Test variables
+    <<jump Variables>>
+===
+
+title: Constants
+---
+<<declare $variable = "string">>
+<<set $variable = 1>>
+This should error!
+===
+
+title: Variables
+---
+<<declare $variable = "string">>
+<<set $variable = 1>>
+This should error!
+===
