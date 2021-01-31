@@ -5,9 +5,9 @@
 /// @param localScope
 /// @param filename
 /// @param expression
-/// @param declaration
+/// @param behaviour
 
-function __chatterbox_evaluate(_local_scope, _filename, _expression, _declaration)
+function __chatterbox_evaluate(_local_scope, _filename, _expression, _behaviour)
 {
     if (!is_struct(_expression)) return _expression;
     
@@ -84,15 +84,15 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression, _declaratio
         case "*=":
         case "-=":
         case "+=":
-            _a = __chatterbox_evaluate(_local_scope, _filename, _expression.a, _declaration);
-            _b = __chatterbox_evaluate(_local_scope, _filename, _expression.b, _declaration);
+            _a = __chatterbox_evaluate(_local_scope, _filename, _expression.a, undefined);
+            _b = __chatterbox_evaluate(_local_scope, _filename, _expression.b, undefined);
         break;
         
         case "!":
         case "neg":
         case "paren":
         case "param":
-            _a = __chatterbox_evaluate(_local_scope, _filename, _expression.a, _declaration);
+            _a = __chatterbox_evaluate(_local_scope, _filename, _expression.a, undefined);
         break;
         
         case "func":
@@ -101,13 +101,13 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression, _declaratio
             var _p = 0;
             repeat(array_length(_parameters))
             {
-                _parameter_values[@ _p] = __chatterbox_evaluate(_local_scope, _filename, _parameters[_p], _declaration);
+                _parameter_values[@ _p] = __chatterbox_evaluate(_local_scope, _filename, _parameters[_p], undefined);
                 ++_p;
             }
         break;
         
         case "=":
-            _b = __chatterbox_evaluate(_local_scope, _filename, _expression.b, _declaration);
+            _b = __chatterbox_evaluate(_local_scope, _filename, _expression.b, undefined);
         break;
     }
     
@@ -206,14 +206,7 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression, _declaratio
                 }
                 else
                 {
-                    if (CHATTERBOX_ERROR_MISSING_FUNCTION)
-                    {
-                        __chatterbox_error("Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
-                    }
-                    else
-                    {
-                        __chatterbox_trace("Error! Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
-                    }
+                    __chatterbox_error("Function \"", _expression.name, "\" not defined with chatterbox_add_function()");
                 }
                 
                 return undefined;
@@ -229,82 +222,89 @@ function __chatterbox_evaluate(_local_scope, _filename, _expression, _declaratio
     
     if (_set)
     {
-        switch(_expression.a.scope)
-        {                   
-            case "yarn":
-                if (_declaration)
-                {
-                    if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.a.name))
+        if ((_behaviour != "declare") && (_behaviour != "set"))
+        {
+            __chatterbox_error("Cannot set/declare variable \"", _expression.a.name, "\" outside of a <<set>> or <<declare>> command");
+        }
+        else
+        {
+            switch(_expression.a.scope)
+            {                   
+                case "yarn":
+                    if (_behaviour == "declare")
                     {
-                        __chatterbox_trace("Warning! Trying to re-declare Yarn variable \"", _expression.a.name, "\" but it already has a value");
+                        if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.a.name))
+                        {
+                            __chatterbox_trace("Warning! Trying to re-declare Yarn variable (", _expression.a.name, " = ", __chatterbox_readable_value(_a), ") but it already has a value (", __chatterbox_readable_value(CHATTERBOX_VARIABLES_MAP[? _expression.a.name]), ")");
+                        }
+                        else
+                        {
+                            CHATTERBOX_VARIABLES_MAP[? _expression.a.name] = _a;
+                            __chatterbox_trace("Declared Yarn variable \"", _expression.a.name, "\" as ", __chatterbox_readable_value(_a));
+                        }
                     }
-                    else
+                    else if (_behaviour == "set")
                     {
+                        if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.a.name))
+                        {
+                            __chatterbox_trace("Warning! Trying to set Yarn variable \"", _expression.a.name, "\" but it has not been declared");
+                        }
+                        
                         CHATTERBOX_VARIABLES_MAP[? _expression.a.name] = _a;
-                        __chatterbox_trace("Declared Yarn variable \"", _expression.a.name, "\" as ", __chatterbox_readable_value(_a));
+                        __chatterbox_trace("Set Yarn variable \"", _expression.a.name, "\" to ", __chatterbox_readable_value(_a));
                     }
-                }
-                else
-                {
-                    if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.a.name))
+                break;
+                
+                case "local":
+                    if (_behaviour == "declare")
                     {
-                        __chatterbox_trace("Warning! Trying to set Yarn variable \"", _expression.a.name, "\" but it has not been declared");
+                        if (variable_instance_exists(_local_scope, _expression.a.name))
+                        {
+                            __chatterbox_trace("Warning! Trying to re-declare local variable (", _expression.a.name, " = ", __chatterbox_readable_value(_a), ") but it already has a value (", __chatterbox_readable_value(variable_instance_get(_local_scope, _expression.a.name)), ", local scope=", _local_scope, ")");
+                        }
+                        else
+                        {
+                            variable_instance_set(_local_scope, _expression.a.name, _a);
+                            __chatterbox_trace("Declared local variable \"", _expression.a.name, "\" as ", __chatterbox_readable_value(_a), " (local scope=", _local_scope, ")");
+                        }
                     }
-                    
-                    CHATTERBOX_VARIABLES_MAP[? _expression.a.name] = _a;
-                    __chatterbox_trace("Set Yarn variable \"", _expression.a.name, "\" to ", __chatterbox_readable_value(_a));
-                }
-            break;
-            
-            case "local":
-                if (_declaration)
-                {
-                    if (variable_instance_exists(_local_scope, _expression.a.name))
+                    else if (_behaviour == "set")
                     {
-                        __chatterbox_trace("Warning! Trying to re-declare local variable \"", _expression.a.name, "\" but it already has a value (local scope=", _local_scope, ")");
-                    }
-                    else
-                    {
+                        if (!variable_instance_exists(_local_scope, _expression.a.name))
+                        {
+                            __chatterbox_trace("Warning! Trying to set local variable \"", _expression.a.name, "\" but it has not been declared (local scope=", _local_scope, ")");
+                        }
+                        
                         variable_instance_set(_local_scope, _expression.a.name, _a);
-                        __chatterbox_trace("Declared local variable \"", _expression.a.name, "\" as ", __chatterbox_readable_value(_a), " (local scope=", _local_scope, ")");
+                        __chatterbox_trace("Set local variable \"", _expression.a.name, "\" to ", __chatterbox_readable_value(_a), " (local scope=", _local_scope, ")");
                     }
-                }
-                else
-                {
-                    if (!variable_instance_exists(_local_scope, _expression.a.name))
+                break;
+                
+                case "global":
+                    if (_behaviour == "declare")
                     {
-                        __chatterbox_trace("Warning! Trying to set global variable \"", _expression.a.name, "\" but it has not been declared");
+                        if (variable_global_exists(_expression.a.name))
+                        {
+                            __chatterbox_trace("Warning! Trying to re-declare global variable (", _expression.a.name, " = ", __chatterbox_readable_value(_a), ") but it already has a value (", __chatterbox_readable_value(variable_global_get(_expression.a.name)), ")");
+                        }
+                        else
+                        {
+                            variable_instance_set(_local_scope, _expression.a.name, _a);
+                                __chatterbox_trace("Declared global variable \"", _expression.a.name, "\" as ", __chatterbox_readable_value(_a));
+                        }
                     }
-                    
-                    variable_instance_set(_local_scope, _expression.a.name, _a);
-                    __chatterbox_trace("Set local variable \"", _expression.a.name, "\" to ", __chatterbox_readable_value(_a), " (local scope=", _local_scope, ")");
-                }
-            break;
-            
-            case "global":
-                if (_declaration)
-                {
-                    if (variable_global_exists(_expression.a.name))
+                    else if (_behaviour == "set")
                     {
-                        __chatterbox_trace("Warning! Trying to re-declare global variable \"", _expression.a.name, "\" but it already has a value");
+                        if (!variable_global_exists(_expression.a.name))
+                        {
+                            __chatterbox_trace("Warning! Trying to set global variable \"", _expression.a.name, "\" but it has not been declared");
+                        }
+                        
+                        variable_global_set(_expression.a.name, _a);
+                        __chatterbox_trace("Set global variable \"", _expression.a.name, "\" to ", __chatterbox_readable_value(_a));
                     }
-                    else
-                    {
-                        variable_instance_set(_local_scope, _expression.a.name, _a);
-                            __chatterbox_trace("Declared global variable \"", _expression.a.name, "\" as ", __chatterbox_readable_value(_a));
-                    }
-                }
-                else
-                {
-                    if (!variable_global_exists(_expression.a.name))
-                    {
-                        __chatterbox_trace("Warning! Trying to set global variable \"", _expression.a.name, "\" but it has not been declared");
-                    }
-                    
-                    variable_global_set(_expression.a.name, _a);
-                    __chatterbox_trace("Set global variable \"", _expression.a.name, "\" to ", __chatterbox_readable_value(_a));
-                }
-            break;
+                break;
+            }
         }
         
         return _a;

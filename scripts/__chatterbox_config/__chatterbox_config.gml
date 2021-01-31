@@ -26,7 +26,6 @@
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
-#macro CHATTERBOX_ERROR_NONSTANDARD_SYNTAX    true   //Throws an error when using a reasonable, though technically illegal, syntax e.g. <<end if>> or <<elseif>>
-#macro CHATTERBOX_ERROR_MISSING_FUNCTION      true   //Throw an error if a function name is unrecognised
+#macro CHATTERBOX_ERROR_NONSTANDARD_SYNTAX  true  //Throws an error when using a reasonable, though technically illegal, syntax e.g. <<end if>> or <<elseif>>
 
 #endregion
