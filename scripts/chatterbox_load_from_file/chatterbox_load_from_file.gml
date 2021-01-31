@@ -5,8 +5,11 @@
 /// @param filename  Name of the file to add
 /// @param [aliasName] Alias for the filename
 
-function chatterbox_load_from_file(_filename, _aliasName)
+function chatterbox_load_from_file()
 {
+    var _filename  = argument[0];
+    var _aliasName = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : undefined;
+    
     if (!is_string(_filename))
     {
         __chatterbox_error("Files should be loaded using their filename as a string.\n(Input was an invalid datatype)");
