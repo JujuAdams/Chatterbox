@@ -1,4 +1,4 @@
-/// @param filename
+/ @param filename
 /// @param nodeTitle
 /// @param bodyString
 
@@ -225,7 +225,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
         if (string_copy(_string, 1, 2) == "->") //Shortcut //TODO - Make this part of the substring splitting step
         {
             var _instruction = new __chatterbox_class_instruction("shortcut", _line, _indent);
-            _instruction.text = __chatterbox_remove_whitespace(__chatterbox_remove_whitespace(string_delete(_string, 1, 2), true), false);
+            _instruction.text = new __chatterbox_class_text(__chatterbox_remove_whitespace(string_delete(_string, 1, 2), all));
         }
         else if (_type == "command")
         {
@@ -336,10 +336,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                     
                 default:
                     var _instruction = new __chatterbox_class_instruction("direction", _line, _indent);
-                    _instruction.text = _string;
-                    
-                    //var _instruction = new __chatterbox_class_instruction("command", _line, _indent);
-                    //_instruction.expression = __chatterbox_parse_expression(_string, true);
+                    _instruction.text = new __chatterbox_class_text(_string);
                 break;
             }
             
@@ -370,7 +367,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
         else if (_type == "text")
         {
             var _instruction = new __chatterbox_class_instruction("content", _line, _indent);
-            _instruction.text = _string;
+            _instruction.text = new __chatterbox_class_text(_string);
         }
         
         if (_instruction != undefined)

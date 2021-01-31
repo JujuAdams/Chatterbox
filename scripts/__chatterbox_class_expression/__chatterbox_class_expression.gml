@@ -1,12 +1,12 @@
-/// Takes a syntax tree and evaluate it
-///
-/// This is an internal script, please don't modify it.
-///
+function __chatterbox_class_expression()
+{
+    
+}
+
 /// @param localScope
 /// @param filename
 /// @param expression
 /// @param behaviour
-
 function __chatterbox_evaluate(_local_scope, _filename, _expression, _behaviour)
 {
     if (!is_struct(_expression)) return _expression;

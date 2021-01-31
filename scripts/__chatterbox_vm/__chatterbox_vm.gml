@@ -46,16 +46,16 @@ function __chatterbox_vm_inner(_instruction)
                 {
                     var _branch = variable_struct_get(_instruction, "shortcut_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
-                
-                    __chatterbox_array_add(option, _instruction.text);
+                    
+                    __chatterbox_array_add(option, _instruction.text.evaluate(local_scope, filename));
                     __chatterbox_array_add(option_instruction, _branch);
-                    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "-> \"", _instruction.text, "\"    ", instanceof(_branch));
+                    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
                 else if (_instruction.type == "option")
                 {
-                    __chatterbox_array_add(option, _instruction.text);
+                    __chatterbox_array_add(option, _instruction.text.evaluate(local_scope, filename));
                     __chatterbox_array_add(option_instruction, _instruction);
-                    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "[\"", _instruction.text, "\" --> ", _instruction.destination, "]");
+                    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "[\"", _instruction.text.raw_string, "\" --> ", _instruction.destination, "]");
                 }
             }
             else
@@ -75,8 +75,8 @@ function __chatterbox_vm_inner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        __chatterbox_array_add(content, _instruction.text);
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text);
+                        __chatterbox_array_add(content, _instruction.text.evaluate(local_scope, filename));
+                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text.raw_string);
                         
                         if (singleton_text)
                         {
@@ -168,11 +168,11 @@ function __chatterbox_vm_inner(_instruction)
                         
                         if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
                         {
-                            CHATTERBOX_DIRECTION_FUNCTION(_instruction.text);
+                            CHATTERBOX_DIRECTION_FUNCTION(_instruction.text.evaluate(local_scope, filename));
                         }
                         else if (is_numeric(CHATTERBOX_DIRECTION_FUNCTION) && script_exists(CHATTERBOX_DIRECTION_FUNCTION))
                         {
-                            script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text);
+                            script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text.evaluate(local_scope, filename));
                         }
                         
                         //if (__chatterbox_evaluate(local_scope, filename, _instruction.expression, false) == "<<wait>>")
