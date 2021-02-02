@@ -53,7 +53,7 @@ function __chatterbox_class_text(_string) constructor
                 buffer_seek(_buffer, buffer_seek_start, _string_start);
                 var _substring = buffer_read(_buffer, buffer_string);
                 
-                var _expression = __chatterbox_parse_expression(_substring, false);
+                var _expression = __chatterbox_parse_expression(_substring);
                 array_push(substrings, _expression);
                 
                 _in_expression = false;

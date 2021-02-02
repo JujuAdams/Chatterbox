@@ -246,12 +246,12 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             {
                 case "declare":
                     var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
-                    _instruction.expression = __chatterbox_parse_expression(_remainder, false);
+                    _instruction.expression = __chatterbox_parse_expression(_remainder);
                 break;
                 
                 case "set":
                     var _instruction = new __chatterbox_class_instruction(_first_word, _line, _indent);
-                    _instruction.expression = __chatterbox_parse_expression(_remainder, false);
+                    _instruction.expression = __chatterbox_parse_expression(_remainder);
                 break;
                 
                 case "jump":
@@ -262,13 +262,13 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                 case "if":
                     if (_previous_instruction.line == _line)
                     {
-                        _previous_instruction.condition = __chatterbox_parse_expression(_remainder, false);
+                        _previous_instruction.condition = __chatterbox_parse_expression(_remainder);
                         //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
                     }
                     else
                     {
                         var _instruction = new __chatterbox_class_instruction("if", _line, _indent);
-                        _instruction.condition = __chatterbox_parse_expression(_remainder, false);
+                        _instruction.condition = __chatterbox_parse_expression(_remainder);
                         _if_depth++;
                         _if_stack[@ _if_depth] = _instruction;
                     }
@@ -291,7 +291,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                     if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
                 case "elseif":
                     var _instruction = new __chatterbox_class_instruction("else if", _line, _indent);
-                    _instruction.condition = __chatterbox_parse_expression(_remainder, false);
+                    _instruction.condition = __chatterbox_parse_expression(_remainder);
                     if (_if_depth < 0)
                     {
                         __chatterbox_error("<<else if>> found without matching <<if>>");
@@ -381,7 +381,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
 
 /// @param string
 /// @param allowActionSyntax
-function __chatterbox_parse_expression(_string, _action_syntax)
+function __chatterbox_parse_expression(_string)
 {
     enum __CHATTERBOX_TOKEN
     {
@@ -744,35 +744,17 @@ function __chatterbox_parse_expression(_string, _action_syntax)
     
     __chatterbox_compile_expression(_tokens);
     
-    if (!_action_syntax)
+    if (array_length(_tokens) > 1)
     {
-        if (array_length(_tokens) > 1)
-        {
-            __chatterbox_error("Expression could not be fully resolved into a single token (", _string, ")");
-        }
-        else if (array_length(_tokens) < 1)
-        {
-            __chatterbox_error("No valid expression tokens found (", _string, ")");
-        }
-        else
-        {
-            return _tokens[0];
-        }
+        __chatterbox_error("Expression could not be fully resolved into a single token (", _string, ")");
+    }
+    else if (array_length(_tokens) < 1)
+    {
+        __chatterbox_error("No valid expression tokens found (", _string, ")");
     }
     else
     {
-        //We're using the weirdo Python-esque syntax for generic actions
-        
-        //If we've already got a function as the first operation, just return that
-        if (_tokens[0].op == "func") return _tokens[0];
-        
-        //If the first token isn't a variable (i.e. isn't something that might be a function name) then just return the first token
-        if (_tokens[0].op != "var") return _tokens[0];
-        
-        //Otherwise formulate a function operation
-        var _name = _tokens[0].name;
-        __chatterbox_array_delete(_tokens, 0, 1);
-        return { op : "func", name : _name, parameters : _tokens };
+        return _tokens[0];
     }
 }
 

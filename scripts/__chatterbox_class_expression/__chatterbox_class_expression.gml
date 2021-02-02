@@ -1,8 +1,3 @@
-function __chatterbox_class_expression()
-{
-    
-}
-
 /// @param localScope
 /// @param filename
 /// @param expression
