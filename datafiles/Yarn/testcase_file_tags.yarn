@@ -10,7 +10,7 @@ position: 534.5534057617188, 350.60845947265625
 ---
 
 Hello
-<<stop test>>
+<<stop>>
 This shouldn't appear
 
 ===

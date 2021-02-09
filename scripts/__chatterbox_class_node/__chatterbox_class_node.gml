@@ -106,7 +106,7 @@ function __chatterbox_split_body(_body)
                 _pop_cache   = true;
                 _write_cache = false;
             }
-            else if ((_value == ord(",")) || (_value == ord("#")))
+            else if (_value == ord("#"))
             {
                 _pop_cache   = true;
                 _write_cache = false;
