@@ -386,12 +386,12 @@ function __chatterbox_parse_expression(_string)
 {
     enum __CHATTERBOX_TOKEN
     {
-        NULL     = -1,
-        UNKNOWN  =  0,
-        VARIABLE =  1,
-        STRING   =  2,
-        NUMBER   =  3,
-        SYMBOL   =  4,
+        NULL       = -1,
+        UNKNOWN    =  0,
+        IDENTIFIER =  1,
+        STRING     =  2,
+        NUMBER     =  3,
+        SYMBOL     =  4,
     }
     
     var _tokens = [];
@@ -416,39 +416,20 @@ function __chatterbox_parse_expression(_string)
         
         switch(_state)
         {
-            case __CHATTERBOX_TOKEN.VARIABLE: //Word/Variable Name
+            case __CHATTERBOX_TOKEN.IDENTIFIER: //Identifier (variable/function)
                 #region
                 
-                if (_byte == 46) //.
+                //Everything is permitted, except whitespace and a dollar sign
+                if ((_byte > 32) && (_byte != ord("$")))
                 {
-                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
-                }
-                else if ((_byte >= 48) && (_byte <= 57)) //0 1 2 3 4 5 6 7 8 9
-                {
-                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
-                }
-                else if ((_byte >= 65) && (_byte <= 90)) //a b c...x y z
-                {
-                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
-                }
-                else if (_byte == 95) //_
-                {
-                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
-                }
-                else if ((_byte >= 97) && (_byte <= 122)) //A B C...X Y Z
-                {
-                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
-                }
-                else if (_byte == 40) //(
-                {
-                    _next_state = __CHATTERBOX_TOKEN.VARIABLE;
+                    _next_state = __CHATTERBOX_TOKEN.IDENTIFIER;
                 }
                 
-                if ((_state != _next_state) || (_last_byte == 40)) //Cheeky hack to find functions
+                if ((_state != _next_state) || (_last_byte == ord("("))) //Cheeky hack to find functions
                 {
                     var _is_symbol   = false;
                     var _is_number   = false;
-                    var _is_function = (_last_byte == 40); //Cheeky hack to find functions
+                    var _is_function = (_last_byte == ord("(")); //Cheeky hack to find functions
                     
                     //Just a normal keyboard/variable
                     buffer_poke(_buffer, _b, buffer_u8, 0);
@@ -675,7 +656,7 @@ function __chatterbox_parse_expression(_string)
             }
             else if (_byte == 36) //$
             {
-                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.IDENTIFIER; //Word/Variable Name
             }
             else if ((_byte == 37) || (_byte == 38)) //% &
             {
@@ -715,15 +696,15 @@ function __chatterbox_parse_expression(_string)
             }
             else if ((_byte >= 65) && (_byte <= 90)) //a b c...x y z
             {
-                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.IDENTIFIER; //Word/Variable Name
             }
             else if (_byte == 95) //_
             {
-                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.IDENTIFIER; //Word/Variable Name
             }
             else if ((_byte >= 97) && (_byte <= 122)) //A B C...X Y Z
             {
-                _next_state = __CHATTERBOX_TOKEN.VARIABLE; //Word/Variable Name
+                _next_state = __CHATTERBOX_TOKEN.IDENTIFIER; //Word/Variable Name
             }
             else if (_byte == 124) // |
             {
