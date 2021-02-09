@@ -1,13 +1,14 @@
-/// param filename
-/// @param nodeTitle
+/// @param filename
+/// @param nodeTags
 /// @param bodyString
 
-function __chatterbox_class_node(_filename, _title, _body_string) constructor
+function __chatterbox_class_node(_filename, _node_tags, _body_string) constructor
 {
     if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("[", _title, "]");
     
     filename         = _filename;
-    title            = _title;
+    title            = _node_tags.title;
+    tags             = _node_tags;
     root_instruction = new __chatterbox_class_instruction(undefined, -1, 0);
     
     //Prepare body string for parsing
