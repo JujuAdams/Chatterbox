@@ -38,7 +38,7 @@ function __chatterbox_class_source(_filename, _string) constructor
         }
         else
         {
-            var _node = new __chatterbox_class_node(filename, _node_tags.title, _node_temp_struct.body);
+            var _node = new __chatterbox_class_node(filename, _node_tags, _node_temp_struct.body);
             __chatterbox_array_add(nodes, _node);
         }
         
@@ -70,7 +70,7 @@ function __chatterbox_class_source(_filename, _string) constructor
 function __chatterbox_parse_yarn(_input_string)
 {
     var _node_array  = [];
-    var _file_tags   = {};
+    var _file_tags   = [];
     var _file_struct = { tags : _file_tags, nodes : _node_array };
     
     var _buffer = buffer_create(string_byte_length(_input_string)+1, buffer_fixed, 1);
@@ -92,7 +92,6 @@ function __chatterbox_parse_yarn(_input_string)
     var _seen_first_node  = false;
     var _in_body          = false;
     var _line_is_file_tag = false;
-    var _line_is_node_tag = false;
     var _in_comment       = false;
     
     var _node_tags = {};
@@ -115,28 +114,12 @@ function __chatterbox_parse_yarn(_input_string)
                 
                 var _string_trimmed = __chatterbox_remove_whitespace(_string, all);
                 
-                if (_line_is_file_tag || _line_is_node_tag)
+                if (_line_is_file_tag)
                 {
-                    var _colon_pos = string_pos(":", _string_trimmed);
-                    
-                    if (_colon_pos == 0)
-                    {
-                        __chatterbox_trace("Warning! String found in a file tag was not a key:value pair (", _string, ")");
-                    }
-                    else
-                    {
-                        var _key   = string_copy(_string_trimmed, 1, _colon_pos - 1);
-                        var _value = string_copy(_string_trimmed, _colon_pos + 1, string_length(_string_trimmed) - _colon_pos);
-                        _key   = __chatterbox_remove_whitespace(_key,   all);
-                        _value = __chatterbox_remove_whitespace(_value, all);
-                        
-                        if (variable_struct_exists(_file_tags, _key)) __chatterbox_trace("Warning! Duplicate file tag \"", _key, "\" found");
-                        _file_tags[$ _key] = _value;
-                    }
+                    array_push(_file_tags, _string_trimmed);
                 }
                 else
                 {
-                    
                     _seen_first_node = true;
                     
                     if (_string_trimmed == "---") //Separator between node header and node body
@@ -188,7 +171,7 @@ function __chatterbox_parse_yarn(_input_string)
                             _key   = __chatterbox_remove_whitespace(_key,   all);
                             _value = __chatterbox_remove_whitespace(_value, all);
                             
-                            if (variable_struct_exists(_file_tags, _key)) __chatterbox_trace("Warning! Duplicate node tag found \"", _key, "\"");
+                            if (variable_struct_exists(_node_tags, _key)) __chatterbox_trace("Warning! Duplicate node tag found \"", _key, "\"");
                             _node_tags[$ _key] = _value;
                         }
                     }
@@ -201,19 +184,18 @@ function __chatterbox_parse_yarn(_input_string)
             _string_start     = buffer_tell(_buffer);
             _start_of_line    = true;
             _line_is_file_tag = false;
-            _line_is_node_tag = false;
         }
         else if (!_in_comment)
         {
             if (_start_of_line && !_seen_first_node)
             {
-                if (_byte == 35)
+                if (_byte == ord("#"))
                 {
                     _line_is_file_tag = true;
                     _string_start = buffer_tell(_buffer);
                     _start_of_line = false;
                 }
-                else if (_byte > 32)
+                else if (_byte > ord(" ")) //Not whitespace
                 {
                     _start_of_line = false;
                 }
