@@ -24,7 +24,7 @@ function __chatterbox_class_text(_string) constructor
             buffer_seek(_buffer, buffer_seek_start, _string_start);
             
             var _substring = buffer_read(_buffer, buffer_string);
-            
+            if (CHATTERBOX_ESCAPE_CONTENT) _substring = __ChatterboxUnescapeString(_substring);
             array_push(substrings, _substring);
         }
         else if (_byte == ord("{")) //GameMaker will optimise this at compile time
@@ -35,8 +35,9 @@ function __chatterbox_class_text(_string) constructor
                 //We've hit a sub-expression, add everything before it to the substring array as a simple string
                 buffer_poke(_buffer, buffer_tell(_buffer)-1, buffer_u8, 0x0);
                 buffer_seek(_buffer, buffer_seek_start, _string_start);
-                var _substring = buffer_read(_buffer, buffer_string);
                 
+                var _substring = buffer_read(_buffer, buffer_string);
+                if (CHATTERBOX_ESCAPE_CONTENT) _substring = __ChatterboxUnescapeString(_substring);
                 array_push(substrings, _substring);
                 
                 _in_expression = true;
