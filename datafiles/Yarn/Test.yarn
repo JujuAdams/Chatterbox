@@ -19,13 +19,11 @@ Calling visited("Node4") should return False, because we haven't been there yet.
 A variable named "variable1" is now set to True, and the debug log should reflect this.
 
 We are auto-advancing to the next node, "Node1".
+<<jump Node1>>
 
-[[Node1]]
 ===
 title: Node1
 ---
-
-
 In this node, we make a choice, using quick choice syntax, and set a variable based off of that. This line is long, too, so it helps us with testing text wrapping.
 
 -> Choice 1
@@ -50,46 +48,32 @@ Now we use an if statement to check it.
 We have successfully checked a variable.
 
 The next node will use standard choice syntax.
-
-[[Node2]]
-
+<<jump Node2>>
 
 ===
 title: Node2
 ---
-
-
 Standard choice syntax test.
 
-[[Choice 1|Node3]]
-[[Choice 2|Node4]]
-
-//<<if if if if if if if>>
+-> Choice 1
+    <<jump Node3>>
+-> Choice 2
+    <<jump Node4>>
 
 ===
 title: Node3
-tags: 
-colorID: 8
-position: -300,-601
 ---
 <<TestFunctionDoNotExecute>>
-
-[[Node5]]
-
+<<jump Node5>>
 
 ===
 title: Node4
 ---
-
-
-[[Node5]]
-
+<<jump Node5>>
 
 ===
 title: Node5
 ---
-
-
 <<if visited("Node3")>>
     You chose Choice 1 earlier!
 <<endif>>
@@ -98,6 +82,5 @@ title: Node5
 <<endif>>
 
 This is the end of the Yarn testing file.
-
 
 ===

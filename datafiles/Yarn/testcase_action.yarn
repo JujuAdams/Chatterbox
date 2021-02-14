@@ -1,10 +1,5 @@
 title: Start
-tags: 
-section: Section1
-colorID: 0
-position: 534.5534057617188, 350.60845947265625
 ---
-
 <<set testVariable to "This is a string in a variable">>
 This is some text.
 This is some more text.
@@ -20,5 +15,4 @@ We called an action with a string argument.
 We called an action with many mixed arguments.
 <<testcaseAction testVariable>>
 The test will now end.
-
 ===
