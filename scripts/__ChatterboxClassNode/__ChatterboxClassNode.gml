@@ -19,11 +19,11 @@ function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
     
     //Perform find-replace
     var _i = 0;
-    repeat(ds_list_size(global.__chatterbox_findreplace_old_string))
+    repeat(ds_list_size(global.__chatterboxFindReplaceOldString))
     {
         _work_string = string_replace_all(_work_string,
-                                          global.__chatterbox_findreplace_old_string[| _i],
-                                          global.__chatterbox_findreplace_new_string[| _i]);
+                                          global.__chatterboxFindReplaceOldString[| _i],
+                                          global.__chatterboxFindReplaceNewString[| _i]);
         ++_i;
     }
     
@@ -161,7 +161,7 @@ function __ChatterboxSplitBody(_body)
             if (_first_on_line)
             {
                 _cache = __ChatterboxRemoveWhitespace(_cache, true);
-                _indent = global.__chatterbox_indent_size;
+                _indent = global.__chatterboxIndentSize;
             }
             else if (_in_metadata)
             {
@@ -865,9 +865,9 @@ function __ChatterboxCompileExpression(_source_array)
     }
     
     var _o = 0;
-    repeat(ds_list_size(global.__chatterbox_op_list))
+    repeat(ds_list_size(global.__chatterboxOpList))
     {
-        var _operator = global.__chatterbox_op_list[| _o];
+        var _operator = global.__chatterboxOpList[| _o];
         
         var _t = 0;
         while(_t < array_length(_source_array))

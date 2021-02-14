@@ -15,7 +15,7 @@
 
 function ChatterboxCreate()
 {
-    var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterbox_default_file;
+    var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterboxDefaultFile;
     var _singleton   = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
     var _local_scope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
     
@@ -41,7 +41,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     local_scope         = _local_scope;
     singleton_text      = _singleton;
     filename            = _filename;
-    file                = global.chatterbox_files[? filename];
+    file                = global.chatterboxFiles[? filename];
     content             = [];
     option              = [];
     option_instruction  = [];

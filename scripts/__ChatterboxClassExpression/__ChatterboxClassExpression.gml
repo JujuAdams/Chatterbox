@@ -134,7 +134,7 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
             }
             else
             {
-                var _method = global.__chatterbox_functions[? _expression.name];
+                var _method = global.__chatterboxFunctions[? _expression.name];
                 if (is_method(_method))
                 {
                     with (_local_scope)

@@ -14,7 +14,7 @@ function ChatterboxJump()
     {
         if (_filename != undefined)
         {
-            var _file = global.chatterbox_files[? _filename];
+            var _file = global.chatterboxFiles[? _filename];
             if (instanceof(_file) == "__ChatterboxClassSource")
             {
                 file = _file;

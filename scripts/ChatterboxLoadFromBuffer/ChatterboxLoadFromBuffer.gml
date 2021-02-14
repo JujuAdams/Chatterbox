@@ -21,7 +21,7 @@ function ChatterboxLoadFromBuffer(_filename, _buffer)
     }
     
     //Set our default file if we don't already have one
-    if (global.__chatterbox_default_file == "") global.__chatterbox_default_file = _filename;
+    if (global.__chatterboxDefaultFile == "") global.__chatterboxDefaultFile = _filename;
     
     //Read a string from the buffer
     var _old_tell = buffer_tell(_buffer);
@@ -35,6 +35,6 @@ function ChatterboxLoadFromBuffer(_filename, _buffer)
     //If we successfully decoded a buffer add it to our collection of chatterboxes
     if ((instanceof(_source) == "__ChatterboxClassSource") && _source.loaded)
     {
-        global.chatterbox_files[? _filename] = _source;
+        global.chatterboxFiles[? _filename] = _source;
     }
 }

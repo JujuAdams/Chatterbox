@@ -4,5 +4,5 @@
 
 function ChatterboxIsLoaded(_filename)
 {
-    return ds_map_exists(global.chatterbox_files, _filename);
+    return ds_map_exists(global.chatterboxFiles, _filename);
 }

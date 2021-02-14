@@ -108,7 +108,7 @@ function __ChatterboxVMInner(_instruction)
                         }
                         else
                         {
-                            var _file = global.chatterbox_files[? _split.filename];
+                            var _file = global.chatterboxFiles[? _split.filename];
                             if (instanceof(_file) == "__ChatterboxClassSource")
                             {
                                 file = _file;

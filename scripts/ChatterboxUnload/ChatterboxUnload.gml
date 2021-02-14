@@ -4,13 +4,13 @@
 
 function ChatterboxUnload(_filename)
 {
-    if (ds_map_exists(global.chatterbox_files, _filename))
+    if (ds_map_exists(global.chatterboxFiles, _filename))
     {
-        var _file = global.chatterbox_files[? _filename];
+        var _file = global.chatterboxFiles[? _filename];
         if (_file.loaded)
         {
             _file.loaded = false;
-            ds_map_delete(global.chatterbox_files, _filename);
+            ds_map_delete(global.chatterboxFiles, _filename);
             if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("\"", _filename, "\" unloaded");
         }
     }

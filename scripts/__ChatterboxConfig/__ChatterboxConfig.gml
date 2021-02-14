@@ -1,4 +1,4 @@
-#macro CHATTERBOX_VARIABLES_MAP                   global.chatterbox_variables_map
+#macro CHATTERBOX_VARIABLES_MAP                   global.chatterboxVariablesMap
 #macro CHATTERBOX_SOURCE_DIRECTORY                "Yarn"
 #macro CHATTERBOX_DEFAULT_SINGLETON               true
 #macro CHATTERBOX_ALLOW_SCRIPTS                   true
