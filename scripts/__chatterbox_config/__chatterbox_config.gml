@@ -6,6 +6,9 @@
 #macro CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT  false
 #macro CHATTERBOX_WAIT_BEFORE_STOP                true
 #macro CHATTERBOX_DIRECTION_FUNCTION              testcase_direction_function
+#macro CHATTERBOX_ESCAPE_FILE_TAGS                true
+#macro CHATTERBOX_ESCAPE_NODE_TAGS                true
+#macro CHATTERBOX_ESCAPE_CONTENT                  true
 
 #region Variables and Scoping
 

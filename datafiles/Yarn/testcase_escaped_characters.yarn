@@ -1,0 +1,12 @@
+# file tag
+# file tag\nwith newline in it
+
+title: Start
+metadata: some metadata\nwith a newline
+---
+
+New\nline\nnewline!
+Tabs\tare fun\ttoo
+We \<should\> also be able to \"escape\" random other characters too
+
+===

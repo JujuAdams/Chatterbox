@@ -116,6 +116,7 @@ function __chatterbox_parse_yarn(_input_string)
                 
                 if (_line_is_file_tag)
                 {
+                    if (CHATTERBOX_ESCAPE_FILE_TAGS) _string_trimmed = __ChatterboxUnescapeString(_string_trimmed);
                     array_push(_file_tags, _string_trimmed);
                 }
                 else
@@ -170,6 +171,12 @@ function __chatterbox_parse_yarn(_input_string)
                             var _value = string_copy(_string_trimmed, _colon_pos + 1, string_length(_string_trimmed) - _colon_pos);
                             _key   = __chatterbox_remove_whitespace(_key,   all);
                             _value = __chatterbox_remove_whitespace(_value, all);
+                            
+                            if (CHATTERBOX_ESCAPE_NODE_TAGS)
+                            {
+                                _key   = __ChatterboxUnescapeString(_key  );
+                                _value = __ChatterboxUnescapeString(_value);
+                            }
                             
                             if (variable_struct_exists(_node_tags, _key)) __chatterbox_trace("Warning! Duplicate node tag found \"", _key, "\"");
                             _node_tags[$ _key] = _value;
