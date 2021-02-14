@@ -97,7 +97,7 @@ function __ChatterboxArrayToString(_array)
     {
         _string += __ChatterboxString(_array[_i]);
         ++_i;
-        if (_i < _size) _string += " , ";
+        if (_i < _size) _string += ",";
     }
     
     _string += "]";

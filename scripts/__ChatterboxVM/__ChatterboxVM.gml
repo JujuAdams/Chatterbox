@@ -1,6 +1,7 @@
 function __ChatterboxVM()
 {
     content            = [];
+    contentMetadata    = [];
     option             = [];
     option_instruction = [];
     
@@ -70,6 +71,8 @@ function __ChatterboxVMInner(_instruction)
                 {
                     case "content":
                         array_push(content, _instruction.text.Evaluate(local_scope, filename));
+                        array_push(contentMetadata, _instruction.metadata);
+                        
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), _instruction.text.raw_string);
                         
                         if (singleton_text)

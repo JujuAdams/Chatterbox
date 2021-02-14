@@ -43,6 +43,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     filename            = _filename;
     file                = global.chatterboxFiles[? filename];
     content             = [];
+    contentMetadata     = [];
     option              = [];
     option_instruction  = [];
     current_node        = undefined;

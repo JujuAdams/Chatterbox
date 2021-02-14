@@ -28,6 +28,7 @@ else
     {
         //If we're in a "waiting" state then prompt the user for basic input
         draw_text(_x, _y, "(Press Space)");
+        _y += string_height("(Press Space)");
     }
     else
     {
@@ -40,5 +41,18 @@ else
             _y += string_height(_string);
             ++_i;
         }
+    }
+    
+    //Bit of spacing...
+    _y += 30;
+    
+    //All the spoken text
+    var _i = 0;
+    repeat(ChatterboxGetContentCount(box))
+    {
+        var _string = __ChatterboxArrayToString(ChatterboxGetContentMetadata(box, _i));
+        draw_text(_x, _y, _string);
+        _y += string_height(_string);
+        ++_i;
     }
 }
