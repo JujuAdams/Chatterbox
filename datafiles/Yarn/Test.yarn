@@ -64,7 +64,7 @@ Standard choice syntax test.
 [[Choice 1|Node3]]
 [[Choice 2|Node4]]
 
-<<if if if if if if if>>
+//<<if if if if if if if>>
 
 ===
 title: Node3

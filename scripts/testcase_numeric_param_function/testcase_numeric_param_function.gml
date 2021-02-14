@@ -1,4 +1,4 @@
-chatterbox_add_function("testcaseNumericParam", testcase_numeric_param_function);
+ChatterboxAddFunction("testcaseNumericParam", testcase_numeric_param_function);
 
 function testcase_numeric_param_function(_array)
 {

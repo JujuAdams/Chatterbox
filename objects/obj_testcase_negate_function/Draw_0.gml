@@ -1,32 +1,32 @@
 var _x = 10;
 var _y = 10;
 
-if (chatterbox_is_stopped(box))
+if (ChatterboxIsStopped(box))
 {
     draw_text(_x, _y, "(Chatterbox stopped)");
 }
 else
 {
     var _i = 0;
-    repeat(chatterbox_get_content_count(box))
+    repeat(ChatterboxGetContentCount(box))
     {
-        draw_text(_x, _y, chatterbox_get_content(box, _i));
+        draw_text(_x, _y, ChatterboxGetContent(box, _i));
         _y += 20;
         ++_i;
     }
     
     _y += 20;
     
-    if (chatterbox_is_waiting(box))
+    if (ChatterboxIsWaiting(box))
     {
         draw_text(_x, _y, "(Press Space)");
     }
     else
     {
         var _i = 0;
-        repeat(chatterbox_get_option_count(box))
+        repeat(ChatterboxGetOptionCount(box))
         {
-            draw_text(_x, _y, string(_i+1) + ") " + chatterbox_get_option(box, _i));
+            draw_text(_x, _y, string(_i+1) + ") " + ChatterboxGetOption(box, _i));
             _y += 20;
             ++_i;
         }

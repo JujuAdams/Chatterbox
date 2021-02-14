@@ -1,18 +1,18 @@
-if (chatterbox_is_stopped(box))
+if (ChatterboxIsStopped(box))
 {
     //If we're stopped then don't respond to user input
 }
-else if (chatterbox_is_waiting(box))
+else if (ChatterboxIsWaiting(box))
 {
     //If we're in a "waiting" state then let the user press <space> to advance dialogue
     if (keyboard_check_released(vk_space))
     {
-        chatterbox_continue(box);
+        ChatterboxContinue(box);
     }
     else if (keyboard_check_pressed(ord("F")))
     {
         //The user can also press F to fast forward through text until they hit a choice
-        chatterbox_fast_forward(box);
+        ChatterboxFastForward(box);
     }
 }
 else
@@ -27,5 +27,5 @@ else
     if (keyboard_check_released(ord("4"))) _index = 3;
     
     //If we've pressed a button, select that option
-    if (_index != undefined) chatterbox_select(box, _index);
+    if (_index != undefined) ChatterboxSelect(box, _index);
 }

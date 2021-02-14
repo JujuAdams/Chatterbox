@@ -1,4 +1,4 @@
-chatterbox_add_function("testcaseAction", testcase_action_function);
+ChatterboxAddFunction("testcaseAction", testcase_action_function);
 
 function testcase_action_function(_array)
 {
