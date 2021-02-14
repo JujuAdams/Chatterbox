@@ -47,7 +47,7 @@ function __ChatterboxVMInner(_instruction)
                     var _branch = variable_struct_get(_instruction, "shortcut_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
-                    array_push(option, _instruction.text.evaluate(local_scope, filename));
+                    array_push(option, _instruction.text.Evaluate(local_scope, filename));
                     array_push(option_instruction, _branch);
                     if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
@@ -69,7 +69,7 @@ function __ChatterboxVMInner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        array_push(content, _instruction.text.evaluate(local_scope, filename));
+                        array_push(content, _instruction.text.Evaluate(local_scope, filename));
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), _instruction.text.raw_string);
                         
                         if (singleton_text)
@@ -101,8 +101,8 @@ function __ChatterboxVMInner(_instruction)
                         var _split = __ChatterboxSplitGoto(_instruction.destination);
                         if (_split.filename == undefined)
                         {
-                            var _next_node = find_node(_split.node);
-                            _next_node.mark_visited();
+                            var _next_node = FindNode(_split.node);
+                            _next_node.MarkVisited();
                             _next = _next_node.root_instruction;
                             current_node = _next_node;
                         }
@@ -114,8 +114,8 @@ function __ChatterboxVMInner(_instruction)
                                 file = _file;
                                 filename = file.filename;
                                 
-                                _next_node = find_node(_split.node);
-                                _next_node.mark_visited();
+                                _next_node = FindNode(_split.node);
+                                _next_node.MarkVisited();
                                 _next = _next_node.root_instruction;
                                 current_node = _next_node;
                             }
@@ -161,11 +161,11 @@ function __ChatterboxVMInner(_instruction)
                         
                         if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
                         {
-                            CHATTERBOX_DIRECTION_FUNCTION(_instruction.text.evaluate(local_scope, filename));
+                            CHATTERBOX_DIRECTION_FUNCTION(_instruction.text.Evaluate(local_scope, filename));
                         }
                         else if (is_numeric(CHATTERBOX_DIRECTION_FUNCTION) && script_exists(CHATTERBOX_DIRECTION_FUNCTION))
                         {
-                            script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text.evaluate(local_scope, filename));
+                            script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text.Evaluate(local_scope, filename));
                         }
                         
                         //if (__ChatterboxEvaluate(local_scope, filename, _instruction.expression, false) == "<<wait>>")

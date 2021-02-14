@@ -53,12 +53,12 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     wait_instruction    = undefined;
     
     /// @param nodeTitle
-    find_node = function(_title)
+    static FindNode = function(_title)
     {
-        return file.find_node(_title);
+        return file.FindNode(_title);
     }
     
-    verify_is_loaded = function()
+    static VerifyIsLoaded = function()
     {
         if (!file.loaded)
         {

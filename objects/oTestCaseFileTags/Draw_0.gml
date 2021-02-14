@@ -15,13 +15,14 @@ else
     var _i = 0;
     repeat(ChatterboxGetContentCount(box))
     {
-        draw_text(_x, _y, ChatterboxGetContent(box, _i));
-        _y += 20;
+        var _string = ChatterboxGetContent(box, _i);
+        draw_text(_x, _y, _string);
+        _y += string_height(_string);
         ++_i;
     }
     
     //Bit of spacing...
-    _y += 20;
+    _y += 30;
 
     if (ChatterboxIsWaiting(box))
     {
@@ -34,8 +35,9 @@ else
         var _i = 0;
         repeat(ChatterboxGetOptionCount(box))
         {
-            draw_text(_x, _y, string(_i+1) + ") " + ChatterboxGetOption(box, _i));
-            _y += 20;
+            var _string = ChatterboxGetOption(box, _i);
+            draw_text(_x, _y, string(_i+1) + ") " + _string);
+            _y += string_height(_string);
             ++_i;
         }
     }

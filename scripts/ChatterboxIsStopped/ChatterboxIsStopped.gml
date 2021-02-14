@@ -5,6 +5,6 @@
 function ChatterboxIsStopped(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.verify_is_loaded();
+    _chatterbox.VerifyIsLoaded();
     return _chatterbox.stopped;
 }

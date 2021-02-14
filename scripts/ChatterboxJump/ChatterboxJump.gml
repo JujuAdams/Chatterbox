@@ -26,14 +26,14 @@ function ChatterboxJump()
             }
         }
         
-        if (!verify_is_loaded())
+        if (!VerifyIsLoaded())
         {
             __ChatterboxError("Could not go to node \"", _title, "\" because \"", filename, "\" is not loaded");
             return undefined;
         }
         else
         {
-            var _node = find_node(_title);
+            var _node = FindNode(_title);
             if (_node == undefined)
             {
                 __ChatterboxError("Could not find node \"", _title, "\" in \"", filename, "\"");
@@ -42,7 +42,7 @@ function ChatterboxJump()
             
             current_node = _node;
             current_instruction = current_node.root_instruction;
-            current_node.mark_visited();
+            current_node.MarkVisited();
             
             __ChatterboxVM();
         }

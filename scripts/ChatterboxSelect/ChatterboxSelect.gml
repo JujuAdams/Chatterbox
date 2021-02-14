@@ -7,7 +7,7 @@ function ChatterboxSelect(_chatterbox, _index)
 {
     with(_chatterbox)
     {
-        if (!verify_is_loaded())
+        if (!VerifyIsLoaded())
         {
             __ChatterboxError("Could not select option because \"", filename, "\" is not loaded");
             return undefined;

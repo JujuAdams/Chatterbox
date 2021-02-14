@@ -6,7 +6,7 @@ function ChatterboxContinue(_chatterbox)
 {
     with(_chatterbox)
     {
-        if (!verify_is_loaded())
+        if (!VerifyIsLoaded())
         {
             __ChatterboxError("Could not continue because \"", filename, "\" is not loaded");
             return undefined;

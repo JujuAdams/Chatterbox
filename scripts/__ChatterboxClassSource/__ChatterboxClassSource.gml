@@ -46,7 +46,7 @@ function __ChatterboxClassSource(_filename, _string) constructor
     }
     
     /// @param nodeTitle
-    static find_node = function(_title)
+    static FindNode = function(_title)
     {
         var _i = 0;
         repeat(array_length(nodes))

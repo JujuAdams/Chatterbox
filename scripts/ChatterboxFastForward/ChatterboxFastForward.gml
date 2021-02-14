@@ -4,7 +4,7 @@
 
 function ChatterboxFastForward(_chatterbox)
 {
-    if (!_chatterbox.verify_is_loaded())
+    if (!_chatterbox.VerifyIsLoaded())
     {
         __ChatterboxError("Could not fast forward because \"", filename, "\" is not loaded");
         return undefined;

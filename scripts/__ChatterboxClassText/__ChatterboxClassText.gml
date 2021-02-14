@@ -72,7 +72,7 @@ function __ChatterboxClassText(_string) constructor
     
     buffer_delete(_buffer);
     
-    static evaluate = function(_local_scope, _filename)
+    static Evaluate = function(_local_scope, _filename)
     {
         var _result = "";
         

@@ -33,7 +33,7 @@ function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
     var _substring_array = __ChatterboxSplitBody(_work_string);
     __ChatterboxCompile(_substring_array, root_instruction);
     
-    static mark_visited = function()
+    static MarkVisited = function()
     {
         var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
         
@@ -48,7 +48,7 @@ function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
         }
     }
     
-    function toString()
+    static toString = function()
     {
         return "Node " + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title);
     }
