@@ -551,6 +551,8 @@ function __chatterbox_parse_expression(_string)
                         var _read = "";
                     }
                     
+                    if (CHATTERBOX_ESCAPE_EXPRESSION_STRINGS) _read = __ChatterboxUnescapeString(_read);
+                    
                     __chatterbox_array_add(_tokens, _read);
                     _new = true;
                 }

@@ -9,6 +9,7 @@
 #macro CHATTERBOX_ESCAPE_FILE_TAGS                true
 #macro CHATTERBOX_ESCAPE_NODE_TAGS                true
 #macro CHATTERBOX_ESCAPE_CONTENT                  true
+#macro CHATTERBOX_ESCAPE_EXPRESSION_STRINGS       false
 
 #region Variables and Scoping
 
