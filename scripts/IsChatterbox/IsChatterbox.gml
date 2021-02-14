@@ -4,5 +4,5 @@
 
 function IsChatterbox(_value)
 {
-    return (instanceof(_value) == "__chatterbox_class");
+    return (instanceof(_value) == "__ChatterboxClass");
 }

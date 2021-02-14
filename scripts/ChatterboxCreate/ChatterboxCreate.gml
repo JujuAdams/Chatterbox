@@ -19,22 +19,22 @@ function ChatterboxCreate()
     var _singleton   = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
     var _local_scope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
     
-    return new __chatterbox_class(_filename, _singleton, _local_scope);
+    return new __ChatterboxClass(_filename, _singleton, _local_scope);
 }
 
 /// @param filename
 /// @param singletonText
-function __chatterbox_class(_filename, _singleton, _local_scope) constructor
+function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
 {
     if (!is_string(_filename))
     {
-        __chatterbox_error("Source files must be strings (got \"" + string(_filename) + "\")");
+        __ChatterboxError("Source files must be strings (got \"" + string(_filename) + "\")");
         return undefined;
     }
     
     if (!ChatterboxIsLoaded(_filename))
     {
-        __chatterbox_error("Could not create chatterbox because \"", _filename, "\" is not loaded");
+        __ChatterboxError("Could not create chatterbox because \"", _filename, "\" is not loaded");
         return undefined;
     }
     
@@ -64,7 +64,7 @@ function __chatterbox_class(_filename, _singleton, _local_scope) constructor
         {
             if (loaded)
             {
-                __chatterbox_trace("Warning! \"", filename, "\" has been unloaded, an in-progress chatterbox has been invalidated");
+                __ChatterboxTrace("Warning! \"", filename, "\" has been unloaded, an in-progress chatterbox has been invalidated");
                 
                 content             = [];
                 option              = [];

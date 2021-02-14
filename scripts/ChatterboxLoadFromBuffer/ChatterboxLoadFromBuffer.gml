@@ -9,7 +9,7 @@ function ChatterboxLoadFromBuffer(_filename, _buffer)
 {
     if (!is_string(_filename))
     {
-        __chatterbox_error("Buffers should have a filename specified as a string.\n(Input was an invalid datatype)");
+        __ChatterboxError("Buffers should have a filename specified as a string.\n(Input was an invalid datatype)");
         return undefined;
     }
     

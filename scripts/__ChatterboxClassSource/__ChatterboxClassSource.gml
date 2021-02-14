@@ -9,16 +9,16 @@ function __ChatterboxClassSource(_filename, _string) constructor
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
-    __chatterbox_trace("Parsing \"", filename, "\" as a source file named \"", name, "\"");
+    __ChatterboxTrace("Parsing \"", filename, "\" as a source file named \"", name, "\"");
     
     try
     {
-        var _file_struct = __chatterbox_parse_yarn(_string);
+        var _file_struct = __ChatterboxParseYarn(_string);
     }
     catch(_error)
     {
         show_debug_message(_error);
-        __chatterbox_error("\"" + filename + "\" could not be parsed. This source file will be ignored");
+        __ChatterboxError("\"" + filename + "\" could not be parsed. This source file will be ignored");
         exit;
     }
     
@@ -34,12 +34,12 @@ function __ChatterboxClassSource(_filename, _string) constructor
         var _node_tags = _node_temp_struct.tags;
         if (!variable_struct_exists(_node_tags, "title"))
         {
-            __chatterbox_error("Node in \"", filename, "\" has no title tag");
+            __ChatterboxError("Node in \"", filename, "\" has no title tag");
         }
         else
         {
             var _node = new __ChatterboxClassNode(filename, _node_tags, _node_temp_struct.body);
-            __chatterbox_array_add(nodes, _node);
+            array_push(nodes, _node);
         }
         
         _n++;
@@ -67,7 +67,7 @@ function __ChatterboxClassSource(_filename, _string) constructor
 }
 
 /// @param string
-function __chatterbox_parse_yarn(_input_string)
+function __ChatterboxParseYarn(_input_string)
 {
     var _node_array  = [];
     var _file_tags   = [];
@@ -112,7 +112,7 @@ function __chatterbox_parse_yarn(_input_string)
                 var _string = buffer_read(_buffer, buffer_string);
                 buffer_poke(_buffer, buffer_tell(_buffer) - 1, buffer_u8, _byte);
                 
-                var _string_trimmed = __chatterbox_remove_whitespace(_string, all);
+                var _string_trimmed = __ChatterboxRemoveWhitespace(_string, all);
                 
                 if (_line_is_file_tag)
                 {
@@ -127,7 +127,7 @@ function __chatterbox_parse_yarn(_input_string)
                     {
                         if (_in_body)
                         {
-                            __chatterbox_trace("Warning! \"---\" found outside of node header definition");
+                            __ChatterboxTrace("Warning! \"---\" found outside of node header definition");
                         }
                         else
                         {
@@ -139,7 +139,7 @@ function __chatterbox_parse_yarn(_input_string)
                     {
                         if (!_in_body)
                         {
-                            __chatterbox_trace("Warning! \"===\" found outside of node body definition");
+                            __ChatterboxTrace("Warning! \"===\" found outside of node body definition");
                         }
                         else
                         {
@@ -163,14 +163,14 @@ function __chatterbox_parse_yarn(_input_string)
                         
                         if (_colon_pos == 0)
                         {
-                            __chatterbox_trace("Warning! String found in a node header tag was not a key:value pair (", _string, ")");
+                            __ChatterboxTrace("Warning! String found in a node header tag was not a key:value pair (", _string, ")");
                         }
                         else
                         {
                             var _key   = string_copy(_string_trimmed, 1, _colon_pos - 1);
                             var _value = string_copy(_string_trimmed, _colon_pos + 1, string_length(_string_trimmed) - _colon_pos);
-                            _key   = __chatterbox_remove_whitespace(_key,   all);
-                            _value = __chatterbox_remove_whitespace(_value, all);
+                            _key   = __ChatterboxRemoveWhitespace(_key,   all);
+                            _value = __ChatterboxRemoveWhitespace(_value, all);
                             
                             if (CHATTERBOX_ESCAPE_NODE_TAGS)
                             {
@@ -178,7 +178,7 @@ function __chatterbox_parse_yarn(_input_string)
                                 _value = __ChatterboxUnescapeString(_value);
                             }
                             
-                            if (variable_struct_exists(_node_tags, _key)) __chatterbox_trace("Warning! Duplicate node tag found \"", _key, "\"");
+                            if (variable_struct_exists(_node_tags, _key)) __ChatterboxTrace("Warning! Duplicate node tag found \"", _key, "\"");
                             _node_tags[$ _key] = _value;
                         }
                     }
@@ -212,7 +212,7 @@ function __chatterbox_parse_yarn(_input_string)
     
     if (_in_body)
     {
-        __chatterbox_trace("Warning! File ended without a final body terminator (===)");
+        __ChatterboxTrace("Warning! File ended without a final body terminator (===)");
         
         var _old_tell = buffer_tell(_buffer);
         buffer_poke(_buffer, _string_start, buffer_u8, 0x00);

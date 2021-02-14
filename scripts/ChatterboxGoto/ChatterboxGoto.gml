@@ -22,13 +22,13 @@ function ChatterboxGoto()
             }
             else
             {
-                __chatterbox_trace("Error! File \"", _filename, "\" not found or not loaded");
+                __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
             }
         }
         
         if (!verify_is_loaded())
         {
-            __chatterbox_error("Could not go to node \"", _title, "\" because \"", filename, "\" is not loaded");
+            __ChatterboxError("Could not go to node \"", _title, "\" because \"", filename, "\" is not loaded");
             return undefined;
         }
         else
@@ -36,7 +36,7 @@ function ChatterboxGoto()
             var _node = find_node(_title);
             if (_node == undefined)
             {
-                __chatterbox_error("Could not find node \"", _title, "\" in \"", filename, "\"");
+                __ChatterboxError("Could not find node \"", _title, "\" in \"", filename, "\"");
                 return undefined;
             }
             

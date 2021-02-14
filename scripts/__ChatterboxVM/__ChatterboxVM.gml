@@ -14,15 +14,15 @@ function __ChatterboxVM()
     if (current_instruction.type == "stop")
     {
         stopped = true;
-        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("STOP");
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP");
         return undefined;
     }
     
-    __chatterbox_vm_inner(current_instruction);
-    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("HALT");
+    __ChatterboxVMInner(current_instruction);
+    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
 }
 
-function __chatterbox_vm_inner(_instruction)
+function __ChatterboxVMInner(_instruction)
 {
     var _do_next = true;
     var _next = variable_struct_get(_instruction, "next");
@@ -33,7 +33,7 @@ function __chatterbox_vm_inner(_instruction)
         
         if (!((_instruction.type == "if") || (_instruction.type == "else if")) && variable_struct_exists(_instruction, "condition"))
         {
-            if (!__chatterbox_evaluate(local_scope, filename, _instruction.condition, undefined)) _condition_failed = true;
+            if (!__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined)) _condition_failed = true;
         }
         
         if (!_condition_failed)
@@ -47,9 +47,9 @@ function __chatterbox_vm_inner(_instruction)
                     var _branch = variable_struct_get(_instruction, "shortcut_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
-                    __chatterbox_array_add(option, _instruction.text.evaluate(local_scope, filename));
-                    __chatterbox_array_add(option_instruction, _branch);
-                    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
+                    array_push(option, _instruction.text.evaluate(local_scope, filename));
+                    array_push(option_instruction, _branch);
+                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
             }
             else
@@ -69,8 +69,8 @@ function __chatterbox_vm_inner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        __chatterbox_array_add(content, _instruction.text.evaluate(local_scope, filename));
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), _instruction.text.raw_string);
+                        array_push(content, _instruction.text.evaluate(local_scope, filename));
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), _instruction.text.raw_string);
                         
                         if (singleton_text)
                         {
@@ -92,13 +92,13 @@ function __chatterbox_vm_inner(_instruction)
                         waiting = true;
                         wait_instruction = _instruction.next;
                         _do_next = false;
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>>");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>>");
                     break;
                     
                     case "jump":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "[goto ", _instruction.destination, "]");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[goto ", _instruction.destination, "]");
                         
-                        var _split = __chatterbox_split_goto(_instruction.destination);
+                        var _split = __ChatterboxSplitGoto(_instruction.destination);
                         if (_split.filename == undefined)
                         {
                             var _next_node = find_node(_split.node);
@@ -121,7 +121,7 @@ function __chatterbox_vm_inner(_instruction)
                             }
                             else
                             {
-                                __chatterbox_trace("Error! File \"", _split.filename, "\" not found or not loaded");
+                                __ChatterboxTrace("Error! File \"", _split.filename, "\" not found or not loaded");
                             }
                         }
                     break;
@@ -138,26 +138,26 @@ function __chatterbox_vm_inner(_instruction)
                         }
                         
                         _do_next = false;
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<stop>>");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<stop>>");
                     break;
                     
                     case "shortcut end":
                         leaving_shortcut = true;
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<shortcut end>>");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<shortcut end>>");
                     break;
                     
                     case "declare":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        __chatterbox_evaluate(local_scope, filename, _instruction.expression, "declare");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
+                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "declare");
                     break;
                     
                     case "set":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
-                        __chatterbox_evaluate(local_scope, filename, _instruction.expression, "set");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
+                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "set");
                     break;
                     
                     case "direction":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(_instruction.expression);
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
                         
                         if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
                         {
@@ -168,19 +168,19 @@ function __chatterbox_vm_inner(_instruction)
                             script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text.evaluate(local_scope, filename));
                         }
                         
-                        //if (__chatterbox_evaluate(local_scope, filename, _instruction.expression, false) == "<<wait>>")
+                        //if (__ChatterboxEvaluate(local_scope, filename, _instruction.expression, false) == "<<wait>>")
                         //{
                         //    waiting = true;
                         //    wait_instruction = _instruction.next;
                         //    _do_next = false;
-                        //    if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "<<wait>> (returned by function)");
+                        //    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (returned by function)");
                         //}
                     break;
                     
                     case "if":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<if>> ", _instruction.condition);
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<if>> ", _instruction.condition);
                         
-                        if (__chatterbox_evaluate(local_scope, filename, _instruction.condition, undefined))
+                        if (__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined))
                         {
                             rejected_if = false;
                         }
@@ -192,7 +192,7 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "else":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<else>>");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<else>>");
                         
                         if (!rejected_if)
                         {
@@ -201,9 +201,9 @@ function __chatterbox_vm_inner(_instruction)
                     break;
                     
                     case "else if":
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<else if>> ", _instruction.condition);
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<else if>> ", _instruction.condition);
                         
-                        if (rejected_if && __chatterbox_evaluate(local_scope, filename, _instruction.condition, undefined))
+                        if (rejected_if && __ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined))
                         {
                             rejected_if = false;
                         }
@@ -215,11 +215,11 @@ function __chatterbox_vm_inner(_instruction)
                     
                     case "end if":
                         rejected_if = false;
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("<<end if>>");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<end if>>");
                     break;
                     
                     default:
-                        if (__CHATTERBOX_DEBUG_VM) __chatterbox_trace("\"", _instruction.type, "\" instruction ignored");
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("\"", _instruction.type, "\" instruction ignored");
                     break;
                 }
             }
@@ -230,18 +230,18 @@ function __chatterbox_vm_inner(_instruction)
     {
         if (instanceof(_next) == "__ChatterboxClassInstruction")
         {
-            __chatterbox_vm_inner(_next);
+            __ChatterboxVMInner(_next);
         }
         else
         {
-            __chatterbox_trace(__chatterbox_generate_indent(_instruction.indent), "Warning! Instruction found without next node (datatype=", instanceof(_next), ")");
+            __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Warning! Instruction found without next node (datatype=", instanceof(_next), ")");
             stopped = true;
         }
     }
 }
 
 /// @param string
-function __chatterbox_split_goto(_string)
+function __ChatterboxSplitGoto(_string)
 {
     var _pos = string_pos(CHATTERBOX_FILENAME_SEPARATOR, _string);
     if (_pos <= 0)

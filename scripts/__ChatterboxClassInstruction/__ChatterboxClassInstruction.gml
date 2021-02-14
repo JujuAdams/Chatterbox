@@ -16,7 +16,7 @@ function __ChatterboxClassInstruction(_type, _line, _indent) constructor
 
 /// @param parentInstruction
 /// @param child
-function __chatterbox_instruction_add(_parent, _child)
+function __ChatterboxInstructionAdd(_parent, _child)
 {
     if ((_child.indent > _parent.indent) && (_parent.type == "shortcut"))
     {
@@ -40,11 +40,11 @@ function __chatterbox_instruction_add(_parent, _child)
         {
             if (_child.indent <= _parent.shortcut_branch_parent.indent)
             {
-                __chatterbox_instruction_add(_parent.shortcut_branch_parent, _child);
+                __ChatterboxInstructionAdd(_parent.shortcut_branch_parent, _child);
                 
                 //Add a marker to the end of a branch. This helps the VM understand what's going on!
                 var _branch_end = new __ChatterboxClassInstruction("shortcut end", _parent.line, _parent.indent);
-                __chatterbox_instruction_add(_parent, _branch_end);
+                __ChatterboxInstructionAdd(_parent, _branch_end);
                 
                 _branch_end.next = _child;
             }

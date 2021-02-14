@@ -12,13 +12,13 @@ function ChatterboxLoadFromFile()
     
     if (!is_string(_filename))
     {
-        __chatterbox_error("Files should be loaded using their filename as a string.\n(Input was an invalid datatype)");
+        __ChatterboxError("Files should be loaded using their filename as a string.\n(Input was an invalid datatype)");
         return undefined;
     }
 	
 	if (_aliasName != undefined && !is_string(_aliasName))
 	{
-		__chatterbox_error("Aliases for filenames should be a string.\n(Input was an invalid datatype)");
+		__ChatterboxError("Aliases for filenames should be a string.\n(Input was an invalid datatype)");
 		return undefined;
 	}
     
@@ -28,7 +28,7 @@ function ChatterboxLoadFromFile()
     if (_char != "\\") && (_char != "/") _font_directory += "\\";
     if (!file_exists(_font_directory + _filename))
     {
-        __chatterbox_error("\"", _filename, "\" could not be found");
+        __ChatterboxError("\"", _filename, "\" could not be found");
         return undefined;
     }
     
@@ -46,7 +46,7 @@ function ChatterboxLoadFromFile()
     }
     else
     {
-        __chatterbox_trace("Using legacy file loading method on HTML5");
+        __ChatterboxTrace("Using legacy file loading method on HTML5");
         
         var _file = file_text_open_read(_font_directory + _filename);
         var _string = "";

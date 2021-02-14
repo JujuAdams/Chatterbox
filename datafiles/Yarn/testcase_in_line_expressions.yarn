@@ -3,7 +3,7 @@ title: Start
 //Not 100% necessary - <<declare $test = "hello world">>
 <<set $test = "replacement">>
 Test string = {$test}!
-Commented line //{$test}
+Line with comment at the end //{$test}
 //Another commented line {$test}
 Mid-expression comment: {$test//}iofgaoe;grn
 Escaped \{$test}

@@ -29,19 +29,19 @@ function ChatterboxAddFunction(_name, _in_function)
     
     if (!is_string(_name))
     {
-        __chatterbox_error("Function names should be strings\n(Input was \"", _name, "\")");
+        __ChatterboxError("Function names should be strings\n(Input was \"", _name, "\")");
         return false;
     }
     
     if (CHATTERBOX_ALLOW_SCRIPTS && is_numeric(_function) && script_exists(_function))
     {
-        __chatterbox_trace("Function provided for \"", _name, "\" was a script index (", _function, "=", script_get_name(_function), "), binding to <undefined> scope");
+        __ChatterboxTrace("Function provided for \"", _name, "\" was a script index (", _function, "=", script_get_name(_function), "), binding to <undefined> scope");
         _function = method(undefined, _function);
     }
     
     if (!is_method(_function))
     {
-        __chatterbox_error("Function/method supplied for \"", _name, "\" is invalid (", _in_function, ")");
+        __ChatterboxError("Function/method supplied for \"", _name, "\" is invalid (", _in_function, ")");
         return false;
     }
     
@@ -60,7 +60,7 @@ function ChatterboxAddFunction(_name, _in_function)
         case "stop":
         case "wait":
         case "visited":
-            __chatterbox_error("Function name \"", _name, "\" is reserved for internal Chatterbox use.\nPlease choose another action name.");
+            __ChatterboxError("Function name \"", _name, "\" is reserved for internal Chatterbox use.\nPlease choose another action name.");
             return false;
         break;
     }
@@ -73,10 +73,10 @@ function ChatterboxAddFunction(_name, _in_function)
     var _old_function = global.__chatterbox_functions[? _name];
     if (is_method(_old_function))
     {
-        __chatterbox_trace("WARNING! Overwriting script name \"", _name, "\" tied to \"", _old_function, "()\"" );
+        __ChatterboxTrace("WARNING! Overwriting script name \"", _name, "\" tied to \"", _old_function, "()\"" );
     }
     
     global.__chatterbox_functions[? _name ] = _function;
-    __chatterbox_trace("Permitting script \"", _name, "\", calling \"", _function, "()\"" );
+    __ChatterboxTrace("Permitting script \"", _name, "\", calling \"", _function, "()\"" );
     return true;
 }

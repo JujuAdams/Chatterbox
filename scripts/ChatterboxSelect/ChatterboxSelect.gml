@@ -9,14 +9,14 @@ function ChatterboxSelect(_chatterbox, _index)
     {
         if (!verify_is_loaded())
         {
-            __chatterbox_error("Could not select option because \"", filename, "\" is not loaded");
+            __ChatterboxError("Could not select option because \"", filename, "\" is not loaded");
             return undefined;
         }
         else
         {
             if ((_index < 0) || (_index >= array_length(option)))
             {
-                __chatterbox_trace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
+                __ChatterboxTrace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
                 return undefined;
             }
             

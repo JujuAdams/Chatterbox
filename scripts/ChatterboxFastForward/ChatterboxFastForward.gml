@@ -6,19 +6,19 @@ function ChatterboxFastForward(_chatterbox)
 {
     if (!_chatterbox.verify_is_loaded())
     {
-        __chatterbox_error("Could not fast forward because \"", filename, "\" is not loaded");
+        __ChatterboxError("Could not fast forward because \"", filename, "\" is not loaded");
         return undefined;
     }
     
     if (ChatterboxIsStopped(_chatterbox))
     {
-        __chatterbox_trace("Error! Chatterbox has stopped, cannot fast forward");
+        __ChatterboxTrace("Error! Chatterbox has stopped, cannot fast forward");
         return undefined;
     }
     
     if (ChatterboxGetOptionCount(_chatterbox) > 0)
     {
-        __chatterbox_trace("Error! Player is being prompted to make a choice, cannot fast forward");
+        __ChatterboxTrace("Error! Player is being prompted to make a choice, cannot fast forward");
         return undefined;
     }
     

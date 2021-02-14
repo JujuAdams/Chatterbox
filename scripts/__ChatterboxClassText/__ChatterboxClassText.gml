@@ -54,7 +54,7 @@ function __ChatterboxClassText(_string) constructor
                 buffer_seek(_buffer, buffer_seek_start, _string_start);
                 var _substring = buffer_read(_buffer, buffer_string);
                 
-                var _expression = __chatterbox_parse_expression(_substring);
+                var _expression = __ChatterboxParseExpression(_substring);
                 array_push(substrings, _expression);
                 
                 _in_expression = false;
@@ -80,7 +80,7 @@ function __ChatterboxClassText(_string) constructor
         repeat(array_length(substrings))
         {
             var _value = substrings[_i];
-            if (is_struct(_value)) _value = __chatterbox_evaluate(_local_scope, _filename, _value, undefined);
+            if (is_struct(_value)) _value = __ChatterboxEvaluate(_local_scope, _filename, _value, undefined);
             _result += string(_value);
             ++_i;
         }

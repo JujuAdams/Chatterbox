@@ -4,7 +4,7 @@
 
 function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
 {
-    if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("[", _title, "]");
+    if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("[", _title, "]");
     
     filename         = _filename;
     title            = _node_tags.title;
@@ -30,8 +30,8 @@ function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
     //Add a trailing newline to make sure we parse correctly
     _work_string += "\n";
     
-    var _substring_array = __chatterbox_split_body(_work_string);
-    __chatterbox_compile(_substring_array, root_instruction);
+    var _substring_array = __ChatterboxSplitBody(_work_string);
+    __ChatterboxCompile(_substring_array, root_instruction);
     
     static mark_visited = function()
     {
@@ -55,7 +55,7 @@ function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
 }
 
 /// @param bodyString
-function __chatterbox_split_body(_body)
+function __ChatterboxSplitBody(_body)
 {
     var _in_substring_array = [];
     
@@ -72,7 +72,7 @@ function __chatterbox_split_body(_body)
     var _cache_type    = "text";
     var _prev_value    = 0;
     var _value         = 0;
-    var _next_value    = __chatterbox_read_utf8_char(_body_buffer);
+    var _next_value    = __ChatterboxReadUTF8Char(_body_buffer);
     var _in_comment    = false;
     var _in_metadata   = false;
     
@@ -82,7 +82,7 @@ function __chatterbox_split_body(_body)
         
         _prev_value = _value;
         _value      = _next_value;
-        _next_value = __chatterbox_read_utf8_char(_body_buffer);
+        _next_value = __ChatterboxReadUTF8Char(_body_buffer);
         
         var _write_cache = true;
         var _pop_cache   = false;
@@ -160,16 +160,16 @@ function __chatterbox_split_body(_body)
         {
             if (_first_on_line)
             {
-                _cache = __chatterbox_remove_whitespace(_cache, true);
+                _cache = __ChatterboxRemoveWhitespace(_cache, true);
                 _indent = global.__chatterbox_indent_size;
             }
             else if (_in_metadata)
             {
-                _cache = __chatterbox_remove_whitespace(_cache, true);
+                _cache = __ChatterboxRemoveWhitespace(_cache, true);
                 _indent = 0;
             }
             
-            _cache = __chatterbox_remove_whitespace(_cache, false);
+            _cache = __ChatterboxRemoveWhitespace(_cache, false);
             
             if (_cache != "") array_push(_in_substring_array, [_cache, _cache_type, _line, _indent]);
             _cache = "";
@@ -197,7 +197,7 @@ function __chatterbox_split_body(_body)
 
 /// @param substringList
 /// @param rootInstruction
-function __chatterbox_compile(_in_substring_array, _root_instruction)
+function __ChatterboxCompile(_in_substring_array, _root_instruction)
 {
     if (array_length(_in_substring_array) <= 0) exit;
     
@@ -218,18 +218,18 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
         
         var _instruction = undefined;
         
-        if (__CHATTERBOX_DEBUG_COMPILER) __chatterbox_trace("ln ", string_format(_line, 4, 0), " ", __chatterbox_generate_indent(_indent), _string);
+        if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("ln ", string_format(_line, 4, 0), " ", __ChatterboxGenerateIndent(_indent), _string);
         
         if (string_copy(_string, 1, 2) == "->") //Shortcut //TODO - Make this part of the substring splitting step
         {
             var _instruction = new __ChatterboxClassInstruction("shortcut", _line, _indent);
-            _instruction.text = new __ChatterboxClassText(__chatterbox_remove_whitespace(string_delete(_string, 1, 2), all));
+            _instruction.text = new __ChatterboxClassText(__ChatterboxRemoveWhitespace(string_delete(_string, 1, 2), all));
         }
         else if (_type == "command")
         {
             #region <<command>>
             
-            _string = __chatterbox_remove_whitespace(_string, true);
+            _string = __ChatterboxRemoveWhitespace(_string, true);
             
             var _pos = string_pos(" ", _string);
             if (_pos > 0)
@@ -247,29 +247,29 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             {
                 case "declare":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
-                    _instruction.expression = __chatterbox_parse_expression(_remainder);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder);
                 break;
                 
                 case "set":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
-                    _instruction.expression = __chatterbox_parse_expression(_remainder);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder);
                 break;
                 
                 case "jump":
                     var _instruction = new __ChatterboxClassInstruction("jump", _line, _indent);
-                    _instruction.destination = __chatterbox_remove_whitespace(_remainder, all);
+                    _instruction.destination = __ChatterboxRemoveWhitespace(_remainder, all);
                 break;
                 
                 case "if":
                     if (_previous_instruction.line == _line)
                     {
-                        _previous_instruction.condition = __chatterbox_parse_expression(_remainder);
+                        _previous_instruction.condition = __ChatterboxParseExpression(_remainder);
                         //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
                     }
                     else
                     {
                         var _instruction = new __ChatterboxClassInstruction("if", _line, _indent);
-                        _instruction.condition = __chatterbox_parse_expression(_remainder);
+                        _instruction.condition = __ChatterboxParseExpression(_remainder);
                         _if_depth++;
                         _if_stack[@ _if_depth] = _instruction;
                     }
@@ -279,7 +279,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                     var _instruction = new __ChatterboxClassInstruction("else", _line, _indent);
                     if (_if_depth < 0)
                     {
-                        __chatterbox_error("<<else>> found without matching <<if>>");
+                        __ChatterboxError("<<else>> found without matching <<if>>");
                     }
                     else
                     {
@@ -289,13 +289,13 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                 break;
                     
                 case "else if":
-                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
                 case "elseif":
                     var _instruction = new __ChatterboxClassInstruction("else if", _line, _indent);
-                    _instruction.condition = __chatterbox_parse_expression(_remainder);
+                    _instruction.condition = __ChatterboxParseExpression(_remainder);
                     if (_if_depth < 0)
                     {
-                        __chatterbox_error("<<else if>> found without matching <<if>>");
+                        __ChatterboxError("<<else if>> found without matching <<if>>");
                     }
                     else
                     {
@@ -305,12 +305,12 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                 break;
                 
                 case "end if":
-                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __chatterbox_error("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
                 case "endif":
                     var _instruction = new __ChatterboxClassInstruction("end if", _line, _indent);
                     if (_if_depth < 0)
                     {
-                        __chatterbox_error("<<endif>> found without matching <<if>>");
+                        __ChatterboxError("<<endif>> found without matching <<if>>");
                     }
                     else
                     {
@@ -321,10 +321,10 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
                 
                 case "wait":
                 case "stop":
-                    _remainder = __chatterbox_remove_whitespace(_remainder, true);
+                    _remainder = __ChatterboxRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
-                        __chatterbox_error("Cannot use arguments with <<wait>> or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                        __ChatterboxError("Cannot use arguments with <<wait>> or <<stop>>\n\Action was \"<<", _string, ">>\"");
                     }
                     else
                     {
@@ -348,11 +348,11 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
             {
                 if (_previous_instruction.type != "content")
                 {
-                    __chatterbox_trace("Warning! Previous instruction wasn't content, metadata \"\#", _string, "\" cannot be applied");
+                    __ChatterboxTrace("Warning! Previous instruction wasn't content, metadata \"\#", _string, "\" cannot be applied");
                 }
                 else if (_previous_instruction.line != _line)
                 {
-                    __chatterbox_trace("Warning! Previous instruction (ln ", _previous_instruction.line, ") was a different line to metadata (ln ", _line, "), \"\#", _string, "\"");
+                    __ChatterboxTrace("Warning! Previous instruction (ln ", _previous_instruction.line, ") was a different line to metadata (ln ", _line, "), \"\#", _string, "\"");
                 }
                 else
                 {
@@ -370,7 +370,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
         
         if (_instruction != undefined)
         {
-            __chatterbox_instruction_add(_previous_instruction, _instruction);
+            __ChatterboxInstructionAdd(_previous_instruction, _instruction);
             _previous_instruction = _instruction;
         }
         
@@ -382,7 +382,7 @@ function __chatterbox_compile(_in_substring_array, _root_instruction)
 
 /// @param string
 /// @param allowActionSyntax
-function __chatterbox_parse_expression(_string)
+function __ChatterboxParseExpression(_string)
 {
     enum __CHATTERBOX_TOKEN
     {
@@ -463,16 +463,16 @@ function __chatterbox_parse_expression(_string)
                     
                     if (_is_symbol)
                     {
-                        __chatterbox_array_add(_tokens, { op : _read });
+                        array_push(_tokens, { op : _read });
                     }
                     else if (_is_number)
                     {
-                        __chatterbox_array_add(_tokens, _read);
+                        array_push(_tokens, _read);
                     }
                     else if (_is_function)
                     {
                         _read = string_copy(_read, 1, string_length(_read)-1); //Trim off the open bracket
-                        __chatterbox_array_add(_tokens, { op : "func", name : _read });
+                        array_push(_tokens, { op : "func", name : _read });
                     }
                     else
                     {
@@ -517,11 +517,11 @@ function __chatterbox_parse_expression(_string)
                         
                         if (_scope == "string")
                         {
-                            __chatterbox_array_add(_tokens, _read);
+                            array_push(_tokens, _read);
                         }
                         else
                         {
-                            __chatterbox_array_add(_tokens, { op : "var", scope : _scope, name : _read });
+                            array_push(_tokens, { op : "var", scope : _scope, name : _read });
                         }
                     }
                     
@@ -553,7 +553,7 @@ function __chatterbox_parse_expression(_string)
                     
                     if (CHATTERBOX_ESCAPE_EXPRESSION_STRINGS) _read = __ChatterboxUnescapeString(_read);
                     
-                    __chatterbox_array_add(_tokens, _read);
+                    array_push(_tokens, _read);
                     _new = true;
                 }
                 else
@@ -589,11 +589,11 @@ function __chatterbox_parse_expression(_string)
                     }
                     catch(_error)
                     {
-                        __chatterbox_error("Error whilst converting expression value to real\n \n(", _error, ")");
+                        __ChatterboxError("Error whilst converting expression value to real\n \n(", _error, ")");
                         return undefined;
                     }
                     
-                    __chatterbox_array_add(_tokens, _read);
+                    array_push(_tokens, _read);
                     
                     _new = true;
                 }
@@ -634,7 +634,7 @@ function __chatterbox_parse_expression(_string)
                     var _read = buffer_read(_buffer, buffer_string);
                     buffer_poke(_buffer, _b, buffer_u8, _byte);
                     
-                    __chatterbox_array_add(_tokens, { op : _read });
+                    array_push(_tokens, { op : _read });
                     
                     _new = true;
                 }
@@ -726,15 +726,15 @@ function __chatterbox_parse_expression(_string)
     
     buffer_delete(_buffer);
     
-    __chatterbox_compile_expression(_tokens);
+    __ChatterboxCompileExpression(_tokens);
     
     if (array_length(_tokens) > 1)
     {
-        __chatterbox_error("Expression could not be fully resolved into a single token (", _string, ")");
+        __ChatterboxError("Expression could not be fully resolved into a single token (", _string, ")");
     }
     else if (array_length(_tokens) < 1)
     {
-        __chatterbox_error("No valid expression tokens found (", _string, ")");
+        __ChatterboxError("No valid expression tokens found (", _string, ")");
     }
     else
     {
@@ -747,7 +747,7 @@ function __chatterbox_parse_expression(_string)
 /// @param array
 /// @param startIndex
 /// @param endIndex
-function __chatterbox_compile_expression(_source_array)
+function __ChatterboxCompileExpression(_source_array)
 {
     //Handle parentheses
     var _depth = 0;
@@ -774,7 +774,7 @@ function __chatterbox_compile_expression(_source_array)
                     {
                         _open = _t;
                         _is_function = false;
-                        __chatterbox_array_delete(_source_array, _open, 1);
+                        array_delete(_source_array, _open, 1);
                         --_t;
                     }
                     
@@ -785,9 +785,9 @@ function __chatterbox_compile_expression(_source_array)
             {
                 if (_depth == 1)
                 {
-                    var _sub_array = __chatterbox_array_copy_part(_source_array, _sub_expression_start, _t - _sub_expression_start);
-                    __chatterbox_array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
-                    __chatterbox_compile_expression(_sub_array);
+                    var _sub_array = __ChatterboxArrayCopyPart(_source_array, _sub_expression_start, _t - _sub_expression_start);
+                    array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
+                    __ChatterboxCompileExpression(_sub_array);
                     
                     _source_array[@ _sub_expression_start] = { op : "param", a : _sub_array[0] };
                     
@@ -800,16 +800,16 @@ function __chatterbox_compile_expression(_source_array)
                 --_depth;
                 if (_depth == 0)
                 {
-                    var _sub_array = __chatterbox_array_copy_part(_source_array, _sub_expression_start, _t - _sub_expression_start);
-                    __chatterbox_array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
-                    __chatterbox_compile_expression(_sub_array);
+                    var _sub_array = __ChatterboxArrayCopyPart(_source_array, _sub_expression_start, _t - _sub_expression_start);
+                    array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
+                    __ChatterboxCompileExpression(_sub_array);
                     
                     _source_array[@ _sub_expression_start] = { op : "paren", a : _sub_array[0] };
                     
                     if (_is_function)
                     {
-                        var _parameters = __chatterbox_array_copy_part(_source_array, _open, 1 + _sub_expression_start - _open);
-                        __chatterbox_array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
+                        var _parameters = __ChatterboxArrayCopyPart(_source_array, _open, 1 + _sub_expression_start - _open);
+                        array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
                         
                         _source_array[_open - 1].parameters = _parameters;
                         _t = _open - 1;
@@ -835,7 +835,7 @@ function __chatterbox_compile_expression(_source_array)
             if (_token.op == "!")
             {
                 _token.a = _source_array[_t+1];
-                __chatterbox_array_delete(_source_array, _t+1, 1);
+                array_delete(_source_array, _t+1, 1);
             }
         }
         
@@ -852,11 +852,11 @@ function __chatterbox_compile_expression(_source_array)
             if (_token.op == "-")
             {
                 //If this token was preceded by a symbol (or nothing) then it's a negative sign
-                if ((_t == 0) || (__chatterbox_string_is_symbol(_source_array[_t-1], true)))
+                if ((_t == 0) || (__chatterboxStringIsSymbol(_source_array[_t-1], true)))
                 {
                     _token.op = "neg";
                     _token.a = _source_array[_t+1];
-                    __chatterbox_array_delete(_source_array, _t+1, 1);
+                    array_delete(_source_array, _t+1, 1);
                 }
             }
         }
@@ -881,8 +881,8 @@ function __chatterbox_compile_expression(_source_array)
                     _token.b = _source_array[_t+1];
                     
                     //Order of operation very important here!
-                    __chatterbox_array_delete(_source_array, _t+1, 1);
-                    __chatterbox_array_delete(_source_array, _t-1, 1);
+                    array_delete(_source_array, _t+1, 1);
+                    array_delete(_source_array, _t-1, 1);
                     
                     //Correct for token deletion
                     --_t;
@@ -902,7 +902,7 @@ function __chatterbox_compile_expression(_source_array)
 
 /// @param string
 /// @param ignoreCloseParentheses
-function __chatterbox_string_is_symbol(_string, _ignore_close_paren)
+function __chatterboxStringIsSymbol(_string, _ignore_close_paren)
 {
     if ((_string == "(" )
     || ((_string == ")" ) && !_ignore_close_paren)

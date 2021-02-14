@@ -11,7 +11,7 @@ function ChatterboxUnload(_filename)
         {
             _file.loaded = false;
             ds_map_delete(global.chatterbox_files, _filename);
-            if (__CHATTERBOX_DEBUG_LOADER) __chatterbox_trace("\"", _filename, "\" unloaded");
+            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("\"", _filename, "\" unloaded");
         }
     }
 }

@@ -18,12 +18,12 @@
 
 #region Boot Initialisation
 
-__chatterbox_trace("Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
+__ChatterboxTrace("Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
     
 if (__CHATTERBOX_ON_MOBILE && (CHATTERBOX_SOURCE_DIRECTORY != ""))
 {
-    __chatterbox_trace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
-    __chatterbox_error("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
+    __ChatterboxTrace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
+    __ChatterboxError("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
 }
     
 //Declare global variables
@@ -63,21 +63,14 @@ ds_list_add(global.__chatterbox_op_list, "=" );
 
 #region Utility
 
-/// @param array
-/// @param value
-function __chatterbox_array_add(_array, _value)
-{
-    _array[@ array_length(_array)] = _value;
-}
-
 /// @param [value...]
-function __chatterbox_trace()
+function __ChatterboxTrace()
 {
     var _string = "";
     var _i = 0;
     repeat(argument_count)
     {
-        _string += __chatterbox_string(argument[_i]);
+        _string += __ChatterboxString(argument[_i]);
         ++_i;
     }
 
@@ -87,14 +80,14 @@ function __chatterbox_trace()
 }
 
 /// @param value
-function __chatterbox_string(_value)
+function __ChatterboxString(_value)
 {
-    if (is_array(_value)) return __chatterbox_array_to_string(_value);
+    if (is_array(_value)) return __ChatterboxArrayToString(_value);
     return string(_value);
 }
 
 /// @param array
-function __chatterbox_array_to_string(_array)
+function __ChatterboxArrayToString(_array)
 {
     var _string = "[";
 
@@ -102,7 +95,7 @@ function __chatterbox_array_to_string(_array)
     var _size = array_length(_array);
     repeat(_size)
     {
-        _string += __chatterbox_string(_array[_i]);
+        _string += __ChatterboxString(_array[_i]);
         ++_i;
         if (_i < _size) _string += " , ";
     }
@@ -113,7 +106,7 @@ function __chatterbox_array_to_string(_array)
 }
 
 /// @param [value...]
-function __chatterbox_error()
+function __ChatterboxError()
 {
     var _string = "";
     
@@ -131,7 +124,7 @@ function __chatterbox_error()
 
 /// @param string
 /// @param leading
-function __chatterbox_remove_whitespace(_string, _leading)
+function __ChatterboxRemoveWhitespace(_string, _leading)
 {
     global.__chatterbox_indent_size = 0;
     
@@ -171,7 +164,7 @@ function __chatterbox_remove_whitespace(_string, _leading)
 }
 
 /// @param size
-function __chatterbox_generate_indent(_size)
+function __ChatterboxGenerateIndent(_size)
 {
     var _string = "";
     repeat(_size) _string += " ";
@@ -181,21 +174,7 @@ function __chatterbox_generate_indent(_size)
 /// @param array
 /// @param index
 /// @param count
-function __chatterbox_array_delete(_array, _index, _count)
-{
-    var _copy_size = array_length(_array) - (_index + _count);
-    if ((_index < 0) || (_copy_size < 0)) throw "Index " + string(_index) + " is greater than maximum array index (" + string(array_length(_array)-1) + ")";
-    
-    var _new_array = array_create(_copy_size);
-    array_copy(_new_array, 0, _array, _index + _count, _copy_size);
-    array_copy(_array, _index, _new_array, 0, _copy_size);
-    array_resize(_array, array_length(_array) - _count);
-}
-
-/// @param array
-/// @param index
-/// @param count
-function __chatterbox_array_copy_part(_array, _index, _count)
+function __ChatterboxArrayCopyPart(_array, _index, _count)
 {
     var _new_array = array_create(_count);
     array_copy(_new_array, 0, _array, _index, _count);
@@ -203,7 +182,7 @@ function __chatterbox_array_copy_part(_array, _index, _count)
 }
 
 /// @param buffer
-function __chatterbox_read_utf8_char(_buffer)
+function __ChatterboxReadUTF8Char(_buffer)
 {
     var _value = buffer_read(_buffer, buffer_u8);
     if ((_value & $E0) == $C0) //two-byte
@@ -228,7 +207,7 @@ function __chatterbox_read_utf8_char(_buffer)
     return _value;
 }
 
-function __chatterbox_readable_value(_value)
+function __ChatterboxReadableValue(_value)
 {
     if (is_string(_value))
     {
@@ -248,7 +227,7 @@ function __chatterbox_readable_value(_value)
     }
 }
 
-function __chatterbox_verify_datatypes(_a, _b)
+function __ChatterboxVerifyDatatypes(_a, _b)
 {
     if (is_numeric(_a) && is_numeric(_b)) return true;
     if (is_string( _a) && is_string( _b)) return true;
