@@ -4,7 +4,7 @@
 /// @param nodeTitle
 /// @param [filename]
 
-function ChatterboxGoto()
+function ChatterboxJump()
 {
     var _chatterbox = argument[0];
     var _title      = argument[1];

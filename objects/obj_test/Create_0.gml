@@ -8,4 +8,4 @@ ChatterboxAddFunction("TestFunctionDoNotExecute", function(_array) { show_messag
 box = ChatterboxCreate("Test.yarn");
 
 //Tell the chatterbox to jump to a node
-ChatterboxGoto(box, "Start");
+ChatterboxJump(box, "Start");
