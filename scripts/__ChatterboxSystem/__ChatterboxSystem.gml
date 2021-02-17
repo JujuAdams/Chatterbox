@@ -2,8 +2,6 @@
 
 #macro __CHATTERBOX_VERSION  "2.x.x"
 #macro __CHATTERBOX_DATE     "2021-02-14"
-    
-#macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android))
 
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
@@ -13,20 +11,45 @@
 //You probably don't want to change these
 #macro __CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
 #macro __CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
+
+#macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android) || (os_type == os_tvos))
+#macro __CHATTERBOX_ON_WEB     (os_browser != browser_not_a_browser)
     
 #endregion
 
 #region Boot Initialisation
 
 __ChatterboxTrace("Welcome to Chatterbox by @jujuadams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
-    
-if (__CHATTERBOX_ON_MOBILE && (CHATTERBOX_SOURCE_DIRECTORY != ""))
+
+var _chatterbox_directory = CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY;
+
+if (__CHATTERBOX_ON_MOBILE)
 {
-    __ChatterboxTrace("Included Files work a bit strangely on iOS and Android. Please use an empty string for the font directory and place Yarn .json files in the root of Included Files.");
-    __ChatterboxError("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for the font directory and place Yarn .json files in the root of Included Files.\n ", true);
+    if (_chatterbox_directory != "")
+    {
+        __ChatterboxError("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for SCRIBBLE_INCLUDED_FILES_SUBDIRECTORY and place fonts in the root of Included Files");
+        exit;
+    }
+}
+
+if (_chatterbox_directory != "")
+{
+    //Fix the font directory name if it's weird
+    var _char = string_char_at(_chatterbox_directory, string_length(_chatterbox_directory));
+    if (_char != "\\") && (_char != "/") _chatterbox_directory += "\\";
 }
     
+if (!__CHATTERBOX_ON_WEB)
+{
+    //Check if the directory exists
+    if ((_chatterbox_directory != "") && !directory_exists(_chatterbox_directory))
+    {
+        __ChatterboxTrace("Warning! Font directory \"" + string(_chatterbox_directory) + "\" could not be found in \"" + game_save_id + "\"!");
+    }
+}
+
 //Declare global variables
+global.__chatterboxDirectory            = _chatterbox_directory;
 global.chatterboxVariablesMap           = ds_map_create();
 global.chatterboxFiles                  = ds_map_create();
 global.__chatterboxDefaultFile          = "";

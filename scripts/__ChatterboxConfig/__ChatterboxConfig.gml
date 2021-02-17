@@ -1,5 +1,4 @@
 #macro CHATTERBOX_VARIABLES_MAP                   global.chatterboxVariablesMap
-#macro CHATTERBOX_SOURCE_DIRECTORY                "Yarn"
 #macro CHATTERBOX_DEFAULT_SINGLETON               true
 #macro CHATTERBOX_ALLOW_SCRIPTS                   true
 #macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS        true
@@ -13,6 +12,8 @@
 #macro CHATTERBOX_ESCAPE_NODE_TAGS                true
 #macro CHATTERBOX_ESCAPE_CONTENT                  true
 #macro CHATTERBOX_ESCAPE_EXPRESSION_STRINGS       false
+
+#macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY     ""
 
 #region Variables and Scoping
 
