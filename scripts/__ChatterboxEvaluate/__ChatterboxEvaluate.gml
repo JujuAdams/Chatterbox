@@ -2,6 +2,7 @@
 /// @param filename
 /// @param expression
 /// @param behaviour
+
 function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
 {
     if (!is_struct(_expression)) return _expression;

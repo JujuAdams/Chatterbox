@@ -6,7 +6,7 @@
     "path": "folders/Chatterbox/(Internal system bits, don't look in here)/omg i can't believe you looked in here.yy",
   },
   "resourceVersion": "1.0",
-  "name": "__ChatterboxClassExpression",
+  "name": "__ChatterboxEvaluate",
   "tags": [],
   "resourceType": "GMScript",
 }
