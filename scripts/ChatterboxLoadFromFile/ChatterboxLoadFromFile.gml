@@ -2,7 +2,7 @@
 ///
 /// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax()
 ///
-/// @param filename  Name of the file to add
+/// @param filename   Name of the file to add
 /// @param [aliasName] Alias for the filename
 
 function ChatterboxLoadFromFile()
@@ -15,12 +15,12 @@ function ChatterboxLoadFromFile()
         __ChatterboxError("Files should be loaded using their filename as a string.\n(Input was an invalid datatype)");
         return undefined;
     }
-	
-	if (_aliasName != undefined && !is_string(_aliasName))
-	{
-		__ChatterboxError("Aliases for filenames should be a string.\n(Input was an invalid datatype)");
-		return undefined;
-	}
+    
+    if (_aliasName != undefined && !is_string(_aliasName))
+    {
+        __ChatterboxError("Aliases for filenames should be a string.\n(Input was an invalid datatype)");
+        return undefined;
+    }
     
     //Fix the font directory name if it's weird
     var _font_directory = CHATTERBOX_SOURCE_DIRECTORY;
@@ -35,14 +35,14 @@ function ChatterboxLoadFromFile()
     if (os_browser == browser_not_a_browser)
     {
         var _buffer = buffer_load(_font_directory + _filename);
-		if (_aliasName != undefined)
-		{
-			return ChatterboxLoadFromBuffer(_aliasName, _buffer);
-		}
-		else
-		{
-			return ChatterboxLoadFromBuffer(_filename, _buffer);
-		}
+        if (_aliasName != undefined)
+        {
+            return ChatterboxLoadFromBuffer(_aliasName, _buffer);
+        }
+        else
+        {
+            return ChatterboxLoadFromBuffer(_filename, _buffer);
+        }
     }
     else
     {
@@ -53,13 +53,13 @@ function ChatterboxLoadFromFile()
         while(!file_text_eof(_file)) _string += file_text_readln(_file);
         file_text_close(_file);
         
-		if (_aliasName != undefined)
-		{
-			return ChatterboxLoadFromString(_aliasName, _string);
-		}
-		else
-		{
-			return ChatterboxLoadFromString(_filename, _string);
-		}
+        if (_aliasName != undefined)
+        {
+            return ChatterboxLoadFromString(_aliasName, _string);
+        }
+        else
+        {
+            return ChatterboxLoadFromString(_filename, _string);
+        }
     }
 }
