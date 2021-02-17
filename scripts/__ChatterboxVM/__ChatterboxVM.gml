@@ -3,6 +3,7 @@ function __ChatterboxVM()
     content            = [];
     contentMetadata    = [];
     option             = [];
+    optionMetadata     = [];
     option_instruction = [];
     
     stopped          = false;
@@ -49,6 +50,7 @@ function __ChatterboxVMInner(_instruction)
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
                     array_push(option, _instruction.text.Evaluate(local_scope, filename));
+                    array_push(contentMetadata, _instruction.metadata);
                     array_push(option_instruction, _branch);
                     if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
