@@ -5,6 +5,7 @@
     {"id":{"name":"__ChatterboxSystem","path":"scripts/__ChatterboxSystem/__ChatterboxSystem.yy",},"order":0,},
     {"id":{"name":"ChatterboxIsLoaded","path":"scripts/ChatterboxIsLoaded/ChatterboxIsLoaded.yy",},"order":4,},
     {"id":{"name":"oTestCaseDirection","path":"objects/oTestCaseDirection/oTestCaseDirection.yy",},"order":10,},
+    {"id":{"name":"ChatterboxVariablesFind","path":"scripts/ChatterboxVariablesFind/ChatterboxVariablesFind.yy",},"order":4,},
     {"id":{"name":"ChatterboxGetOptionCount","path":"scripts/ChatterboxGetOptionCount/ChatterboxGetOptionCount.yy",},"order":5,},
     {"id":{"name":"ChatterboxGetOption","path":"scripts/ChatterboxGetOption/ChatterboxGetOption.yy",},"order":3,},
     {"id":{"name":"ChatterboxGetOptionMetadata","path":"scripts/ChatterboxGetOptionMetadata/ChatterboxGetOptionMetadata.yy",},"order":4,},
