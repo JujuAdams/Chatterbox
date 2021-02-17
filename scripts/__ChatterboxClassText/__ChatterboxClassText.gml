@@ -54,7 +54,7 @@ function __ChatterboxClassText(_string) constructor
                 buffer_seek(_buffer, buffer_seek_start, _string_start);
                 var _substring = buffer_read(_buffer, buffer_string);
                 
-                var _expression = __ChatterboxParseExpression(_substring);
+                var _expression = __ChatterboxParseExpression(_substring, false);
                 array_push(substrings, _expression);
                 
                 _in_expression = false;

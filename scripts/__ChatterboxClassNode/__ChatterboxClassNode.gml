@@ -247,12 +247,12 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
             {
                 case "declare":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
-                    _instruction.expression = __ChatterboxParseExpression(_remainder);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                 break;
                 
                 case "set":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
-                    _instruction.expression = __ChatterboxParseExpression(_remainder);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                 break;
                 
                 case "jump":
@@ -263,13 +263,13 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 case "if":
                     if (_previous_instruction.line == _line)
                     {
-                        _previous_instruction.condition = __ChatterboxParseExpression(_remainder);
+                        _previous_instruction.condition = __ChatterboxParseExpression(_remainder, false);
                         //We *don't* make a new instruction for the if-statement, just attach it to the previous instruction as a condition
                     }
                     else
                     {
                         var _instruction = new __ChatterboxClassInstruction("if", _line, _indent);
-                        _instruction.condition = __ChatterboxParseExpression(_remainder);
+                        _instruction.condition = __ChatterboxParseExpression(_remainder, false);
                         _if_depth++;
                         _if_stack[@ _if_depth] = _instruction;
                     }
@@ -292,7 +292,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                     if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<else if>> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
                 case "elseif":
                     var _instruction = new __ChatterboxClassInstruction("else if", _line, _indent);
-                    _instruction.condition = __ChatterboxParseExpression(_remainder);
+                    _instruction.condition = __ChatterboxParseExpression(_remainder, false);
                     if (_if_depth < 0)
                     {
                         __ChatterboxError("<<else if>> found without matching <<if>>");
@@ -331,7 +331,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                         var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
                     }
                 break;
-                    
+                
                 default:
                     var _instruction = new __ChatterboxClassInstruction("direction", _line, _indent);
                     _instruction.text = new __ChatterboxClassText(_string);
@@ -381,8 +381,8 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
 
 
 /// @param string
-/// @param allowActionSyntax
-function __ChatterboxParseExpression(_string)
+/// @param useAltDirectionSyntax
+function __ChatterboxParseExpression(_string, _alt_direction_syntax)
 {
     enum __CHATTERBOX_TOKEN
     {
@@ -476,52 +476,59 @@ function __ChatterboxParseExpression(_string)
                     }
                     else
                     {
-                        //Parse this variable and figure out what scope we're in
-                        var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
-                        
-                        if (string_char_at(_read, 1) == "$")
-                        {
-                            _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
-                            _read = string_delete(_read, 1, 1);
-                        }
-                        else if (string_copy(_read, 1, 2) == "g.")
-                        {
-                            _scope = "global";
-                            _read = string_delete(_read, 1, 2);
-                        }
-                        else if (string_copy(_read, 1, 7) == "global.")
-                        {
-                            _scope = "global";
-                            _read = string_delete(_read, 1, 7);
-                        }
-                        else if (string_copy(_read, 1, 2) == "l.")
-                        {
-                            _scope = "local";
-                            _read = string_delete(_read, 1, 2);
-                        }
-                        else if (string_copy(_read, 1, 6) == "local.")
-                        {
-                            _scope = "local";
-                            _read = string_delete(_read, 1, 6);
-                        }
-                        else if (string_copy(_read, 1, 2) == "y.")
-                        {
-                            _scope = "yarn";
-                            _read = string_delete(_read, 1, 2);
-                        }
-                        else if (string_copy(_read, 1, 9) == "yarn.")
-                        {
-                            _scope = "yarn";
-                            _read = string_delete(_read, 1, 9);
-                        }
-                        
-                        if (_scope == "string")
+                        if (_alt_direction_syntax)
                         {
                             array_push(_tokens, _read);
                         }
                         else
                         {
-                            array_push(_tokens, { op : "var", scope : _scope, name : _read });
+                            //Parse this variable and figure out what scope we're in
+                            var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
+                            
+                            if (string_char_at(_read, 1) == "$")
+                            {
+                                _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
+                                _read = string_delete(_read, 1, 1);
+                            }
+                            else if (string_copy(_read, 1, 2) == "g.")
+                            {
+                                _scope = "global";
+                                _read = string_delete(_read, 1, 2);
+                            }
+                            else if (string_copy(_read, 1, 7) == "global.")
+                            {
+                                _scope = "global";
+                                _read = string_delete(_read, 1, 7);
+                            }
+                            else if (string_copy(_read, 1, 2) == "l.")
+                            {
+                                _scope = "local";
+                                _read = string_delete(_read, 1, 2);
+                            }
+                            else if (string_copy(_read, 1, 6) == "local.")
+                            {
+                                _scope = "local";
+                                _read = string_delete(_read, 1, 6);
+                            }
+                            else if (string_copy(_read, 1, 2) == "y.")
+                            {
+                                _scope = "yarn";
+                                _read = string_delete(_read, 1, 2);
+                            }
+                            else if (string_copy(_read, 1, 9) == "yarn.")
+                            {
+                                _scope = "yarn";
+                                _read = string_delete(_read, 1, 9);
+                            }
+                            
+                            if (_scope == "string")
+                            {
+                                array_push(_tokens, _read);
+                            }
+                            else
+                            {
+                                array_push(_tokens, { op : "var", scope : _scope, name : _read });
+                            }
                         }
                     }
                     
@@ -728,17 +735,29 @@ function __ChatterboxParseExpression(_string)
     
     __ChatterboxCompileExpression(_tokens);
     
-    if (array_length(_tokens) > 1)
-    {
-        __ChatterboxError("Expression could not be fully resolved into a single token (", _string, ")");
-    }
-    else if (array_length(_tokens) < 1)
+    if (array_length(_tokens) < 1)
     {
         __ChatterboxError("No valid expression tokens found (", _string, ")");
     }
     else
     {
-        return _tokens[0];
+        if (!_alt_direction_syntax)
+        {
+            if (array_length(_tokens) > 1)
+            {
+                __ChatterboxError("Expression could not be fully resolved into a single token (", _string, ")");
+            }
+            else
+            {
+                return _tokens[0];
+            }
+        }
+        else
+        {
+            var _name = _tokens[0].name;
+            array_delete(_tokens, 0, 1);
+            return { op : "func", name : _name, parameters : _tokens };
+        }
     }
 }
 

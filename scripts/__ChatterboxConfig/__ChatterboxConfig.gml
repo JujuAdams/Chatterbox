@@ -5,7 +5,10 @@
 #macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS        true
 #macro CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT  false
 #macro CHATTERBOX_WAIT_BEFORE_STOP                true
+
+#macro CHATTERBOX_DIRECTION_MODE                  0 //0 = Pass direction to function (see below), 1 = treat directions as expressions, 2 = treat directions as Python-esque function calls
 #macro CHATTERBOX_DIRECTION_FUNCTION              TestCaseDirectionFunction
+
 #macro CHATTERBOX_ESCAPE_FILE_TAGS                true
 #macro CHATTERBOX_ESCAPE_NODE_TAGS                true
 #macro CHATTERBOX_ESCAPE_CONTENT                  true

@@ -164,22 +164,38 @@ function __ChatterboxVMInner(_instruction)
                     case "direction":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
                         
-                        if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
+                        var _direction_text = _instruction.text.Evaluate(local_scope, filename);
+                        var _result = undefined;
+                        
+                        switch(CHATTERBOX_DIRECTION_MODE)
                         {
-                            CHATTERBOX_DIRECTION_FUNCTION(_instruction.text.Evaluate(local_scope, filename));
-                        }
-                        else if (is_numeric(CHATTERBOX_DIRECTION_FUNCTION) && script_exists(CHATTERBOX_DIRECTION_FUNCTION))
-                        {
-                            script_execute(CHATTERBOX_DIRECTION_FUNCTION, _instruction.text.Evaluate(local_scope, filename));
+                            case 0:
+                                if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
+                                {
+                                    _result = CHATTERBOX_DIRECTION_FUNCTION(_direction_text);
+                                }
+                                else if (is_numeric(CHATTERBOX_DIRECTION_FUNCTION) && script_exists(CHATTERBOX_DIRECTION_FUNCTION))
+                                {
+                                    _result = script_execute(CHATTERBOX_DIRECTION_FUNCTION, _direction_text);
+                                }
+                            break;
+                            
+                            case 1:
+                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, false), undefined)
+                            break;
+                            
+                            case 2:
+                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined)
+                            break;
                         }
                         
-                        //if (__ChatterboxEvaluate(local_scope, filename, _instruction.expression, false) == "<<wait>>")
-                        //{
-                        //    waiting = true;
-                        //    wait_instruction = _instruction.next;
-                        //    _do_next = false;
-                        //    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (returned by function)");
-                        //}
+                        if (is_string(_result) && (_result == "<<wait>>"))
+                        {
+                            waiting = true;
+                            wait_instruction = _instruction.next;
+                            _do_next = false;
+                            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (returned by function)");
+                        }
                     break;
                     
                     case "if":
