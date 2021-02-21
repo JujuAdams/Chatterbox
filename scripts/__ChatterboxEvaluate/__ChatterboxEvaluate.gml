@@ -11,42 +11,12 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
     {
         #region
         
-        var _value = undefined;
-        switch(_expression.scope)
+        if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.name))
         {
-            case "yarn":
-                if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.name))
-                {
-                    __ChatterboxError("Yarn variable \"" + _expression.name + "\" can't be read because it doesn't exist");
-                }
-                else
-                {
-                    _value = CHATTERBOX_VARIABLES_MAP[? _expression.name];
-                }
-            break;
-            
-            case "local":
-                if (!variable_instance_exists(_local_scope, _expression.name))
-                {
-                    __ChatterboxError("Local variable \"" + _expression.name + "\" can't be read because it doesn't exist");
-                }
-                else
-                {
-                    _value = variable_instance_get(_local_scope, _expression.name);
-                }
-            break;
-            
-            case "global":
-                if (!variable_global_exists(_expression.name))
-                {
-                    __ChatterboxError("Global variable \"" + _expression.name + "\" can't be read because it doesn't exist!");
-                }
-                else
-                {
-                    _value = variable_global_get(_expression.name);
-                }
-            break;
+            __ChatterboxError("Yarn variable \"" + _expression.name + "\" can't be read because it doesn't exist");
         }
+        
+        var _value = CHATTERBOX_VARIABLES_MAP[? _expression.name];
         
         if (!is_numeric(_value) && !is_string(_value) && !is_bool(_value))
         {
@@ -197,103 +167,34 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
         }
         else
         {
-            switch(_expression.a.scope)
-            {                   
-                case "yarn":
-                    if (_behaviour == "declare")
+            if (_behaviour == "declare")
+            {
+                if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _variable_name))
+                {
+                    __ChatterboxTrace("Warning! Trying to re-declare Yarn variable ($", _variable_name, " = ", __ChatterboxReadableValue(_a), ") but it already has a value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _variable_name]), ")");
+                }
+                else
+                {
+                    CHATTERBOX_VARIABLES_MAP[? _variable_name] = _a;
+                    __ChatterboxTrace("Declared Yarn variable $", _variable_name, " as ", __ChatterboxReadableValue(_a));
+                }
+            }
+            else if (_behaviour == "set")
+            {
+                if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _variable_name))
+                {
+                    if (!__ChatterboxVerifyDatatypes(CHATTERBOX_VARIABLES_MAP[? _variable_name], _a))
                     {
-                        if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _variable_name))
-                        {
-                            __ChatterboxTrace("Warning! Trying to re-declare Yarn variable ($", _variable_name, " = ", __ChatterboxReadableValue(_a), ") but it already has a value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _variable_name]), ")");
-                        }
-                        else
-                        {
-                            CHATTERBOX_VARIABLES_MAP[? _variable_name] = _a;
-                            __ChatterboxTrace("Declared Yarn variable $", _variable_name, " as ", __ChatterboxReadableValue(_a));
-                        }
+                        __ChatterboxError("Cannot set $", _variable_name, " = ", __ChatterboxReadableValue(_a), ", its datatype does not match existing value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _variable_name]), ")");
                     }
-                    else if (_behaviour == "set")
-                    {
-                        if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _variable_name))
-                        {
-                            if (!__ChatterboxVerifyDatatypes(CHATTERBOX_VARIABLES_MAP[? _variable_name], _a))
-                            {
-                                __ChatterboxError("Cannot set $", _variable_name, " = ", __ChatterboxReadableValue(_a), ", its datatype does not match existing value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _variable_name]), ")");
-                            }
-                        }
-                        else
-                        {
-                            __ChatterboxTrace("Warning! Trying to set Yarn variable $", _variable_name, " but it has not been declared");
-                        }
-                        
-                        CHATTERBOX_VARIABLES_MAP[? _variable_name] = _a;
-                        __ChatterboxTrace("Set Yarn variable $", _variable_name, " to ", __ChatterboxReadableValue(_a));
-                    }
-                break;
+                }
+                else
+                {
+                    __ChatterboxTrace("Warning! Trying to set Yarn variable $", _variable_name, " but it has not been declared");
+                }
                 
-                case "local":
-                    if (_behaviour == "declare")
-                    {
-                        if (variable_instance_exists(_local_scope, _variable_name))
-                        {
-                            __ChatterboxTrace("Warning! Trying to re-declare local variable ($", _variable_name, " = ", __ChatterboxReadableValue(_a), ") but it already has a value (", __ChatterboxReadableValue(variable_instance_get(_local_scope, _variable_name)), ", local scope=", _local_scope, ")");
-                        }
-                        else
-                        {
-                            variable_instance_set(_local_scope, _variable_name, _a);
-                            __ChatterboxTrace("Declared local variable $", _variable_name, " as ", __ChatterboxReadableValue(_a), " (local scope=", _local_scope, ")");
-                        }
-                    }
-                    else if (_behaviour == "set")
-                    {
-                        if (variable_instance_exists(_local_scope, _variable_name))
-                        {
-                            if (!__ChatterboxVerifyDatatypes(variable_instance_get(_local_scope, _variable_name), _a))
-                            {
-                                __ChatterboxError("Cannot set $", _variable_name, " = ", __ChatterboxReadableValue(_a), ", its datatype does not match existing value (", __ChatterboxReadableValue(variable_instance_get(_local_scope, _variable_name)), ")");
-                            }
-                        }
-                        else
-                        {
-                            __ChatterboxTrace("Warning! Trying to set local variable $", _variable_name, " but it has not been declared (local scope=", _local_scope, ")");
-                        }
-                        
-                        variable_instance_set(_local_scope, _variable_name, _a);
-                        __ChatterboxTrace("Set local variable $", _variable_name, " to ", __ChatterboxReadableValue(_a), " (local scope=", _local_scope, ")");
-                    }
-                break;
-                
-                case "global":
-                    if (_behaviour == "declare")
-                    {
-                        if (variable_global_exists(_variable_name))
-                        {
-                            __ChatterboxTrace("Warning! Trying to re-declare global variable ($", _variable_name, " = ", __ChatterboxReadableValue(_a), ") but it already has a value (", __ChatterboxReadableValue(variable_global_get(_variable_name)), ")");
-                        }
-                        else
-                        {
-                            variable_instance_set(_local_scope, _variable_name, _a);
-                            __ChatterboxTrace("Declared global variable $", _variable_name, " as ", __ChatterboxReadableValue(_a));
-                        }
-                    }
-                    else if (_behaviour == "set")
-                    {
-                        if (variable_global_exists(_variable_name))
-                        {
-                            if (!__ChatterboxVerifyDatatypes(variable_global_get(_variable_name), _a))
-                            {
-                                __ChatterboxError("Cannot set $", _variable_name, " = ", __ChatterboxReadableValue(_a), ", its datatype does not match existing value (", __ChatterboxReadableValue(variable_global_get(_variable_name)), ")");
-                            }
-                        }
-                        else
-                        {
-                            __ChatterboxTrace("Warning! Trying to set global variable $", _variable_name, " but it has not been declared");
-                        }
-                        
-                        variable_global_set(_variable_name, _a);
-                        __ChatterboxTrace("Set global variable $", _variable_name, " to ", __ChatterboxReadableValue(_a));
-                    }
-                break;
+                CHATTERBOX_VARIABLES_MAP[? _variable_name] = _a;
+                __ChatterboxTrace("Set Yarn variable $", _variable_name, " to ", __ChatterboxReadableValue(_a));
             }
         }
         

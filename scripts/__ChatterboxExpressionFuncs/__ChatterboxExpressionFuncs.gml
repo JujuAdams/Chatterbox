@@ -101,53 +101,7 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
                         }
                         else
                         {
-                            //Parse this variable and figure out what scope we're in
-                            var _scope = CHATTERBOX_NAKED_VARIABLE_SCOPE;
-                            
-                            if (string_char_at(_read, 1) == "$")
-                            {
-                                _scope = CHATTERBOX_DOLLAR_VARIABLE_SCOPE;
-                                _read = string_delete(_read, 1, 1);
-                            }
-                            else if (string_copy(_read, 1, 2) == "g.")
-                            {
-                                _scope = "global";
-                                _read = string_delete(_read, 1, 2);
-                            }
-                            else if (string_copy(_read, 1, 7) == "global.")
-                            {
-                                _scope = "global";
-                                _read = string_delete(_read, 1, 7);
-                            }
-                            else if (string_copy(_read, 1, 2) == "l.")
-                            {
-                                _scope = "local";
-                                _read = string_delete(_read, 1, 2);
-                            }
-                            else if (string_copy(_read, 1, 6) == "local.")
-                            {
-                                _scope = "local";
-                                _read = string_delete(_read, 1, 6);
-                            }
-                            else if (string_copy(_read, 1, 2) == "y.")
-                            {
-                                _scope = "yarn";
-                                _read = string_delete(_read, 1, 2);
-                            }
-                            else if (string_copy(_read, 1, 9) == "yarn.")
-                            {
-                                _scope = "yarn";
-                                _read = string_delete(_read, 1, 9);
-                            }
-                            
-                            if (_scope == "string")
-                            {
-                                array_push(_tokens, _read);
-                            }
-                            else
-                            {
-                                array_push(_tokens, { op : "var", scope : _scope, name : _read });
-                            }
+                            array_push(_tokens, { op : "var", name : _read });
                         }
                     }
                     
