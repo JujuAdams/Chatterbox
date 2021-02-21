@@ -101,7 +101,15 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
                         }
                         else
                         {
-                            array_push(_tokens, { op : "var", name : _read });
+                            if (string_char_at(_read, 1) == "$")
+                            {
+                                _read = string_delete(_read, 1, 1);
+                                array_push(_tokens, { op : "var", name : _read });
+                            }
+                            else
+                            {
+                                __ChatterboxError("Token (", _read, ") is invalid:\n- Variables must be prefixed with a $ sign\n- Strings must be delimited with \" quote marks");
+                            }
                         }
                     }
                     
