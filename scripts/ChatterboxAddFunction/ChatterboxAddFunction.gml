@@ -65,7 +65,7 @@ function ChatterboxAddFunction(_name, _in_function)
         break;
     }
     
-    if (!variable_global_exists("__chatterbox_functions"))
+    if (!variable_global_exists("__chatterboxFunctions"))
     {
         global.__chatterboxFunctions = ds_map_create();
     }
