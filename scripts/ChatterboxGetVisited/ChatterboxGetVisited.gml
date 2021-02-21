@@ -1,7 +1,7 @@
 /// @param nodeTitle
 /// @param [filename]
 
-function ChatterboxVisited()
+function ChatterboxGetVisited()
 {
     var _node_title = argument[0];
     var _filename   = ((argument_count > 1) && is_string(argument[1]))? argument[1] : "";

@@ -52,7 +52,7 @@
     {"id":{"name":"IsChatterbox","path":"scripts/IsChatterbox/IsChatterbox.yy",},"order":4,},
     {"id":{"name":"ChatterboxGetContentCount","path":"scripts/ChatterboxGetContentCount/ChatterboxGetContentCount.yy",},"order":2,},
     {"id":{"name":"__ChatterboxClassSource","path":"scripts/__ChatterboxClassSource/__ChatterboxClassSource.yy",},"order":1,},
-    {"id":{"name":"ChatterboxVisited","path":"scripts/ChatterboxVisited/ChatterboxVisited.yy",},"order":6,},
+    {"id":{"name":"ChatterboxGetVisited","path":"scripts/ChatterboxGetVisited/ChatterboxGetVisited.yy",},"order":6,},
     {"id":{"name":"__ChatterboxClassNode","path":"scripts/__ChatterboxClassNode/__ChatterboxClassNode.yy",},"order":2,},
     {"id":{"name":"__ChatterboxClassText","path":"scripts/__ChatterboxClassText/__ChatterboxClassText.yy",},"order":4,},
     {"id":{"name":"ChatterboxVariableGet","path":"scripts/ChatterboxVariableGet/ChatterboxVariableGet.yy",},"order":0,},

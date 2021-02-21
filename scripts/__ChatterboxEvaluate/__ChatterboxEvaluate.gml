@@ -101,7 +101,7 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
         case "func":
             if (_expression.name == "visited")
             {
-                return ChatterboxVisited(_parameter_values[0], _filename);
+                return ChatterboxGetVisited(_parameter_values[0], _filename);
             }
             else
             {
