@@ -25,7 +25,6 @@
     {"id":{"name":"ChatterboxAddFunction","path":"scripts/ChatterboxAddFunction/ChatterboxAddFunction.yy",},"order":5,},
     {"id":{"name":"fntDefault","path":"fonts/fntDefault/fntDefault.yy",},"order":149,},
     {"id":{"name":"ChatterboxAddFindReplace","path":"scripts/ChatterboxAddFindReplace/ChatterboxAddFindReplace.yy",},"order":6,},
-    {"id":{"name":"__ChatterboxSyntax","path":"notes/__ChatterboxSyntax/__ChatterboxSyntax.yy",},"order":0,},
     {"id":{"name":"ChatterboxVariablesImport","path":"scripts/ChatterboxVariablesImport/ChatterboxVariablesImport.yy",},"order":3,},
     {"id":{"name":"oTestCaseExpressionDatatypes","path":"objects/oTestCaseExpressionDatatypes/oTestCaseExpressionDatatypes.yy",},"order":11,},
     {"id":{"name":"__ChatterboxVM","path":"scripts/__ChatterboxVM/__ChatterboxVM.yy",},"order":7,},
