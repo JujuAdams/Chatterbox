@@ -38,11 +38,15 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
             case __CHATTERBOX_TOKEN.IDENTIFIER: //Identifier (variable/function)
                 #region
                 
-                //Everything is permitted, except whitespace and a dollar sign
-                if ((_byte > 32) && (_byte != ord("$")))
+                if (_byte == ord(")"))
+                {
+                    _next_state = __CHATTERBOX_TOKEN.SYMBOL;
+                }
+                else if ((_byte > 32) && (_byte != ord("$"))) //Everything is permitted, except whitespace and a dollar sign
                 {
                     _next_state = __CHATTERBOX_TOKEN.IDENTIFIER;
                 }
+                
                 
                 if ((_state != _next_state) || (_last_byte == ord("("))) //Cheeky hack to find functions
                 {
