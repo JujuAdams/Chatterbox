@@ -327,7 +327,7 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
         }
         else
         {
-            var _name = _tokens[0].name;
+            var _name = _tokens[0];
             array_delete(_tokens, 0, 1);
             return { op : "func", name : _name, parameters : _tokens };
         }
