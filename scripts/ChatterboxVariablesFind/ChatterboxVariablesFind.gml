@@ -1,9 +1,9 @@
 /// Returns an array of variable names that match the given substring and search mode
 /// 
 /// Mode should be 0, 1, or 2:
-/// mode = 0: Substring should be present anywhere in the variable name
-/// mode = 1: Substring should must prefix the variable name
-/// mode = 2: Substring should must suffix the variable name
+/// mode = 0: Substring must be present anywhere in the variable name
+/// mode = 1: Substring must prefix the variable name
+/// mode = 2: Substring must suffix the variable name
 /// 
 /// @param substring
 /// @param mode
