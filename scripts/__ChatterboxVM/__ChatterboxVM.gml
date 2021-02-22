@@ -1,10 +1,12 @@
 function __ChatterboxVM()
 {
-    content            = [];
-    contentMetadata    = [];
-    option             = [];
-    optionMetadata     = [];
-    option_instruction = [];
+    content              = [];
+    contentConditionBool = [];
+    contentMetadata      = [];
+    option               = [];
+    optionConditionBool  = [];
+    optionMetadata       = [];
+    option_instruction   = [];
     
     stopped          = false;
     waiting          = false;
@@ -38,7 +40,7 @@ function __ChatterboxVMInner(_instruction)
             if (!__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined)) _condition_failed = true;
         }
         
-        if (!_condition_failed)
+        if (CHATTERBOX_SHOW_REJECTED_OPTIONS || !_condition_failed)
         {
             if ((_instruction.type == "option") && !leaving_option)
             {
@@ -50,9 +52,11 @@ function __ChatterboxVMInner(_instruction)
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
                     array_push(option, _instruction.text.Evaluate(local_scope, filename));
-                    array_push(contentMetadata, _instruction.metadata);
+                    array_push(optionConditionBool, !_condition_failed);
+                    array_push(optionMetadata, _instruction.metadata);
                     array_push(option_instruction, _branch);
-                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
+                    
+                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
             }
             else
@@ -73,9 +77,10 @@ function __ChatterboxVMInner(_instruction)
                 {
                     case "content":
                         array_push(content, _instruction.text.Evaluate(local_scope, filename));
+                        array_push(contentConditionBool, !_condition_failed);
                         array_push(contentMetadata, _instruction.metadata);
                         
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), _instruction.text.raw_string);
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), _instruction.text.raw_string);
                         
                         if (singleton_text)
                         {

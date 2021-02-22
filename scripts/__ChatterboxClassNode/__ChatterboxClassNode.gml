@@ -203,6 +203,9 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
     
     var _previous_instruction = _root_instruction;
     
+    var _previous_line = 0;
+    var _line_instructions = [];
+    
     var _if_stack = [];
     var _if_depth = -1;
     
@@ -215,6 +218,12 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
         var _type            = _substring_array[1];
         var _line            = _substring_array[2];
         var _indent          = _substring_array[3];
+        
+        if (_line != _previous_line)
+        {
+            _line_instructions = [];
+            _previous_line = _line;
+        }
         
         var _instruction = undefined;
         
@@ -345,20 +354,22 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
         {
             #region #metadata
             
-            if (_previous_instruction != undefined)
+            var _count = 0;
+            var _i = 0;
+            repeat(array_length(_line_instructions))
             {
-                if (_previous_instruction.type != "content")
+                if ((_previous_instruction.type == "content") || (_previous_instruction.type == "option"))
                 {
-                    __ChatterboxTrace("Warning! Previous instruction wasn't content, metadata \"\#", _string, "\" cannot be applied");
+                    array_push(_previous_instruction.metadata, _string);
+                    ++_count;
                 }
-                else if (_previous_instruction.line != _line)
-                {
-                    __ChatterboxTrace("Warning! Previous instruction (ln ", _previous_instruction.line, ") was a different line to metadata (ln ", _line, "), \"\#", _string, "\"");
-                }
-                else
-                {
-                    array_push(_previous_instruction.metadata, _string)
-                }
+                
+                ++_i;
+            }
+            
+            if (_count <= 0)
+            {
+                __ChatterboxTrace("Warning! Line contained no content or options, metadata \"\#", _string, "\" cannot be applied");
             }
             
             #endregion
@@ -373,6 +384,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
         {
             __ChatterboxInstructionAdd(_previous_instruction, _instruction);
             _previous_instruction = _instruction;
+            array_push(_line_instructions, _instruction);
         }
         
         ++_s;

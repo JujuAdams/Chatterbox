@@ -36,7 +36,18 @@ else
         repeat(ChatterboxGetOptionCount(box))
         {
             var _string = ChatterboxGetOption(box, _i);
-            draw_text(_x, _y, string(_i+1) + ") " + _string);
+            
+            if (ChatterboxGetOptionConditionBool(box, _i))
+            {
+                draw_text(_x, _y, string(_i+1) + ") " + _string);
+            }
+            else
+            {
+                draw_set_colour(c_grey);
+                draw_text(_x, _y, string(_i+1) + ") " + _string);
+                draw_set_colour(c_white);
+            }
+            
             _y += string_height(_string);
             ++_i;
         }

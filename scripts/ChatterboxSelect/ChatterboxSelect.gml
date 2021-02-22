@@ -20,9 +20,15 @@ function ChatterboxSelect(_chatterbox, _index)
                 return undefined;
             }
             
-            current_instruction = option_instruction[_index];
-            
-            __ChatterboxVM();
+            if (optionConditionBool[_index])
+            {
+                current_instruction = option_instruction[_index];
+                __ChatterboxVM();
+            }
+            else
+            {
+                __ChatterboxTrace("Warning! Trying to select an option that failed its conditional check");
+            }
         }
     }
 }
