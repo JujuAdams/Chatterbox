@@ -4,12 +4,12 @@
 
 function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
 {
-    if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("[", _title, "]");
-    
     filename         = _filename;
     title            = _node_tags.title;
     tags             = _node_tags;
     root_instruction = new __ChatterboxClassInstruction(undefined, -1, 0);
+    
+    if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("[", title, "]");
     
     //Prepare body string for parsing
     var _work_string = _body_string;

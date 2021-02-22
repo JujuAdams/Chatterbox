@@ -99,11 +99,10 @@ function __ChatterboxParseYarn(_input_string)
     repeat(buffer_get_size(_buffer) - buffer_tell(_buffer))
     {
         var _byte = buffer_read(_buffer, buffer_u8);
-        if (_byte == 0x00) break;
         
         var _entered_comment = (!_in_comment && (_byte == 47) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == 47));
         
-        if ((_byte == 10) || (_byte == 13) || _entered_comment)
+        if ((_byte == 0) || (_byte == 10) || (_byte == 13) || _entered_comment)
         {
             if (!_in_comment && (buffer_tell(_buffer) > _string_start + 1))
             {
@@ -116,6 +115,7 @@ function __ChatterboxParseYarn(_input_string)
                 
                 if (_line_is_file_tag)
                 {
+                    if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Found file tag \"", _string_trimmed, "\"");
                     if (CHATTERBOX_ESCAPE_FILE_TAGS) _string_trimmed = __ChatterboxUnescapeString(_string_trimmed);
                     array_push(_file_tags, _string_trimmed);
                 }
@@ -135,7 +135,7 @@ function __ChatterboxParseYarn(_input_string)
                             _body_start = buffer_tell(_buffer);
                         }
                     }
-                    else if (_string_trimmed == "===") //Nodew terminator
+                    else if (_string_trimmed == "===") //Node terminator
                     {
                         if (!_in_body)
                         {
@@ -149,6 +149,8 @@ function __ChatterboxParseYarn(_input_string)
                             var _string = buffer_read(_buffer, buffer_string);
                             buffer_poke(_buffer, _string_start, buffer_u8, _byte);
                             buffer_seek(_buffer, buffer_seek_start, _old_tell);
+                            
+                            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_tags);
                             
                             var _node_struct = { tags : _node_tags, body : _string };
                             array_push(_node_array, _node_struct);
@@ -178,6 +180,7 @@ function __ChatterboxParseYarn(_input_string)
                                 _value = __ChatterboxUnescapeString(_value);
                             }
                             
+                            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Found node tag \"", _key, "\" = \"", _value, "\"");
                             if (variable_struct_exists(_node_tags, _key)) __ChatterboxTrace("Warning! Duplicate node tag found \"", _key, "\"");
                             _node_tags[$ _key] = _value;
                         }
@@ -208,6 +211,8 @@ function __ChatterboxParseYarn(_input_string)
                 }
             }
         }
+        
+        if (_byte == 0x00) break;
     }
     
     if (_in_body)
@@ -220,6 +225,8 @@ function __ChatterboxParseYarn(_input_string)
         var _string = buffer_read(_buffer, buffer_string);
         buffer_poke(_buffer, _string_start, buffer_u8, _byte);
         buffer_seek(_buffer, buffer_seek_start, _old_tell);
+        
+        if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_tags);
         
         var _node_struct = { tags : _node_tags, body : _string };
         array_push(_node_array, _node_struct);
