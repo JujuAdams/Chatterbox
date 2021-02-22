@@ -18,32 +18,32 @@ function __ChatterboxClassInstruction(_type, _line, _indent) constructor
 /// @param child
 function __ChatterboxInstructionAdd(_parent, _child)
 {
-    if ((_child.indent > _parent.indent) && (_parent.type == "shortcut"))
+    if ((_child.indent > _parent.indent) && (_parent.type == "option"))
     {
-        _parent.shortcut_branch = _child;
-        _child.shortcut_branch_parent = _parent;
+        _parent.option_branch = _child;
+        _child.option_branch_parent = _parent;
     }
     else
     {
-        if ((_parent.type == "shortcut")
+        if ((_parent.type == "option")
         &&  (_child.indent <= _parent.indent)
-        &&  !variable_struct_exists(_parent, "shortcut_branch"))
+        &&  !variable_struct_exists(_parent, "option_branch"))
         {
             //Add a marker to the end of a branch. This helps the VM understand what's going on!
-            var _branch_end = new __ChatterboxClassInstruction("shortcut end", _parent.line, _parent.indent);
-            _parent.shortcut_branch = _branch_end;
-            _branch_end.shortcut_branch_parent = _parent;
+            var _branch_end = new __ChatterboxClassInstruction("option end", _parent.line, _parent.indent);
+            _parent.option_branch = _branch_end;
+            _branch_end.option_branch_parent = _parent;
             _branch_end.next = _child;
         }
         
-        if (variable_struct_exists(_parent, "shortcut_branch_parent"))
+        if (variable_struct_exists(_parent, "option_branch_parent"))
         {
-            if (_child.indent <= _parent.shortcut_branch_parent.indent)
+            if (_child.indent <= _parent.option_branch_parent.indent)
             {
-                __ChatterboxInstructionAdd(_parent.shortcut_branch_parent, _child);
+                __ChatterboxInstructionAdd(_parent.option_branch_parent, _child);
                 
                 //Add a marker to the end of a branch. This helps the VM understand what's going on!
-                var _branch_end = new __ChatterboxClassInstruction("shortcut end", _parent.line, _parent.indent);
+                var _branch_end = new __ChatterboxClassInstruction("option end", _parent.line, _parent.indent);
                 __ChatterboxInstructionAdd(_parent, _branch_end);
                 
                 _branch_end.next = _child;
@@ -51,7 +51,7 @@ function __ChatterboxInstructionAdd(_parent, _child)
             else
             {
                 _parent.next = _child;
-                _child.shortcut_branch_parent = _parent.shortcut_branch_parent;
+                _child.option_branch_parent = _parent.option_branch_parent;
             }
         }
         else

@@ -220,9 +220,9 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
         
         if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("ln ", string_format(_line, 4, 0), " ", __ChatterboxGenerateIndent(_indent), _string);
         
-        if (string_copy(_string, 1, 2) == "->") //Shortcut //TODO - Make this part of the substring splitting step
+        if (string_copy(_string, 1, 2) == "->") //Option //TODO - Make this part of the substring splitting step
         {
-            var _instruction = new __ChatterboxClassInstruction("shortcut", _line, _indent);
+            var _instruction = new __ChatterboxClassInstruction("option", _line, _indent);
             _instruction.text = new __ChatterboxClassText(__ChatterboxRemoveWhitespace(string_delete(_string, 1, 2), all));
         }
         else if (_type == "command")

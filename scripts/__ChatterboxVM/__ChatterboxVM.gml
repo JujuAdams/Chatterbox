@@ -9,8 +9,8 @@ function __ChatterboxVM()
     stopped          = false;
     waiting          = false;
     wait_instruction = undefined;
-    entered_shortcut = false;
-    leaving_shortcut = false;
+    entered_option = false;
+    leaving_option = false;
     rejected_if      = false;
     
     if (current_instruction.type == "stop")
@@ -40,13 +40,13 @@ function __ChatterboxVMInner(_instruction)
         
         if (!_condition_failed)
         {
-            if ((_instruction.type == "shortcut") && !leaving_shortcut)
+            if ((_instruction.type == "option") && !leaving_option)
             {
-                entered_shortcut = true;
+                entered_option = true;
                 
-                if (_instruction.type == "shortcut")
+                if (_instruction.type == "option")
                 {
-                    var _branch = variable_struct_get(_instruction, "shortcut_branch");
+                    var _branch = variable_struct_get(_instruction, "option_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
                     array_push(option, _instruction.text.Evaluate(local_scope, filename));
@@ -57,12 +57,12 @@ function __ChatterboxVMInner(_instruction)
             }
             else
             {
-                if ((_instruction.type != "shortcut") && leaving_shortcut) leaving_shortcut = false;
+                if ((_instruction.type != "option") && leaving_option) leaving_option = false;
             }
             
-            if (entered_shortcut)
+            if (entered_option)
             {
-                if (_instruction.type != "shortcut")
+                if (_instruction.type != "option")
                 {
                     _do_next = false;
                 }
@@ -81,7 +81,7 @@ function __ChatterboxVMInner(_instruction)
                         {
                             if (instanceof(_next) == "__ChatterboxClassInstruction")
                             {
-                                if (((_next.type != "shortcut") || CHATTERBOX_SINGLETON_WAIT_BEFORE_SHORTCUT)
+                                if (((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
                                 &&  (_next.type != "wait")
                                 &&  (_next.type != "stop"))
                                 {
@@ -146,9 +146,9 @@ function __ChatterboxVMInner(_instruction)
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<stop>>");
                     break;
                     
-                    case "shortcut end":
-                        leaving_shortcut = true;
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<shortcut end>>");
+                    case "option end":
+                        leaving_option = true;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<option end>>");
                     break;
                     
                     case "declare":

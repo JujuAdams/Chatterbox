@@ -7,7 +7,7 @@
 /// 
 /// However, if singletonText is set to <false> then dialogue will be outputted multiple lines at a time. More modern narrative
 /// games, especially those by Inkle or Failbetter, tend to show larger blocks of text. Dialogue will be stacked up until
-/// Chatterbox reaches a command that requires user input: a shortcut, an option, or a <<stop>> or <<wait>> command.
+/// Chatterbox reaches a command that requires user input: a option, an option, or a <<stop>> or <<wait>> command.
 /// 
 /// @param [filename]
 /// @param [singletonText]
