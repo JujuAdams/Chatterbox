@@ -408,14 +408,29 @@ function __ChatterboxCompileExpression(_source_array)
                     array_delete(_source_array, _sub_expression_start, array_length(_sub_array));
                     __ChatterboxCompileExpression(_sub_array);
                     
-                    _source_array[@ _sub_expression_start] = { op : "paren", a : _sub_array[0] };
+                    if (array_length(_sub_array) > 0)
+                    {
+                        _source_array[@ _sub_expression_start] = { op : "paren", a : _sub_array[0] };
+                    }
+                    else
+                    {
+                        _source_array[@ _sub_expression_start] = undefined;
+                    }
                     
                     if (_is_function)
                     {
-                        var _parameters = __ChatterboxArrayCopyPart(_source_array, _open, 1 + _sub_expression_start - _open);
-                        array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
+                        if (array_length(_sub_array) > 0)
+                        {
+                            var _parameters = __ChatterboxArrayCopyPart(_source_array, _open, 1 + _sub_expression_start - _open);
+                            array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
+                            _source_array[_open - 1].parameters = _parameters;
+                        }
+                        else
+                        {
+                            array_delete(_source_array, _open, 1 + _sub_expression_start - _open);
+                            _source_array[_open - 1].parameters = [];
+                        }
                         
-                        _source_array[_open - 1].parameters = _parameters;
                         _t = _open - 1;
                     }
                     else
