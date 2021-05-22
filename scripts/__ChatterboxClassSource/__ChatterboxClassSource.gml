@@ -5,7 +5,7 @@ function __ChatterboxClassSource(_filename, _string) constructor
 {
     filename = _filename;
     name     = _filename;
-    tags     = {};
+    tags     = [];
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
@@ -31,14 +31,14 @@ function __ChatterboxClassSource(_filename, _string) constructor
     {
         var _node_temp_struct = _nodes_temp_array[_n];
         
-        var _node_tags = _node_temp_struct.tags;
-        if (!variable_struct_exists(_node_tags, "title"))
+        var _node_metadata = _node_temp_struct.metadata;
+        if (!variable_struct_exists(_node_metadata, "title"))
         {
-            __ChatterboxError("Node in \"", filename, "\" has no title tag");
+            __ChatterboxError("Node in \"", filename, "\" has no title metadata");
         }
         else
         {
-            var _node = new __ChatterboxClassNode(filename, _node_tags, _node_temp_struct.body);
+            var _node = new __ChatterboxClassNode(filename, _node_metadata, _node_temp_struct.body);
             array_push(nodes, _node);
         }
         
@@ -94,7 +94,7 @@ function __ChatterboxParseYarn(_input_string)
     var _line_is_file_tag = false;
     var _in_comment       = false;
     
-    var _node_tags = {};
+    var _node_metadata = {};
     
     repeat(buffer_get_size(_buffer) - buffer_tell(_buffer))
     {
@@ -150,13 +150,13 @@ function __ChatterboxParseYarn(_input_string)
                             buffer_poke(_buffer, _string_start, buffer_u8, _byte);
                             buffer_seek(_buffer, buffer_seek_start, _old_tell);
                             
-                            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_tags);
+                            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_metadata);
                             
-                            var _node_struct = { tags : _node_tags, body : _string };
+                            var _node_struct = { metadata : _node_metadata, body : _string };
                             array_push(_node_array, _node_struct);
                             
                             _in_body = false;
-                            _node_tags = {};
+                            _node_metadata = {};
                         }
                     }
                     else if (!_in_body) //Treat everything in the header as key:value pairs
@@ -180,9 +180,9 @@ function __ChatterboxParseYarn(_input_string)
                                 _value = __ChatterboxUnescapeString(_value);
                             }
                             
-                            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Found node tag \"", _key, "\" = \"", _value, "\"");
-                            if (variable_struct_exists(_node_tags, _key)) __ChatterboxTrace("Warning! Duplicate node tag found \"", _key, "\"");
-                            _node_tags[$ _key] = _value;
+                            if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Found node metadata \"", _key, "\" = \"", _value, "\"");
+                            if (variable_struct_exists(_node_metadata, _key)) __ChatterboxTrace("Warning! Duplicate node metadata found \"", _key, "\"");
+                            _node_metadata[$ _key] = _value;
                         }
                     }
                 }
@@ -226,17 +226,17 @@ function __ChatterboxParseYarn(_input_string)
         buffer_poke(_buffer, _string_start, buffer_u8, _byte);
         buffer_seek(_buffer, buffer_seek_start, _old_tell);
         
-        if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_tags);
+        if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_metadata);
         
-        var _node_struct = { tags : _node_tags, body : _string };
+        var _node_struct = { metadata : _node_metadata, body : _string };
         array_push(_node_array, _node_struct);
         
-        _node_tags = {};
+        _node_metadata = {};
     }
     
     buffer_delete(_buffer);
     
-    if (variable_struct_names_count(_node_tags) > 0)
+    if (variable_struct_names_count(_node_metadata) > 0)
     {
         throw "File ended in the middle of a node header";
     }

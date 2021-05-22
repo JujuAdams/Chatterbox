@@ -47,12 +47,15 @@ else
     //More spacing...
     _y += 30;
     
-    //Draw all file tags
-    var _metadata = ChatterboxSourceGetTags(ChatterboxGetCurrentSource(box));
+    //Draw all node metadata
+    var _metadata = ChatterboxGetCurrentMetadata(box);
+    var _names = variable_struct_get_names(_metadata);
     var _i = 0;
-    repeat(array_length(_metadata))
+    repeat(array_length(_names))
     {
-        var _string = "tag " + string(_i) + " = \"" + _metadata[_i] + "\"";
+        var _name = _names[_i];
+        var _value = _metadata[$ _name];
+        var _string = "metadata \"" + string(_name) + "\" = \"" + _value + "\"";
         draw_text(_x, _y, _string);
         _y += string_height(_string);
         ++_i;

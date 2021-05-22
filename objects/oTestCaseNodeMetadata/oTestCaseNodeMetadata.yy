@@ -29,7 +29,7 @@
     "path": "folders/Test Cases.yy",
   },
   "resourceVersion": "1.0",
-  "name": "oTestCaseNegateFunction",
+  "name": "oTestCaseNodeMetadata",
   "tags": [],
   "resourceType": "GMObject",
 }

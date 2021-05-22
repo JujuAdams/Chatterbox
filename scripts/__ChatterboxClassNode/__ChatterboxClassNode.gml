@@ -2,11 +2,11 @@
 /// @param nodeTags
 /// @param bodyString
 
-function __ChatterboxClassNode(_filename, _node_tags, _body_string) constructor
+function __ChatterboxClassNode(_filename, _node_metadata, _body_string) constructor
 {
     filename         = _filename;
-    title            = _node_tags.title;
-    tags             = _node_tags;
+    title            = _node_metadata.title;
+    metadata         = _node_metadata;
     root_instruction = new __ChatterboxClassInstruction(undefined, -1, 0);
     
     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("[", title, "]");
