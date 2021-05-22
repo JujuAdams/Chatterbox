@@ -1,7 +1,7 @@
 {
   "option_windows_display_name": "Chatterbox",
   "option_windows_executable_name": "${project_name}",
-  "option_windows_version": "2.0.2.0",
+  "option_windows_version": "2.0.3.0",
   "option_windows_company_info": "@jujuadams",
   "option_windows_product_info": "Chatterbox",
   "option_windows_copyright_info": "@jujuadams (c) 2020",

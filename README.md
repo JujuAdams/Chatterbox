@@ -1,11 +1,11 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:170px"></p>
-<h1 align="center">1.1.3</h1>
+<h1 align="center">2.0.3</h1>
 
-<p align="center">Narrative engine for GameMaker Studio 2.3.1 by <b>@jujuadams</b></p>
+<p align="center">Narrative engine for GameMaker Studio 2.3.2 by <b>@jujuadams</b></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/">Download the .yymps</a></p>
 <p align="center">Talk about Chatterbox on the <a href="https://discord.gg/8krYCqr">Discord server</a></p>
-<p align="center">Download the <a href="https://github.com/FaultyFunctions/YarnEditor/releases/tag/v0.1.1-ALPHA">visual editor</a> by <a href="https://github.com/FaultyFunctions">Faulty</a></p>
+<p align="center">Download the <a href="https://github.com/FaultyFunctions/YarnEditor/">visual editor</a> by <a href="https://github.com/FaultyFunctions">Faulty</a></p>
 
 &nbsp;
 
