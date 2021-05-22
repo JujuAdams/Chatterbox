@@ -1,3 +1,5 @@
+/// Returns the number of nodes in the given source
+///
 /// @param sourceName
 
 function ChatterboxSourceNodeCount(_sourceName)

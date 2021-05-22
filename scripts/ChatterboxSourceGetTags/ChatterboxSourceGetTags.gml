@@ -1,3 +1,5 @@
+/// Returns the file tags for the given source
+///
 /// @param sourceName
 
 function ChatterboxSourceGetTags(_sourceName)
