@@ -6,7 +6,5 @@
 function ChatterboxGetContent(_chatterbox, _index)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.VerifyIsLoaded();
-    if ((_index < 0) || (_index >= array_length(_chatterbox.content))) return undefined;
-    return _chatterbox.content[_index];
+    return _chatterbox.GetContent(_index);
 }

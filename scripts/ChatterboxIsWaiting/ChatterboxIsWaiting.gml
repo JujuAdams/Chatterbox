@@ -5,6 +5,5 @@
 function ChatterboxIsWaiting(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.VerifyIsLoaded();
-    return _chatterbox.waiting;
+    return _chatterbox.IsWaiting();
 }

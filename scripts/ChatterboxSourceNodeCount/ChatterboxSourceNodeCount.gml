@@ -10,5 +10,5 @@ function ChatterboxSourceNodeCount(_sourceName)
         return false;
     }
     
-    return array_length(global.chatterboxFiles[? _sourceName].nodes);
+    return global.chatterboxFiles[? _sourceName].NodeCount();
 }

@@ -5,6 +5,5 @@
 function ChatterboxGetCurrent(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.VerifyIsLoaded();
-    return _chatterbox.current_node.title;
+    return _chatterbox.GetCurrentNodeTitle();
 }

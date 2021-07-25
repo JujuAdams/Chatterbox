@@ -5,6 +5,5 @@
 function ChatterboxGetContentCount(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.VerifyIsLoaded();
-    return array_length(_chatterbox.content);
+    return _chatterbox.GetContentCount();
 }

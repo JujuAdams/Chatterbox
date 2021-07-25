@@ -11,5 +11,5 @@ function ChatterboxSourceNodeExists(_sourceName, _nodeTitle)
         return false;
     }
     
-    return (global.chatterboxFiles[? _sourceName].FindNode(_nodeTitle) != undefined);
+    return global.chatterboxFiles[? _sourceName].NodeExists(_nodeTitle);
 }

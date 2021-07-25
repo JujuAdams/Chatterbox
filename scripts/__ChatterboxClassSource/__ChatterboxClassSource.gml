@@ -45,6 +45,8 @@ function __ChatterboxClassSource(_filename, _string) constructor
         _n++;
     }
     
+    
+    
     /// @param nodeTitle
     static FindNode = function(_title)
     {
@@ -58,10 +60,27 @@ function __ChatterboxClassSource(_filename, _string) constructor
         return undefined;
     }
     
+    static NodeExists = function(_nodeTitle)
+    {
+        return (FindNode(_nodeTitle) != undefined);
+    }
+    
+    static NodeCount = function()
+    {
+        return array_length(global.chatterboxFiles[? _sourceName].nodes);
+    }
+    
+    static GetTags = function()
+    {
+        return tags;
+    }
+    
     static toString = function()
     {
         return "File " + string(filename) + " " + string(nodes);
     }
+    
+    
     
     loaded = true;
 }

@@ -5,6 +5,5 @@
 function ChatterboxGetCurrentMetadata(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.VerifyIsLoaded();
-    return _chatterbox.current_node.metadata;
+    return _chatterbox.GetCurrentNodeMetadata();
 }

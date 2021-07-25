@@ -5,6 +5,5 @@
 function ChatterboxGetOptionCount(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
-    _chatterbox.VerifyIsLoaded();
-    return array_length(_chatterbox.option);
+    return _chatterbox.GetOptionCount();
 }

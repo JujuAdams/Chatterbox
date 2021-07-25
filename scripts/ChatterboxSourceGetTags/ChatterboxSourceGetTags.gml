@@ -10,5 +10,5 @@ function ChatterboxSourceGetTags(_sourceName)
         return [];
     }
     
-    return global.chatterboxFiles[? _sourceName].tags;
+    return global.chatterboxFiles[? _sourceName].GetTags();
 }
