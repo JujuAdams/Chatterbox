@@ -86,7 +86,15 @@
 							for (let link of sidebarLinks) {
 								if (Docsify.util.isExternal(link.href) === false) {
 									link.addEventListener('click', e => {
-										location.hash = '#dummy-hash';
+										// Only trigger hash changes on parent "A" link elements
+										if (e.target.tagName == 'A') {
+											location.hash = '#dummy-hash'; // Dummy hash to change URL
+											history.replaceState(null, null, e.currentTarget.href); // Replace dummy hash so the browser can jump to actual target
+										} else {
+											e.preventDefault();
+											e.stopPropagation();
+											e.currentTarget.click(); // Manually trigger a click event for the current target.
+										}
 									});
 								}
 							}
