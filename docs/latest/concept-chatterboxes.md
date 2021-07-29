@@ -1,4 +1,4 @@
-<h1 align="center">Chatterboxes</h1>
+# Chatterboxes
 
 ---
 

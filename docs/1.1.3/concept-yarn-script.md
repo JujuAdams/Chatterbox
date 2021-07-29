@@ -1,4 +1,4 @@
-<h1 align="center">Yarn Script</h1>
+# Yarn Script
 
 ---
 

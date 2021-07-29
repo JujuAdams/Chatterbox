@@ -1,4 +1,4 @@
-<h1 align="center">Getters Reference</h1>
+# Getters Reference
 
 ---
 

@@ -1,4 +1,4 @@
-<h1 align="center">Variables Reference</h1>
+# Variables Reference
 
 ---
 

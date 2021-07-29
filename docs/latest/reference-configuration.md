@@ -1,4 +1,4 @@
-<h1 align="center">Configuration Reference</h1>
+# Configuration Reference
 
 ---
 
