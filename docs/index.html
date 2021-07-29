@@ -32,6 +32,10 @@
 				subMaxLevel: 3,
 				relativePath: true,
 				auto2top: true,
+				alias: {
+					'/.*/_sidebar.md': '/_sidebar.md',
+					'/.*/_navbar.md': '/_navbar.md',
+				},
 				footer: {
 					copy: '<br><hr><span>' + appName + ' &copy; ' + new Date().getFullYear() + '</span>',
 					auth: 'by <a href="https://twitter.com/jujuadams/" target="_blank">JujuAdams</a>',
@@ -67,7 +71,6 @@
 					function (hook, vm) {
 						// ENSURE CLICKING THE LOGO TAKES US TO THE CORRECT VERSION DOCS
 						hook.doneEach(() => {
-							console.log(window.$docsify.plugins);
 							var appNameLink = Docsify.dom.find('#home-link');
 
 							if (appNameLink) {
