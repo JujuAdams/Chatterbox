@@ -116,7 +116,7 @@ Chatterbox has the following native actions:
     <<stop>>
     <<wait>>
 
-Custom actions can be added to Chatterbox by using the [`chatterbox_add_function()`](reference-configuration#chatterbox_add_functionname-function) script. Custom actions should be added before
+Custom actions can be added to Chatterbox by using the [`chatterbox_add_function()`](reference-setup#chatterbox_add_functionname-function) script. Custom actions should be added before
 calling [`chatterbox_create()`](reference-chatterboxes#chatterbox_createfilename-singletontext).
 
     GML:    chatterbox_load("example.json");
@@ -159,15 +159,15 @@ Variables in Chatterbox can have their scope controlled by using prefixes:
     <<set yarn.organelle to 7>>         This will set the internal Yarn variable "organelle" to the value 7.
 
 Internal Yarn variables are, in reality, key:value pairs stored in a global ds_map. You can access this ds_map via
-the `CHATTERBOX_VARIABLES_MAP` macro, found in [`__chatterbox_config()`](reference-configuration#__chatterbox_config).
+the `CHATTERBOX_VARIABLES_MAP` macro, found in [`__chatterbox_config()`](reference-setup#__chatterbox_config).
 
 The Yarn specification states that all variables must begin with a $-sign. Whilst Chatterbox expands upon Yarn variables, it does still fully
-support $-prefixed variables. The scope of $-prefixed variables is determined by `CHATTERBOX_DOLLAR_VARIABLE_SCOPE`, found in [`__chatterbox_config()`](reference-configuration#__chatterbox_config).
+support $-prefixed variables. The scope of $-prefixed variables is determined by `CHATTERBOX_DOLLAR_VARIABLE_SCOPE`, found in [`__chatterbox_config()`](reference-setup#__chatterbox_config).
 By default, a variable that starts with a $-sign is scoped to be an internal Yarn variable.
 
     <<set $yarnful to "okey dokey">>     This (by default) sets the internal Yarn variable "yarnful" to the value "okey dokey"
 
-If a variable has no prefix then its scope is determined by `CHATTERBOX_NAKED_VARIABLE_SCOPE`, again found in [`__chatterbox_config()`](reference-configuration#__chatterbox_config).
+If a variable has no prefix then its scope is determined by `CHATTERBOX_NAKED_VARIABLE_SCOPE`, again found in [`__chatterbox_config()`](reference-setup#__chatterbox_config).
 By default, a variable with no prefix is scoped to be an internal Yarn variable.
 
     <<set noPrefixForMe to "oh ok">>    This (by default) sets the internal Yarn variable "noPrefixForMe" to the value "oh ok"
@@ -215,7 +215,7 @@ By default, Chatterbox includes a `visited()` function, used to check whether a 
         We have gone to the city before!
     <<endif>>
 
-Other custom functions can be added to Chatterbox using the [`chatterbox_add_function()`](reference-configuration#chatterbox_add_functionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`chatterbox_create()`](reference-chatterboxes#chatterbox_createfilename-singletontext).
+Other custom functions can be added to Chatterbox using the [`chatterbox_add_function()`](reference-setup#chatterbox_add_functionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`chatterbox_create()`](reference-chatterboxes#chatterbox_createfilename-singletontext).
 
 Parameters should be separated by spaces and are passed into a script as an array of values in `argument0`.
 Custom functions can return values, but they should be reals or strings.

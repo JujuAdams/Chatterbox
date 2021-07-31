@@ -12,7 +12,7 @@ To initialise a chatterbox, call [`chatterbox_goto()`](reference-flow#chatterbox
 2. The Yarn script has hit a `<<stop>>` command or there's no more dialogue to show
 3. The player needs to select an option
 
-*Chatterbox packages are distributed with [singleton mode](reference-chatterboxes#chatterbox_createfilename-singletontext) switched on by default. Please read the documentation on [`chatterbox_create()`](reference-chatterboxes#chatterbox_createfilename-singletontext) and [`__chatterbox_config()`](reference-configuration#__chatterbox_config) for more information.*
+*Chatterbox packages are distributed with [singleton mode](reference-chatterboxes#chatterbox_createfilename-singletontext) switched on by default. Please read the documentation on [`chatterbox_create()`](reference-chatterboxes#chatterbox_createfilename-singletontext) and [`__chatterbox_config()`](reference-setup#__chatterbox_config) for more information.*
 
 Chatterbox provides three functions to find out what state a chatterbox is in, and they correspond to the list above:
 1. If [`chatterbox_is_waiting()`](reference-flow#chatterbox_is_waitingchatterbox) is `true` then the chatterbox is waiting

@@ -42,7 +42,7 @@ If you use this function to reload a file (i.e. using the same filename as an ex
 |`filename`|string  |Name to use to reference the buffer             |
 |`string`  |string  |String to parse as a [source file](concept-source-files)|
 
-Loads a string as a source file, emulating the [`chatterbox_load_from_file()`](reference-configuration#chatterbox_load_from_filefilename). The string should be formatted as either a .yarn file or a Yarn JSON. See the [Source Files](concept-source-files) pages for more information.
+Loads a string as a source file, emulating the [`chatterbox_load_from_file()`](reference-setup#chatterbox_load_from_filefilename). The string should be formatted as either a .yarn file or a Yarn JSON. See the [Source Files](concept-source-files) pages for more information.
 
 If you use this function to reload a file (i.e. load a buffer using the same filename as an existing [source file](concept-source-files)) then all in-progress [chatterboxes](concept-chatterboxes) that were using the previous [source file](concept-source-files) will be invalidated and will need to be restarted.
 
@@ -59,7 +59,7 @@ If you use this function to reload a file (i.e. load a buffer using the same fil
 |`filename`|string  |Name to use to reference the buffer|
 |`buffer`  |[buffer](https://docs2.yoyogames.com/source/_build/1_overview/3_additional_information/using_buffers.html)|Buffer to use as a [source file](concept-source-files)|
 
-Loads a buffer as a source file, emulating the [`chatterbox_load_from_file()`](reference-configuration#chatterbox_load_from_filefilename). The buffer should contain a single string that is formatted as either a .yarn file or a Yarn JSON. See the [Source Files](concept-source-files) pages for more information.
+Loads a buffer as a source file, emulating the [`chatterbox_load_from_file()`](reference-setup#chatterbox_load_from_filefilename). The buffer should contain a single string that is formatted as either a .yarn file or a Yarn JSON. See the [Source Files](concept-source-files) pages for more information.
 
 If you use this function to reload a file (i.e. load a buffer using the same filename as an existing [source file](concept-source-files)) then all in-progress [chatterboxes](concept-chatterboxes) that were using the previous [source file](concept-source-files) will be invalidated and will need to be restarted.
 

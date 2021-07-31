@@ -8,8 +8,8 @@
 
 |Name             |Datatype|Purpose                                                                                                                         |
 |-----------------|--------|--------------------------------------------------------------------------------------------------------------------------------|
-|`[filename]`     |string  |[Source file](concept-source-files) to target. If not specified, the default [source file](concept-source-files) will be used (the first [source file](concept-source-files) that was [loaded](reference-configuration#chatterbox_loadfilename) into Chatterbox)|
-|`[singletonText]`|boolean |Whether content is revealed one line at a time (see below). If not specified, [`CHATTERBOX_DEFAULT_SINGLETON`](reference-configuration#__chatterbox_config) is used instead|
+|`[filename]`     |string  |[Source file](concept-source-files) to target. If not specified, the default [source file](concept-source-files) will be used (the first [source file](concept-source-files) that was [loaded](reference-setup#chatterbox_loadfilename) into Chatterbox)|
+|`[singletonText]`|boolean |Whether content is revealed one line at a time (see below). If not specified, [`CHATTERBOX_DEFAULT_SINGLETON`](reference-setup#__chatterbox_config) is used instead|
 
 If `singletonText` is set to `true` then dialogue will be outputted one line at a time. This is typical behaviour for RPGs like Pokémon or Final Fantasy where characters talk one at a time. Only one piece of dialogue will be shown at a time.
 
