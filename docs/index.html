@@ -1,3 +1,22 @@
+<!-- HOW TO UPDATE AND ADD NEW VERSIONS -->
+<!--
+	MINOR:
+	1. Just change the `latestVersion` variable to the new version.
+	
+	MAJOR: (for example, let's say we are upgrading from v2.4.5 -> v3.0.0)
+	1. Add '2.4.5' to the `otherVersions` array.
+	2. Update the `latestVersion` variable to '3.0.0'.
+	3. Rename the `latest` docs folder to '2.4.5'.
+	4. Create a new docs folder named 'latest' and store your v3.0.0 docs inside there.
+	
+	OTHER TIPS:
+	- If you want a different sidebar or navbar for different versions,
+	  you can just copy and paste the _sidebar.md or _navbar.md from the
+		main /docs/ folder into the version folder you'd like and modify it there.
+	- If copying over to other repos, the `.token.name` css style at the bottom
+	  of this document can be removed. As well as the file named `prism-yarn.js`,
+		as that's specific to get proper syntax highlighting working with the yarn language.
+-->
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -36,13 +55,13 @@
 				subMaxLevel: 3,
 				relativePath: true,
 				auto2top: true,
-				alias: {
-					'/.*/_sidebar.md': '/_sidebar.md',
-					'/.*/_navbar.md': '/_navbar.md',
-				},
 				footer: {
-					copy: '<br><hr><span>' + appName + ' &copy; ' + new Date().getFullYear() + '</span>',
-					auth: 'by <a href="https://twitter.com/jujuadams/" target="_blank">JujuAdams</a>',
+					pre: '<br><hr>',
+					copy: '<span>' + appName + ' &copy; ' + new Date().getFullYear() + '</span>',
+					auth:
+						'by <a href="https://twitter.com/jujuadams/" target="_blank">JujuAdams</a>' +
+						'<br>Docs created by <a href="https://twitter.com/faultyfunctions/" target="_blank">Faulty</a> ' +
+						'with <a href="https://github.com/docsifyjs/docsify/" target="_blank">Docsify</a>',
 					style: 'text-align: right;',
 				},
 				tabs: {
@@ -60,7 +79,13 @@
 					namespace: 'chatterbox',
 					hideOtherSidebarContent: true,
 					depth: 3,
-					pathNamespaces: ['/latest', '/1.1.3'],
+					pathNamespaces: (() => {
+						let pathNamespacesArray = ['/latest'];
+						for (const version of otherVersions) {
+							pathNamespacesArray.push('/' + version);
+						}
+						return pathNamespacesArray;
+					})(), // Run a self executed function to construct our pathNamespaces
 				},
 				namespaces: [
 					{
@@ -122,6 +147,25 @@
 									version.isDefault
 								);
 							});
+
+							// COLOR THE SIDEBAR ARROWS
+							const themeColor = window
+								.getComputedStyle(document.documentElement)
+								.getPropertyValue('--theme-color');
+
+							document.documentElement.style.setProperty(
+								'--sidebar-nav-pagelink-background-image--collapse',
+								"url(\"data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='11.2' viewBox='0 0 7 11.2'%3E%3Cpath d='M1.5 1.5l4 4.1 -4 4.1' stroke-width='1.5' stroke='" +
+									themeColor +
+									"' fill='none' stroke-linecap='square' stroke-linejoin='miter' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E\")"
+							);
+
+							document.documentElement.style.setProperty(
+								'--sidebar-nav-pagelink-background-image--active',
+								"url(\"data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='11.2' height='7' viewBox='0 0 11.2 7'%3E%3Cpath d='M1.5 1.5l4.1 4 4.1-4' stroke-width='1.5' stroke='" +
+									themeColor +
+									"' fill='none' stroke-linecap='square' stroke-linejoin='miter' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E\")"
+							);
 						});
 					},
 				],
@@ -139,18 +183,22 @@
 		<script src="prism-yarn.js"></script>
 		<style>
 			:root {
-				--content-max-width: 62em;
-				--background: #242e33;
-
 				/* Theme */
+				--background: #242e33;
 				--theme-hue: 47;
 				--theme-saturation: 100%;
 				--theme-lightness: 47%;
+
+				/* Content */
+				--content-max-width: 62em;
+				--link-color--hover: var(--theme-color);
 				--heading-h1-color: var(--theme-color);
 				--heading-h2-color: var(--theme-color);
 				--heading-h2-border-color: var(--theme-color);
 				--table-head-border-width: 1px;
 				--table-cell-border-width: 1px;
+
+				/* Navbar */
 				--navbar-root-border-color: var(--theme-color);
 				--navbar-root-color: var(--theme-color);
 				--navbar-root-color--hover: var(--background);
@@ -159,11 +207,6 @@
 				--navbar-root-border-radius: 5px;
 				--navbar-root-padding: 5px;
 				--navbar-root-margin: 0 0 0 1em;
-
-				/* Sidebar */
-				--sidebar-nav-pagelink-background-image--collapse: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='7' height='11.2' viewBox='0 0 7 11.2'%3E%3Cpath d='M1.5 1.5l4 4.1 -4 4.1' stroke-width='1.5' stroke='rgb(241, 187, 0)' fill='none' stroke-linecap='square' stroke-linejoin='miter' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-				--sidebar-nav-pagelink-background-image--active: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='11.2' height='7' viewBox='0 0 11.2 7'%3E%3Cpath d='M1.5 1.5l4.1 4 4.1-4' stroke-width='1.5' stroke='rgb(241, 187, 0)' fill='none' stroke-linecap='square' stroke-linejoin='miter' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
-				--sidebar-nav-pagelink-background-image--loaded: url("data:image/svg+xml,%0A%3Csvg xmlns='http://www.w3.org/2000/svg' width='11.2' height='7' viewBox='0 0 11.2 7'%3E%3Cpath d='M1.5 1.5l4.1 4 4.1-4' stroke-width='1.5' stroke='rgb(241, 187, 0)' fill='none' stroke-linecap='square' stroke-linejoin='miter' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
 			}
 			#version-selector {
 				background: var(--base-background-color);
@@ -178,7 +221,15 @@
 				overflow: auto;
 				position: relative;
 			}
+			a code:hover {
+				color: var(--theme-color) !important;
+			}
+			footer a {
+				text-decoration: none !important;
+				font-weight: bold;
+			}
 			.token.name {
+				/* This is specific to yarn syntax highlighting, can be removed if copying over to other repos */
 				color: #a2a5cc !important;
 			}
 		</style>
