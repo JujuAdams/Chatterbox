@@ -5,10 +5,14 @@
 
 &nbsp;
 
+&nbsp;
+
 - ### [Download the .yymps](https://github.com/JujuAdams/chatterbox/releases/)
 - ### Download the [visual editor](https://github.com/FaultyFunctions/Crochet/) by [Faulty](https://github.com/FaultyFunctions)
 - ### Read the [documentation](http://jujuadams.github.io/Chatterbox)
 - ### Talk about Chatterbox on the [Discord server](https://discord.gg/8krYCqr)
+
+&nbsp;
 
 &nbsp;
 
