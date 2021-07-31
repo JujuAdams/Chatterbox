@@ -1,13 +1,20 @@
-<!-- HOW TO UPDATE AND ADD NEW VERSIONS -->
+<!-- HOW TO & TIPS -->
 <!--
-	MINOR:
+	UPDATING MINOR VERSIONS:
 	1. Just change the `latestVersion` variable to the new version.
 	
-	MAJOR: (for example, let's say we are upgrading from v2.4.5 -> v3.0.0)
+	UPDATING MAJOR VERSIONS: (for example, let's say we are upgrading from v2.4.5 -> v3.0.0)
 	1. Add '2.4.5' to the `otherVersions` array.
 	2. Update the `latestVersion` variable to '3.0.0'.
 	3. Rename the `latest` docs folder to '2.4.5'.
 	4. Create a new docs folder named 'latest' and store your v3.0.0 docs inside there.
+	
+	PREVIEWING CHANGES:
+	- If you'd like to make future modifications to markdown files and preview them before pushing your changes,
+	  you can do so with either Python or Node. If you have Node installed you can install Docsify with
+		'npm i docsify-cli -g' and then navigate to the docs folder and run 'docsify serve'. With Python you
+		can manually serve your docs with 'cd docs && python -m http.server 3000'.
+		More info: https://docsify.js.org/#/quickstart
 	
 	OTHER TIPS:
 	- If you want a different sidebar or navbar for different versions,
