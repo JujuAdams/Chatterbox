@@ -51,6 +51,7 @@ if (!__CHATTERBOX_ON_WEB)
 //Declare global variables
 global.__chatterboxDirectory            = _chatterbox_directory;
 global.chatterboxVariablesMap           = ds_map_create();
+global.__chatterboxDefaultVariablesMap  = ds_map_create();
 global.chatterboxFiles                  = ds_map_create();
 global.__chatterboxDefaultFile          = "";
 global.__chatterboxIndentSize           = 0;
