@@ -10,6 +10,8 @@ _Returns:_ The value for the given Chatterbox variable
 | ------ | -------- | ----------------------------- |
 | `name` | string   | Variable to get the value for |
 
+If the variable hasn't been set by YarnScript, this function will return the default value set by [`ChatterboxVariablesDefault()`](reference-variables#chatterboxvariablesdefaultname-value).
+
 &nbsp;
 
 ---
@@ -22,6 +24,19 @@ _Returns:_ N/A (`undefined`)
 | ------- | -------- | ---------------------------- |
 | `name`  | string   | Variable to set              |
 | `value` | any      | Value to set the variable to |
+
+&nbsp;
+
+---
+
+### `ChatterboxVariableDefault(name)`
+
+_Returns:_ N/A (`undefined`)
+
+| Name    | Datatype | Purpose                 |
+| ------- | -------- | ----------------------- |
+| `name`  | string   | Variable to set         |
+| `value` | any      | The default vlue to set |
 
 &nbsp;
 
