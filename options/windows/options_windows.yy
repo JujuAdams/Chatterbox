@@ -1,10 +1,10 @@
 {
   "option_windows_display_name": "Chatterbox",
   "option_windows_executable_name": "${project_name}",
-  "option_windows_version": "2.0.3.0",
+  "option_windows_version": "2.1.1.0",
   "option_windows_company_info": "@jujuadams",
   "option_windows_product_info": "Chatterbox",
-  "option_windows_copyright_info": "@jujuadams (c) 2020",
+  "option_windows_copyright_info": "@jujuadams (c) 2021",
   "option_windows_description_info": "Chatterbox",
   "option_windows_display_cursor": true,
   "option_windows_icon": "${base_options_dir}/windows/icons/icon.ico",
