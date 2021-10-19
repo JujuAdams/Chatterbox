@@ -17,7 +17,7 @@ function ChatterboxGetVisited()
         var _key = "visited(" + string(_filename) + CHATTERBOX_FILENAME_SEPARATOR + string(_node_title) + ")";
     }
     
-    var _value = global.chatterboxVariablesMap[? _key];
+    var _value = CHATTERBOX_VARIABLES_MAP[? _key];
     if (_value == undefined) return 0;
     return _value;
 }

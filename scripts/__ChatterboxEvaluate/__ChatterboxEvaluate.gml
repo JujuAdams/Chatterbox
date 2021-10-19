@@ -7,27 +7,7 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
 {
     if (!is_struct(_expression)) return _expression;
     
-    if (_expression.op == "var")
-    {
-        #region
-        
-        if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _expression.name))
-        {
-            __ChatterboxError("Yarn variable \"" + _expression.name + "\" can't be read because it doesn't exist");
-        }
-        
-        var _value = CHATTERBOX_VARIABLES_MAP[? _expression.name];
-        
-        if (!is_numeric(_value) && !is_string(_value) && !is_bool(_value))
-        {
-            var _typeof = typeof(_value);
-            __ChatterboxError("Variable \"" + _value + "\" has an unsupported datatype (" + _typeof + ")");
-        }
-        
-        return _value;
-        
-        #endregion
-    }
+    if (_expression.op == "var") return ChatterboxVariableGet(_expression.name);
     
     var _a = undefined;
     var _b = undefined;
@@ -169,32 +149,11 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
         {
             if (_behaviour == "declare")
             {
-                if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _variable_name))
-                {
-                    __ChatterboxTrace("Warning! Trying to re-declare Yarn variable ($", _variable_name, " = ", __ChatterboxReadableValue(_a), ") but it already has a value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _variable_name]), ")");
-                }
-                else
-                {
-                    CHATTERBOX_VARIABLES_MAP[? _variable_name] = _a;
-                    __ChatterboxTrace("Declared Yarn variable $", _variable_name, " as ", __ChatterboxReadableValue(_a));
-                }
+                ChatterboxVariableDefault(_variable_name, _a);
             }
             else if (_behaviour == "set")
             {
-                if (ds_map_exists(CHATTERBOX_VARIABLES_MAP, _variable_name))
-                {
-                    if (!__ChatterboxVerifyDatatypes(CHATTERBOX_VARIABLES_MAP[? _variable_name], _a))
-                    {
-                        __ChatterboxError("Cannot set $", _variable_name, " = ", __ChatterboxReadableValue(_a), ", its datatype does not match existing value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _variable_name]), ")");
-                    }
-                }
-                else
-                {
-                    __ChatterboxTrace("Warning! Trying to set Yarn variable $", _variable_name, " but it has not been declared");
-                }
-                
-                CHATTERBOX_VARIABLES_MAP[? _variable_name] = _a;
-                __ChatterboxTrace("Set Yarn variable $", _variable_name, " to ", __ChatterboxReadableValue(_a));
+                ChatterboxVariableSet(_variable_name, _a);
             }
         }
         
