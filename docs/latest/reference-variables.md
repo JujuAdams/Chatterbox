@@ -1,6 +1,6 @@
 # Variables Reference
 
----
+&nbsp;
 
 ### `ChatterboxVariableGet(name)`
 
@@ -14,8 +14,6 @@ If the variable hasn't been set by YarnScript, this function will return the def
 
 &nbsp;
 
----
-
 ### `ChatterboxVariableSet(name, value)`
 
 _Returns:_ N/A (`undefined`)
@@ -26,8 +24,6 @@ _Returns:_ N/A (`undefined`)
 | `value` | any      | Value to set the variable to |
 
 &nbsp;
-
----
 
 ### `ChatterboxVariableDefault(name)`
 
@@ -40,7 +36,42 @@ _Returns:_ N/A (`undefined`)
 
 &nbsp;
 
----
+### `ChatterboxVariablesClearVisited(node, filename)`
+
+_Returns:_ N/A (`undefined`)
+
+| Name       | Datatype | Purpose                                |
+| ---------- | -------- | -------------------------------------- |
+| `node`     | string   | Node to "unvisit"                      |
+| `filename` | string   | Filename that the node can be found in |
+
+Clears the visited state, as returned by `visited()`, for the given node found in the given file.
+
+&nbsp;
+
+### `ChatterboxVariablesClearVisitedAll()`
+
+_Returns:_ N/A (`undefined`)
+
+| Name | Datatype | Purpose |
+| ---- | -------- | ------- |
+| N/A  |          |         |
+
+Clears the visited state, as returned by `visited()`, for all nodes across all files.
+
+&nbsp;
+
+### `ChatterboxVariablesResetAll()`
+
+_Returns:_ N/A (`undefined`)
+
+| Name | Datatype | Purpose |
+| ---- | -------- | ------- |
+| N/A  |          |         |
+
+Resets all variables (including `visited()` state) to their default values, as defined by `ChatterboxVariableDefault()` or `<<declare>>`.
+
+&nbsp;
 
 ### `ChatterboxVariablesExport()`
 
@@ -54,8 +85,6 @@ The returned string also contains data on what nodes have been visited.
 
 &nbsp;
 
----
-
 ### `ChatterboxVariablesImport(string)`
 
 _Returns:_ N/A (`undefined`)
@@ -65,8 +94,6 @@ _Returns:_ N/A (`undefined`)
 | `string` | string   | JSON string to import, as exported by [`ChatterboxVariablesExport()`](reference-variables#chatterboxvariablesexport) |
 
 &nbsp;
-
----
 
 ### `ChatterboxVariableFind(substring, mode, caseSensitive)`
 
