@@ -3,6 +3,7 @@
 #macro __CHATTERBOX_VERSION  "2.2.0pre001"
 #macro __CHATTERBOX_DATE     "2021-10-19"
 
+#macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
 #macro __CHATTERBOX_DEBUG_VM        false
@@ -45,6 +46,26 @@ if (!__CHATTERBOX_ON_WEB)
     if ((_chatterbox_directory != "") && !directory_exists(_chatterbox_directory))
     {
         __ChatterboxTrace("Warning! Font directory \"" + string(_chatterbox_directory) + "\" could not be found in \"" + game_save_id + "\"!");
+    }
+}
+
+//Verify CHATTERBOX_DIRECTION_FUNCTION has been set to a valid global function
+try
+{
+    if (script_exists(CHATTERBOX_DIRECTION_FUNCTION) || is_method(CHATTERBOX_DIRECTION_FUNCTION))
+    {
+        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_DIRECTION_FUNCTION is valid");
+    }
+}
+catch(_error)
+{
+    if (CHATTERBOX_DIRECTION_MODE == 0)
+    {
+        __ChatterboxError("CHATTERBOX_DIRECTION_FUNCTION is not a valid global function\n\n(This is only a requirement if CHATTERBOX_DIRECTION_MODE == 0)");
+    }
+    else
+    {
+        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_DIRECTION_FUNCTION is invalid, but CHATTERBOX_DIRECTION_MODE = ", CHATTERBOX_DIRECTION_MODE);
     }
 }
 
