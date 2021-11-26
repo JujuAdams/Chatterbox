@@ -1,7 +1,0 @@
-title: Start
----
-First line
-<<testcaseAction Hiya>>
-<<testcaseNumericParam 3.141>>
-Check the debug log!
-===

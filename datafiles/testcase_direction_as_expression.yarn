@@ -1,8 +1,0 @@
-title: Start
----
-First line
-<<declare $test = 42>>
-<<testcaseAction("Hiya")>>
-<<testcaseNumericParam(3.141, $test)>>
-Check the debug log!
-===
