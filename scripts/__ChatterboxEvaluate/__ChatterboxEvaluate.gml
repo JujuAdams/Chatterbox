@@ -81,13 +81,34 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
         case "func":
             if (_expression.name == "visited")
             {
-                return ChatterboxGetVisited(_parameter_values[0], _filename);
+                if (_filename == undefined)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return ChatterboxGetVisited(_parameter_values[0], _filename);
+                }
             }
             else
             {
                 var _method = global.__chatterboxFunctions[? _expression.name];
                 if (is_method(_method))
                 {
+                    if (_local_scope == undefined)
+                    {
+                        if (CHATTERBOX_ERROR_NO_LOCAL_SCOPE)
+                        {
+                            __ChatterboxError("No local scope available for execution\nThis usually happens when trying to execute a function in a <<declare>> command");
+                        }
+                        else
+                        {
+                            __ChatterboxTrace("No local scope available for execution. This usually happens when trying to execute a function in a <<declare>> command");
+                        }
+                        
+                        return undefined;
+                    }
+                    
                     with (_local_scope)
                     {
                         if (CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS)
