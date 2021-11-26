@@ -1,8 +1,9 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "2.1.1"
-#macro __CHATTERBOX_DATE     "2021-09-27"
+#macro __CHATTERBOX_VERSION  "2.2.0"
+#macro __CHATTERBOX_DATE     "2021-11-26"
 
+#macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
 #macro __CHATTERBOX_DEBUG_VM        false
@@ -48,10 +49,31 @@ if (!__CHATTERBOX_ON_WEB)
     }
 }
 
+//Verify CHATTERBOX_DIRECTION_FUNCTION has been set to a valid global function
+try
+{
+    if (script_exists(CHATTERBOX_DIRECTION_FUNCTION) || is_method(CHATTERBOX_DIRECTION_FUNCTION))
+    {
+        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_DIRECTION_FUNCTION is valid");
+    }
+}
+catch(_error)
+{
+    if (CHATTERBOX_DIRECTION_MODE == 0)
+    {
+        __ChatterboxError("CHATTERBOX_DIRECTION_FUNCTION is not a valid global function\n\n(This is only a requirement if CHATTERBOX_DIRECTION_MODE == 0)");
+    }
+    else
+    {
+        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_DIRECTION_FUNCTION is invalid, but CHATTERBOX_DIRECTION_MODE = ", CHATTERBOX_DIRECTION_MODE);
+    }
+}
+
 //Declare global variables
 global.__chatterboxDirectory            = _chatterbox_directory;
-global.chatterboxVariablesMap           = ds_map_create();
+CHATTERBOX_VARIABLES_MAP                = ds_map_create();
 global.__chatterboxDefaultVariablesMap  = ds_map_create();
+CHATTERBOX_VARIABLES_LIST               = ds_list_create();
 global.chatterboxFiles                  = ds_map_create();
 global.__chatterboxDefaultFile          = "";
 global.__chatterboxIndentSize           = 0;

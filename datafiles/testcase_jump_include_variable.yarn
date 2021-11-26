@@ -1,0 +1,11 @@
+title: Start
+---
+<<declare $a = "Tar">>
+<<declare $b = "get">>
+<<jump ($a + $b)>>
+===
+
+title: Target
+---
+This is the target node.
+===

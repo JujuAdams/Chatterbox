@@ -12,6 +12,6 @@ function ChatterboxVariablesImport(_string)
         exit;
     }
     
-    ds_map_destroy(global.chatterboxVariablesMap);
-    global.chatterboxVariablesMap = _json;
+    ds_map_destroy(CHATTERBOX_VARIABLES_MAP);
+    CHATTERBOX_VARIABLES_MAP = _json;
 }

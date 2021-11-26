@@ -16,8 +16,8 @@ function ChatterboxVariablesFind(_substring, _mode, _case_sensitive)
     if (!_case_sensitive) _substring = string_lower(_substring);
     var _substring_length = string_length(_substring);
     
-    var _name = ds_map_find_first(global.chatterboxVariablesMap);
-    repeat(ds_map_size(global.chatterboxVariablesMap))
+    var _name = ds_map_find_first(CHATTERBOX_VARIABLES_MAP);
+    repeat(ds_map_size(CHATTERBOX_VARIABLES_MAP))
     {
         var _string = _case_sensitive? _name : string_lower(_name);
         
@@ -45,7 +45,7 @@ function ChatterboxVariablesFind(_substring, _mode, _case_sensitive)
             break;
         }
         
-        _name = ds_map_find_next(global.chatterboxVariablesMap, _name);
+        _name = ds_map_find_next(CHATTERBOX_VARIABLES_MAP, _name);
     }
     
     return _result;

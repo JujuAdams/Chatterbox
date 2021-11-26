@@ -108,10 +108,21 @@ function __ChatterboxVMInner(_instruction)
                     case "jump":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[goto ", _instruction.destination, "]");
                         
-                        var _split = __ChatterboxSplitGoto(_instruction.destination);
+                        try
+                        {
+                            var _destination = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression("(" + _instruction.destination + ")", false), undefined);
+                        }
+                        catch(_error)
+                        {
+                            //Catch e.g. <<jump A>> using a relaxed syntax
+                            var _destination = _instruction.destination;
+                        }
+                        
+                        var _split = __ChatterboxSplitGoto(_destination);
                         if (_split.filename == undefined)
                         {
                             var _next_node = FindNode(_split.node);
+                            if (_next_node == undefined) __ChatterboxError("Node \"", _split.node, "\" could not be found in \"", filename, "\"");
                             _next_node.MarkVisited();
                             _next = _next_node.root_instruction;
                             current_node = _next_node;
@@ -125,6 +136,7 @@ function __ChatterboxVMInner(_instruction)
                                 filename = file.filename;
                                 
                                 _next_node = FindNode(_split.node);
+                                if (_next_node == undefined) __ChatterboxError("Node \"", _split.node, "\" could not be found in \"", _split.filename, "\"");
                                 _next_node.MarkVisited();
                                 _next = _next_node.root_instruction;
                                 current_node = _next_node;
@@ -186,11 +198,11 @@ function __ChatterboxVMInner(_instruction)
                             break;
                             
                             case 1:
-                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, false), undefined)
+                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, false), undefined);
                             break;
                             
                             case 2:
-                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined)
+                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined);
                             break;
                         }
                         

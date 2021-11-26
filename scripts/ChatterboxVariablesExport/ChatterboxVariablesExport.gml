@@ -2,5 +2,5 @@
 
 function ChatterboxVariablesExport()
 {
-    return json_encode(global.chatterboxVariablesMap);
+    return json_encode(CHATTERBOX_VARIABLES_MAP);
 }
