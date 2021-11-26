@@ -74,7 +74,7 @@
     {"id":{"name":"ChatterboxSelect","path":"scripts/ChatterboxSelect/ChatterboxSelect.yy",},"order":5,},
     {"id":{"name":"oTestCaseDirectionAsExpression","path":"objects/oTestCaseDirectionAsExpression/oTestCaseDirectionAsExpression.yy",},"order":14,},
     {"id":{"name":"ChatterboxVariablesFind","path":"scripts/ChatterboxVariablesFind/ChatterboxVariablesFind.yy",},"order":4,},
-    {"id":{"name":"oTest","path":"objects/oTest/oTest.yy",},"order":2,},
+    {"id":{"name":"oBasics","path":"objects/oBasics/oBasics.yy",},"order":2,},
     {"id":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},"order":1,},
   ],
   "Options": [
@@ -101,6 +101,7 @@
     "children": [],
   },
   "RoomOrderNodes": [
+    {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"roomId":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
   ],
   "Folders": [
