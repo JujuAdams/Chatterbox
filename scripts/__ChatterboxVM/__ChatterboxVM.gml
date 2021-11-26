@@ -108,7 +108,15 @@ function __ChatterboxVMInner(_instruction)
                     case "jump":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[goto ", _instruction.destination, "]");
                         
-                        var _destination = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_instruction.destination, false), undefined);
+                        try
+                        {
+                            var _destination = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression("(" + _instruction.destination + ")", false), undefined);
+                        }
+                        catch(_error)
+                        {
+                            //Catch e.g. <<jump A>> using a relaxed syntax
+                            var _destination = _instruction.destination;
+                        }
                         
                         var _split = __ChatterboxSplitGoto(_destination);
                         if (_split.filename == undefined)
