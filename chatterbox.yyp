@@ -13,6 +13,7 @@
     {"id":{"name":"ChatterboxGetContentMetadata","path":"scripts/ChatterboxGetContentMetadata/ChatterboxGetContentMetadata.yy",},"order":2,},
     {"id":{"name":"ChatterboxGetCurrentSource","path":"scripts/ChatterboxGetCurrentSource/ChatterboxGetCurrentSource.yy",},"order":5,},
     {"id":{"name":"ChatterboxGetCurrentMetadata","path":"scripts/ChatterboxGetCurrentMetadata/ChatterboxGetCurrentMetadata.yy",},"order":4,},
+    {"id":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},"order":0,},
     {"id":{"name":"ChatterboxIsStopped","path":"scripts/ChatterboxIsStopped/ChatterboxIsStopped.yy",},"order":2,},
     {"id":{"name":"oTestCaseDirection","path":"objects/oTestCaseDirection/oTestCaseDirection.yy",},"order":13,},
     {"id":{"name":"ChatterboxVariableDefault","path":"scripts/ChatterboxVariableDefault/ChatterboxVariableDefault.yy",},"order":0,},
@@ -42,6 +43,7 @@
     {"id":{"name":"ChatterboxSourceNodeExists","path":"scripts/ChatterboxSourceNodeExists/ChatterboxSourceNodeExists.yy",},"order":8,},
     {"id":{"name":"ChatterboxGetCurrent","path":"scripts/ChatterboxGetCurrent/ChatterboxGetCurrent.yy",},"order":3,},
     {"id":{"name":"oTestCaseNumericParam","path":"objects/oTestCaseNumericParam/oTestCaseNumericParam.yy",},"order":4,},
+    {"id":{"name":"oTestCaseJumpIncludeVariable","path":"objects/oTestCaseJumpIncludeVariable/oTestCaseJumpIncludeVariable.yy",},"order":17,},
     {"id":{"name":"ChatterboxIsLoaded","path":"scripts/ChatterboxIsLoaded/ChatterboxIsLoaded.yy",},"order":2,},
     {"id":{"name":"oTestCaseAction","path":"objects/oTestCaseAction/oTestCaseAction.yy",},"order":0,},
     {"id":{"name":"ChatterboxVariablesResetAll","path":"scripts/ChatterboxVariablesResetAll/ChatterboxVariablesResetAll.yy",},"order":7,},
@@ -142,6 +144,7 @@
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_empty_param.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_node_metadata.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_variable_access.yarn","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_jump_include_variable.yarn","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2.3.7.603",
