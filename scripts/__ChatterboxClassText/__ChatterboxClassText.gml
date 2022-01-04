@@ -72,7 +72,7 @@ function __ChatterboxClassText(_string) constructor
     
     buffer_delete(_buffer);
     
-    static Evaluate = function(_local_scope, _filename)
+    static Evaluate = function(_local_scope, _filename, _delimitStrings)
     {
         var _result = "";
         
@@ -80,7 +80,12 @@ function __ChatterboxClassText(_string) constructor
         repeat(array_length(substrings))
         {
             var _value = substrings[_i];
-            if (is_struct(_value)) _value = __ChatterboxEvaluate(_local_scope, _filename, _value, undefined);
+            if (is_struct(_value))
+            {
+                _value = __ChatterboxEvaluate(_local_scope, _filename, _value, undefined);
+                if (is_string(_value) && _delimitStrings) _value = "\"" + _value + "\"";
+            }
+            
             _result += string(_value);
             ++_i;
         }

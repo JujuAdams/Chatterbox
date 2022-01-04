@@ -51,7 +51,7 @@ function __ChatterboxVMInner(_instruction)
                     var _branch = variable_struct_get(_instruction, "option_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
-                    array_push(option, _instruction.text.Evaluate(local_scope, filename));
+                    array_push(option, _instruction.text.Evaluate(local_scope, filename, false));
                     array_push(optionConditionBool, !_condition_failed);
                     array_push(optionMetadata, _instruction.metadata);
                     array_push(option_instruction, _branch);
@@ -76,7 +76,7 @@ function __ChatterboxVMInner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        array_push(content, _instruction.text.Evaluate(local_scope, filename));
+                        array_push(content, _instruction.text.Evaluate(local_scope, filename, false));
                         array_push(contentConditionBool, !_condition_failed);
                         array_push(contentMetadata, _instruction.metadata);
                         
@@ -181,7 +181,7 @@ function __ChatterboxVMInner(_instruction)
                     case "direction":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
                         
-                        var _direction_text = _instruction.text.Evaluate(local_scope, filename);
+                        var _direction_text = _instruction.text.Evaluate(local_scope, filename, true);
                         var _result = undefined;
                         
                         switch(CHATTERBOX_DIRECTION_MODE)
