@@ -61,13 +61,6 @@ function __ChatterboxClassText(_string) constructor
                 _string_start = buffer_tell(_buffer);
             }
         }
-        else if ((_byte == ord("/")) //Standard comment // syntax
-             &&  (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/"))
-             &&  (buffer_peek(_buffer, buffer_tell(_buffer)-2, buffer_u8) != ord("\\")))
-        {
-            //Hit a comment
-            break;
-        }
     }
     
     buffer_delete(_buffer);
