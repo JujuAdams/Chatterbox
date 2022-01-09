@@ -11,6 +11,7 @@
 - ### Download the [visual editor](https://github.com/FaultyFunctions/Crochet/) by [Faulty](https://github.com/FaultyFunctions)
 - ### Read the [documentation](http://jujuadams.github.io/Chatterbox)
 - ### Talk about Chatterbox on the [Discord server](https://discord.gg/8krYCqr)
+- ### Learn how to add text effects to Chatterbox with [Scribble](https://github.com/JujuAdams/Scribblebox)
 
 &nbsp;
 
