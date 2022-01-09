@@ -75,6 +75,7 @@ function __ChatterboxSplitBody(_body)
     var _next_value    = __ChatterboxReadUTF8Char(_body_buffer);
     var _in_comment    = false;
     var _in_metadata   = false;
+    var _in_action     = false;
     
     repeat(_body_byte_length)
     {
@@ -115,13 +116,13 @@ function __ChatterboxSplitBody(_body)
         }
         else
         {
-            if ((_prev_value != ord("\\")) && (_value == ord("#")))
+            if ((_prev_value != ord("\\")) && (_value == ord("#")) && !_in_action)
             {
                 _in_metadata = true;
                 _pop_cache   = true;
                 _write_cache = false;
             }
-            else if ((_value == ord("/")) && (_next_value == ord("/")))
+            else if ((_value == ord("/")) && (_next_value == ord("/")) && !_in_action)
             {
                 _in_comment  = true;
                 _pop_cache   = true;
@@ -137,7 +138,8 @@ function __ChatterboxSplitBody(_body)
                 else if (_prev_value == ord(__CHATTERBOX_ACTION_OPEN_DELIMITER))
                 {
                     _write_cache = false;
-                    _cache_type = "command";
+                    _cache_type  = "command";
+                    _in_action   = true;
                 }
             }
             else if (_value == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER))
@@ -150,6 +152,7 @@ function __ChatterboxSplitBody(_body)
                 else if (_prev_value == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER))
                 {
                     _write_cache = false;
+                    _in_action   = false;
                 }
             }
         }
