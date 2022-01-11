@@ -113,7 +113,7 @@ Chatterbox has the following native actions:
 <<wait>>
 ```
 
-Custom actions can be added to Chatterbox by using the [`chatterbox_add_function()`](reference-configuration#chatterboxaddfunctionname-function) script. Custom actions should be added before
+Custom actions can be added to Chatterbox by using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Custom actions should be added before
 calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
 
 <!-- tabs:start -->
