@@ -20,7 +20,7 @@
 /// 
 /// Custom functions can be added at any point but should be added before loading in any source files.
 /// 
-/// @param name      Script name, as a string
+/// @param name      Script name; as a string
 /// @param function  Function to call
 
 function ChatterboxAddFunction(_name, _in_function)
