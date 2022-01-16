@@ -2,7 +2,7 @@
 ///
 /// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax()
 ///
-/// @param path         Path to the file to add, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
+/// @param path         Path to the file to add; relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
 /// @param [aliasName]  Alias for this file
 
 function ChatterboxLoadFromFile()
