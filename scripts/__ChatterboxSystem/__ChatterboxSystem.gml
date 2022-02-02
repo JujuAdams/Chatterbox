@@ -73,6 +73,7 @@ catch(_error)
 global.__chatterboxDirectory            = _chatterbox_directory;
 CHATTERBOX_VARIABLES_MAP                = ds_map_create();
 global.__chatterboxDefaultVariablesMap  = ds_map_create();
+global.__chatterboxDeclaredVariablesMap = ds_map_create();
 CHATTERBOX_VARIABLES_LIST               = ds_list_create();
 global.chatterboxFiles                  = ds_map_create();
 global.__chatterboxDefaultFile          = "";
@@ -272,6 +273,7 @@ function __ChatterboxReadableValue(_value)
 
 function __ChatterboxVerifyDatatypes(_a, _b)
 {
+    if ((_a == undefined) || (_b == undefined)) return true;
     if (is_numeric(_a) && is_numeric(_b)) return true;
     if (is_string( _a) && is_string( _b)) return true;
     if (is_bool(   _a) && is_bool(   _b)) return true;

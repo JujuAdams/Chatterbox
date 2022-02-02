@@ -263,7 +263,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                     
                     if (CHATTERBOX_DECLARE_ON_COMPILE)
                     {
-                        if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile");
+                        if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<declare>>");
                         __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "declare");
                         _instruction = undefined; //Don't add this instruction to the node
                     }
@@ -272,6 +272,12 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 case "set":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
+                    
+                    if (CHATTERBOX_DECLARE_ON_COMPILE)
+                    {
+                        if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<set>>");
+                        __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "declare valueless");
+                    }
                 break;
                 
                 case "jump":

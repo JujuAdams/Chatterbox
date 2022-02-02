@@ -162,13 +162,21 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
     {
         var _variable_name = _expression.a.name;
         
-        if ((_behaviour != "declare") && (_behaviour != "set"))
+        if ((_behaviour != "declare") && (_behaviour != "declare valueless") && (_behaviour != "set"))
         {
             __ChatterboxError("Cannot set/declare variable \"", _variable_name, "\" outside of a <<set>> or <<declare>> command");
         }
         else
         {
-            if (_behaviour == "declare")
+            if (_behaviour == "declare valueless")
+            {
+                if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _variable_name))
+                {
+                    global.__chatterboxDeclaredVariablesMap[? _variable_name] = true;
+                    ds_list_add(CHATTERBOX_VARIABLES_LIST, _variable_name);
+                }
+            }
+            else if (_behaviour == "declare")
             {
                 ChatterboxVariableDefault(_variable_name, _a);
             }

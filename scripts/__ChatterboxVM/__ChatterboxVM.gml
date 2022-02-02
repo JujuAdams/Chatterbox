@@ -11,8 +11,8 @@ function __ChatterboxVM()
     stopped          = false;
     waiting          = false;
     wait_instruction = undefined;
-    entered_option = false;
-    leaving_option = false;
+    entered_option   = false;
+    leaving_option   = false;
     rejected_if      = false;
     
     if (current_instruction.type == "stop")

@@ -18,7 +18,7 @@ function ChatterboxVariableDefault(_name, _value)
         exit;
     }
     
-    if (ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
+    if (ds_map_exists(global.__chatterboxDeclaredVariablesMap, _name))
     {
         if (CHATTERBOX_ERROR_REDECLARED_VARIABLE)
         {
@@ -33,6 +33,7 @@ function ChatterboxVariableDefault(_name, _value)
     {
         CHATTERBOX_VARIABLES_MAP[? _name] = _value;
         global.__chatterboxDefaultVariablesMap[? _name] = _value;
+        global.__chatterboxDeclaredVariablesMap[? _name] = true;
         ds_list_add(CHATTERBOX_VARIABLES_LIST, _name);
         
         __ChatterboxTrace("Declared Yarn variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");

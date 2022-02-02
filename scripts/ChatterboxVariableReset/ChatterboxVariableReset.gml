@@ -8,7 +8,7 @@ function ChatterboxVariableReset(_name)
         exit;
     }
     
-    if (!ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
+    if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _name))
     {
         if (string_copy(_name, 1, 8) != "visited(") //Don't throw an error for "node visited" variables
         {

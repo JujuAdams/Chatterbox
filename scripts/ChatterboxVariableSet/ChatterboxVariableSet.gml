@@ -18,7 +18,7 @@ function ChatterboxVariableSet(_name, _value)
         exit;
     }
     
-    if (!ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
+    if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _name))
     {
         if (CHATTERBOX_ERROR_UNDECLARED_VARIABLE)
         {
