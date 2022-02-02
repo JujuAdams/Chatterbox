@@ -24,6 +24,12 @@ function ChatterboxVariableReset(_name)
         
         ds_map_delete(CHATTERBOX_VARIABLES_MAP, _name);
     }
+    else if (!ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
+    {
+        //If we don't have a default value then just delete the variable
+        //This can happen when <<set>> implicitly declares a variable on compile
+        ds_map_delete(CHATTERBOX_VARIABLES_MAP, _name);
+    }
     else
     {
         var _value = global.__chatterboxDefaultVariablesMap[? _name];
