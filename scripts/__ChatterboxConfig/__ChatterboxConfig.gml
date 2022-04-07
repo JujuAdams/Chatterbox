@@ -18,6 +18,9 @@
 
 #macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY     ""
 
+#macro CHATTERBOX_SPEAKERDATA_TAG_OPEN			"["	//↓
+#macro CHATTERBOX_SPEAKERDATA_TAG_CLOSE			"]"	//The characters that hold speaker data between them. It can be, for example, an image index.
+
 #region Advanced
 
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
