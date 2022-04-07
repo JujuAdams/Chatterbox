@@ -10,7 +10,7 @@ _Returns:_ The value for the given Chatterbox variable
 | ------ | -------- | ----------------------------- |
 | `name` | string   | Variable to get the value for |
 
-If the variable hasn't been set by YarnScript, this function will return the default value set by [`ChatterboxVariablesDefault()`](reference-variables#chatterboxvariablesdefaultname-value).
+If the variable hasn't been set by YarnScript, this function will return the default value set by [`ChatterboxVariableDefault()`](reference-variables#chatterboxvariabledefaultname-value).
 
 &nbsp;
 
