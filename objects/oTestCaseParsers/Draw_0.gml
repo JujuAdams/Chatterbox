@@ -15,30 +15,31 @@ else
     var _i = 0;
     repeat(ChatterboxGetContentCount(box))
     {
-		//Split parts of the content with parsers
-		speaker	= ChatterboxGetSpeaker(box, _i);
-		speech		= ChatterboxGetSpeech(box, _i);
-		switch		  (ChatterboxGetSpeakerData(box, _i, 0))
-		{
-		    case 0: color = c_yellow; break;
-		    case 1: color = c_red; break;
-		}
-		
-		//Draw Speaker and apply data
-		var c = color;
-        draw_text_color(_x, _y, speaker, c,c,c,c,1);
-        _y += string_height(speaker);
-		
-		//Draw Speech
-		var c = c_white;
-        draw_text_color(_x, _y, speech, c,c,c,c,1);
-        _y += string_height(speech);
+        //Split parts of the content with parsers
+        speaker	= ChatterboxGetSpeaker(box, _i);
+        speech		= ChatterboxGetSpeech(box, _i);
+        switch		  (ChatterboxGetSpeakerData(box, _i, 0))
+        {
+            case 0: color = c_yellow; break;
+            case 1: color = c_red; break;
+            case 2: color = c_orange; break;
+        }
+        
+        //Draw Speaker and apply data
+        var c = color;
+        draw_text_color(_x, _y, "name: "+speaker, c,c,c,c,1);
+        _y += string_height("A");
+        
+        //Draw Speech
+        var c = c_white;
+        draw_text_color(_x, _y, "speech: "+speech, c,c,c,c,1);
+        _y += string_height("A");
         ++_i;
     }
     
     //Bit of spacing...
     _y += 30;
-
+    
     if (ChatterboxIsWaiting(box))
     {
         //If we're in a "waiting" state then prompt the user for basic input
