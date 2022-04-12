@@ -8,3 +8,5 @@ box = ChatterboxCreate("Test.yarn");
 
 //Tell the chatterbox to jump to a node
 ChatterboxJump(box, "Start");
+
+a
