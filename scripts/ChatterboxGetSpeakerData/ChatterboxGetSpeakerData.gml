@@ -15,7 +15,7 @@ function ChatterboxGetSpeakerData(_chatterbox, _index, _default = undefined)
         var _c2 = CHATTERBOX_SPEAKERDATA_TAG_CLOSE;
         var _char_l = string_pos(_c1, _str);
         var _char_r = string_pos(_c2, _str);
-        if (_char_l and _char_r < _colon)
+        if (_char_l > 0 and _char_r < _colon)
         {
             var _data = string_copy(_str, _char_l+1, _char_r-_char_l-1);
             return _data;

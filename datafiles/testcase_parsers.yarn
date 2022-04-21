@@ -4,7 +4,7 @@ __PrivCrochet_position: -80,0
 __PrivCrochet_tags: 
 title: Start
 ---
-Chatterbox[0]: I have been parsed. My identity, my values, my thoughts... they've all been misinterpreted.
-Chatterbox[1]: Nobody can truly understand how this feels.
-Chatterbox          [2]          :                  No one realizes how much space there really is between you and me.
+Chatterbox: This is some text with a name.
+Chatterbox[1]: This is more text with a name and metadata.
+                            Chatterbox          [2]          :                  This is even more text with a name, metadata, and invisible whitespace!
 ===
