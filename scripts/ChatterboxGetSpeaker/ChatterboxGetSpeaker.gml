@@ -3,7 +3,7 @@
 /// @param chatterbox
 /// @param contentIndex
 
-function ChatterboxGetSpeaker(_chatterbox, _index)
+function ChatterboxGetSpeaker(_chatterbox, _index, _default = "")
 {
     var _str = ChatterboxGetContent(_chatterbox, _index);
     if (_str != undefined)
@@ -11,7 +11,7 @@ function ChatterboxGetSpeaker(_chatterbox, _index)
         var _colon_pos = string_pos(":", _str);
         if (_colon_pos == 0)
         {
-            __ChatterboxTrace("No speaker found.") return "";
+            __ChatterboxTrace("No speaker found.") return _default;
         }
         var _name = string_copy(_str, 1, _colon_pos-1);
         var _c1 = CHATTERBOX_SPEAKERDATA_TAG_OPEN;

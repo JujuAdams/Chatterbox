@@ -7,4 +7,5 @@ title: Start
 Chatterbox: This is some text with a name.
 Chatterbox[1]: This is more text with a name and metadata.
                             Chatterbox          [2]          :                  This is even more text with a name, metadata, and invisible whitespace!
+And this is just text.
 ===
