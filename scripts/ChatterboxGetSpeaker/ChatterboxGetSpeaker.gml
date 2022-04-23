@@ -11,7 +11,7 @@ function ChatterboxGetSpeaker(_chatterbox, _index)
         var _colon_pos = string_pos(":", _str);
         if (_colon_pos == 0)
         {
-            show_debug_message("Chatterbox: No speaker found.") return "";
+            __ChatterboxTrace("No speaker found.") return "";
         }
         var _name = string_copy(_str, 1, _colon_pos-1);
         var _c1 = CHATTERBOX_SPEAKERDATA_TAG_OPEN;
