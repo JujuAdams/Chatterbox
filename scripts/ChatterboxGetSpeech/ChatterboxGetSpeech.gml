@@ -13,7 +13,7 @@ function ChatterboxGetSpeech(_chatterbox, _index)
         var _space = 0;
         if (_colon > 0) //If there is a colon
         {
-            _speech = string_delete(_str, 1, _colon); //Remove the colon and all behind it,
+            _speech = string_delete(_str, 1, _colon); //Remove the colon and all behind it
             if (string_pos(" ", _speech) == 1) //If there is still whitespace remaining, remove it
             {
                 for (var i = 0; string_char_at(_speech, i) == " "; ++i) {
