@@ -8,8 +8,41 @@
 #macro CHATTERBOX_SHOW_REJECTED_OPTIONS         true
 #macro CHATTERBOX_DECLARE_ON_COMPILE            true //Whether to declare variables when Chatterbox script is compiled. Set to <false> for legacy (2.1 and earlier) behaviour
 
-#macro CHATTERBOX_DIRECTION_MODE                  1 //0 = Pass direction to function (see below), 1 = treat directions as expressions, 2 = treat directions as Python-esque function calls
-#macro CHATTERBOX_DIRECTION_FUNCTION              undefined //The function to receive <<direction>> contents. This will only be called if CHATTERBOX_DIRECTION_MODE is 0
+// Direction mode controls how <<directions>> are processed by Chatterbox
+// There are three possible values:
+// 
+// CHATTERBOX_DIRECTION_MODE = 0
+// This is the officially recommended behaviour. The full contents of the direction (everything
+// between << and >>) are passed as a string to a function for parsing and execution by the
+// developer (you). I think this behaviour is stupid but I've included it here because technically
+// that is what the YarnScript specification says. You can set the function that receives the
+// direction string by setting CHATTERBOX_DIRECTION_FUNCTION. Exactly what syntax you use for
+// directions is therefore completely up to you.
+// 
+// CHATTERBOX_DIRECTION_MODE = 1
+// Chatterbox will treat directions as expressions to be executed in a similar manner to in-line
+// expressions. This is covenient if you want to treat directions as little snippets of code
+// that Chatterbox can run. Syntax for directions becomes the same as in-line expressions, which
+// is broadly similar to "standard" GML syntax. Functions that you wish to execute must be added
+// by calling ChatterboxAddFunction().
+// 
+// An example would be: <<giveItem("amulet", 1)>>
+// 
+// 
+// CHATTERBOX_DIRECTION_MODE = 2
+// Chatterbox will treat directions as expressions with a greatly simplified syntax. This is
+// useful for writers and narrative designers who are less familiar with the particulars of
+// coding and instead want to use a simple syntax to communicate with the underlying GameMaker
+// application. The direction is sliced into arguments using spaces as delimiters. The first
+// token in the direction is the name of the function call, as added by ChatterboxAddFunction().
+// Subsequent tokens are passed to the function call with each token being a function parameter.
+// All parameters are passed as strings. If a parameter needs to contain a space then you may
+// enclose the string in " double quote marks.
+// 
+// An example, analogous to the example above, would be: <<giveItem amulet 1>>
+
+#macro CHATTERBOX_DIRECTION_MODE      1         //See above
+#macro CHATTERBOX_DIRECTION_FUNCTION  undefined //The function to receive <<direction>> contents. This will only be called if CHATTERBOX_DIRECTION_MODE is 0
 
 #macro CHATTERBOX_ESCAPE_FILE_TAGS                true
 #macro CHATTERBOX_ESCAPE_NODE_TAGS                true
