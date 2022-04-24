@@ -308,4 +308,33 @@ function __ChatterboxStringLimit(_string, _max_length)
     return string_copy(_string, 1, _max_length-3) + "...";
 }
 
+function __ChatterboxStripOuterWhitespace(_string)
+{
+    return __ChatterboxStripLeadingWhitespace(__ChatterboxStripTrailingWhitespace(_string));
+}
+
+function __ChatterboxStripLeadingWhitespace(_string)
+{
+    var _i = 0;
+    repeat(string_length(_string))
+    {
+        if (ord(string_char_at(_string, _i+1)) > 32) break;
+        ++_i;
+    }
+    
+    return string_delete(_string, 1, _i);
+}
+
+function __ChatterboxStripTrailingWhitespace(_string)
+{
+    var _i = string_length(_string);
+    repeat(_i)
+    {
+        if (ord(string_char_at(_string, _i)) > 32) break;
+        --_i;
+    }
+    
+    return string_copy(_string, 1, _i);
+}
+
 #endregion

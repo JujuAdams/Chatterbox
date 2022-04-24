@@ -16,9 +16,9 @@ else
     repeat(ChatterboxGetContentCount(box))
     {
         //Split parts of the content with parsers
-        speaker	= ChatterboxGetSpeaker(box, _i);
-        speech		= ChatterboxGetSpeech(box, _i);
-        switch		  (ChatterboxGetSpeakerData(box, _i, 0))
+        speaker	= ChatterboxGetContentSpeaker(box, _i);
+        speech		= ChatterboxGetContentSpeech(box, _i);
+        switch		  (ChatterboxGetContentSpeakerData(box, _i, 0))
         {
             case 0: color = c_yellow; break;
             case 1: color = c_red; break;

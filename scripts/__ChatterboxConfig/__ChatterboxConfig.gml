@@ -44,15 +44,41 @@
 #macro CHATTERBOX_DIRECTION_MODE      1         //See above
 #macro CHATTERBOX_DIRECTION_FUNCTION  undefined //The function to receive <<direction>> contents. This will only be called if CHATTERBOX_DIRECTION_MODE is 0
 
-#macro CHATTERBOX_ESCAPE_FILE_TAGS                true
-#macro CHATTERBOX_ESCAPE_NODE_TAGS                true
-#macro CHATTERBOX_ESCAPE_CONTENT                  true
-#macro CHATTERBOX_ESCAPE_EXPRESSION_STRINGS       false
+// Chatterbox offers three helper functions to assist with parsing content strings as dialogue:
+//   ChatterboxGetContentSpeech()
+//   ChatterboxGetContentSpeaker()
+//   ChatterboxGetContentSpeakerData()
+// 
+// A content string must be formatted in a specific way for Chatterbox's helper functions to
+// work correctly:
+//   
+//   Speaker Name: The words that the speaker is saying, called "speech" in Chatterbox.
+// 
+// Calling ChatterboxGetContentSpeaker() with the above string as the input will output "Speaker Name".
+// Calling ChatterboxGetContentSpeech() will output everything after the colon, though without the
+// leading whitespace between the colon and "The".
+// 
+// Chatterbox also offers "speaker data". This is an additional string that can be attached to
+// a speaker for a content string. The formatting looks like this:
+// 
+//   Speaker Name[additional speaker data]: The words that the speaker is saying, called "speech" in Chatterbox.
+// 
+// Calling ChatterboxGetContentSpeakerData() will return "additional speaker data" in this case. For
+// more complex situations you may want to perform additional parsing on the speaker data yourself.
+// 
+// The following macros control what substrings are used to split speaker and speech, and what
+// substrings separate the speaker data from the speaker.
 
-#macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY     ""
+#macro CHATTERBOX_SPEAKER_DELIMITER   ":"  //Character that separates speaker (and speaker data) from speech. This can be any arbitrary string, potentially composed of multiple characters
+#macro CHATTERBOX_SPEAKER_DATA_START  "["  //Character that indicates where the speaker data string starts. This can be any arbitrary string, potentially composed of multiple characters
+#macro CHATTERBOX_SPEAKER_DATA_END    "]"  //Character that indicates where the speaker data string ends. This can be any arbitrary string, potentially composed of multiple characters
 
-#macro CHATTERBOX_SPEAKERDATA_TAG_OPEN            "["     //↓
-#macro CHATTERBOX_SPEAKERDATA_TAG_CLOSE            "]"    //The characters that hold speaker data between them. It can be, for example, an image index
+#macro CHATTERBOX_ESCAPE_FILE_TAGS             true
+#macro CHATTERBOX_ESCAPE_NODE_TAGS             true
+#macro CHATTERBOX_ESCAPE_CONTENT               true
+#macro CHATTERBOX_ESCAPE_EXPRESSION_STRINGS    false
+
+#macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY  ""
 
 #region Advanced
 
