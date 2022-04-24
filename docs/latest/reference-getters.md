@@ -43,11 +43,20 @@ _Returns:_ Array, the metadata tags associated with the content
 
 ### `ChatterboxGetContentArray(chatterbox)`
 
-_Returns:_ Array, the metadata tags associated with the content
+_Returns:_ Array, containing one struct (see below) for each available content string for the given chatterbox
 
 | Name           | Datatype                           | Purpose                                          |
 | -------------- | ---------------------------------- | ------------------------------------------------ |
 | `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+
+The returned array is populated in canonical order: the 0th element of the array is equivalent to `ChatterboxGetContent(chatterbox, 0)` etc. Each struct in the array has this format:
+
+| Member Variable | Purpose                                               |
+| --------------- | ----------------------------------------------------- |
+| `.text`         | The text for the content string                       |
+| `.metadata`     | An array of metadata tags associated with the content |
+
+?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one content string at a time.
 
 &nbsp
 
@@ -187,6 +196,26 @@ _Returns:_ Integer, the total number of option strings in the given [chatterbox]
 | `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
 
 &nbsp;
+
+---
+
+### `ChatterboxGetOptionArray(chatterbox)`
+
+_Returns:_ Array, containing one struct (see below) for each available option for the given chatterbox
+
+| Name           | Datatype                           | Purpose                                          |
+| -------------- | ---------------------------------- | ------------------------------------------------ |
+| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+
+The returned array is populated in canonical order: the 0th element of the array is equivalent to `ChatterboxGetOption(chatterbox, 0)` etc. Each struct in the array has this format:
+
+| Member Variable  | Purpose                                                        |
+| ---------------- | -------------------------------------------------------------- |
+| `.text`          | The text for the option                                        |
+| `.conditionBool` | Whether the conditional check for this option passed or failed |
+| `.metadata`      | An array of metadata tags associated with the content          |
+
+&nbsp
 
 ---
 
