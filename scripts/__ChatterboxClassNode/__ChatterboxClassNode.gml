@@ -163,16 +163,16 @@ function __ChatterboxSplitBody(_body)
         {
             if (_first_on_line)
             {
-                _cache = __ChatterboxRemoveWhitespace(_cache, true);
+                _cache = __ChatterboxCompilerRemoveWhitespace(_cache, true);
                 _indent = global.__chatterboxIndentSize;
             }
             else if (_in_metadata)
             {
-                _cache = __ChatterboxRemoveWhitespace(_cache, true);
+                _cache = __ChatterboxCompilerRemoveWhitespace(_cache, true);
                 _indent = 0;
             }
             
-            _cache = __ChatterboxRemoveWhitespace(_cache, false);
+            _cache = __ChatterboxCompilerRemoveWhitespace(_cache, false);
             
             if (_cache != "") array_push(_in_substring_array, [_cache, _cache_type, _line, _indent]);
             _cache = "";
@@ -235,13 +235,13 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
         if (string_copy(_string, 1, 2) == "->") //Option //TODO - Make this part of the substring splitting step
         {
             var _instruction = new __ChatterboxClassInstruction("option", _line, _indent);
-            _instruction.text = new __ChatterboxClassText(__ChatterboxRemoveWhitespace(string_delete(_string, 1, 2), all));
+            _instruction.text = new __ChatterboxClassText(__ChatterboxCompilerRemoveWhitespace(string_delete(_string, 1, 2), all));
         }
         else if (_type == "command")
         {
             #region <<command>>
             
-            _string = __ChatterboxRemoveWhitespace(_string, true);
+            _string = __ChatterboxCompilerRemoveWhitespace(_string, true);
             
             var _pos = string_pos(" ", _string);
             if (_pos > 0)
@@ -282,7 +282,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 
                 case "jump":
                     var _instruction = new __ChatterboxClassInstruction("jump", _line, _indent);
-                    _instruction.destination = __ChatterboxRemoveWhitespace(_remainder, all);
+                    _instruction.destination = __ChatterboxCompilerRemoveWhitespace(_remainder, all);
                 break;
                 
                 case "if":
@@ -347,7 +347,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 
                 case "wait":
                 case "stop":
-                    _remainder = __ChatterboxRemoveWhitespace(_remainder, true);
+                    _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
                         __ChatterboxError("Cannot use arguments with <<wait>> or <<stop>>\n\Action was \"<<", _string, ">>\"");

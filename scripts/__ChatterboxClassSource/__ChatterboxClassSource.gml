@@ -130,7 +130,7 @@ function __ChatterboxParseYarn(_input_string)
                 var _string = buffer_read(_buffer, buffer_string);
                 buffer_poke(_buffer, buffer_tell(_buffer) - 1, buffer_u8, _byte);
                 
-                var _string_trimmed = __ChatterboxRemoveWhitespace(_string, all);
+                var _string_trimmed = __ChatterboxCompilerRemoveWhitespace(_string, all);
                 
                 if (_line_is_file_tag)
                 {
@@ -190,8 +190,8 @@ function __ChatterboxParseYarn(_input_string)
                         {
                             var _key   = string_copy(_string_trimmed, 1, _colon_pos - 1);
                             var _value = string_copy(_string_trimmed, _colon_pos + 1, string_length(_string_trimmed) - _colon_pos);
-                            _key   = __ChatterboxRemoveWhitespace(_key,   all);
-                            _value = __ChatterboxRemoveWhitespace(_value, all);
+                            _key   = __ChatterboxCompilerRemoveWhitespace(_key,   all);
+                            _value = __ChatterboxCompilerRemoveWhitespace(_value, all);
                             
                             if (CHATTERBOX_ESCAPE_NODE_TAGS)
                             {

@@ -168,7 +168,7 @@ function __ChatterboxError()
 
 /// @param string
 /// @param leading
-function __ChatterboxRemoveWhitespace(_string, _leading)
+function __ChatterboxCompilerRemoveWhitespace(_string, _leading)
 {
     global.__chatterboxIndentSize = 0;
     
