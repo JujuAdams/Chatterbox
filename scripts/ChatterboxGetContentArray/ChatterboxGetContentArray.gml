@@ -10,7 +10,7 @@
 /// 
 /// @param chatterbox
 
-function ChatterboxGetContentMetadata(_chatterbox)
+function ChatterboxGetContentArray(_chatterbox)
 {
     if (!IsChatterbox(_chatterbox)) return undefined;
     return _chatterbox.GetContentArray();

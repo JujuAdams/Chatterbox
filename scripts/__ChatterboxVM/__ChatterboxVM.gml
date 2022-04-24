@@ -61,7 +61,7 @@ function __ChatterboxVMInner(_instruction)
                     array_push(optionInstruction, _branch);
                     
                     array_push(optionStructArray, {
-                        text: _optionString
+                        text: _optionString,
                         conditionBool: !_condition_failed,
                         metadata: _instruction.metadata,
                     });
@@ -92,7 +92,7 @@ function __ChatterboxVMInner(_instruction)
                         array_push(contentMetadata, _instruction.metadata);
                         
                         array_push(contentStructArray, {
-                            text: _contentString
+                            text: _contentString,
                             conditionBool: !_condition_failed,
                             metadata: _instruction.metadata,
                         });
