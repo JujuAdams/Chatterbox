@@ -16,24 +16,26 @@ else
     repeat(ChatterboxGetContentCount(box))
     {
         //Split parts of the content with parsers
-        speaker	= ChatterboxGetContentSpeaker(box, _i);
-        speech		= ChatterboxGetContentSpeech(box, _i);
-        switch		  (ChatterboxGetContentSpeakerData(box, _i, 0))
+        var _speaker = ChatterboxGetContentSpeaker(box, _i);
+        var _speech  = ChatterboxGetContentSpeech(box, _i);
+        
+        switch(ChatterboxGetContentSpeakerData(box, _i, 0))
         {
-            case 0: color = c_yellow; break;
-            case 1: color = c_red; break;
-            case 2: color = c_orange; break;
+            case 0: _colour = c_yellow; break;
+            case 1: _colour = c_red;    break;
+            case 2: _colour = c_orange; break;
         }
         
-        //Draw Speaker and apply data
-        var c = color;
-        draw_text_color(_x, _y, "name: "+speaker, c,c,c,c,1);
-        _y += string_height("A");
+        //Draw speaker name in the correct colour
+        draw_set_colour(_colour);
+        draw_text(_x, _y, "Name: \""+ _speaker + "\"");
+        _y += 40;
         
-        //Draw Speech
-        var c = c_white;
-        draw_text_color(_x, _y, "speech: "+speech, c,c,c,c,1);
-        _y += string_height("A");
+        //Draw speech
+        draw_set_colour(c_white);
+        draw_text(_x, _y, "Speech: \""+_speech + "\"");
+        _y += 40;
+        
         ++_i;
     }
     

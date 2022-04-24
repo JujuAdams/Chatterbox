@@ -10,14 +10,14 @@ function ChatterboxSourceGetNodeTitles(_sourceName)
         return [];
     }
     
-	var _i = 0;
-	var _array = [];
-	
-	repeat (array_length(global.chatterboxFiles[? _sourceName].nodes))
-	{
-		array_push(_array,global.chatterboxFiles[? _sourceName].nodes[_i].title);
-		++_i;
-	}
-	
-	return _array;
+    var _i = 0;
+    var _array = [];
+    
+    repeat (array_length(global.chatterboxFiles[? _sourceName].nodes))
+    {
+        array_push(_array,global.chatterboxFiles[? _sourceName].nodes[_i].title);
+        ++_i;
+    }
+    
+    return _array;
 }
