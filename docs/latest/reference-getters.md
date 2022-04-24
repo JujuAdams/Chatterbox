@@ -41,24 +41,15 @@ _Returns:_ Array, the metadata tags associated with the content
 
 ---
 
-### `ChatterboxGetContentArray(chatterbox)`
+### `ChatterboxGetContentCount(chatterbox)`
 
-_Returns:_ Array, containing one struct (see below) for each available content string for the given chatterbox
+_Returns:_ Integer, the total number of content strings in the given [chatterbox](concept-chatterboxes)
 
-| Name           | Datatype                           | Purpose                                          |
-| -------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+| Name         | Datatype                           | Purpose                                          |
+| ------------ | ---------------------------------- | ------------------------------------------------ |
+| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
 
-The returned array is populated in canonical order: the 0th element of the array is equivalent to `ChatterboxGetContent(chatterbox, 0)` etc. Each struct in the array has this format:
-
-| Member Variable | Purpose                                               |
-| --------------- | ----------------------------------------------------- |
-| `.text`         | The text for the content string                       |
-| `.metadata`     | An array of metadata tags associated with the content |
-
-?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one content string at a time.
-
-&nbsp
+&nbsp;
 
 ---
 
@@ -134,13 +125,22 @@ In this case, the "speaker data" part of this string is everything between `[` a
 
 ---
 
-### `ChatterboxGetContentCount(chatterbox)`
+### `ChatterboxGetContentArray(chatterbox)`
 
-_Returns:_ Integer, the total number of content strings in the given [chatterbox](concept-chatterboxes)
+_Returns:_ Array, containing one struct (see below) for each available content string for the given chatterbox
 
-| Name         | Datatype                           | Purpose                                          |
-| ------------ | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+| Name           | Datatype                           | Purpose                                          |
+| -------------- | ---------------------------------- | ------------------------------------------------ |
+| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+
+The returned array is populated in canonical order: the 0th element of the array is equivalent to `ChatterboxGetContent(chatterbox, 0)` etc. Each struct in the array has this format:
+
+| Member Variable | Purpose                                               |
+| --------------- | ----------------------------------------------------- |
+| `.text`         | The text for the content string                       |
+| `.metadata`     | An array of metadata tags associated with the content |
+
+?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one content string at a time.
 
 &nbsp;
 
