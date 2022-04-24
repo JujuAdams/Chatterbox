@@ -11,7 +11,7 @@ _Returns:_ Boolean, whether the given node has been visited
 | `nodeTile`   | string   | Name of the node to check                                                                         |
 | `[filename]` | string   | Name of the [source file](concept-source-files) to check. Defaults to a blank string, no filename |
 
-&nbsp;
+&nbsp
 
 ---
 
@@ -23,6 +23,21 @@ _Returns:_ String, content with the given index
 | -------------- | ---------------------------------- | ------------------------------------------------ |
 | `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
 | `contentIndex` | integer                            | Content item to return                           |
+
+&nbsp;
+
+---
+
+### `ChatterboxGetAllContentString(chatterbox, [separator])`
+
+_Returns:_ String, all individual content strings currently available in a chatterbox concatenated together, with a separator substring between each one
+
+| Name          | Datatype                           | Purpose                                                                                             |
+| ------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------- |
+| `chatterbox`  | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target                                                    |
+| `[separator]` | string                             | String to use to separate individual content strings. Defaults to a single newline character (`\n`) |
+
+?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one content string at a time.
 
 &nbsp;
 
@@ -140,7 +155,7 @@ The returned array is populated in canonical order: the 0th element of the array
 | `.text`         | The text for the content string                       |
 | `.metadata`     | An array of metadata tags associated with the content |
 
-?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one content string at a time.
+?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one struct at a time.
 
 &nbsp;
 
