@@ -63,7 +63,7 @@ Standard choice syntax test.
 ===
 title: Node3
 ---
-<<TestFunctionDoNotExecute>>
+<<TestPopUp("This message was shown by calling TestPopUp()")>>
 <<jump Node5>>
 
 ===

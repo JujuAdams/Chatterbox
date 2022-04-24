@@ -1,7 +1,7 @@
 //Load in some source files
 ChatterboxLoadFromFile("Test.yarn");
 
-ChatterboxAddFunction("TestFunctionDoNotExecute", function(_array) { show_message(_array); });
+ChatterboxAddFunction("TestPopUp", function(_array) { show_message(_array); });
 
 //Create a chatterbox
 box = ChatterboxCreate("Test.yarn");
