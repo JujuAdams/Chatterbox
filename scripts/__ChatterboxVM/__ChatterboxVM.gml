@@ -3,10 +3,13 @@ function __ChatterboxVM()
     content              = [];
     contentConditionBool = [];
     contentMetadata      = [];
+    contentStructArray   = [];
+    
     option               = [];
     optionConditionBool  = [];
     optionMetadata       = [];
     optionInstruction    = [];
+    optionStructArray    = [];
     
     stopped          = false;
     waiting          = false;
@@ -51,10 +54,17 @@ function __ChatterboxVMInner(_instruction)
                     var _branch = variable_struct_get(_instruction, "option_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
-                    array_push(option, _instruction.text.Evaluate(local_scope, filename, false));
+                    var _optionString = _instruction.text.Evaluate(local_scope, filename, false);
+                    array_push(option, _optionString);
                     array_push(optionConditionBool, !_condition_failed);
                     array_push(optionMetadata, _instruction.metadata);
                     array_push(optionInstruction, _branch);
+                    
+                    array_push(optionStructArray, {
+                        text: _optionString
+                        conditionBool: !_condition_failed,
+                        metadata: _instruction.metadata,
+                    });
                     
                     if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
@@ -76,9 +86,16 @@ function __ChatterboxVMInner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
-                        array_push(content, _instruction.text.Evaluate(local_scope, filename, false));
+                        var _contentString = _instruction.text.Evaluate(local_scope, filename, false);
+                        array_push(content, _contentString);
                         array_push(contentConditionBool, !_condition_failed);
                         array_push(contentMetadata, _instruction.metadata);
+                        
+                        array_push(contentStructArray, {
+                            text: _contentString
+                            conditionBool: !_condition_failed,
+                            metadata: _instruction.metadata,
+                        });
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), _instruction.text.raw_string);
                         

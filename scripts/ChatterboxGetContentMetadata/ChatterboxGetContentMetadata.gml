@@ -1,4 +1,4 @@
-/// Returns a content string with the given index in the given chatterbox
+/// Returns metadata associated with the content string with the given index in the given chatterbox
 ///
 /// @param chatterbox
 /// @param contentIndex

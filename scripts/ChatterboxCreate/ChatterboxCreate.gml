@@ -48,11 +48,18 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     singleton_text      = _singleton;
     filename            = _filename;
     file                = global.chatterboxFiles[? filename];
-    content             = [];
-    contentMetadata     = [];
+    
+    content              = [];
+    contentConditionBool = [];
+    contentMetadata      = [];
+    contentStructArray   = [];
+    
     option              = [];
+    optionConditionBool = [];
     optionMetadata      = [];
-    optionInstruction  = [];
+    optionInstruction   = [];
+    optionStructArray   = [];
+    
     current_node        = undefined;
     current_instruction = undefined;
     stopped             = true;
@@ -217,6 +224,12 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return contentMetadata[_index];
     }
     
+    static GetContentArray = function()
+    {
+        VerifyIsLoaded();
+        return contentStructArray;
+    }
+    
     #endregion
     
     
@@ -248,6 +261,12 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         VerifyIsLoaded();
         if ((_index < 0) || (_index >= array_length(option))) return undefined;
         return optionConditionBool[_index];
+    }
+    
+    static GetOptionArray = function()
+    {
+        VerifyIsLoaded();
+        return optionStructArray;
     }
     
     #endregion
