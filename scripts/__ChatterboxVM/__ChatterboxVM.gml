@@ -6,7 +6,7 @@ function __ChatterboxVM()
     option               = [];
     optionConditionBool  = [];
     optionMetadata       = [];
-    option_instruction   = [];
+    optionInstruction    = [];
     
     stopped          = false;
     waiting          = false;
@@ -54,7 +54,7 @@ function __ChatterboxVMInner(_instruction)
                     array_push(option, _instruction.text.Evaluate(local_scope, filename, false));
                     array_push(optionConditionBool, !_condition_failed);
                     array_push(optionMetadata, _instruction.metadata);
-                    array_push(option_instruction, _branch);
+                    array_push(optionInstruction, _branch);
                     
                     if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }

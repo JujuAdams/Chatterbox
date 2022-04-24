@@ -52,7 +52,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     contentMetadata     = [];
     option              = [];
     optionMetadata      = [];
-    option_instruction  = [];
+    optionInstruction  = [];
     current_node        = undefined;
     current_instruction = undefined;
     stopped             = true;
@@ -123,7 +123,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             
             if (optionConditionBool[_index])
             {
-                current_instruction = option_instruction[_index];
+                current_instruction = optionInstruction[_index];
                 __ChatterboxVM();
             }
             else
@@ -287,7 +287,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
                 
                 content             = [];
                 option              = [];
-                option_instruction  = [];
+                optionInstruction  = [];
                 current_node        = undefined;
                 current_instruction = undefined;
                 stopped             = true;
