@@ -43,7 +43,7 @@ function __ChatterboxContentExtractSpeakerData(_string, _default = "")
         else
         {
             //Found the end symbol! We may proceed
-            var _speaker_data = string_copy(_string, _start_pos + string_length(CHATTERBOX_SPEAKER_DATA_START), _end_pos - string_length(CHATTERBOX_SPEAKER_DATA_START));
+            var _speaker_data = string_copy(_string, _start_pos + string_length(CHATTERBOX_SPEAKER_DATA_START), _end_pos - _start_pos - string_length(CHATTERBOX_SPEAKER_DATA_START));
             return __ChatterboxStripOuterWhitespace(_speaker_data);
         }
     }
