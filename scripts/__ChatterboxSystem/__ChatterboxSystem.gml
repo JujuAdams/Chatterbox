@@ -3,6 +3,8 @@
 #macro __CHATTERBOX_VERSION  "2.3.1"
 #macro __CHATTERBOX_DATE     "2022-05-09"
 
+#macro CHATTERBOX_CURRENT  global.__chatterboxCurrent
+
 #macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
@@ -82,6 +84,7 @@ global.__chatterboxFindReplaceOldString = ds_list_create();
 global.__chatterboxFindReplaceNewString = ds_list_create();
 global.__chatterboxVMInstanceStack      = [];
 global.__chatterboxVMForceWait          = false;
+global.__chatterboxCurrent              = undefined;
 if (!variable_global_exists("__chatterbox_functions")) global.__chatterboxFunctions = ds_map_create();
 
 //Big ol' list of operators. Operators at the top at processed first
