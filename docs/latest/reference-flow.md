@@ -41,7 +41,23 @@ _Returns:_ N/A (`undefined`)
 | ------------ | ---------------------------------- | ------------------------------------------------ |
 | `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
 
-Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait>>` command or singleton behaviour.
+Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait>>` command, calling `ChatterboxWait()` or singleton behaviour.
+
+&nbsp;
+
+---
+
+### `ChatterboxWait(chatterbox)`
+
+_Returns:_ N/A (`undefined`)
+
+| Name         | Datatype                           | Purpose                                          |
+| ------------ | ---------------------------------- | ------------------------------------------------ |
+| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+
+Forces a chatterbox to wait at the current instruction. This is similar to returning `"<<wait>>"` from a function called by an `<<action>>`.
+
+?> When calling this function it's often useful to know the current chatterbox that's being executed. You can access the current chatterbox by using the `CHATTERBOX_CURRENT` macro.
 
 &nbsp;
 
