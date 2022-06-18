@@ -25,7 +25,10 @@ function __ChatterboxVM()
         return undefined;
     }
     
+    array_push(global.__chatterboxVMInstanceStack, self);
     __ChatterboxVMInner(current_instruction);
+    array_pop(global.__chatterboxVMInstanceStack);
+    
     if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
 }
 
@@ -116,9 +119,7 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "wait":
-                        waiting = true;
-                        wait_instruction = _instruction.next;
-                        _do_next = false;
+                        global.__chatterboxVMForceWait = true;
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>>");
                     break;
                     
@@ -225,9 +226,7 @@ function __ChatterboxVMInner(_instruction)
                         
                         if (is_string(_result) && (_result == "<<wait>>"))
                         {
-                            waiting = true;
-                            wait_instruction = _instruction.next;
-                            _do_next = false;
+                            global.__chatterboxVMForceWait = true;
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (returned by function)");
                         }
                     break;
@@ -279,6 +278,15 @@ function __ChatterboxVMInner(_instruction)
                 }
             }
         }
+    }
+    
+    if (global.__chatterboxVMForceWait)
+    {
+        global.__chatterboxVMForceWait = false;
+        
+        waiting = true;
+        wait_instruction = _instruction.next;
+        _do_next = false;
     }
     
     if (_do_next)
