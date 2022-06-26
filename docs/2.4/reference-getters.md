@@ -2,14 +2,14 @@
 
 ---
 
-### `ChatterboxGetVisited(nodeTitle, filename)`
+### `ChatterboxGetVisited(nodeTitle, [filename])`
 
 _Returns:_ Boolean, whether the given node has been visited
 
-| Name       | Datatype | Purpose                                                  |
-| ---------- | -------- | -------------------------------------------------------- |
-| `nodeTile` | string   | Name of the node to check                                |
-| `filename` | string   | Name of the [source file](concept-source-files) to check |
+| Name         | Datatype | Purpose                                                                                           |
+| ------------ | -------- | ------------------------------------------------------------------------------------------------- |
+| `nodeTile`   | string   | Name of the node to check                                                                         |
+| `[filename]` | string   | Name of the [source file](concept-source-files) to check. Defaults to a blank string, no filename |
 
 &nbsp;
 
