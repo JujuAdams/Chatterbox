@@ -11,7 +11,7 @@ _Returns:_ Boolean, whether the given node has been visited
 | `nodeTile`   | string   | Name of the node to check                                                                         |
 | `[filename]` | string   | Name of the [source file](concept-source-files) to check. Defaults to a blank string, no filename |
 
-&nbsp
+&nbsp;
 
 ---
 
