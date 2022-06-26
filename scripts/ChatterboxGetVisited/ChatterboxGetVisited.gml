@@ -1,11 +1,8 @@
 /// @param nodeTitle
-/// @param [filename]
+/// @param filename
 
-function ChatterboxGetVisited()
+function ChatterboxGetVisited(_node_title, _filename)
 {
-    var _node_title = argument[0];
-    var _filename   = ((argument_count > 1) && is_string(argument[1]))? argument[1] : "";
-    
     if (string_pos(":", _node_title) > 0)
     {
         //We have a colon, the name is a filename:node reference
@@ -13,6 +10,8 @@ function ChatterboxGetVisited()
     }
     else
     {
+        if (_filename == undefined) __ChatterboxError("Filename must be specified");
+        
         //No colon, presume the given name is a node
         var _key = "visited(" + string(_filename) + CHATTERBOX_FILENAME_SEPARATOR + string(_node_title) + ")";
     }
