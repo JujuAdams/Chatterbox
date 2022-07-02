@@ -12,7 +12,11 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
     var _a = undefined;
     var _b = undefined;
     
-    switch(_expression.op)
+    if (_behaviour == "declare valueless")
+    {
+        if ((_expression.op != "=") && (_expression.op != "paren")) return undefined;
+    }
+    else switch(_expression.op)
     {
         case "/":
         case "*":
