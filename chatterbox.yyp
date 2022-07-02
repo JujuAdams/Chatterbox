@@ -23,6 +23,7 @@
     {"id":{"name":"ChatterboxSourceGetTags","path":"scripts/ChatterboxSourceGetTags/ChatterboxSourceGetTags.yy",},"order":6,},
     {"id":{"name":"oTestCaseNodeMetadata","path":"objects/oTestCaseNodeMetadata/oTestCaseNodeMetadata.yy",},"order":11,},
     {"id":{"name":"ChatterboxGetOption","path":"scripts/ChatterboxGetOption/ChatterboxGetOption.yy",},"order":0,},
+    {"id":{"name":"oTestCaseSetterLocalScope","path":"objects/oTestCaseSetterLocalScope/oTestCaseSetterLocalScope.yy",},"order":32,},
     {"id":{"name":"ChatterboxGetOptionConditionBool","path":"scripts/ChatterboxGetOptionConditionBool/ChatterboxGetOptionConditionBool.yy",},"order":1,},
     {"id":{"name":"oTestCaseSourceData","path":"objects/oTestCaseSourceData/oTestCaseSourceData.yy",},"order":22,},
     {"id":{"name":"oTestCaseVariableAccess","path":"objects/oTestCaseVariableAccess/oTestCaseVariableAccess.yy",},"order":23,},
@@ -39,6 +40,7 @@
     {"id":{"name":"ChatterboxVariableGet","path":"scripts/ChatterboxVariableGet/ChatterboxVariableGet.yy",},"order":1,},
     {"id":{"name":"oTestCaseEmptyParam","path":"objects/oTestCaseEmptyParam/oTestCaseEmptyParam.yy",},"order":7,},
     {"id":{"name":"ChatterboxSourceNodeCount","path":"scripts/ChatterboxSourceNodeCount/ChatterboxSourceNodeCount.yy",},"order":7,},
+    {"id":{"name":"TestCaseSetterLocalScope","path":"scripts/TestCaseSetterLocalScope/TestCaseSetterLocalScope.yy",},"order":33,},
     {"id":{"name":"ChatterboxCreate","path":"scripts/ChatterboxCreate/ChatterboxCreate.yy",},"order":1,},
     {"id":{"name":"ChatterboxVariablesClearVisited","path":"scripts/ChatterboxVariablesClearVisited/ChatterboxVariablesClearVisited.yy",},"order":5,},
     {"id":{"name":"oTestCaseEscapedCharacters","path":"objects/oTestCaseEscapedCharacters/oTestCaseEscapedCharacters.yy",},"order":21,},
@@ -117,8 +119,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
+    {"roomId":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Test Cases.yy","order":4,"resourceVersion":"1.0","name":"Test Cases","tags":[],"resourceType":"GMFolder",},
@@ -165,6 +167,7 @@
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_stop_multimode.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_all_content_string.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_wait_function.yarn","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_setter_local_scope.yarn","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2022.3.0.625",

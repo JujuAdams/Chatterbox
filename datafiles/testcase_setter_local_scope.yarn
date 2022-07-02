@@ -1,0 +1,5 @@
+title: Start
+---
+<<set $button to test_func("cancel")>>
+Welcome to Maru Island!\nMove around with the control stick\nor arrow keys.\nRun with {$button}.
+===
