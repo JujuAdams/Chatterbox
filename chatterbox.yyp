@@ -119,8 +119,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"roomId":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
+    {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
   ],
   "Folders": [
     {"folderPath":"folders/Test Cases.yy","order":4,"resourceVersion":"1.0","name":"Test Cases","tags":[],"resourceType":"GMFolder",},
