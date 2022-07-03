@@ -287,7 +287,7 @@ function __ChatterboxVMInner(_instruction)
     if (global.__chatterboxVMForceWait)
     {
         global.__chatterboxVMForceWait = false;
-        __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (forced)");
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (forced)");
         
         waiting = true;
         wait_instruction = _instruction.next;
