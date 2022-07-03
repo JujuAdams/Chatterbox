@@ -230,15 +230,15 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        if (ChatterboxGetOptionCount(_chatterbox) > 0)
+        if (GetOptionCount() > 0)
         {
             __ChatterboxTrace("Error! Player is being prompted to make a choice, cannot fast forward");
             return undefined;
         }
         
-        while ((ChatterboxGetOptionCount(_chatterbox) <= 0) && ChatterboxIsWaiting(_chatterbox) && !ChatterboxIsStopped(_chatterbox))
+        while ((GetOptionCount() <= 0) && IsWaiting() && !IsStopped())
         {
-            ChatterboxContinue(_chatterbox);
+            Continue();
         }
     }
     
