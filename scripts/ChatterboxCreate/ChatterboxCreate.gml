@@ -64,6 +64,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     current_instruction = undefined;
     stopped             = true;
     waiting             = false;
+    forced_waiting      = false;
     loaded              = true;
     wait_instruction    = undefined;
     
@@ -193,12 +194,14 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             {
                 //If we *are* processing this chatterbox then set this particular global to <true>
                 //We pick this global up at the bottom of the VM
+                global.__chatterboxVMWait      = true;
                 global.__chatterboxVMForceWait = true;
             }
             else
             {
                 //Otherwise set up a waiting state
-                waiting = true;
+                waiting          = true;
+                forced_waiting   = true;
                 wait_instruction = current_instruction;
             }
         }
@@ -230,15 +233,15 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        if (ChatterboxGetOptionCount(_chatterbox) > 0)
+        if (GetOptionCount() > 0)
         {
             __ChatterboxTrace("Error! Player is being prompted to make a choice, cannot fast forward");
             return undefined;
         }
         
-        while ((ChatterboxGetOptionCount(_chatterbox) <= 0) && ChatterboxIsWaiting(_chatterbox) && !ChatterboxIsStopped(_chatterbox))
+        while ((GetOptionCount() <= 0) && IsWaiting() && !IsStopped() && !forced_waiting)
         {
-            ChatterboxContinue(_chatterbox);
+            Continue();
         }
     }
     
@@ -355,6 +358,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
                 current_instruction = undefined;
                 stopped             = true;
                 waiting             = false;
+                forced_waiting      = false;
             }
             
             loaded = false;
