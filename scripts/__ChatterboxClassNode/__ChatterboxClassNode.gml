@@ -346,11 +346,12 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 break;
                 
                 case "wait":
+                case "forcewait":
                 case "stop":
                     _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
-                        __ChatterboxError("Cannot use arguments with <<wait>> or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                        __ChatterboxError("Cannot use arguments with <<wait>>, <<forcewait>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
                     }
                     else
                     {

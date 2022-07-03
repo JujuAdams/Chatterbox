@@ -64,6 +64,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     current_instruction = undefined;
     stopped             = true;
     waiting             = false;
+    forced_waiting      = false;
     loaded              = true;
     wait_instruction    = undefined;
     
@@ -193,12 +194,14 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             {
                 //If we *are* processing this chatterbox then set this particular global to <true>
                 //We pick this global up at the bottom of the VM
+                global.__chatterboxVMWait      = true;
                 global.__chatterboxVMForceWait = true;
             }
             else
             {
                 //Otherwise set up a waiting state
-                waiting = true;
+                waiting          = true;
+                forced_waiting   = true;
                 wait_instruction = current_instruction;
             }
         }
@@ -236,7 +239,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        while ((GetOptionCount() <= 0) && IsWaiting() && !IsStopped())
+        while ((GetOptionCount() <= 0) && IsWaiting() && !IsStopped() && !forced_waiting)
         {
             Continue();
         }
@@ -355,6 +358,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
                 current_instruction = undefined;
                 stopped             = true;
                 waiting             = false;
+                forced_waiting      = false;
             }
             
             loaded = false;

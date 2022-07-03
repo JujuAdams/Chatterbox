@@ -13,6 +13,7 @@ function __ChatterboxVM()
     
     stopped          = false;
     waiting          = false;
+    forced_waiting   = false;
     wait_instruction = undefined;
     entered_option   = false;
     leaving_option   = false;
@@ -112,6 +113,7 @@ function __ChatterboxVMInner(_instruction)
                             {
                                 if (((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
                                 &&  (_next.type != "wait")
+                                &&  (_next.type != "forcewait")
                                 &&  (_next.type != "stop"))
                                 {
                                     waiting = true;
@@ -123,8 +125,14 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "wait":
-                        global.__chatterboxVMForceWait = true;
+                        global.__chatterboxVMWait = true;
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>>");
+                    break;
+                    
+                    case "forcewait":
+                        global.__chatterboxVMWait      = true;
+                        global.__chatterboxVMForceWait = true;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>>");
                     break;
                     
                     case "jump":
@@ -173,7 +181,8 @@ function __ChatterboxVMInner(_instruction)
                     case "stop":
                         if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
                         {
-                            waiting = true;
+                            waiting          = true;
+                            forced_waiting   = true;
                             wait_instruction = _instruction;
                         }
                         else
@@ -228,10 +237,19 @@ function __ChatterboxVMInner(_instruction)
                             break;
                         }
                         
-                        if (is_string(_result) && (_result == "<<wait>>"))
+                        if (is_string(_result))
                         {
-                            global.__chatterboxVMForceWait = true;
-                            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> returned by function");
+                            if (_result == "<<wait>>")
+                            {
+                                global.__chatterboxVMWait = true;
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> returned by function");
+                            }
+                            else if (_result == "<<forcewait>>")
+                            {
+                                global.__chatterboxVMWait      = true;
+                                global.__chatterboxVMForceWait = true;
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>> returned by function");
+                            }
                         }
                     break;
                     
@@ -284,14 +302,17 @@ function __ChatterboxVMInner(_instruction)
         }
     }
     
-    if (global.__chatterboxVMForceWait)
+    if (global.__chatterboxVMWait)
     {
-        global.__chatterboxVMForceWait = false;
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> (forced)");
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Something insisted the VM wait");
         
-        waiting = true;
+        waiting        = true;
+        forced_waiting = global.__chatterboxVMForceWait;
         wait_instruction = _instruction.next;
         _do_next = false;
+        
+        global.__chatterboxVMWait      = false;
+        global.__chatterboxVMForceWait = false;
     }
     
     if (_do_next)
