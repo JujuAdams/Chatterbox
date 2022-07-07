@@ -1,0 +1,79 @@
+# Start
+
+This is the starting node.
+
+Calling visited("Start") should return True now, since we have visited this node.
+
+`if visited("Start")`
+	Called visited("Start") and confirmed that we've visited Start!
+`endif`
+
+Calling visited("Node4") should return False, because we haven't been there yet.
+
+`if visited("Node4")`
+    Our validation is broken! Oh no!
+`endif`
+
+`set $variable1 to true`
+
+A variable named "variable1" is now set to True, and the debug log should reflect this.
+
+We are auto-advancing to the next node, "Node1".
+=> [[#Node1]]
+
+# Node1
+
+In this node, we make a choice, using quick choice syntax, and set a variable based off of that. This line is long, too, so it helps us with testing text wrapping.
+
+* Choice 1
+    `set $variable2 to 1`
+* Choice 2
+    `set $variable2 to 2`
+
+Based off of which choice has been selected, variable "variable2" will be either 1 or 2.
+
+Now we use an if statement to check it.
+
+`if $variable2 is 1`
+    You chose Choice 1!
+`endif`
+`if $variable2 is 2`
+    You chose Choice 2!
+`endif`
+`if $variable2 is 0`
+    We failed to set the variable!
+`endif`
+
+We have successfully checked a variable.
+
+The next node will use standard choice syntax.
+=> [[#Node2]]
+
+# Node2
+
+Standard choice syntax test.
+
+* Choice 1
+    => [[#Node3]]
+* Choice 2
+    => [[#Node4]]
+
+# Node3
+
+`TestPopUp("This message was shown by calling TestPopUp()")`
+=> [[#Node5]]
+
+# Node4
+
+=> [[#Node5]]
+
+# Node5
+
+`if visited("Node3")`
+    You chose Choice 1 earlier!
+`endif`
+`if visited("Node4")`
+    You chose Choice 2 earlier!
+`endif`
+
+This is the end of the Yarn testing file.
