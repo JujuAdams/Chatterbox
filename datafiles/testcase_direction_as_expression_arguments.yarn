@@ -1,0 +1,8 @@
+title: Start
+---
+First line
+<<declare $test = 42>>
+<<testcaseActionArguments("Hiya")>>
+<<testcaseNumericParamArguments(3.141, $test)>>
+Check the debug log!
+===
