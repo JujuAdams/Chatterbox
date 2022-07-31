@@ -25,6 +25,7 @@ This script holds a number of macros that customise the behaviour of Chatterbox.
 | `CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION` | `false`                         | Whether a chatterbox will enter into a waiting state before options are enumerated                                                |
 | `CHATTERBOX_WAIT_BEFORE_STOP`             | `true`                          | Whether a chatterbox will enter into a waiting state before a chatterbox goes into a `<<stop>>` state                             |
 | `CHATTERBOX_SHOW_REJECTED_OPTIONS`        | `true`                          | Whether to expose options whose conditional check has failed. Setting this to `false` will never expose rejected options          |
+| `CHATTERBOX_DECLARE_ON_COMPILE`           | `true`                          | Whether to declare variables when Chatterbox script is compiled. Set to `false` for legacy (2.1 and earlier) behaviour            |
 | `CHATTERBOX_DIRECTION_MODE`               | `0`                             | See below                                                                                                                         |
 | `CHATTERBOX_DIRECTION_FUNCTION`           | `TestCaseDirectionFunction`     | Function to use to handle directions. This only applies in mode 0 (see below)                                                     |
 | `CHATTERBOX_ESCAPE_FILE_TAGS`             | `true`                          | Whether file metadata tags are [escaped](https://en.wikipedia.org/wiki/Escape_character)                                          |
