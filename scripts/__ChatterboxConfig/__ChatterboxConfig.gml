@@ -10,7 +10,7 @@
 
 // Whether nodes without an explicit <<stop>> or <<hopback>> instruct at the end should default
 // to <<hopback>>. Legacy behaviour (pre-2.7) is to set this to <false>
-#macro CHATTERBOX_END_OF_NODE_HOPBACK  false
+#macro CHATTERBOX_END_OF_NODE_HOPBACK  true
 
 // Direction mode controls how <<directions>> are processed by Chatterbox
 // There are three possible values:
