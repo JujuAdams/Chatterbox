@@ -194,7 +194,7 @@ function __ChatterboxSplitBody(_body)
     
     buffer_delete(_body_buffer);
     
-    array_push(_in_substring_array, ["hopback", "command", _line, 0]);
+    array_push(_in_substring_array, [CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", _line, 0]);
     return _in_substring_array;
 }
 
