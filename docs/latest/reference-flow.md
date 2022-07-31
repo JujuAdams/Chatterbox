@@ -95,4 +95,4 @@ _Returns:_ N/A (`undefined`)
 | ------------ | ---------------------------------- | ------------------------------------------------ |
 | `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
 
-Essentially a super-charged version of [`ChatterboxContinue()`](reference-flow#chatterboxcontinuechatterbox). Advances dialogue in a chatterbox all the way until the next occasion where the player is prompted to make a decision i.e. where options are being displayed and [`ChatterboxSelect()`](reference-flow#chatterboxselectchatterbox-optionindex) would be used.
+Essentially a super-charged version of [`ChatterboxContinue()`](reference-flow#chatterboxcontinuechatterbox). Advances dialogue in a chatterbox all the way until the next occasion where the player is prompted to make a decision i.e. where options are being displayed and [`ChatterboxSelect()`](reference-flow#chatterboxselectchatterbox-optionindex) would be used. Fast forwarding ignores `<<wait>>` commands; if you'd like to force a fast forwarding chatterbox to wait then please use `<<forcewait>>` instead.
