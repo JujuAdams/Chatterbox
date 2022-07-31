@@ -60,6 +60,8 @@ function ChatterboxAddFunction(_name, _in_function)
         case "stop":
         case "wait":
         case "forcewait":
+        case "hop":
+        case "hopback":
         case "visited":
             __ChatterboxError("Function name \"", _name, "\" is reserved for internal Chatterbox use.\nPlease choose another action name.");
             return false;
