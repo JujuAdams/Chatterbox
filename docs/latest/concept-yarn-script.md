@@ -99,6 +99,38 @@ The name of the file (with that file's extension!) comes first, followed by a co
 
 ?> **Please note:** Referencing nodes in other [source files](concept-source-files) is not officially supported by Yarn and this feature is an addition unique to Chatterbox.
 
+You can also opt to "hop" out of a node to some other destination node. A hop is a reversible jump; you can hop back from your destination node back to your origin node at exactly the place you hopped out. You can call `<<hopback>>` to return to the node you came from. You can hop back and forth as much as you want. If you call `<<hopback>>` without any node to hop to then Chatterbox will instead interpret that command as a `<<stop>>`.
+
+<!-- tabs:start -->
+
+#### Origin
+
+```yarn
+I wonder what I should have for breakfast.
+-> We have something tasty in the fridge I think?
+    <<hop BreakfastNode>>
+-> I don't have time for this!
+Time to start my day.
+```
+
+#### Destination
+
+```yarn
+-> Pineapple juice
+    Refreshing!
+-> Ham and cheese
+    Sustaining!
+-> Fresh milk
+    Creamy!
+<<hopback>>
+```
+
+<!-- tabs:end -->
+
+Hopping to a node counts as visiting a node for the purposes of the `visited()` function. If a node doesn't have `<<stop>>` or `<<hopback>>` at the end and Chatterbox reaches the very bottom of a node then it'll assume that you want to call `<<hopback>>` (and if there're no nodes to hop back to then this will stop execution). You can change this behaviour by changing the value of the config macro `CHATTERBOX_END_OF_NODE_HOPBACK`.
+
+!> Hops are not serialized by Chatterbox. If you save in the middle of a hop you might find that the game is in an invalid state and the player cannot continue playing. Use hops carefully!
+
 ## Actions
 
 Chatterbox has the following native actions:
