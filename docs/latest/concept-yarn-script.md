@@ -111,6 +111,7 @@ Chatterbox has the following native actions:
 <<set "expression">>
 <<stop>>
 <<wait>>
+<<forcewait>>
 ```
 
 Custom actions can be added to Chatterbox by using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Custom actions should be added before
