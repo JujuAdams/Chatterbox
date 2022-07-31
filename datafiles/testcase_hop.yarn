@@ -1,0 +1,42 @@
+title: Start
+---
+This is a test of the "hop" and "hopback" features.
+<<hop Choice>>
+You are back at the start node.
+===
+
+title: Choice
+---
+Please choose a node to hop to:
+-> A
+    <<hop A>>
+-> B
+    <<hop B>>
+-> Back
+    <<hopback>>
+You are back at the choice node.
+===
+
+title: A
+---
+Node A. Please choose a node to hop to:
+-> A
+    <<hop A>>
+-> B
+    <<hop B>>
+-> Back
+    <<hopback>>
+You are back at node A.
+===
+
+title: B
+---
+Node B. Please choose a node to hop to:
+-> A
+    <<hop A>>
+-> B
+    <<hop B>>
+-> Back
+    <<hopback>>
+You are back at node B.
+===

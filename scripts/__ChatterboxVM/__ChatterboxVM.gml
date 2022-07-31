@@ -22,7 +22,14 @@ function __ChatterboxVM()
     if (current_instruction.type == "stop")
     {
         stopped = true;
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP");
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<stop>>)");
+        return undefined;
+    }
+    
+    if ((current_instruction.type == "hopback") && (array_length(hopStack) <= 0))
+    {
+        stopped = true;
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<hopback>>)");
         return undefined;
     }
     
@@ -114,7 +121,8 @@ function __ChatterboxVMInner(_instruction)
                                 if (((_next.type != "option") || CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION)
                                 &&  (_next.type != "wait")
                                 &&  (_next.type != "forcewait")
-                                &&  (_next.type != "stop"))
+                                &&  (_next.type != "stop")
+                                &&  !((_next.type == "hopback") && (array_length(hopStack) <= 0)))
                                 {
                                     waiting = true;
                                     wait_instruction = _next;
@@ -136,7 +144,21 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "jump":
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[goto ", _instruction.destination, "]");
+                    case "hop":
+                        if (__CHATTERBOX_DEBUG_VM)
+                        {
+                            switch(_instruction.type)
+                            {
+                                case "jump": __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[jump ", _instruction.destination, "]"); break;
+                                case "hop":  __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[hop ",  _instruction.destination, "]"); break;
+                            }
+                        }
+                        
+                        if (_instruction.type == "hop")
+                        {
+                            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Pushed \"", _next, "\" to hop stack");
+                            array_push(hopStack, _next);
+                        }
                         
                         try
                         {
@@ -179,19 +201,39 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "stop":
-                        if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
+                    case "hopback":
+                        if ((_instruction.type == "stop") || (array_length(hopStack) <= 0))
                         {
-                            waiting          = true;
-                            forced_waiting   = true;
-                            wait_instruction = _instruction;
+                            //If there's nothing left in the hop stack, execute <<stop>> behaviour
+                            
+                            if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
+                            {
+                                waiting          = true;
+                                forced_waiting   = true;
+                                wait_instruction = _instruction;
+                            }
+                            else
+                            {
+                                stopped = true;
+                            }
+                            
+                            _do_next = false;
+                            if (__CHATTERBOX_DEBUG_VM)
+                            {
+                                switch(_instruction.type)
+                                {
+                                    case "stop":    __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<stop>>"); break;
+                                    case "hopback": __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  (hop stack empty)"); break;
+                                }
+                            }
                         }
                         else
                         {
-                            stopped = true;
+                            //Otherwise pop a node off of our stack and go to it
+                            _next = hopStack[array_length(hopStack)-1];
+                            array_pop(hopStack);
+                            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  -->  ", _next);
                         }
-                        
-                        _do_next = false;
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<stop>>");
                     break;
                     
                     case "option end":

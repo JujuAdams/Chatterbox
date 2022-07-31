@@ -194,7 +194,7 @@ function __ChatterboxSplitBody(_body)
     
     buffer_delete(_body_buffer);
     
-    array_push(_in_substring_array, ["stop", "command", _line, 0]);
+    array_push(_in_substring_array, [CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", _line, 0]);
     return _in_substring_array;
 }
 
@@ -285,6 +285,11 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                     _instruction.destination = __ChatterboxCompilerRemoveWhitespace(_remainder, all);
                 break;
                 
+                case "hop":
+                    var _instruction = new __ChatterboxClassInstruction("hop", _line, _indent);
+                    _instruction.destination = __ChatterboxCompilerRemoveWhitespace(_remainder, all);
+                break;
+                
                 case "if":
                     if (_previous_instruction.line == _line)
                     {
@@ -347,11 +352,12 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 
                 case "wait":
                 case "forcewait":
+                case "hopback":
                 case "stop":
                     _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
-                        __ChatterboxError("Cannot use arguments with <<wait>>, <<forcewait>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                        __ChatterboxError("Cannot use arguments with <<wait>>, <<forcewait>>, <<hopback>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
                     }
                     else
                     {
