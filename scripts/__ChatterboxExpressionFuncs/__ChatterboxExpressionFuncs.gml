@@ -520,6 +520,12 @@ function __ChatterboxCompileExpression(_source_array)
 /// @param ignoreCloseParentheses
 function __chatterboxStringIsSymbol(_string, _ignore_close_paren)
 {
+    // String might be a compiled token.
+    if (is_struct(_string))
+    {
+        _string = _string.op;
+    }
+    
     if ((_string == "(" )
     || ((_string == ")" ) && !_ignore_close_paren)
     ||  (_string == "!" )
