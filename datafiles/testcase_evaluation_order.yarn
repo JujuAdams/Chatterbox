@@ -1,0 +1,17 @@
+title: Start
+---
+This test will check if math expressions are evaluated in the correct order.
+For example, "\{3 + 20 / 5\}" should equal "7", not "4.6".
+Let's evaluate some expressions.
+3 + 20 / 5 = {3 + 20 / 5} (Expected: 7)
+1 + 4 * 2 = {1 + 4 * 2} (Expected: 9)
+3 * 4 / 2 = {3 * 4 / 2} (Expected: 6)
+4 - 5 + 1 = {4 - 5 + 1} (Expected: 0)
+4 + 5 - 1 = {4 + 5 - 1} (Expected: 8)
+Let's evaluate some relational expressions.
+10 > 5 = {10 > 5} (Expected: 1)
+5 > 10 = {5 > 10} (Expected: 0)
+-2 && 2 = {-2 && 2} (Expected: 0)
+1 > -2 && 2 < 3 = {1 > -2 && 2 < 3} (Expected: 1)
+This is the end of the Yarn testing file.
+===  
