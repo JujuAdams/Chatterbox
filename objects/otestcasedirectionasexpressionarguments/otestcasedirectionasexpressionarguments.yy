@@ -30,7 +30,7 @@
     "path": "folders/Test Cases.yy",
   },
   "resourceVersion": "1.0",
-  "name": "oTestCaseDirectionAsExpression",
+  "name": "oTestCaseDirectionAsExpressionArguments",
   "tags": [],
   "resourceType": "GMObject",
 }
