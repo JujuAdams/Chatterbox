@@ -91,23 +91,46 @@ if (!variable_global_exists("__chatterbox_functions")) global.__chatterboxFuncti
 //Big ol' list of operators. Operators at the top at processed first
 //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
 global.__chatterboxOpList = ds_list_create();
-ds_list_add(global.__chatterboxOpList, "*" );
-ds_list_add(global.__chatterboxOpList, "/" );
-ds_list_add(global.__chatterboxOpList, "-" );
-ds_list_add(global.__chatterboxOpList, "+" );
-ds_list_add(global.__chatterboxOpList, ">" );
-ds_list_add(global.__chatterboxOpList, "<" );
-ds_list_add(global.__chatterboxOpList, ">=");
-ds_list_add(global.__chatterboxOpList, "<=");
-ds_list_add(global.__chatterboxOpList, "==");
-ds_list_add(global.__chatterboxOpList, "!=");
-ds_list_add(global.__chatterboxOpList, "&&");
-ds_list_add(global.__chatterboxOpList, "||");
-ds_list_add(global.__chatterboxOpList, "+=");
-ds_list_add(global.__chatterboxOpList, "-=");
-ds_list_add(global.__chatterboxOpList, "*=");
-ds_list_add(global.__chatterboxOpList, "/=");
-ds_list_add(global.__chatterboxOpList, "=" );
+if (CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE)
+{
+    ds_list_add(global.__chatterboxOpList, "+" );
+    ds_list_add(global.__chatterboxOpList, "-" );
+    ds_list_add(global.__chatterboxOpList, "*" );
+    ds_list_add(global.__chatterboxOpList, "/" );
+    ds_list_add(global.__chatterboxOpList, "==");
+    ds_list_add(global.__chatterboxOpList, "!=");
+    ds_list_add(global.__chatterboxOpList, ">" );
+    ds_list_add(global.__chatterboxOpList, "<" );
+    ds_list_add(global.__chatterboxOpList, ">=");
+    ds_list_add(global.__chatterboxOpList, "<=");
+    ds_list_add(global.__chatterboxOpList, "||");
+    ds_list_add(global.__chatterboxOpList, "&&");
+    ds_list_add(global.__chatterboxOpList, "+=");
+    ds_list_add(global.__chatterboxOpList, "-=");
+    ds_list_add(global.__chatterboxOpList, "*=");
+    ds_list_add(global.__chatterboxOpList, "/=");
+    ds_list_add(global.__chatterboxOpList, "=" );
+}
+else
+{
+    ds_list_add(global.__chatterboxOpList, "*" );
+    ds_list_add(global.__chatterboxOpList, "/" );
+    ds_list_add(global.__chatterboxOpList, "-" );
+    ds_list_add(global.__chatterboxOpList, "+" );
+    ds_list_add(global.__chatterboxOpList, ">" );
+    ds_list_add(global.__chatterboxOpList, "<" );
+    ds_list_add(global.__chatterboxOpList, ">=");
+    ds_list_add(global.__chatterboxOpList, "<=");
+    ds_list_add(global.__chatterboxOpList, "==");
+    ds_list_add(global.__chatterboxOpList, "!=");
+    ds_list_add(global.__chatterboxOpList, "&&");
+    ds_list_add(global.__chatterboxOpList, "||");
+    ds_list_add(global.__chatterboxOpList, "+=");
+    ds_list_add(global.__chatterboxOpList, "-=");
+    ds_list_add(global.__chatterboxOpList, "*=");
+    ds_list_add(global.__chatterboxOpList, "/=");
+    ds_list_add(global.__chatterboxOpList, "=" );
+}
 
 #endregion
 
