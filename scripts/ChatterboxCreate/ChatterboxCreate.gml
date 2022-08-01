@@ -60,6 +60,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     optionInstruction   = [];
     optionStructArray   = [];
     
+    hopStack = [];
+    
     current_node        = undefined;
     current_instruction = undefined;
     stopped             = true;

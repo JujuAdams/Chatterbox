@@ -67,7 +67,7 @@ function __ChatterboxClassSource(_filename, _string) constructor
     
     static NodeCount = function()
     {
-        return array_length(global.chatterboxFiles[? _sourceName].nodes);
+        return array_length(nodes);
     }
     
     static GetTags = function()

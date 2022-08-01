@@ -1,7 +1,7 @@
 {
   "option_windows_display_name": "Chatterbox",
   "option_windows_executable_name": "${project_name}",
-  "option_windows_version": "2.6.0.0",
+  "option_windows_version": "2.7.0.0",
   "option_windows_company_info": "@jujuadams",
   "option_windows_product_info": "Chatterbox",
   "option_windows_copyright_info": "@jujuadams (c) 2022",
@@ -28,7 +28,7 @@
   "option_windows_enable_steam": false,
   "option_windows_disable_sandbox": false,
   "option_windows_steam_use_alternative_launcher": false,
-  "option_windows_use_x64": false,
+  "option_windows_use_x64": true,
   "resourceVersion": "1.1",
   "name": "Windows",
   "tags": [],

@@ -1,7 +1,7 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "2.6.0"
-#macro __CHATTERBOX_DATE     "2022-07-03"
+#macro __CHATTERBOX_VERSION  "2.7.0"
+#macro __CHATTERBOX_DATE     "2022-07-31"
 
 #macro CHATTERBOX_CURRENT  global.__chatterboxCurrent
 
@@ -91,18 +91,18 @@ if (!variable_global_exists("__chatterbox_functions")) global.__chatterboxFuncti
 //Big ol' list of operators. Operators at the top at processed first
 //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
 global.__chatterboxOpList = ds_list_create();
-ds_list_add(global.__chatterboxOpList, "+" );
-ds_list_add(global.__chatterboxOpList, "-" );
 ds_list_add(global.__chatterboxOpList, "*" );
 ds_list_add(global.__chatterboxOpList, "/" );
-ds_list_add(global.__chatterboxOpList, "==");
-ds_list_add(global.__chatterboxOpList, "!=");
+ds_list_add(global.__chatterboxOpList, "-" );
+ds_list_add(global.__chatterboxOpList, "+" );
 ds_list_add(global.__chatterboxOpList, ">" );
 ds_list_add(global.__chatterboxOpList, "<" );
 ds_list_add(global.__chatterboxOpList, ">=");
 ds_list_add(global.__chatterboxOpList, "<=");
-ds_list_add(global.__chatterboxOpList, "||");
+ds_list_add(global.__chatterboxOpList, "==");
+ds_list_add(global.__chatterboxOpList, "!=");
 ds_list_add(global.__chatterboxOpList, "&&");
+ds_list_add(global.__chatterboxOpList, "||");
 ds_list_add(global.__chatterboxOpList, "+=");
 ds_list_add(global.__chatterboxOpList, "-=");
 ds_list_add(global.__chatterboxOpList, "*=");
