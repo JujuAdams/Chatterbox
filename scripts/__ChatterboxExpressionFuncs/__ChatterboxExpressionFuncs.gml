@@ -468,7 +468,7 @@ function __ChatterboxCompileExpression(_source_array)
             if (_token.op == "-")
             {
                 //If this token was preceded by a symbol (or nothing) then it's a negative sign
-                if ((_t == 0) || (__chatterboxStringIsSymbol(_source_array[_t-1], true)))
+                if ((_t == 0) || (__chatterboxTokenIsSymbol(_source_array[_t-1], true)))
                 {
                     _token.op = "neg";
                     _token.a = _source_array[_t+1];
@@ -518,36 +518,34 @@ function __ChatterboxCompileExpression(_source_array)
 
 /// @param string
 /// @param ignoreCloseParentheses
-function __chatterboxStringIsSymbol(_string, _ignore_close_paren)
+function __chatterboxTokenIsSymbol(_token, _ignore_close_paren)
 {
-    // String might be a compiled token.
-    if (is_struct(_string))
+    if (is_struct(_token))
     {
-        _string = _string.op;
-    }
-    
-    if ((_string == "(" )
-    || ((_string == ")" ) && !_ignore_close_paren)
-    ||  (_string == "!" )
-    ||  (_string == "/=")
-    ||  (_string == "/" )
-    ||  (_string == "*=")
-    ||  (_string == "*" )
-    ||  (_string == "+" )
-    ||  (_string == "+=")
-    ||  (_string == "-" )
-    ||  (_string == "-=")
-    ||  (_string == "||")
-    ||  (_string == "&&")
-    ||  (_string == ">=")
-    ||  (_string == "<=")
-    ||  (_string == ">" )
-    ||  (_string == "<" )
-    ||  (_string == "!=")
-    ||  (_string == "==")
-    ||  (_string == "=" ))
-    {
-        return true;
+        var _string = _token.op;
+        if ((_string == "(" )
+        || ((_string == ")" ) && !_ignore_close_paren)
+        ||  (_string == "!" )
+        ||  (_string == "/=")
+        ||  (_string == "/" )
+        ||  (_string == "*=")
+        ||  (_string == "*" )
+        ||  (_string == "+" )
+        ||  (_string == "+=")
+        ||  (_string == "-" )
+        ||  (_string == "-=")
+        ||  (_string == "||")
+        ||  (_string == "&&")
+        ||  (_string == ">=")
+        ||  (_string == "<=")
+        ||  (_string == ">" )
+        ||  (_string == "<" )
+        ||  (_string == "!=")
+        ||  (_string == "==")
+        ||  (_string == "=" ))
+        {
+            return true;
+        }
     }
     
     return false;
