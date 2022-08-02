@@ -126,7 +126,8 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
                             var _func = method_get_index(_method);
                             var _self = method_get_self(_method) ?? self;
                             
-                            with(_self) {
+                            with(_self)
+                            {
                             	return script_execute_ext(_func, _parameter_values);	
                             }
                         }
