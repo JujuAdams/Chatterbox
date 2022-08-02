@@ -123,8 +123,8 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
                         {
                             // Since we can't just execute methods with multiple arguments as is
                             // we break it down instead to make it work with script_execute_ext
-                            var _func = method_get_index(_func);
-                            var _self = method_get_self(_func) ?? self;
+                            var _func = method_get_index(_method);
+                            var _self = method_get_self(_method) ?? self;
                             
                             with(_self) {
                             	return script_execute_ext(_func, _parameter_values);	
