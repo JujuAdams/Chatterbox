@@ -164,8 +164,9 @@ function __ChatterboxVMInner(_instruction)
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Pushed \"", _next, "\" to hop stack");
                                 
                                 array_push(hopStack, {
-                                    next: _next,
-                                    filename: filename
+                                    next:     _next,
+                                    node:     current_node,
+                                    filename: filename,
                                 });
                             break;
                         }
@@ -242,21 +243,21 @@ function __ChatterboxVMInner(_instruction)
                             //Otherwise pop a node off of our stack and go to it
                             var _hop_data = hopStack[array_length(hopStack)-1];
                             var _next     = _hop_data.next;
+                            var _node     = _hop_data.node;
                             var _filename = _hop_data.filename;
                             array_pop(hopStack);
                             
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  -->  ", _next);
                             
                             var _file = global.chatterboxFiles[? _filename];
-                            if (instanceof(_file) == "__ChatterboxClassSource")
-                            {
-                                file = _file;
-                                filename = file.filename;
-                            }
-                            else
+                            if (instanceof(_file) != "__ChatterboxClassSource")
                             {
                                 __ChatterboxTrace("Error! File \"", _split.filename, "\" not found or not loaded");
                             }
+                            
+                            file         = _file;
+                            filename     = file.filename;
+                            current_node = _node;
                         }
                     break;
                     
