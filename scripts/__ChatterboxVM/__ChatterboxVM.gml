@@ -154,10 +154,20 @@ function __ChatterboxVMInner(_instruction)
                             }
                         }
                         
-                        if (_instruction.type == "hop")
+                        switch(_instruction.type)
                         {
-                            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Pushed \"", _next, "\" to hop stack");
-                            array_push(hopStack, _next);
+                            case "jump":
+                                if (array_length(hopStack) > 0) __ChatterboxTrace(__CHATTERBOX_DEBUG_VM? __ChatterboxGenerateIndent(_instruction.indent) : "", "Warning! Jumping to \"", _instruction.destination, "\" but hop stack has content. This may cause unexpected behaviour");
+                            break;
+                            
+                            case "hop":
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Pushed \"", _next, "\" to hop stack");
+                                
+                                array_push(hopStack, {
+                                    next: _next,
+                                    filename: filename
+                                });
+                            break;
                         }
                         
                         try
@@ -230,9 +240,23 @@ function __ChatterboxVMInner(_instruction)
                         else
                         {
                             //Otherwise pop a node off of our stack and go to it
-                            _next = hopStack[array_length(hopStack)-1];
+                            var _hop_data = hopStack[array_length(hopStack)-1];
+                            var _next     = _hop_data.next;
+                            var _filename = _hop_data.filename;
                             array_pop(hopStack);
+                            
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  -->  ", _next);
+                            
+                            var _file = global.chatterboxFiles[? _filename];
+                            if (instanceof(_file) == "__ChatterboxClassSource")
+                            {
+                                file = _file;
+                                filename = file.filename;
+                            }
+                            else
+                            {
+                                __ChatterboxTrace("Error! File \"", _split.filename, "\" not found or not loaded");
+                            }
                         }
                     break;
                     
