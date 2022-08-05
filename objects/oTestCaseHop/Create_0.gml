@@ -4,5 +4,7 @@ if (!CHATTERBOX_END_OF_NODE_HOPBACK)
 }
 
 ChatterboxLoadFromFile("testcase_hop.yarn");
-box = ChatterboxCreate();
+ChatterboxLoadFromFile("testcase_hop_2.yarn");
+
+box = ChatterboxCreate("testcase_hop.yarn");
 ChatterboxJump(box, "Start");

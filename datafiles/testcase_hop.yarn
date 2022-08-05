@@ -12,6 +12,9 @@ Please choose a node to hop to:
     <<hop A>>
 -> B
     <<hop B>>
+-> Other file
+    <<hop testcase_hop_2.yarn:Other>>
+	//<<jump Start>>
 -> Back
     <<hopback>>
 You are back at the choice node.
