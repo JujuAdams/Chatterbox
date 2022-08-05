@@ -77,21 +77,16 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     //Jumps to a given node in the given source
     static Jump = function()
     {
-        var _title      = argument[0];
-        var _filename   = (argument_count > 1)? argument[1] : undefined;
+        var _title    = argument[0];
+        var _filename = (argument_count > 1)? argument[1] : undefined;
         
         if (_filename != undefined)
         {
             var _file = global.chatterboxFiles[? _filename];
-            if (instanceof(_file) == "__ChatterboxClassSource")
-            {
-                file = _file;
-                filename = file.filename;
-            }
-            else
-            {
-                __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
-            }
+            if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
+            
+            file = _file;
+            filename = file.filename;
         }
         
         if (!VerifyIsLoaded())
@@ -99,21 +94,93 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Could not go to node \"", _title, "\" because \"", filename, "\" is not loaded");
             return undefined;
         }
-        else
+        
+        var _node = FindNode(_title);
+        if (_node == undefined)
         {
-            var _node = FindNode(_title);
-            if (_node == undefined)
-            {
-                __ChatterboxError("Could not find node \"", _title, "\" in \"", filename, "\"");
-                return undefined;
-            }
-            
-            current_node = _node;
-            current_instruction = current_node.root_instruction;
-            current_node.MarkVisited();
-            
-            __ChatterboxVM();
+            __ChatterboxError("Could not find node \"", _title, "\" in \"", filename, "\"");
+            return undefined;
         }
+        
+        current_node = _node;
+        current_instruction = current_node.root_instruction;
+        current_node.MarkVisited();
+        
+        __ChatterboxVM();
+    }
+    
+    //Jumps to a given node in the given source
+    static Hop = function()
+    {
+        var _title    = argument[0];
+        var _filename = (argument_count > 1)? argument[1] : undefined;
+        
+        array_push(hopStack, {
+            next:     current_instruction,
+            node:     current_node,
+            filename: filename,
+        });
+        
+        if (_filename != undefined)
+        {
+            var _file = global.chatterboxFiles[? _filename];
+            if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
+            
+            file = _file;
+            filename = file.filename;
+        }
+        
+        if (!VerifyIsLoaded())
+        {
+            __ChatterboxError("Could not go to node \"", _title, "\" because \"", filename, "\" is not loaded");
+            return undefined;
+        }
+        
+        var _node = FindNode(_title);
+        if (_node == undefined)
+        {
+            __ChatterboxError("Could not find node \"", _title, "\" in \"", filename, "\"");
+            return undefined;
+        }
+        
+        current_node = _node;
+        current_instruction = current_node.root_instruction;
+        current_node.MarkVisited();
+        
+        __ChatterboxVM();
+    }
+    
+    //Jumps to a given node in the given source
+    static HopBack = function()
+    {
+        if (array_length(hopStack) <= 0)
+        {
+            __ChatterboxError("Hop stack is empty");
+        }
+        
+        //Otherwise pop a node off of our stack and go to it
+        var _hop_data = hopStack[array_length(hopStack)-1];
+        var _next     = _hop_data.next;
+        var _node     = _hop_data.node;
+        var _filename = _hop_data.filename;
+        array_pop(hopStack);
+        
+        var _file = global.chatterboxFiles[? _filename];
+        if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
+        
+        file = _file;
+        filename = file.filename;
+        
+        if (!VerifyIsLoaded())
+        {
+            __ChatterboxError("Could hop back because \"", filename, "\" is not loaded");
+            return undefined;
+        }
+        
+        current_node = _node;
+        current_instruction = _next;
+        
+        __ChatterboxVM();
     }
     
     static Select = function(_index)
