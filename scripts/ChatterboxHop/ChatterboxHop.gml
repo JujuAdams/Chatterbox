@@ -10,5 +10,5 @@ function ChatterboxHop()
     var _title      = argument[1];
     var _filename   = (argument_count > 2)? argument[2] : undefined;
     
-    return _chatterbox.Jump(_title, _filename);
+    return _chatterbox.Hop(_title, _filename);
 }

@@ -4,11 +4,11 @@
 /// @param nodeTitle
 /// @param [filename]
 
-function ChatterboxHop()
+function ChatterboxJump()
 {
     var _chatterbox = argument[0];
     var _title      = argument[1];
     var _filename   = (argument_count > 2)? argument[2] : undefined;
     
-    return _chatterbox.Hop(_title, _filename);
+    return _chatterbox.Jump(_title, _filename);
 }
