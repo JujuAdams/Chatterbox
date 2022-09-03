@@ -1,4 +1,4 @@
-# Chatterboxes
+# How to Use Chatterboxes
 
 ---
 
