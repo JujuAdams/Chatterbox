@@ -6,7 +6,7 @@
 
 -   [Yarn Script](concept-yarn-script)
 -   [Source Files](concept-source-files)
--   [Chatterboxes](concept-chatterboxes)
+-   [How to use](concept-chatterboxes)
 
 ---
 
