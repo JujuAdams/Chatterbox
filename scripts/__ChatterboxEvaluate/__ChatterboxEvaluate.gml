@@ -166,7 +166,6 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
                     global.__chatterboxConstantsMap[? _variable_name] = false;
                     ds_list_add(global.__chatterboxVariablesList, _variable_name);
                 }
-                else 
             break;
             
             case "declare":
