@@ -378,7 +378,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 break;
                 
                 default:
-                    var _instruction = new __ChatterboxClassInstruction("direction", _line, _indent);
+                    var _instruction = new __ChatterboxClassInstruction("action", _line, _indent);
                     _instruction.text = new __ChatterboxClassText(_string);
                 break;
             }

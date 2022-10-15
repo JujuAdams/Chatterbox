@@ -281,7 +281,7 @@ function __ChatterboxVMInner(_instruction)
                         __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "set");
                     break;
                     
-                    case "direction":
+                    case "action":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
                         
                         var _direction_text = _instruction.text.Evaluate(local_scope, filename, true);
