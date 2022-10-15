@@ -31,7 +31,10 @@ function ChatterboxLoadFromFile()
     if (os_browser == browser_not_a_browser)
     {
         var _buffer = buffer_load(_path);
-        return ChatterboxLoadFromBuffer(_aliasName, _buffer);
+        var _result = ChatterboxLoadFromBuffer(_aliasName, _buffer);
+        buffer_delete(_buffer);
+        
+        return _result;
     }
     else
     {
