@@ -135,8 +135,8 @@
   "Folders": [
     {"folderPath":"folders/Test Cases.yy","order":4,"resourceVersion":"1.0","name":"Test Cases","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Chatterbox.yy","order":0,"resourceVersion":"1.0","name":"Chatterbox","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Chatterbox/(Internal system bits, don't look in here).yy","order":8,"resourceVersion":"1.0","name":"(Internal system bits, don't look in here)","tags":[],"resourceType":"GMFolder",},
-    {"folderPath":"folders/Chatterbox/(Internal system bits, don't look in here)/omg i can't believe you looked in here.yy","order":1,"resourceVersion":"1.0","name":"omg i can't believe you looked in here","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Chatterbox/(System) (Don't look in here).yy","order":8,"resourceVersion":"1.0","name":"(System) (Don't look in here)","tags":[],"resourceType":"GMFolder",},
+    {"folderPath":"folders/Chatterbox/(System) (Don't look in here)/omg i can't believe you looked in here.yy","order":1,"resourceVersion":"1.0","name":"omg i can't believe you looked in here","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Chatterbox/Flow.yy","order":4,"resourceVersion":"1.0","name":"Flow","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Chatterbox/Getters.yy","order":5,"resourceVersion":"1.0","name":"Getters","tags":[],"resourceType":"GMFolder",},
     {"folderPath":"folders/Chatterbox/Setup.yy","order":3,"resourceVersion":"1.0","name":"Setup","tags":[],"resourceType":"GMFolder",},
