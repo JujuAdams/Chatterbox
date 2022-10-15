@@ -1,6 +1,6 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "2.8.0"
+#macro __CHATTERBOX_VERSION  "2.8.1"
 #macro __CHATTERBOX_DATE     "2022-10-15"
 
 #macro CHATTERBOX_VARIABLES_MAP   global.__chatterboxVariablesMap
