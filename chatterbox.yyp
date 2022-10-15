@@ -2,7 +2,7 @@
   "resources": [
     {"id":{"name":"__ChatterboxExpressionFuncs","path":"scripts/__ChatterboxExpressionFuncs/__ChatterboxExpressionFuncs.yy",},"order":5,},
     {"id":{"name":"__ChatterboxSystem","path":"scripts/__ChatterboxSystem/__ChatterboxSystem.yy",},"order":6,},
-    {"id":{"name":"ChatterboxLoadFromBuffer","path":"scripts/ChatterboxLoadFromBuffer/ChatterboxLoadFromBuffer.yy",},"order":3,},
+    {"id":{"name":"ChatterboxLoadFromBuffer","path":"scripts/ChatterboxLoadFromBuffer/ChatterboxLoadFromBuffer.yy",},"order":4,},
     {"id":{"name":"TestCaseWaitFunction","path":"scripts/TestCaseWaitFunction/TestCaseWaitFunction.yy",},"order":31,},
     {"id":{"name":"oTestCaseFastForward","path":"objects/oTestCaseFastForward/oTestCaseFastForward.yy",},"order":34,},
     {"id":{"name":"ChatterboxGetVisited","path":"scripts/ChatterboxGetVisited/ChatterboxGetVisited.yy",},"order":5,},
@@ -60,7 +60,7 @@
     {"id":{"name":"oTestCaseAction","path":"objects/oTestCaseAction/oTestCaseAction.yy",},"order":1,},
     {"id":{"name":"ChatterboxVariablesResetAll","path":"scripts/ChatterboxVariablesResetAll/ChatterboxVariablesResetAll.yy",},"order":8,},
     {"id":{"name":"ChatterboxGetContentSpeaker","path":"scripts/ChatterboxGetContentSpeaker/ChatterboxGetContentSpeaker.yy",},"order":5,},
-    {"id":{"name":"ChatterboxLoadFromFile","path":"scripts/ChatterboxLoadFromFile/ChatterboxLoadFromFile.yy",},"order":4,},
+    {"id":{"name":"ChatterboxLoadFromFile","path":"scripts/ChatterboxLoadFromFile/ChatterboxLoadFromFile.yy",},"order":3,},
     {"id":{"name":"oTestCaseNegateFunction","path":"objects/oTestCaseNegateFunction/oTestCaseNegateFunction.yy",},"order":8,},
     {"id":{"name":"ChatterboxGetContentCount","path":"scripts/ChatterboxGetContentCount/ChatterboxGetContentCount.yy",},"order":2,},
     {"id":{"name":"__ChatterboxClassInstruction","path":"scripts/__ChatterboxClassInstruction/__ChatterboxClassInstruction.yy",},"order":0,},
