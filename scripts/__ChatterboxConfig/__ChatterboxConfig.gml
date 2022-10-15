@@ -1,5 +1,6 @@
 #macro CHATTERBOX_VARIABLES_MAP                 global.chatterboxVariablesMap
 #macro CHATTERBOX_VARIABLES_LIST                global.chatterboxVariablesList
+#macro CHATTERBOX_CONSTANTS_MAP                 global.chatterboxConstantsMap
 #macro CHATTERBOX_DEFAULT_SINGLETON             true
 #macro CHATTERBOX_ALLOW_SCRIPTS                 true
 #macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS      true

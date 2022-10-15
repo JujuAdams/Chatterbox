@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Variables",
-    "path": "folders/Chatterbox/Variables.yy",
+    "name": "Variables and Constants",
+    "path": "folders/Chatterbox/Variables and Constants.yy",
   },
   "resourceVersion": "1.0",
   "name": "ChatterboxVariablesClearVisited",

@@ -74,6 +74,7 @@ catch(_error)
 //Declare global variables
 global.__chatterboxDirectory            = _chatterbox_directory;
 CHATTERBOX_VARIABLES_MAP                = ds_map_create();
+CHATTERBOX_CONSTANTS_MAP                = ds_map_create();
 global.__chatterboxDefaultVariablesMap  = ds_map_create();
 global.__chatterboxDeclaredVariablesMap = ds_map_create();
 CHATTERBOX_VARIABLES_LIST               = ds_list_create();
