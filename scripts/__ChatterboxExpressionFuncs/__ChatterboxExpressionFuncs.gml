@@ -38,7 +38,7 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
             case __CHATTERBOX_TOKEN.IDENTIFIER: //Identifier (variable/function)
                 #region
                 
-                if (_byte == ord(")"))
+                if ((_byte == ord(",")) || (_byte == ord(")")))
                 {
                     _next_state = __CHATTERBOX_TOKEN.SYMBOL;
                 }
