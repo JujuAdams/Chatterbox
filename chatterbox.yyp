@@ -64,6 +64,7 @@
     {"id":{"name":"oTestCaseNegateFunction","path":"objects/oTestCaseNegateFunction/oTestCaseNegateFunction.yy",},"order":8,},
     {"id":{"name":"ChatterboxGetContentCount","path":"scripts/ChatterboxGetContentCount/ChatterboxGetContentCount.yy",},"order":2,},
     {"id":{"name":"__ChatterboxClassInstruction","path":"scripts/__ChatterboxClassInstruction/__ChatterboxClassInstruction.yy",},"order":0,},
+    {"id":{"name":"ChatterboxConstant","path":"scripts/ChatterboxConstant/ChatterboxConstant.yy",},"order":10,},
     {"id":{"name":"oTestCaseMultiModeStop","path":"objects/oTestCaseMultiModeStop/oTestCaseMultiModeStop.yy",},"order":4,},
     {"id":{"name":"ChatterboxGetOptionCount","path":"scripts/ChatterboxGetOptionCount/ChatterboxGetOptionCount.yy",},"order":2,},
     {"id":{"name":"TestCaseActionFunction","path":"scripts/TestCaseActionFunction/TestCaseActionFunction.yy",},"order":24,},

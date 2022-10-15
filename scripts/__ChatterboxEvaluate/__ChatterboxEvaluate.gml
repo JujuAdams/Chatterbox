@@ -153,9 +153,9 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
     {
         var _variable_name = _expression.a.name;
         
-        if ((_behaviour != "declare") && (_behaviour != "declare valueless") && (_behaviour != "set"))
+        if ((_behaviour != "declare") && (_behaviour != "constant") && (_behaviour != "declare valueless") && (_behaviour != "set"))
         {
-            __ChatterboxError("Cannot set/declare variable \"", _variable_name, "\" outside of a <<set>> or <<declare>> command");
+            __ChatterboxError("Cannot set/declare variable/constant \"", _variable_name, "\" outside of a <<set>> or <<declare>> or <<constant>> command");
         }
         else
         {
@@ -174,6 +174,10 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
             else if (_behaviour == "set")
             {
                 ChatterboxVariableSet(_variable_name, _a);
+            }
+            else if (_behaviour == "constant")
+            {
+                ChatterboxConstant(_variable_name, _a);
             }
         }
         

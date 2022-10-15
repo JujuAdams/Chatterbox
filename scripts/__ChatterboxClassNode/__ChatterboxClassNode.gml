@@ -269,6 +269,18 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                     }
                 break;
                 
+                case "constant":
+                    var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder, false);
+                    
+                    if (CHATTERBOX_DECLARE_ON_COMPILE)
+                    {
+                        if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<constant>>");
+                        __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "constant");
+                        _instruction = undefined; //Don't add this instruction to the node
+                    }
+                break;
+                
                 case "set":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);

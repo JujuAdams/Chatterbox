@@ -12,6 +12,23 @@ function ChatterboxVariablesImport(_string)
         exit;
     }
     
+    //Back up constant values
+    var _constantValueArray = array_create(ds_list_size(global.__chatterboxConstantList));
+    var _i = 0;
+    repeat(ds_list_size(global.__chatterboxConstantList))
+    {
+        _constantValueArray[@ _i] = CHATTERBOX_VARIABLES_MAP[? global.__chatterboxConstantList[| _i]];
+        ++_i;
+    }
+    
     ds_map_destroy(CHATTERBOX_VARIABLES_MAP);
     CHATTERBOX_VARIABLES_MAP = _json;
+    
+    //Reimport constants into new variables map
+    var _i = 0;
+    repeat(array_length(_constantValueArray))
+    {
+        CHATTERBOX_VARIABLES_MAP[? global.__chatterboxConstantList[| _i]] = _constantValueArray[@ _i];
+        ++_i;
+    }
 }

@@ -271,6 +271,11 @@ function __ChatterboxVMInner(_instruction)
                         __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "declare");
                     break;
                     
+                    case "constant":
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
+                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "constant");
+                    break;
+                    
                     case "set":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
                         __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "set");

@@ -18,6 +18,11 @@ function ChatterboxVariableDefault(_name, _value)
         exit;
     }
     
+    if (ds_map_exists(global.__chatterboxConstantMap, _name) && global.__chatterboxConstantMap[? _name])
+    {
+        __ChatterboxError("Trying to set Chatterbox variable $", _name, " but it has already been declared as a constant");
+    }
+    
     if (ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
     {
         if (CHATTERBOX_ERROR_REDECLARED_VARIABLE)

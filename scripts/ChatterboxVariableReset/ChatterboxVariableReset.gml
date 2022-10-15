@@ -8,6 +8,11 @@ function ChatterboxVariableReset(_name)
         exit;
     }
     
+    if (ds_map_exists(global.__chatterboxConstantMap, _name) && global.__chatterboxConstantMap[? _name])
+    {
+        __ChatterboxError("Trying to reset Chatterbox variable $", _name, " but it has been declared as a constant");
+    }
+    
     if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _name))
     {
         if (string_copy(_name, 1, 8) != "visited(") //Don't throw an error for "node visited" variables
