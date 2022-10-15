@@ -196,7 +196,7 @@ function __ChatterboxError()
         ++_i;
     }
     
-    show_error("Chatterbox:\n" + _string + "\n ", false);
+    show_error("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string + "\n ", false);
     
     return _string;
 }
