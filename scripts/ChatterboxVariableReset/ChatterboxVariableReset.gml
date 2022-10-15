@@ -14,11 +14,11 @@ function ChatterboxVariableReset(_name)
         {
             if (CHATTERBOX_ERROR_UNDECLARED_VARIABLE)
             {
-                __ChatterboxError("Trying to reset Yarn variable $", _name, " but a default value has not been declared");
+                __ChatterboxError("Trying to reset Chatterbox variable $", _name, " but a default value has not been declared");
             }
             else
             {
-                __ChatterboxTrace("Warning! Trying to reset Yarn variable $", _name, " but a default value has not been declared. Deleting variable instead");
+                __ChatterboxTrace("Warning! Trying to reset Chatterbox variable $", _name, " but a default value has not been declared. Deleting variable instead");
             }
         }
         
@@ -34,6 +34,6 @@ function ChatterboxVariableReset(_name)
     {
         var _value = global.__chatterboxDefaultVariablesMap[? _name];
         CHATTERBOX_VARIABLES_MAP[? _name] = _value;
-        __ChatterboxTrace("Reset Yarn variable $", _name, " to ", __ChatterboxReadableValue(_value));
+        __ChatterboxTrace("Reset Chatterbox variable $", _name, " to ", __ChatterboxReadableValue(_value));
     }
 }

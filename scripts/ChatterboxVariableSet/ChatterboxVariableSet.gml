@@ -22,11 +22,11 @@ function ChatterboxVariableSet(_name, _value)
     {
         if (CHATTERBOX_ERROR_UNDECLARED_VARIABLE)
         {
-            __ChatterboxError("Trying to set Yarn variable $", _name, " but it has not been declared");
+            __ChatterboxError("Trying to set Chatterbox variable $", _name, " but it has not been declared");
         }
         else
         {
-            __ChatterboxTrace("Warning! Trying to set Yarn variable $", _name, " but it has not been declared");
+            __ChatterboxTrace("Warning! Trying to set Chatterbox variable $", _name, " but it has not been declared");
         }
     }
     else
@@ -38,5 +38,5 @@ function ChatterboxVariableSet(_name, _value)
     }
     
     CHATTERBOX_VARIABLES_MAP[? _name] = _value;
-    __ChatterboxTrace("Set Yarn variable $", _name, " to ", __ChatterboxReadableValue(_value));
+    __ChatterboxTrace("Set Chatterbox variable $", _name, " to ", __ChatterboxReadableValue(_value));
 }

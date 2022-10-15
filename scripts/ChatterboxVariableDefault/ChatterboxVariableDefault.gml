@@ -22,11 +22,11 @@ function ChatterboxVariableDefault(_name, _value)
     {
         if (CHATTERBOX_ERROR_REDECLARED_VARIABLE)
         {
-            __ChatterboxError("Trying to re-declare default value for Yarn variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
+            __ChatterboxError("Trying to re-declare default value for Chatterbox variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
         }
         else
         {
-            __ChatterboxTrace("Warning! Trying to re-declare default value for Yarn variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
+            __ChatterboxTrace("Warning! Trying to re-declare default value for Chatterbox variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
         }
     }
     else
@@ -36,6 +36,6 @@ function ChatterboxVariableDefault(_name, _value)
         global.__chatterboxDeclaredVariablesMap[? _name] = true;
         ds_list_add(CHATTERBOX_VARIABLES_LIST, _name);
         
-        __ChatterboxTrace("Declared Yarn variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");
+        __ChatterboxTrace("Declared Chatterbox variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");
     }
 }

@@ -21,11 +21,11 @@ function ChatterboxVariableGet()
     {
         if (CHATTERBOX_ERROR_UNSET_VARIABLE)
         {
-            __ChatterboxError("Yarn variable \"", _name, "\" cannot be read because it has not been set");
+            __ChatterboxError("Chatterbox variable \"", _name, "\" cannot be read because it has not been set");
         }
         else
         {
-            __ChatterboxTrace("Yarn variable \"", _name, "\" cannot be read because it has not been set. Returning default value ", __ChatterboxReadableValue(_default));
+            __ChatterboxTrace("Chatterbox variable \"", _name, "\" cannot be read because it has not been set. Returning default value ", __ChatterboxReadableValue(_default));
         }
         
         return _default;
