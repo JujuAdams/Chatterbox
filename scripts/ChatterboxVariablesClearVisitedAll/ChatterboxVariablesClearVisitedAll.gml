@@ -4,13 +4,13 @@
 function ChatterboxVariablesClearVisitedAll()
 {
     var _i = 0;
-    repeat(ds_list_size(CHATTERBOX_VARIABLES_LIST))
+    repeat(ds_list_size(global.__chatterboxVariablesList))
     {
-        var _key = CHATTERBOX_VARIABLES_LIST[| _i];
+        var _key = global.__chatterboxVariablesList[| _i];
         if (string_copy(_key, 1, 8) == "visited(")
         {
-            ds_map_delete(CHATTERBOX_VARIABLES_MAP, _key);
-            ds_list_delete(CHATTERBOX_VARIABLES_LIST, _i);
+            ds_map_delete(global.__chatterboxVariablesMap, _key);
+            ds_list_delete(global.__chatterboxVariablesList, _i);
         }
         else
         {

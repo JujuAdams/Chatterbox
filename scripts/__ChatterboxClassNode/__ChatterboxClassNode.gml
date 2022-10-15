@@ -37,14 +37,14 @@ function __ChatterboxClassNode(_filename, _node_metadata, _body_string) construc
     {
         var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
         
-        var _value = CHATTERBOX_VARIABLES_MAP[? _long_name];
+        var _value = global.__chatterboxVariablesMap[? _long_name];
         if (_value == undefined)
         {
-            CHATTERBOX_VARIABLES_MAP[? _long_name] = 1;
+            global.__chatterboxVariablesMap[? _long_name] = 1;
         }
         else
         {
-            CHATTERBOX_VARIABLES_MAP[? _long_name]++;
+            global.__chatterboxVariablesMap[? _long_name]++;
         }
     }
     

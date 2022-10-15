@@ -18,7 +18,7 @@ function ChatterboxVariableDefault(_name, _value)
         exit;
     }
     
-    if (ds_map_exists(global.__chatterboxConstantMap, _name) && global.__chatterboxConstantMap[? _name])
+    if (ds_map_exists(global.__chatterboxConstantsMap, _name) && global.__chatterboxConstantsMap[? _name])
     {
         __ChatterboxError("Trying to set Chatterbox variable $", _name, " but it has already been declared as a constant");
     }
@@ -36,10 +36,10 @@ function ChatterboxVariableDefault(_name, _value)
     }
     else
     {
-        CHATTERBOX_VARIABLES_MAP[? _name] = _value;
+        global.__chatterboxVariablesMap[? _name] = _value;
         global.__chatterboxDefaultVariablesMap[? _name] = _value;
         global.__chatterboxDeclaredVariablesMap[? _name] = true;
-        ds_list_add(CHATTERBOX_VARIABLES_LIST, _name);
+        ds_list_add(global.__chatterboxVariablesList, _name);
         
         __ChatterboxTrace("Declared Chatterbox variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");
     }

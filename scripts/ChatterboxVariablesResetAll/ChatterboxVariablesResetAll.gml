@@ -2,12 +2,12 @@ function ChatterboxVariablesResetAll()
 {
     __ChatterboxTrace("Resetting all variables...");
     
-    ds_map_clear(CHATTERBOX_VARIABLES_MAP);
+    ds_map_clear(global.__chatterboxVariablesMap);
     
     var _i = 0;
-    repeat(ds_list_size(CHATTERBOX_VARIABLES_LIST))
+    repeat(ds_list_size(global.__chatterboxVariablesList))
     {
-        ChatterboxVariableReset(CHATTERBOX_VARIABLES_LIST[| _i]);
+        ChatterboxVariableReset(global.__chatterboxVariablesList[| _i]);
         ++_i;
     }
     

@@ -3,12 +3,12 @@
 function ChatterboxVariablesExport()
 {
     var _map = ds_map_create();
-    ds_map_copy(_map, CHATTERBOX_VARIABLES_MAP);
+    ds_map_copy(_map, global.__chatterboxVariablesMap);
     
     var _i = 0;
-    repeat(ds_list_size(global.__chatterboxConstantList))
+    repeat(ds_list_size(global.__chatterboxConstantsList))
     {
-        ds_map_delete(CHATTERBOX_VARIABLES_MAP, global.__chatterboxConstantList[| _i]);
+        ds_map_delete(global.__chatterboxVariablesMap, global.__chatterboxConstantsList[| _i]);
         ++_i;
     }
     

@@ -7,7 +7,7 @@
 function ChatterboxVariablesClearVisited(_node, _filename)
 {
     var _variable = "visited(" + string(_filename) + CHATTERBOX_FILENAME_SEPARATOR + string(_node) + ")";
-    var _index = ds_list_find_index(CHATTERBOX_VARIABLES_LIST, _variable);
-    if (_index >= 0) ds_list_delete(CHATTERBOX_VARIABLES_LIST, _variable);
-    ds_map_delete(CHATTERBOX_VARIABLES_MAP, _variable);
+    var _index = ds_list_find_index(global.__chatterboxVariablesList, _variable);
+    if (_index >= 0) ds_list_delete(global.__chatterboxVariablesList, _variable);
+    ds_map_delete(global.__chatterboxVariablesMap, _variable);
 }

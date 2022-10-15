@@ -17,7 +17,7 @@ function ChatterboxVariableGet()
         exit;
     }
     
-    if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _name))
+    if (!ds_map_exists(global.__chatterboxVariablesMap, _name))
     {
         if (CHATTERBOX_ERROR_UNSET_VARIABLE)
         {
@@ -31,7 +31,7 @@ function ChatterboxVariableGet()
         return _default;
     }
     
-    var _value = CHATTERBOX_VARIABLES_MAP[? _name];
+    var _value = global.__chatterboxVariablesMap[? _name];
         
     if (!is_numeric(_value) && !is_string(_value) && !is_bool(_value))
     {

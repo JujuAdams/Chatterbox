@@ -73,12 +73,14 @@ catch(_error)
 
 //Declare global variables
 global.__chatterboxDirectory            = _chatterbox_directory;
-CHATTERBOX_VARIABLES_MAP                = ds_map_create();
+
+global.__chatterboxVariablesMap         = ds_map_create();
+global.__chatterboxVariablesList        = ds_list_create();
 global.__chatterboxConstantsMap         = ds_map_create();
-global.__chatterboxConstantList         = ds_list_create();
+global.__chatterboxConstantsList        = ds_list_create();
 global.__chatterboxDefaultVariablesMap  = ds_map_create();
 global.__chatterboxDeclaredVariablesMap = ds_map_create();
-CHATTERBOX_VARIABLES_LIST               = ds_list_create();
+
 global.chatterboxFiles                  = ds_map_create();
 global.__chatterboxDefaultFile          = "";
 global.__chatterboxIndentSize           = 0;

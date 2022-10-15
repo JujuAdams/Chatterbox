@@ -4,7 +4,7 @@
 /// @param variableName
 /// @param value
 
-function ChatterboxVariableConstant(_name, _value)
+function ChatterboxVariableSetConstant(_name, _value)
 {
     if (string_pos(" ", _name))
     {
@@ -12,7 +12,7 @@ function ChatterboxVariableConstant(_name, _value)
         exit;
     }
     
-    if (ds_map_exists(global.__chatterboxConstantMap, _name) && !global.__chatterboxConstantMap[? _name])
+    if (ds_map_exists(global.__chatterboxConstantsMap, _name) && !global.__chatterboxConstantsMap[? _name])
     {
         __ChatterboxError("Trying to set Chatterbox constant $", _name, " but it has already been declared as a variable");
     }
@@ -23,18 +23,18 @@ function ChatterboxVariableConstant(_name, _value)
         exit;
     }
     
-    if (!__ChatterboxVerifyDatatypes(CHATTERBOX_VARIABLES_MAP[? _name], _value))
+    if (!__ChatterboxVerifyDatatypes(global.__chatterboxVariablesMap[? _name], _value))
     {
-        __ChatterboxError("Cannot set $", _name, " = ", __ChatterboxReadableValue(_value), ", its datatype does not match existing value (", __ChatterboxReadableValue(CHATTERBOX_VARIABLES_MAP[? _name]), ")");
+        __ChatterboxError("Cannot set $", _name, " = ", __ChatterboxReadableValue(_value), ", its datatype does not match existing value (", __ChatterboxReadableValue(global.__chatterboxVariablesMap[? _name]), ")");
     }
     
-    if (!ds_map_exists(global.__chatterboxConstantMap, _name))
+    if (!ds_map_exists(global.__chatterboxConstantsMap, _name))
     {
-        ds_list_add(global.__chatterboxConstantList, _name);
+        ds_list_add(global.__chatterboxConstantsList, _name);
     }
     
-    CHATTERBOX_VARIABLES_MAP[? _name] = _value;
-    global.__chatterboxConstantMap[? _name] = true;
+    global.__chatterboxVariablesMap[? _name] = _value;
+    global.__chatterboxConstantsMap[? _name] = true;
     
     __ChatterboxTrace("Set Chatterbox constant $", _name, " to ", __ChatterboxReadableValue(_value));
 }
