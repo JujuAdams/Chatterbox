@@ -8,11 +8,11 @@ function ChatterboxVariablesExport()
     var _i = 0;
     repeat(ds_list_size(global.__chatterboxConstantsList))
     {
-        ds_map_delete(global.__chatterboxVariablesMap, global.__chatterboxConstantsList[| _i]);
+        ds_map_delete(_map, global.__chatterboxConstantsList[| _i]);
         ++_i;
     }
     
-    var _result = _map;
+    var _result = json_encode(_map);
     ds_map_destroy(_map);
     return _result;
 }
