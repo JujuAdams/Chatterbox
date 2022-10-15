@@ -422,7 +422,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
                 
                 content             = [];
                 option              = [];
-                optionInstruction  = [];
+                optionInstruction   = [];
                 current_node        = undefined;
                 current_instruction = undefined;
                 stopped             = true;
