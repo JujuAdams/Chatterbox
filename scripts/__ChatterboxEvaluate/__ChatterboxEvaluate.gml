@@ -156,11 +156,17 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
         switch(_behaviour)
         {
             case "declare valueless":
-                if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _variable_name))
+                if (ds_map_exists(global.__chatterboxConstantsMap, _variable_name) && global.__chatterboxConstantsMap[? _variable_name])
+                {
+                    __ChatterboxError("Trying to declare Chatterbox variable $", _variable_name, " but it has already been declared as a constant");
+                }
+                else if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _variable_name))
                 {
                     global.__chatterboxDeclaredVariablesMap[? _variable_name] = true;
+                    global.__chatterboxConstantsMap[? _variable_name] = false;
                     ds_list_add(global.__chatterboxVariablesList, _variable_name);
                 }
+                else 
             break;
             
             case "declare":

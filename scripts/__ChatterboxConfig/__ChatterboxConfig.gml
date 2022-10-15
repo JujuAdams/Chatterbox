@@ -4,7 +4,6 @@
 #macro CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION  false
 #macro CHATTERBOX_WAIT_BEFORE_STOP              true
 #macro CHATTERBOX_SHOW_REJECTED_OPTIONS         true
-#macro CHATTERBOX_DECLARE_ON_COMPILE            true //Whether to declare variables when Chatterbox script is compiled. Set to <false> for legacy (2.1 and earlier) behaviour
 
 // Whether nodes without an explicit <<stop>> or <<hopback>> instruct at the end should default
 // to <<hopback>>. Legacy behaviour (pre-2.7) is to set this to <false>
@@ -84,7 +83,10 @@
 
 #region Advanced
 
+#macro CHATTERBOX_DECLARE_ON_COMPILE  true //Whether to declare variables when Chatterbox script is compiled. Set to <false> for legacy (2.1 and earlier) behaviour
+
 #macro CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE  false  //Set to <true> if you're coming from pre-2.7.1
+
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
