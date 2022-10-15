@@ -85,6 +85,7 @@
     {"id":{"name":"ChatterboxLoadFromString","path":"scripts/ChatterboxLoadFromString/ChatterboxLoadFromString.yy",},"order":5,},
     {"id":{"name":"__ChatterboxEvaluate","path":"scripts/__ChatterboxEvaluate/__ChatterboxEvaluate.yy",},"order":4,},
     {"id":{"name":"__ChatterboxVM","path":"scripts/__ChatterboxVM/__ChatterboxVM.yy",},"order":7,},
+    {"id":{"name":"oTestCaseConstants","path":"objects/oTestCaseConstants/oTestCaseConstants.yy",},"order":38,},
     {"id":{"name":"ChatterboxVariableSet","path":"scripts/ChatterboxVariableSet/ChatterboxVariableSet.yy",},"order":2,},
     {"id":{"name":"TestCaseActionFunctionArguments","path":"scripts/TestCaseActionFunctionArguments/TestCaseActionFunctionArguments.yy",},"order":35,},
     {"id":{"name":"TestCaseDirectionFunction","path":"scripts/TestCaseDirectionFunction/TestCaseDirectionFunction.yy",},"order":27,},
@@ -182,6 +183,7 @@
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_hop.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_evaluation_order.yarn","resourceType":"GMIncludedFile",},
     {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_hop_2.yarn","resourceType":"GMIncludedFile",},
+    {"CopyToMask":-1,"filePath":"datafiles","resourceVersion":"1.0","name":"testcase_constants.yarn","resourceType":"GMIncludedFile",},
   ],
   "MetaData": {
     "IDEVersion": "2022.3.0.625",
