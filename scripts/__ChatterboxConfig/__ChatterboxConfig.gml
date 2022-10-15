@@ -84,9 +84,6 @@
 
 #region Advanced
 
-#macro CHATTERBOX_VARIABLES_MAP   global.chatterboxVariablesMap
-#macro CHATTERBOX_VARIABLES_LIST  global.chatterboxVariablesList
-
 #macro CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE  false  //Set to <true> if you're coming from pre-2.7.1
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
