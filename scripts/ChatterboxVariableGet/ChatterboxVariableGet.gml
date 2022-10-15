@@ -17,21 +17,21 @@ function ChatterboxVariableGet()
         exit;
     }
     
-    if (!ds_map_exists(CHATTERBOX_VARIABLES_MAP, _name))
+    if (!ds_map_exists(global.__chatterboxVariablesMap, _name))
     {
         if (CHATTERBOX_ERROR_UNSET_VARIABLE)
         {
-            __ChatterboxError("Yarn variable \"", _name, "\" cannot be read because it has not been set");
+            __ChatterboxError("Chatterbox variable \"", _name, "\" cannot be read because it has not been set");
         }
         else
         {
-            __ChatterboxTrace("Yarn variable \"", _name, "\" cannot be read because it has not been set. Returning default value ", __ChatterboxReadableValue(_default));
+            __ChatterboxTrace("Chatterbox variable \"", _name, "\" cannot be read because it has not been set. Returning default value ", __ChatterboxReadableValue(_default));
         }
         
         return _default;
     }
     
-    var _value = CHATTERBOX_VARIABLES_MAP[? _name];
+    var _value = global.__chatterboxVariablesMap[? _name];
         
     if (!is_numeric(_value) && !is_string(_value) && !is_bool(_value))
     {

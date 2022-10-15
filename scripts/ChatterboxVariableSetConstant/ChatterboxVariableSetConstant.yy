@@ -6,7 +6,7 @@
     "path": "folders/Chatterbox/Variables and Constants.yy",
   },
   "resourceVersion": "1.0",
-  "name": "ChatterboxVariablesResetAll",
+  "name": "ChatterboxVariableSetConstant",
   "tags": [],
   "resourceType": "GMScript",
 }

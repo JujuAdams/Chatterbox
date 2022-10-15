@@ -123,10 +123,11 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
                         {
                             // Since we can't just execute methods with multiple arguments as is
                             // we break it down instead to make it work with script_execute_ext
-                            var _func = method_get_index(_func);
-                            var _self = method_get_self(_func) ?? self;
+                            var _func = method_get_index(_method);
+                            var _self = method_get_self(_method) ?? self;
                             
-                            with(_self) {
+                            with(_self)
+                            {
                             	return script_execute_ext(_func, _parameter_values);	
                             }
                         }
@@ -152,28 +153,36 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
     {
         var _variable_name = _expression.a.name;
         
-        if ((_behaviour != "declare") && (_behaviour != "declare valueless") && (_behaviour != "set"))
+        switch(_behaviour)
         {
-            __ChatterboxError("Cannot set/declare variable \"", _variable_name, "\" outside of a <<set>> or <<declare>> command");
-        }
-        else
-        {
-            if (_behaviour == "declare valueless")
-            {
-                if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _variable_name))
+            case "declare valueless":
+                if (ds_map_exists(global.__chatterboxConstantsMap, _variable_name) && global.__chatterboxConstantsMap[? _variable_name])
+                {
+                    __ChatterboxError("Trying to declare Chatterbox variable $", _variable_name, " but it has already been declared as a constant");
+                }
+                else if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _variable_name))
                 {
                     global.__chatterboxDeclaredVariablesMap[? _variable_name] = true;
-                    ds_list_add(CHATTERBOX_VARIABLES_LIST, _variable_name);
+                    global.__chatterboxConstantsMap[? _variable_name] = false;
+                    ds_list_add(global.__chatterboxVariablesList, _variable_name);
                 }
-            }
-            else if (_behaviour == "declare")
-            {
+            break;
+            
+            case "declare":
                 ChatterboxVariableDefault(_variable_name, _a);
-            }
-            else if (_behaviour == "set")
-            {
+            break;
+            
+            case "set":
                 ChatterboxVariableSet(_variable_name, _a);
-            }
+            break;
+            
+            case "constant":
+                ChatterboxVariableSetConstant(_variable_name, _a);
+            break;
+            
+            default:
+                __ChatterboxError("Cannot set/declare variable/constant $", _variable_name, " outside of a <<set>> or <<declare>> or <<constant>> command");
+            break;
         }
         
         return _a;

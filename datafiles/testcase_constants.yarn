@@ -1,0 +1,8 @@
+title: Start
+---
+<<constant $TEST_CONSTANT = 3.14>>
+Value of the constant is {$TEST_CONSTANT}.
+Value of a constant defined in GML IS "{$GML_CONSTANT}".
+Finally, we're going to try to set a constant which should crash.
+<<set $TEST_CONSTANT = 42>>
+===

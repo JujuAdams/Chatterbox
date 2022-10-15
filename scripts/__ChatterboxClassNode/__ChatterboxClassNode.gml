@@ -37,14 +37,14 @@ function __ChatterboxClassNode(_filename, _node_metadata, _body_string) construc
     {
         var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
         
-        var _value = CHATTERBOX_VARIABLES_MAP[? _long_name];
+        var _value = global.__chatterboxVariablesMap[? _long_name];
         if (_value == undefined)
         {
-            CHATTERBOX_VARIABLES_MAP[? _long_name] = 1;
+            global.__chatterboxVariablesMap[? _long_name] = 1;
         }
         else
         {
-            CHATTERBOX_VARIABLES_MAP[? _long_name]++;
+            global.__chatterboxVariablesMap[? _long_name]++;
         }
     }
     
@@ -269,6 +269,18 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                     }
                 break;
                 
+                case "constant":
+                    var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder, false);
+                    
+                    if (CHATTERBOX_DECLARE_ON_COMPILE)
+                    {
+                        if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<constant>>");
+                        __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "constant");
+                        _instruction = undefined; //Don't add this instruction to the node
+                    }
+                break;
+                
                 case "set":
                     var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
@@ -366,7 +378,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                 break;
                 
                 default:
-                    var _instruction = new __ChatterboxClassInstruction("direction", _line, _indent);
+                    var _instruction = new __ChatterboxClassInstruction("action", _line, _indent);
                     _instruction.text = new __ChatterboxClassText(_string);
                 break;
             }

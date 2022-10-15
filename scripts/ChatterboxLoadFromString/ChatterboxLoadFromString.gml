@@ -2,7 +2,7 @@
 ///
 /// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax()
 ///
-/// @param aliasName  Alias to use for this buffer
+/// @param aliasName  Alias to refer to this content (effectively a fake filename)
 /// @param string     String to read
 
 function ChatterboxLoadFromString(_filename, _string)

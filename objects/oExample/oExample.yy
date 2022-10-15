@@ -29,7 +29,7 @@
     "path": "chatterbox.yyp",
   },
   "resourceVersion": "1.0",
-  "name": "oBasics",
+  "name": "oExample",
   "tags": [],
   "resourceType": "GMObject",
 }

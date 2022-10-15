@@ -2,11 +2,11 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Variables and Constants",
-    "path": "folders/Chatterbox/Variables and Constants.yy",
+    "name": "Flow",
+    "path": "folders/Chatterbox/Flow.yy",
   },
   "resourceVersion": "1.0",
-  "name": "ChatterboxVariableDefault",
+  "name": "ChatterboxHopBack",
   "tags": [],
   "resourceType": "GMScript",
 }

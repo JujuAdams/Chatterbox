@@ -38,7 +38,7 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
             case __CHATTERBOX_TOKEN.IDENTIFIER: //Identifier (variable/function)
                 #region
                 
-                if (_byte == ord(")"))
+                if ((_byte == ord(",")) || (_byte == ord(")")))
                 {
                     _next_state = __CHATTERBOX_TOKEN.SYMBOL;
                 }
@@ -110,7 +110,7 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
                         }
                         else
                         {
-                            __ChatterboxError("Token (", _read, ") is invalid:\n- Variables must be prefixed with a $ sign\n- Strings must be delimited with \" quote marks\nIf this token is a function call, please check CHATTERBOX_DIRECTION_MODE is set correctly");
+                            __ChatterboxError("Token (", _read, ") is invalid:\n- Variables and constants must be prefixed with a $ sign\n- Strings must be delimited with \" quote marks\nIf this token is a function call, please check CHATTERBOX_DIRECTION_MODE is set correctly");
                         }
                     }
                     

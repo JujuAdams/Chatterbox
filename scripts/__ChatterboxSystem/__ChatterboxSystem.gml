@@ -1,9 +1,11 @@
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "2.7.2"
+#macro __CHATTERBOX_VERSION  "2.8.1"
 #macro __CHATTERBOX_DATE     "2022-10-15"
 
-#macro CHATTERBOX_CURRENT  global.__chatterboxCurrent
+#macro CHATTERBOX_VARIABLES_MAP   global.__chatterboxVariablesMap
+#macro CHATTERBOX_VARIABLES_LIST  global.__chatterboxVariablesList
+#macro CHATTERBOX_CURRENT         global.__chatterboxCurrent
 
 #macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false
@@ -73,10 +75,14 @@ catch(_error)
 
 //Declare global variables
 global.__chatterboxDirectory            = _chatterbox_directory;
-CHATTERBOX_VARIABLES_MAP                = ds_map_create();
+
+global.__chatterboxVariablesMap         = ds_map_create();
+global.__chatterboxVariablesList        = ds_list_create();
+global.__chatterboxConstantsMap         = ds_map_create();
+global.__chatterboxConstantsList        = ds_list_create();
 global.__chatterboxDefaultVariablesMap  = ds_map_create();
 global.__chatterboxDeclaredVariablesMap = ds_map_create();
-CHATTERBOX_VARIABLES_LIST               = ds_list_create();
+
 global.chatterboxFiles                  = ds_map_create();
 global.__chatterboxDefaultFile          = "";
 global.__chatterboxIndentSize           = 0;
@@ -190,7 +196,7 @@ function __ChatterboxError()
         ++_i;
     }
     
-    show_error("Chatterbox:\n" + _string + "\n ", false);
+    show_error("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string + "\n ", false);
     
     return _string;
 }
@@ -317,11 +323,12 @@ function __ChatterboxUnescapeString(_in_string)
     _out_string = string_replace_all(_out_string, "\\n", "\n");
     _out_string = string_replace_all(_out_string, "\\r", "\r");
     _out_string = string_replace_all(_out_string, "\\t", "\t");
-    _out_string = string_replace_all(_out_string, "\\\\", "\\");
     _out_string = string_replace_all(_out_string, "\\<", "<");
     _out_string = string_replace_all(_out_string, "\\>", ">");
     _out_string = string_replace_all(_out_string, "\\{", "{");
     _out_string = string_replace_all(_out_string, "\\}", "}");
+    _out_string = string_replace_all(_out_string, "\\#", "#");
+    _out_string = string_replace_all(_out_string, "\\\\", "\\");
     return _out_string;
 }
 
