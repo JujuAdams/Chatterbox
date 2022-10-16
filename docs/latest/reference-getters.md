@@ -1,5 +1,7 @@
 # Getters Reference
 
+All functions on this page are prefixed with `Chatterbox`.
+
 &nbsp;
 
 ### `...GetVisited()`
