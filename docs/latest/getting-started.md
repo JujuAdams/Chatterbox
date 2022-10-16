@@ -78,7 +78,7 @@ Very well! Let's go.
 <<jump $nextNode>>
 ```
 
-This example demonstrates a couple of more advanced concepts - the `<<set>>` action which is used to set the value of Chatterbox variables, and the `<<jump>>` action which is used to navigate between nodes. We'll go into depth for these two actions (they're very useful) a little later. For now, we'll stick to **content** and **options**.
+This example demonstrates a couple of more advanced concepts - the `<<set>>` action which is used to set the value of Chatterbox variables, and the `<<jump>>` action which is used to navigate between nodes. We'll go into depth for these two actions (they're very useful) further on.
 
 &nbsp;
 
