@@ -2,11 +2,11 @@
 
 Functions on this page allow you to declare, access, and manipulate variables stored inside the Chatterbox library. Variables are shared across all individual chatterbox instances and are therefore "global" in scope. All functions on this page are prefixed with `ChatterboxVariable` or `ChatterboxVariables` (depending on scope).
 
-?> Whilst it's tempting to want to directly manipulate variables in standard GML code using Chatterbox, this often leads to confusion over why variables are changing value and is further unsafe from a security standpoint. As a result, Chatterbox variables are stored in their own sandbox and it is not possible to modify or access GML variables out-of-the-box.
+!> Whilst it's tempting to want to directly manipulate variables in standard GML code using Chatterbox, this often leads to confusion over why variables are changing value and is further unsafe from a security standpoint. As a result, Chatterbox variables are stored in their own sandbox and it is not possible to modify or access GML variables out-of-the-box. You can bind custom fuctions to Chatterbox using `ChatterboxAddFunction()` to do this for you, but you do so at your own risk.
 
 &nbsp;
 
-### `...Default(name)`
+### `...Default()`
 
 _Full function name:_ `ChatterboxVariableDefault(name)`
 
@@ -118,7 +118,7 @@ The returned string also contains data on what nodes have been visited. This fun
 
 &nbsp;
 
-### `...Import(string)`
+### `...Import()`
 
 _Full function name:_ `ChatterboxVariablesImport(string)`
 
