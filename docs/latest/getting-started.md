@@ -235,4 +235,39 @@ There's more, however! `<<jump>>` can also allow you to jump to a node in a _dif
 
 ?> Remember, node names must be unique _within_ a YarnScript file. Node names are allowed to collide _between_ source files. This is useful for templating character interactions.
 
-The other powerful feature is **Chatterbox variables**.
+The other powerful feature I'd like to talk about is **Chatterbox variables**. These will be familiar to you if you've done really any work with GML. Chatterbox variables have a few special rules, however, and are a little stricter than their GML counterparts.
+
+1. Chatterbox variables must be prefixed with `$` in YarnScript.
+2. Chatterbox variables are globally scoped. You can access them at any point anywhere in YarnScript (`$variableName`) and GML (`ChatterboxVariableGet()`)
+3. Chatterbox variables are sandboxed. You can only access them using Chatterbox functions.
+4. Chatterbox variables should be declared before use, either using YarnScript (`<<declare $variableName = "value">>`) or GML (`ChatterboxVariableDefault()`). Variable declarations are important because they ensure type safety and that all Chatterbox variables have legal default value.
+5. Chatterbox variables must only be strings, numbers, or booleans. Complex types are not permitted.
+
+When working with YarnScript, you can set variables using the `<<set>>` action e.g. `<<set $variableName = $variableName + 42>>`. This is already useful, but the real power with variables can be found in conditional logic - the almighty `<<if>>` action and its siblings `<<else>>` `<<elseif>>` and `<<endif>>`.
+
+`<<if>>` is a special kind of action that performs flow control inside a node. Again, if you've written much GML, an if-statement will not be alien to you and YarnScript works in exactly the same way.
+
+```yarn
+<<if $cats == 3>>
+	Five cat plan in three cats!
+<<elseif $cats >= 5>>
+    I think you have enough cats already.
+<<else>>
+	More cats might help you on your journey.
+<<endif>>
+```
+
+We can also apply `<<if>>` actions to options, allowing more intelligent options to be shown to the player.
+
+```yarn
+Have you packed your spacesuit?
+-> No... <<if not $spacesuit>>
+    We'll have to swing by the shops then.
+	<<set $nextNode = "Shops">>
+-> Sure have! <<if $spacesuit>>
+    <<set $nextNode = "OuterSpace">>
+```
+
+As per the YarnScript specification, all options will made available **regardless of whether the if-statement returns `true` or `false`**. This is unexpected behaviour but it does give you more control over how you communicate failed conditions e.g. showing options that are unavailable due to a low charisma stat and so on. To determine whether to display an option or not to a player you can call `ChatterboxGetOptionConditionBool()` which tells you the state of the associated condition.
+
+Variables allow you to branch dialogue in response to a value that you're tracking, and that value will be reacting to decisions that the player has made. With a little effort, you could write an entire game in YarnScript with a very simple GameMaker program wrapped around it.
