@@ -13,6 +13,8 @@ _Returns:_ N/A (`undefined`)
 
 This function sets the default value for a Chatterbox variable. This is equivalent to using the `<<declare>>` action in YarnScript. Chatterbox variables must be strings, booleans, or numbers.
 
+?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `camelCase` for variable names.
+
 &nbsp;
 
 ### `ChatterboxVariableGet(name)`
@@ -36,7 +38,9 @@ _Returns:_ N/A (`undefined`)
 |`name` |string  |Variable to set             |
 |`value`|any     |Value to set the variable to|
 
-Sets the value of a Chatterbox variable. Chatterbox variables must be strings, booleans, or numbers, and you cannot change the datatype of a variable once it has been declared.
+Sets the value of a Chatterbox variable. Chatterbox variables must be strings, booleans, or numbers, and you cannot change the datatype of a variable once it has been declared. Additionally, Chatterbox constants cannot have their value changed (see below).
+
+?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `camelCase` for variable names.
 
 &nbsp;
 
@@ -55,6 +59,8 @@ Equivalent to the `<<constant>>` action in YarnScript. Setting a Chatterbox vari
 2. Constants will not be exported or imported using `ChatterboxVariablesExport()` or `ChatterboxVariablesImport()`.
 
 Chatterbox constants can still have their value read by `ChatterboxVariableGet()` and can be found using `ChatterboxVariableFind()`.
+
+?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `SCREAMING_SNAKE_CASE` for variable names.
 
 &nbsp;
 
