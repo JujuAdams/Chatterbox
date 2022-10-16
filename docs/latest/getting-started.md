@@ -271,3 +271,9 @@ Have you packed your spacesuit?
 As per the YarnScript specification, all options will made available **regardless of whether the if-statement returns `true` or `false`**. This is unexpected behaviour but it does give you more control over how you communicate failed conditions e.g. showing options that are unavailable due to a low charisma stat and so on. To determine whether to display an option or not to a player you can call `ChatterboxGetOptionConditionBool()` which tells you the state of the associated condition.
 
 Variables allow you to branch dialogue in response to a value that you're tracking, and that value will be reacting to decisions that the player has made. With a little effort, you could write an entire game in YarnScript with a very simple GameMaker program wrapped around it.
+
+&nbsp;
+
+## Closing thoughts
+
+Chatterbox is a powerful tool and we've only scratched the surface. Please take the time to poke around the rest of the documentation and, if you have any questions, please swing by the [Discord server](https://discord.gg/8krYCqr).
