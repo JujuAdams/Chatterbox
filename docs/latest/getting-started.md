@@ -62,14 +62,14 @@ One last thing before we talk about the GML-side implementation of Chatterbox - 
 Where would you like to go today?
 -> To the shops.
     Yes, I'm hungry too.
-	<<set $nextNode = "shops">>
+	<<set $nextNode = "Shops">>
 -> To outer space.
     Have you packed your spacesuit?
 	-> No...
 	    We'll have to swing by the shops then.
-		<<set $nextNode = "shops">>
+		<<set $nextNode = "Shops">>
 	-> Sure have!
-	    <<set $nextNode = "outerSpace">>
+	    <<set $nextNode = "OuterSpace">>
 Very well! Let's go.
 <<jump $nextNode>>
 ```
@@ -94,11 +94,31 @@ Chatterbox is distributed as a .yymps file. This is a compressed file (literally
 
 ### Loading your YarnScript source file
 
-Before you can create a chatterbox you'll need to load in a YarnScript file. Make sure you've added a source file to GameMaker as an "Included File" by saving it to the `\datafiles` directory in your project files.
+Before you can create a chatterbox you'll need to load in a YarnScript file. Make sure you've added a source file to GameMaker as an "Included File" by saving it to the `\datafiles` directory in your project files. Loading that file is then as simple as calling `ChatterboxLoadFromFile()` targeting that specific filename: 
+
+```gml
+/// Create event for an object
+ChatterboxLoadFromFile("example.yarn");
+```
+
+?> The first file that you load becomes the "default" source file for Chatterbox.
+
+!> Chatterbox parses and compiles YarnScript files when loaded for better performance later; as a result, you may find that there's a short hang when loading large YarnScript files. You should try to load YarnScript files during a loading screen to minimise disruption to the user experience.
 
 ### Initializing a chatterbox
 
-&nbsp;
+Now that a YarnScript source file has been loaded, we can spin up a chatterbox and start navigating dialogue. Here's how:
+
+```gml
+/// Create event for an object
+ChatterboxLoadFromFile("example.yarn");
+chatterbox = ChatterboxCreate();
+ChatterboxJump(chatterbox, "StartNode");
+```
+
+It's very important to hold a reference to the chatterbox that gets created by `ChatterboxCreate()` as you'll need it for all other API functions.
+
+?> In this case, because we've only loaded one source file, we don't need to specify a file for `ChatterboxCreate()`.
 
 ### Flow control
 
