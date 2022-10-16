@@ -15,6 +15,5 @@
 -   [Configuration](reference-configuration)
 -   [Setup](reference-setup)
 -   [Chatterboxes](reference-chatterboxes)
--   [Getters](reference-getters)
 -   [Flow](reference-flow)
 -   [Variables and Constants](reference-variables)
