@@ -1,5 +1,7 @@
 # Chatterboxes Reference
 
+Functions on this page relate to chatterboxes, the basic machines that use source files as input and output strings of text that you can display.
+
 &nbsp;
 
 ### `ChatterboxCreate()`
@@ -19,8 +21,6 @@ If `singletonText` is set to `true` then dialogue will be outputted one line at 
 However, if `singletonText` is set to `false` then dialogue will be outputted multiple lines at a time. More modern narrative games, especially those by Inkle or Failbetter, tend to show larger blocks of text. Content will be stacked up until Chatterbox reaches a command that requires user input: a shortcut, an option, or a `<<stop>>` or `<<wait>>` command.
 
 &nbsp;
-
----
 
 ### `IsChatterbox(value)`
 
