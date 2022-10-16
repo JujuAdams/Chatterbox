@@ -181,7 +181,6 @@ Similarly, options are also plain text. You can get the total number of options 
 Exactly how and where you present content and options is up to you. Radial menu? Scrollable list? Roulette wheel? The choice is yours. Here's a very basic example of how to display content and options together taken from the basic example in the GitHub repo:
 
 ```gml
-//Iterate over all text and draw it
 var _x = 10;
 var _y = 10;
 
@@ -228,4 +227,12 @@ else
 
 ## Further YarnScript features
 
-YarnScript is considerably more complex than showing content and options and navigating through branching dialogue. YarnScript offers you variables, conditional logic, metadata, string insertion and so much more.
+YarnScript is considerably more complex than showing content and options and navigating through branching dialogue. YarnScript offers you variables, conditional logic, metadata, string insertion and [so much more](concept-yarn-script). I'd like to highlight a couple key features here, ones that are uniquely helpful when writing interactive storylines for your game.
+
+Firstly, the `<<jump>>` action allows you to move between nodes in a YarnScript source file. The syntax for this action is `<<jump NameOfNode>>`. You can also jump to a node whose name is stored in a variable (and we saw an example of this earlier) by simply inserting the variable into the action, like so: `<<jump $nodeVariable>>` where `$nodeVariable` is the variable that holds the name of the node to jump to.
+
+There's more, however! `<<jump>>` can also allow you to jump to a node in a _different_ source file entirely. You must have previously loaded the source file into memory using `ChatterboxLoadFromFile()`, and you can jump to a node into another file using this syntax: `<<jump filename.yarn:NameOfNode>>`. If you want to jump to node outside the current source file then you **must** specify the filename.
+
+?> Remember, node names must be unique _within_ a YarnScript file. Node names are allowed to collide _between_ source files. This is useful for templating character interactions.
+
+The other powerful feature is **Chatterbox variables**.
