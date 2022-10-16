@@ -12,7 +12,7 @@ Chatterbox offers a lot of ways to [configure](reference-configuration) the way 
 
 As mentioned, chatterboxes read instructions written in a language called YarnScript. You can find more information about YarnScript in [here](concept-yarn-script) in Chatterbox's documentation. Whilst it's possible to write YarnScript by hand in a text file, we recommend that you use the free [Crochet](https://github.com/FaultyFunctions/Crochet) editor developed by [FaultyFunctions](https://twitter.com/faultyfunctions/). Crochet removes a lot of the organisational hurdles and gets you straight to writing your script.
 
-YarnScript is a procedural language just like GML. Instructions start at the top of a node and are executed from top to bottom, one at a time. Let's presume we've got Chatterbox set up for operation in "singleton mode" where each line of dialogue is delivery one-by-one, like any number of visual novels or RPGs. If we write out the following YarnScript in a node like so:
+YarnScript is a procedural language just like GML. Instructions start at the top of a node and are executed from top to bottom, one at a time. Let's presume we've got Chatterbox set up for operation in "singleton mode" where each line of dialogue is delivered one-by-one, like any number of visual novels or RPGs. If we write out the following YarnScript in a node like so:
 
 ```yarn
 This is the first line.
