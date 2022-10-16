@@ -1,8 +1,12 @@
 # Setup Reference
 
+All functions on this page are prefixed with `Chatterbox`.
+
 &nbsp;
 
-### `ChatterboxLoadFromFile(filename, [aliasName])`
+### `...LoadFromFile()`
+
+_Full function name:_ `ChatterboxLoadFromFile(filename, [aliasName])`
 
 _Returns:_ N/A (`undefined`)
 
@@ -15,7 +19,9 @@ If you use this function to reload a file (i.e. using the same filename as an ex
 
 &nbsp;
 
-### `ChatterboxLoadFromString(filename, string)`
+### `...LoadFromString()`
+
+_Full function name:_ `ChatterboxLoadFromString(filename, string)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -30,7 +36,9 @@ If you use this function to reload a file (i.e. load a buffer using the same fil
 
 &nbsp;
 
-### `ChatterboxLoadFromBuffer(filename, buffer)`
+### `...LoadFromBuffer()`
+
+_Full function name:_ `ChatterboxLoadFromBuffer(filename, buffer)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -45,7 +53,9 @@ If you use this function to reload a file (i.e. load a buffer using the same fil
 
 &nbsp;
 
-### `ChatterboxUnload(filename)`
+### `...Unload()`
+
+_Full function name:_ `ChatterboxUnload(filename)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -57,7 +67,9 @@ Frees memory associated with the source. All in-progress [chatterboxes](concept-
 
 &nbsp;
 
-### `ChatterboxIsLoaded(filename)`
+### `...IsLoaded()`
+
+_Full function name:_ `ChatterboxIsLoaded(filename)`
 
 _Returns:_ Boolean, if the given file has been loaded as a [source file](concept-source-files)
 
@@ -67,7 +79,9 @@ _Returns:_ Boolean, if the given file has been loaded as a [source file](concept
 
 &nbsp;
 
-### `ChatterboxAddFunction(name, function)`
+### `...AddFunction()`
+
+_Full function name:_ `ChatterboxAddFunction(name, function)`
 
 _Returns:_ Boolean, whether the function was added successfully
 
@@ -106,7 +120,9 @@ Custom functions can be added at any point but should be added before loading in
 
 &nbsp;
 
-### `ChatterboxAddFindReplace(oldString, newString)`
+### `...AddFindReplace()`
+
+_Full function name:_ `ChatterboxAddFindReplace(oldString, newString)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -119,7 +135,9 @@ Find-replace operations are applied to all source files on load. These operation
 
 &nbsp;
 
-### `ChatterboxSourceNodeExists(sourceName, nodeTitle)`
+### `...SourceNodeExists()`
+
+_Full function name:_ `ChatterboxSourceNodeExists(sourceName, nodeTitle)`
 
 _Returns:_ Boolean, if the given node exists in the given source
 
@@ -130,7 +148,9 @@ _Returns:_ Boolean, if the given node exists in the given source
 
 &nbsp;
 
-### `ChatterboxSourceNodeCount(sourceName)`
+### `...SourceNodeCount()`
+
+_Full function name:_ `ChatterboxSourceNodeCount(sourceName)`
 
 _Returns:_ Integer, the number of nodes in the source
 
@@ -140,7 +160,9 @@ _Returns:_ Integer, the number of nodes in the source
 
 &nbsp;
 
-### `ChatterboxSourceGetTags(sourceName)`
+### `...SourceGetTags()`
+
+_Full function name:_ `ChatterboxSourceGetTags(sourceName)`
 
 _Returns:_ Array, the metadata tags associated with the source
 
