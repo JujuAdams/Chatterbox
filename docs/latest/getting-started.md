@@ -140,6 +140,12 @@ Finally, you can completely stop processing in a chatterbox using `ChatterboxSto
 
 ### Drawing chatterbox text
 
+Chatterbox is, ultimately, a string delivery device with some clever logic attached to it. You are responsible for marshalling, queuing, and displaying text that Chatterbox returns. To this end, the output functions that are available in Chatterbox are very simple. They're split into two kinds: **content** and **options**.
+
+Content is plain text that is intended to be displayed to the player for them to read. You might want to come up with your own text formatting system or a particular syntax for controlling the details of text rendering, but to Chatterbox, all content is plain text. In singleton mode, the default setting for Chatterbox, you should only receive one content string at a time which correlates to each individiual line of text in a YarnScript node. Regardless, you can find the number of content strings that a chatterbox is handing over to you by using `ChatterboxGetContentCount()` and you can read each individual piece of content using `ChatterboxGetContent()`.
+
+?> In non-singleton mode, you may receive many content strings at a time. Each line of text will be returned as a separate content string. If you're intending on displaying multiple lines of text using newlines, you may want to consider using `ChatterboxGetAllContentString()`.
+
 &nbsp;
 
 ## Further YarnScript features
