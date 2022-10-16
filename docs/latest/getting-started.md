@@ -10,7 +10,7 @@ Chatterbox offers a lot of ways to [configure](reference-configuration) the way 
 
 ## YarnScript
 
-As mentioned, chatterboxes read instructions written in a language called YarnScript. You can find detailed information about YarnScript in [here](concept-yarn-script) in Chatterbox's documentation. YarnScript files are made out of nodes, and nodes contain lines of instructions. Every node in a YarnScript file has a unique name, and node names cannot contain spaces. You can also attach metadata to nodes should you wish, though we won't cover that in this particular guide. Beyond requiring a certain structure, YarnScript files themselves are "just text files" and you can edit them by hand if needed.
+As mentioned, chatterboxes read instructions written in a language called YarnScript. You can find detailed information about Chatterbox's implementation of YarnScript [here](concept-yarn-script). YarnScript files are made out of nodes, and nodes contain lines of instructions. Every node in a YarnScript file has a unique name, and node names cannot contain spaces. You can also attach metadata to nodes should you wish, though we won't cover that in this particular guide. Beyond requiring a certain structure, YarnScript files themselves are "just text files" and you can edit them by hand if needed.
 
 ?> We recommend that you use the free visual edtior [Crochet](https://github.com/FaultyFunctions/Crochet) developed by [FaultyFunctions](https://twitter.com/faultyfunctions/). Crochet removes a lot of the organisational hurdles of writing YarnScript and gets you straight to writing dialogue.
 
@@ -227,3 +227,5 @@ else
 &nbsp;
 
 ## Further YarnScript features
+
+YarnScript is considerably more complex than showing content and options and navigating through branching dialogue. YarnScript offers you variables, conditional logic, metadata, string insertion and so much more.
