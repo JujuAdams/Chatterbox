@@ -1,8 +1,14 @@
-# Variables Reference
+# Variables and Constants Reference
+
+Functions on this page allow you to declare, access, and manipulate variables stored inside the Chatterbox library. Variables are shared across all individual chatterbox instances and are therefore "global" in scope. All functions on this page are prefixed with `ChatterboxVariable` or `ChatterboxVariables` (depending on scope).
+
+?> Whilst it's tempting to want to directly manipulate variables in standard GML code using Chatterbox, this often leads to confusion over why variables are changing value and is further unsafe from a security standpoint. As a result, Chatterbox variables are stored in their own sandbox and it is not possible to modify or access GML variables out-of-the-box.
 
 &nbsp;
 
-### `ChatterboxVariableDefault(name)`
+### `...Default(name)`
+
+_Full function name:_ `ChatterboxVariableDefault()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -17,7 +23,9 @@ This function sets the default value for a Chatterbox variable. This is equivale
 
 &nbsp;
 
-### `ChatterboxVariableGet(name)`
+### `...Get(name)`
+
+_Full function name:_ `ChatterboxVariableGet()`
 
 _Returns:_ The value for the given Chatterbox variable
 
@@ -29,7 +37,9 @@ Returns the value stored in a Chatterbox variable.
 
 &nbsp;
 
-### `ChatterboxVariableSet(name, value)`
+### `...Set(name, value)`
+
+_Full function name:_ `ChatterboxVariableSet()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -44,7 +54,9 @@ Sets the value of a Chatterbox variable. Chatterbox variables must be strings, b
 
 &nbsp;
 
-### `ChatterboxVariableSetConstant(name, value)`
+### `...SetConstant(name, value)`
+
+_Full function name:_ `ChatterboxVariableSetConstant()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -60,11 +72,13 @@ Equivalent to the `<<constant>>` action in YarnScript. Setting a Chatterbox vari
 
 Chatterbox constants can still have their value read by `ChatterboxVariableGet()` and can be found using `ChatterboxVariableFind()`.
 
-?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `SCREAMING_SNAKE_CASE` for variable names.
+?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `SCREAMING_SNAKE_CASE` for constant names.
 
 &nbsp;
 
-### `ChatterboxVariableReset(name, value)`
+### `...Reset(name, value)`
+
+_Full function name:_ `ChatterboxVariableResetConstant()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -76,7 +90,9 @@ Resets the value of a Chatterbox variable to its default starting value, either 
 
 &nbsp;
 
-### `ChatterboxVariablesResetAll()`
+### `...ResetAll()`
+
+_Full function name:_ `ChatterboxVariablesResetConstant()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -88,7 +104,9 @@ Resets the value of **all** Chatterbox variables (including `visited()` state) t
 
 &nbsp;
 
-### `ChatterboxVariablesExport()`
+### `...Export()`
+
+_Full function name:_ `ChatterboxVariablesExport()`
 
 _Returns:_ String, a JSON string that contains all Chatterbox variables and their values
 
@@ -100,7 +118,9 @@ The returned string also contains data on what nodes have been visited. This fun
 
 &nbsp;
 
-### `ChatterboxVariablesImport(string)`
+### `...Import(string)`
+
+_Full function name:_ `ChatterboxVariablesImport()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -112,7 +132,9 @@ This function overwrites all Chatterbox variables, excluding constants, with wha
 
 &nbsp;
 
-### `ChatterboxVariablesClearVisited(node, filename)`
+### `...ClearVisited(node, filename)`
+
+_Full function name:_ `ChatterboxVariablesClearVisited()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -125,7 +147,9 @@ Clears the visited state, as returned by the YarnScript native function `visited
 
 &nbsp;
 
-### `ChatterboxVariablesClearVisitedAll()`
+### `...ClearVisitedAll()`
+
+_Full function name:_ `ChatterboxVariablesClearVisitedAll()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -137,7 +161,9 @@ Clears the visited state, as returned by YarnScript native function `visited()`,
 
 &nbsp;
 
-### `ChatterboxVariableFind(substring, mode, caseSensitive)`
+### `...Find(substring, mode, caseSensitive)`
+
+_Full function name:_ `ChatterboxVariableFind()`
 
 _Returns:_ Array, variables names that match the given search substring and mode
 
