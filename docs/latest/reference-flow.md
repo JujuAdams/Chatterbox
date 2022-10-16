@@ -49,6 +49,38 @@ Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait
 
 &nbsp;
 
+### `...Hop()`
+
+_Full function name:_ `ChatterboxHop(chatterbox, nodeTitle, [filename])`
+
+_Returns:_ N/A (`undefined`)
+
+|Name        |Datatype                          |Purpose                                                                                                                                                                 |
+|------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                                                                        |
+|`nodeTitle` |string                            |Name of the node to jump to                                                                                                                                             |
+|`[filename]`|string                            |[Source file](concept-source-files) to target. If not specified, the current [source file](concept-source-files) for the [chatterbox](concept-chatterboxes) will be used|
+
+This function pushes the current node (and position in the node) to an internal stack, and then jumps to a specific node in a [source file](concept-source-files). You can then hop back to where you left off by calling `ChatterboxHopBack()`.
+
+!> The hop stack is not available to be manually accessed or modified. The hop stack cannot be exported or imported. You should not rely on the hop stack to exist if you're handling savedata.
+
+&nbsp;
+
+### `...HopBack()`
+
+_Full function name:_ `ChatterboxHopBack(chatterbox)`
+
+_Returns:_ N/A (`undefined`)
+
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+
+This function pops a node and position from the internal stack, and then jumps to that specific node and position. Please see `ChatterboxHop()` above for more information.
+
+&nbsp;
+
 ### `...Wait()`
 
 _Full function name:_ `ChatterboxWait(chatterbox)`
