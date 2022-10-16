@@ -72,13 +72,25 @@ _Typical value:_ `0`
 1. Treat directions as expressions
 2. Treat directions as they were in version 1 (Python-esque function calls)
 
+**`CHATTERBOX_DIRECTION_MODE` = 0**
+
+This is the officially recommended behaviour. The full contents of the direction (everything between `<<` and `>>`) are passed as a string to a function for parsing and execution by the developer (you). I think this behaviour is stupid but I've included it here because technically that is what the YarnScript specification says. You can set the function that receives the direction string by setting `CHATTERBOX_DIRECTION_FUNCTION`. Exactly what syntax you use for directions is therefore completely up to you.
+
+**`CHATTERBOX_DIRECTION_MODE` = 1**
+
+Chatterbox will treat directions as expressions to be executed in a similar manner to in-line expressions. This is covenient if you want to treat directions as little snippets of code that Chatterbox can run. Syntax for directions becomes the same as in-line expressions, which is broadly similar to "standard" GML syntax. Functions that you wish to execute must be added by calling ChatterboxAddFunction(). An example would be: `<<giveItem("amulet", 1)>>`
+
+**`CHATTERBOX_DIRECTION_MODE` = 2**
+
+Chatterbox will treat directions as expressions with a greatly simplified syntax. This is useful for writers and narrative designers who are less familiar with the particulars of coding and instead want to use a simple syntax to communicate with the underlying GameMaker application. The direction is sliced into arguments using spaces as delimiters. The first token in the direction is the name of the function call, as added by `ChatterboxAddFunction()`. Subsequent tokens are passed to the function call with each token being a function parameter. All parameters are passed as strings. If a parameter needs to contain a space then you may enclose the string in `"` double quote marks. An example, analogous to the example above, would be: `<<giveItem amulet 1>>`.
+
 &nbsp;
 
 ### `CHATTERBOX_DIRECTION_FUNCTION`
 
 _Typical value:_ `TestCaseDirectionFunction`
 
-Function to use to handle directions. This only applies in mode `0` (see below.
+Function to use to handle directions. This only applies in mode `0` (see below).
 
 &nbsp;
 
