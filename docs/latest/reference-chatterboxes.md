@@ -2,7 +2,9 @@
 
 &nbsp;
 
-### `ChatterboxCreate([filename], [singletonText]), [localScope])`
+### `ChatterboxCreate()`
+
+_Full function name:_ `ChatterboxCreate([filename], [singletonText]), [localScope])`
 
 _Returns:_ A new [chatterbox](concept-chatterboxes)
 
@@ -21,6 +23,8 @@ However, if `singletonText` is set to `false` then dialogue will be outputted mu
 ---
 
 ### `IsChatterbox(value)`
+
+_Full function name:_ `IsChatterbox(value)`
 
 _Returns:_ Boolean, whether the given value is a [chatterbox](concept-chatterboxes)
 
