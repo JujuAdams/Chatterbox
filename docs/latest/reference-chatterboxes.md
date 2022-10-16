@@ -1,4 +1,4 @@
-# Chatterboxes Reference
+# Chatterboxes
 
 Functions on this page relate to chatterboxes, the basic machines that use source files as input and output strings of text that you can display in your game. Most functions on this page are prefixed with `Chatterbox`.
 
