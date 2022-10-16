@@ -1,6 +1,6 @@
 # Setup Reference
 
-All functions on this page are prefixed with `Chatterbox`.
+Functions on this page relate to setting up how Chatterbox loads and interprets source files. All functions on this page are prefixed with `Chatterbox`.
 
 &nbsp;
 
