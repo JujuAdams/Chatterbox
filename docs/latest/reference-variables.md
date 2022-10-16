@@ -1,4 +1,4 @@
-# Variables and Constants Reference
+# Variable and Constants Reference
 
 Functions on this page allow you to declare, access, and manipulate variables stored inside the Chatterbox library. Variables are shared across all individual chatterbox instances and are therefore "global" in scope. All functions on this page are prefixed with `ChatterboxVariable` or `ChatterboxVariables` (depending on scope).
 
@@ -8,7 +8,7 @@ Functions on this page allow you to declare, access, and manipulate variables st
 
 ### `...Default(name)`
 
-_Full function name:_ `ChatterboxVariableDefault()`
+_Full function name:_ `ChatterboxVariableDefault(name)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -23,9 +23,9 @@ This function sets the default value for a Chatterbox variable. This is equivale
 
 &nbsp;
 
-### `...Get(name)`
+### `...Get()`
 
-_Full function name:_ `ChatterboxVariableGet()`
+_Full function name:_ `ChatterboxVariableGet(name)`
 
 _Returns:_ The value for the given Chatterbox variable
 
@@ -37,9 +37,9 @@ Returns the value stored in a Chatterbox variable.
 
 &nbsp;
 
-### `...Set(name, value)`
+### `...Set()`
 
-_Full function name:_ `ChatterboxVariableSet()`
+_Full function name:_ `ChatterboxVariableSet(name, value)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -54,9 +54,9 @@ Sets the value of a Chatterbox variable. Chatterbox variables must be strings, b
 
 &nbsp;
 
-### `...SetConstant(name, value)`
+### `...SetConstant()`
 
-_Full function name:_ `ChatterboxVariableSetConstant()`
+_Full function name:_ `ChatterboxVariableSetConstant(name, value)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -76,9 +76,9 @@ Chatterbox constants can still have their value read by `ChatterboxVariableGet()
 
 &nbsp;
 
-### `...Reset(name, value)`
+### `...Reset()`
 
-_Full function name:_ `ChatterboxVariableResetConstant()`
+_Full function name:_ `ChatterboxVariableReset(name)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -92,7 +92,7 @@ Resets the value of a Chatterbox variable to its default starting value, either 
 
 ### `...ResetAll()`
 
-_Full function name:_ `ChatterboxVariablesResetConstant()`
+_Full function name:_ `ChatterboxVariablesResetAll()`
 
 _Returns:_ N/A (`undefined`)
 
@@ -120,7 +120,7 @@ The returned string also contains data on what nodes have been visited. This fun
 
 ### `...Import(string)`
 
-_Full function name:_ `ChatterboxVariablesImport()`
+_Full function name:_ `ChatterboxVariablesImport(string)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -132,9 +132,9 @@ This function overwrites all Chatterbox variables, excluding constants, with wha
 
 &nbsp;
 
-### `...ClearVisited(node, filename)`
+### `...ClearVisited()`
 
-_Full function name:_ `ChatterboxVariablesClearVisited()`
+_Full function name:_ `ChatterboxVariablesClearVisited(node, filename)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -161,9 +161,9 @@ Clears the visited state, as returned by YarnScript native function `visited()`,
 
 &nbsp;
 
-### `...Find(substring, mode, caseSensitive)`
+### `...Find()`
 
-_Full function name:_ `ChatterboxVariableFind()`
+_Full function name:_ `ChatterboxVariableFind(substring, mode, caseSensitive)`
 
 _Returns:_ Array, variables names that match the given search substring and mode
 
