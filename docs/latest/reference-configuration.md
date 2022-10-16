@@ -8,7 +8,6 @@ The `__ChatterboxConfig()` script contains a multitude of macros that you can us
 
 |Macro                                    |Typical value                  |Purpose                                                                                                                                                               |
 |-----------------------------------------|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`CHATTERBOX_VARIABLES_MAP`               |`global.chatterboxVariablesMap`|Global variable to use to store Chatterbox variables                                                                                                                  |
 |`CHATTERBOX_DEFAULT_SINGLETON`           |`true`                         |Whether chatterboxes should default to being singleton                                                                                                                |
 |`CHATTERBOX_ALLOW_SCRIPTS`               |`true`                         |Whether to allow scripts to be added as Chatterbox functions                                                                                                          |
 |`CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS`    |`true`                         |Whether to execute callbacks with an array of arguments. Setting this to `false` will execute callbacks with individual arguments                                     |
