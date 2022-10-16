@@ -12,7 +12,7 @@ _Returns:_ N/A (`undefined`)
 
 |Name         |Datatype|Purpose                                                                                        |
 |-------------|--------|-----------------------------------------------------------------------------------------------|
-|`filename`   |string  |Name of the file to add as a [source file](concept-source-files)                               |
+|`filename`   |string  |Name of the file to load as a [source file](concept-source-files)                              |
 |`[aliasName]`|string  |Optional name to use when referencing this file. If not specified, the filename is used instead|
 
 If you use this function to reload a file (i.e. using the same filename as an existing [source file](concept-source-files)) then all in-progress [chatterboxes](concept-chatterboxes) that were using the previous [source file](concept-source-files) will be invalidated and will need to be restarted.
@@ -25,10 +25,10 @@ _Full function name:_ `ChatterboxLoadFromString(filename, string)`
 
 _Returns:_ N/A (`undefined`)
 
-|Name      |Datatype|Purpose                                                 |
-|----------|--------|--------------------------------------------------------|
-|`filename`|string  |Name to use to reference the buffer                     |
-|`string`  |string  |String to parse as a [source file](concept-source-files)|
+|Name       |Datatype|Purpose                                                                   |
+|-----------|--------|--------------------------------------------------------------------------|
+|`aliasName`|string  |Name to use to reference the string (the "filename" to use for the string)|
+|`string`   |string  |String to parse as a [source file](concept-source-files)                  |
 
 Loads a string as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The string should be formatted as a `.yarn` file. See the [Source Files](concept-source-files) pages for more information.
 
@@ -42,12 +42,12 @@ _Full function name:_ `ChatterboxLoadFromBuffer(filename, buffer)`
 
 _Returns:_ N/A (`undefined`)
 
-|Name      |Datatype                                                                                |Purpose                                               |
-|----------|----------------------------------------------------------------------------------------|------------------------------------------------------|
-|`filename`|string                                                                                  |Name to use to reference the buffer                   |
-|`buffer`  |[buffer](https://manual.yoyogames.com/Additional_Information/Guide_To_Using_Buffers.htm)|Buffer to use as a [source file](concept-source-files)|
+|Name       |Datatype                                                                                |Purpose                                                                   |
+|-----------|----------------------------------------------------------------------------------------|--------------------------------------------------------------------------|
+|`aliasName`|string                                                                                  |Name to use to reference the buffer (the "filename" to use for the buffer)|
+|`buffer`   |[buffer](https://manual.yoyogames.com/Additional_Information/Guide_To_Using_Buffers.htm)|Buffer to use as a [source file](concept-source-files)                    |
 
-Loads a buffer as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The buffer should contain a single string that is formatted as a .yarn file. See the [Source Files](concept-source-files) pages for more information.
+Loads a buffer as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The buffer should contain a single string that is formatted as a `.yarn` file. See the [Source Files](concept-source-files) pages for more information.
 
 If you use this function to reload a file (i.e. load a buffer using the same filename as an existing [source file](concept-source-files)) then all in-progress [chatterboxes](concept-chatterboxes) that were using the previous [source file](concept-source-files) will be invalidated and will need to be restarted.
 

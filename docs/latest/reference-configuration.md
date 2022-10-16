@@ -2,7 +2,7 @@
 
 The `__ChatterboxConfig()` script contains a multitude of macros that you can use to customise the behaviour of Chatterbox. `__ChatterboxConfig()` never needs to be directly called in code, but the script and the macros it contains must be present in a project for Chatterbox to work.
 
-!> You should edit this script to customise Chatterbox for your own purposes.
+!> You should edit `__ChatterboxConfig()` to customise Chatterbox for your own purposes.
 
 &nbsp;
 
