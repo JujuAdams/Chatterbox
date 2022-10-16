@@ -79,3 +79,33 @@ This example demonstrates a couple of more advanced concepts - the `<<set>>` act
 &nbsp;
 
 ## GML Implementation
+
+Chatterbox requires a little setup inside GameMaker before you can start interacting with your YarnScript. There are a few steps to start things up, and we'll go through them in detail, but here's an overview:
+
+1. Import the Chatterbox .yymps into your project
+2. Call `ChatterboxLoadFromFile()` to load the YarnScript source file from Included Files
+3. Call `ChatterboxCreate()` to create a new chatterbox to manage YarnScript processing
+4. Call various [flow control](reference-flow) functions to navigate your dialogue
+5. Extract [content](reference-content-getters) and [option](reference-option-getters) strings from the chatterbox
+
+### Importing Chatterbox
+
+Chatterbox is distributed as a .yymps file. This is a compressed file (literally a .zip!) that contains all the GML code that Chatterbox needs to run. You can find the latest release [here](https://github.com/JujuAdams/Chatterbox/releases) and it can be imported via the `Tools` dropdown menu then `Import Local Pakage`. Generally, you'll want to be on the latest stable version. You can always check what version you're using by checking the debug log - Chatterbox outputs its version on boot - or by reading the value of the `__CHATTERBOX_VERSION` macro. Make sure to import all the assets in the .yymps!
+
+### Loading your YarnScript source file
+
+Before you can create a chatterbox you'll need to load in a YarnScript file. Make sure you've added a source file to GameMaker as an "Included File" by saving it to the `\datafiles` directory in your project files.
+
+### Initializing a chatterbox
+
+&nbsp;
+
+### Flow control
+
+&nbsp;
+
+### Drawing chatterbox text
+
+&nbsp;
+
+## Further YarnScript features
