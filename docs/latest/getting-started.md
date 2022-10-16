@@ -12,6 +12,8 @@ Chatterbox offers a lot of ways to [configure](reference-configuration) the way 
 
 As mentioned, chatterboxes read instructions written in a language called YarnScript. You can find more information about YarnScript in [here](concept-yarn-script) in Chatterbox's documentation. Whilst it's possible to write YarnScript by hand in a text file, we recommend that you use the free [Crochet](https://github.com/FaultyFunctions/Crochet) editor developed by [FaultyFunctions](https://twitter.com/faultyfunctions/). Crochet removes a lot of the organisational hurdles and gets you straight to writing your script.
 
+Before we get stuck into writing YarnScript, a few words on structure: YarnScript files are made out of nodes, and nodes contain lines of instructions. Crochet allows you to visually edit and organise nodes. Every node in a YarnScript file has a unique name, and node names cannot contain spaces. You can also attach metadata to nodes should you wish, though we won't cover that in this particular guide. YarnScript files themselves are "just text files" and you can edit them by hand if needed.
+
 YarnScript is a procedural language just like GML. Instructions start at the top of a node and are executed from top to bottom, one at a time. Let's presume we've got Chatterbox set up for operation in "singleton mode" where each line of dialogue is delivered one-by-one, like any number of visual novels or RPGs. If we write out the following YarnScript in a node like so:
 
 ```yarn
@@ -116,9 +118,7 @@ chatterbox = ChatterboxCreate();
 ChatterboxJump(chatterbox, "StartNode");
 ```
 
-It's very important to hold a reference to the chatterbox that gets created by `ChatterboxCreate()` as you'll need it for all other API functions.
-
-?> In this case, because we've only loaded one source file, we don't need to specify a file for `ChatterboxCreate()`.
+It's very important to hold a reference to the chatterbox that gets created by `ChatterboxCreate()` as you'll need it for all other API functions. In this case, because we've only loaded one source file, we don't need to specify a file for `ChatterboxCreate()`. If you load more than one file you'll need to tell `ChatterboxCreate()` which file to start reading from. `ChatterboxCreate()` can be further customised by setting values for its optional arguments, and you can read more about what those do [here](reference-chatterboxes).
 
 ### Flow control
 
