@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Chatterbox",
-    "path": "folders/Chatterbox.yy",
+    "name": "Chatterboxes",
+    "path": "folders/Chatterbox/Chatterboxes.yy",
   },
   "resourceVersion": "1.0",
   "name": "ChatterboxCreate",
