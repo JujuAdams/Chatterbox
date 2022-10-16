@@ -94,19 +94,35 @@ Function to use to handle directions. This only applies in mode `0` (see below).
 
 &nbsp;
 
-### `CHATTERBOX_DECLARE_ON_COMPILE`
-
-_Typical value:_ `true`
-
-Whether to declare variables when Chatterbox script is compiled. Set to `false` for legacy (2.1 and earlier) behaviour.
-
-&nbsp;
-
 ### `CHATTERBOX_END_OF_NODE_HOPBACK`
 
 _Typical value:_ `true`
 
 Whether nodes without an explicit `<<stop>>` or `<<hopback>>` command at the end should default to `<<hopback>>`. Legacy behaviour (pre-2.7) is to set this to `false`.
+
+&nbsp;
+
+### `CHATTERBOX_SPEAKER_DELIMITER`
+
+_Typical value:_ `":"`
+
+Character that separates speaker (and speaker data) from speech. This can be any arbitrary string, potentially composed of multiple characters.
+
+&nbsp;
+
+### `CHATTERBOX_SPEAKER_DATA_START`
+
+_Typical value:_ `"["`
+
+Character that indicates where the speaker data string starts. This can be any arbitrary string, potentially composed of multiple characters.
+
+&nbsp;
+
+### `CHATTERBOX_SPEAKER_DATA_END`
+
+_Typical value:_ `"]"`
+
+WCharacter that indicates where the speaker data string ends. This can be any arbitrary string, potentially composed of multiple characters.
 
 &nbsp;
 
@@ -150,6 +166,20 @@ Directory inside Included Files that holds all external `.yarn` files. Use an em
 
 &nbsp;
 
+### `CHATTERBOX_DECLARE_ON_COMPILE`
+
+_Typical value:_ `true`
+
+Whether to declare variables when Chatterbox script is compiled. Set to `false` for legacy (2.1 and earlier) behaviour.
+
+&nbsp;
+
+### `CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE`
+
+_Typical value:_ `false`
+
+&nbsp;
+
 ### `CHATTERBOX_INDENT_TAB_SIZE`
 
 _Typical value:_ `4`
@@ -171,3 +201,43 @@ Separator to use to concatenate filenames to node names, used to reference nodes
 _Typical value:_ `true`
 
 Whether to throw an error when using a reasonable, though technically incorrect, syntax e.g. `<<end if>>` or `<<elseif>>`.
+
+&nbsp;
+
+### `CHATTERBOX_ERROR_UNDECLARED_VARIABLE`
+
+_Typical value:_ `true`
+
+Throws an error when trying to set a variable that has not been declared (either using `<<declare>>` or `ChatterboxVariableDefault()`).
+
+&nbsp;
+
+### `CHATTERBOX_ERROR_UNSET_VARIABLE`
+
+_Typical value:_ `true`
+
+Throws an error when trying to read a variable that doesn't exist.
+
+&nbsp;
+
+### `CHATTERBOX_ERROR_REDECLARED_VARIABLE`
+
+_Typical value:_ `true`
+
+Throws an error when trying to redeclare a variable (either using `<<declare>>` or `ChatterboxVariableDefault()`).
+
+&nbsp;
+
+### `CHATTERBOX_ERROR_NO_LOCAL_SCOPE`
+
+_Typical value:_ `true`
+
+Throws an error when trying to execute a function without a local scope being available.
+
+&nbsp;
+
+### `CHATTERBOX_VARIABLE_MISSING_VALUE`
+
+_Typical value:_ `0`
+
+Value to return from a variable that doesn't exist. This is only relevant if `CHATTERBOX_ERROR_UNSET_VARIABLE` is `false` and the `default` argument for `ChatterboxVariableGet()` has not been specified.
