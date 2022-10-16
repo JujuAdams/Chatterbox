@@ -22,7 +22,9 @@ A second line.
 And, finally, a third line.
 ```
 
-...then what we'll get in Chatterbox is three separate lines of text in the order that we wrote them. Straightforward lines of text to be displayed to the player are called **content**. Lines of dialogue typically comprise the majority of a node. We'll discuss later how to actually read **content** strings in GML, but for now let's talk a bit more about YarnScript.
+...then what we'll get in Chatterbox is three separate lines of text in the order that we wrote them. Straightforward lines of text to be displayed to the player are called **content**. Lines of dialogue typically comprise the majority of a node. We'll discuss later how to actually read **content** strings in GML.
+
+!> Once chatterbox reaches the end of a node it puts the chatterbox into a stopped state. If you want a node to flow into another node automatically you should use the `<<jump>>` action, explained a little later in this guide.
 
 YarnScript also supports **options**. Options come in blocks and you can have any number of options in a block which means you can have a single-choice option block if you'd like. Options work similarly to a line of dialogue but have a `->` little arrow at the start of the line.
 
@@ -103,6 +105,8 @@ Before you can create a chatterbox you'll need to load in a YarnScript file. Mak
 ChatterboxLoadFromFile("example.yarn");
 ```
 
+Once a source file has been loaded it can be accessed from anywhere by a chatterbox. You will encounter errors if a source file has not been loaded and you try to use it so be careful how you structure your YarnScript.
+
 ?> The first file that you load becomes the "default" source file for Chatterbox.
 
 !> Chatterbox parses and compiles YarnScript files when loaded for better performance later; as a result, you may find that there's a short hang when loading large YarnScript files. You should try to load YarnScript files during a loading screen to minimise disruption to the user experience.
@@ -122,7 +126,17 @@ It's very important to hold a reference to the chatterbox that gets created by `
 
 ### Flow control
 
-&nbsp;
+Flow control functions are the way that you as a developer control how Chatterbox moves around inside a YarnScript file. You can see a full list of flow control functions [here](reference-flow).
+
+`ChatterboxJump()`, used above in the GML example, is one of these "flow control" functions, and is analogous to the `<<jump>>` action that's available for use in YarnScript itself. Whenever either the GML function or the YarnScript action are called, a chatterbox will jump to the specified node and start processing instruction from the top of that node.
+
+In singleton mode, the default processing mode for Chatterbox, each line of content is delivered one at a time. This means that after processing each line of dialogue (and if there are no options that come after that line of dialogue) a chatterbox will enter a "waiting" state. You can detect when a chatterbox is waiting by using the `ChatterboxIsWaiting()` function. In order to get a chatterbox to proceed onto the next line of dialogue, you must call the `ChatterboxContinue()` function.
+
+?> If you are not in singleton mode, you can force a chatterbox to wait at a particular line by using the `<<wait>>` action in YarnScript.
+
+As just mentioned, a chatterbox **won't** enter into a "waiting" state if there are any options that might need to be selected. If a chatterbox is waiting for an option to be selected, `ChatterboxContinue()` will do nothing. Instead, you should call `ChatterboxSelect()` to indicate which option the player has chosen. You can check how many options are being presented to the player with the `ChatterboxGetOptionCount()` function. This function will return `0` if no option are present, and any number greater than `0` indicates that the chatterbox is waiting for user input.
+
+Finally, you can completely stop processing in a chatterbox using `ChatterboxStop()`, which is also analogous to the `<<stop>>` command that can be used in YarnScript itself. A stopped chatterbox will return no content nor options. If a chatterbox reaches the end of a node and there are no more instructions to run, it'll enter into this "stopped" state. You can check if a chatterbox has stopped using the `ChatterboxIsStopped()` GML function. You can use `ChatterboxJump()` to restart a chatterbox if stopped, should you wish to.
 
 ### Drawing chatterbox text
 
