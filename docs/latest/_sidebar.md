@@ -4,7 +4,7 @@
 
 **Concepts**
 
--   [Yarn Script](concept-yarn-script)
+-   [YarnScript](concept-yarn-script)
 -   [Source Files](concept-source-files)
 -   [Chatterboxes](concept-chatterboxes)
 -   [Speakers](concept-speakers)

@@ -1,4 +1,4 @@
-# Yarn Script
+# YarnScript
 
 ---
 
@@ -6,7 +6,7 @@
 
 ## Introduction
 
-Chatterbox is an implementation of the Yarn scripting language. However, Chatterbox does slightly extend its functionality,
+Chatterbox is an implementation of the YarnScripting language. However, Chatterbox does slightly extend its functionality,
 adding more control to variable handling. This enables convenient direct access of GML variables from inside the dialogue script.
 Please see the [Variables & Conditionals](concept-yarn-script#variables-amp-conditionals) and [Functions](concept-yarn-script#functions) sections for more information. Chatterbox additionally allows redirects and options to
 point to nodes found in other [source files](concept-source-files).
@@ -19,7 +19,7 @@ of Yarn usage, see the [offical Yarn tutorial](https://yarnspinner.dev/docs/tuto
 
 ## Nodes
 
-Nodes act as containers for Yarn script, and must have unique titles within each [source file](concept-source-files). The script in the body of a node is processed line by line. A node's header contains its metadata - by default, Yarn only uses the title field, but can be extended to use arbitrary fields.
+Nodes act as containers for YarnScript, and must have unique titles within each [source file](concept-source-files). The script in the body of a node is processed line by line. A node's header contains its metadata - by default, Yarn only uses the title field, but can be extended to use arbitrary fields.
 
 ```yarn
 title: ExampleNodeName
@@ -38,7 +38,7 @@ Additionally, Yarn can check if a node has been visited by calling `visited("Nod
 
 ## Options
 
-Options allow for small branches in Yarn scripts without requiring extra nodes. Options can have any number of sub-branches, but it's recommended that branching is kept somewhat limited for the sake of script readability.
+Options allow for small branches in YarnScripts without requiring extra nodes. Options can have any number of sub-branches, but it's recommended that branching is kept somewhat limited for the sake of script readability.
 
 ```yarn
 Mae: What did you say to her?

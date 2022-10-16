@@ -1,13 +1,13 @@
 # Chatterboxes
 
-A chatterbox is a dialogue container, effectively a little virtual machine that lives inside your game. Chatterboxes handle story flow, they store dialogue content and options text, and they set variables and execute functions when directed to by [Yarn script](concept-yarn-script).
+A chatterbox is a dialogue container, effectively a little virtual machine that lives inside your game. Chatterboxes handle story flow, they store dialogue content and options text, and they set variables and execute functions when directed to by [YarnScript](concept-yarn-script).
 
 Chatterboxes are created with the [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope) but chatterboxes **do not** need to be deleted, destroyed, or freed (unlike GameMaker's native [data structures](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Surfaces/Surfaces.htm) or [surfaces](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Surfaces/Surfaces.htm)). The memory that each chatterbox uses is automatically freed when you lose reference to the chatterbox (much like an array or a struct).
 
-To initialise a chatterbox, call [`ChatterboxJump()`](reference-flow#chatterboxjumpchatterbox-nodetitle-filename) targetting the desired node. When you call [`ChatterboxJump()`](reference-flow#chatterboxjumpchatterbox-nodetitle-filename) (or in fact any of the [Flow functions](reference-flow)), the chatterbox runs your Yarn script a bit like a simple computer programme. The programme will continue running until one of three things happens:
+To initialise a chatterbox, call [`ChatterboxJump()`](reference-flow#chatterboxjumpchatterbox-nodetitle-filename) targetting the desired node. When you call [`ChatterboxJump()`](reference-flow#chatterboxjumpchatterbox-nodetitle-filename) (or in fact any of the [Flow functions](reference-flow)), the chatterbox runs your YarnScript a bit like a simple computer programme. The programme will continue running until one of three things happens:
 
 1. The chatterbox has hit a `<<wait>>` command, or the chatterbox is in [singleton mode](reference-configuration#chatterboxcreatefilename-singletontext-localscope) and a line of dialogue has been processed
-2. The Yarn script has hit a `<<stop>>` command or there's no more dialogue to show
+2. The YarnScript has hit a `<<stop>>` command or there's no more dialogue to show
 3. The player needs to select an option
 
 ?> Chatterbox packages are distributed with [singleton mode](reference-configuration#chatterboxcreatefilename-singletontext-localscope) switched on by default. Please read the documentation on [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope) and [`__ChatterboxConfig()`](reference-configuration#__chatterboxconfig) for more information.

@@ -85,10 +85,10 @@ _Full function name:_ `ChatterboxAddFunction(name, function)`
 
 _Returns:_ Boolean, whether the function was added successfully
 
-|Name      |Datatype       |Purpose                            |
-|----------|---------------|-----------------------------------|
-|`name`    |string         |Function name to use in Yarn script|
-|`function`|function/method|GML function to call               |
+|Name      |Datatype       |Purpose                           |
+|----------|---------------|----------------------------------|
+|`name`    |string         |Function name to use in YarnScript|
+|`function`|function/method|GML function to call              |
 
 Adds a custom function that can be called by Yarn expressions.
 
@@ -114,7 +114,7 @@ No, not yet!
 
 This example shows how the script `am_i_dead()` is called by Chatterbox in an if statement. The value returned from `am_i_dead()` determines which text is displayed.
 
-Parameters for custom functions executed by Yarn script should be separated by spaces. The parameters are passed into the given function as an array of values as `argument0`.
+Parameters for custom functions executed by YarnScript should be separated by spaces. The parameters are passed into the given function as an array of values as `argument0`.
 
 Custom functions can be added at any point but should be added before loading in any source files.
 

@@ -29,12 +29,12 @@ Yarn files can be written by hand, but the best way to start with Yarn is to use
     Yarn looks similar to [Twine](https://twinery.org/) in many ways, but avoids the trappings of that tool. There's no [debating what version to use](https://www.reddit.com/r/twinegames/comments/eic3na/which_version_should_i_start_with/) or what particular standard is best like with Twine - Yarn has a single standard. The [visual editor](https://faultyfunctions.github.io/Crochet/) should feel comfortable for anyone who's worked in narrative design before.
 
 -   **Tools**<br>
-    Chatterbox is designed to be easy to implement and easy to make games with. [Yarn script](concept-yarn-script) can be written by hand or, more commonly, an editor is used to write your stories. There's a [web editor](https://faultyfunctions.github.io/Crochet/) as well as [Windows, MacOS, & Ubuntu](https://github.com/FaultyFunctions/Crochet/releases) binaries. Chatterbox loads in Yarn files straight from your [Included Files](https://manual.yoyogames.com/Settings/Included_Files.htm) with a [single command](reference-configuration#chatterboxloadfromfilefilename-aliasname) without any other setup.
+    Chatterbox is designed to be easy to implement and easy to make games with. [YarnScript](concept-yarn-script) can be written by hand or, more commonly, an editor is used to write your stories. There's a [web editor](https://faultyfunctions.github.io/Crochet/) as well as [Windows, MacOS, & Ubuntu](https://github.com/FaultyFunctions/Crochet/releases) binaries. Chatterbox loads in Yarn files straight from your [Included Files](https://manual.yoyogames.com/Settings/Included_Files.htm) with a [single command](reference-configuration#chatterboxloadfromfilefilename-aliasname) without any other setup.
 
 -   **Community**<br>
     Yarn has a thriving community of narrative designers. The maintainers of Yarn run a [Slack group](http://lab.to/narrativegamedev) & [Discord server](https://discord.gg/yarnspinner), and [YarnSpinner](https://github.com/YarnSpinnerTool/) and [Crochet](https://faultyfunctions.github.io/Crochet/) (community maintained editor for Yarn v2) are constantly being updated. Chatterbox has a lively community too, based around our [Discord server](https://discord.gg/8krYCqr).
 
-?> For a full explanation of Yarn's features and syntax, please read the [Yarn Script](concept-yarn-script) page.
+?> For a full explanation of Yarn's features and syntax, please read the [YarnScript](concept-yarn-script) page.
 
 ## About & Support
 
