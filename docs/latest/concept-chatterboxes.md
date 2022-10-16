@@ -1,7 +1,5 @@
 # Chatterboxes
 
----
-
 A chatterbox is a dialogue container, effectively a little virtual machine that lives inside your game. Chatterboxes handle story flow, they store dialogue content and options text, and they set variables and execute functions when directed to by [Yarn script](concept-yarn-script).
 
 Chatterboxes are created with the [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope) but chatterboxes **do not** need to be deleted, destroyed, or freed (unlike GameMaker's native [data structures](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Surfaces/Surfaces.htm) or [surfaces](https://manual.yoyogames.com/GameMaker_Language/GML_Reference/Drawing/Surfaces/Surfaces.htm)). The memory that each chatterbox uses is automatically freed when you lose reference to the chatterbox (much like an array or a struct).
