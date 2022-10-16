@@ -138,13 +138,91 @@ As just mentioned, a chatterbox **won't** enter into a "waiting" state if there 
 
 Finally, you can completely stop processing in a chatterbox using `ChatterboxStop()`, which is also analogous to the `<<stop>>` command that can be used in YarnScript itself. A stopped chatterbox will return no content nor options. If a chatterbox reaches the end of a node and there are no more instructions to run, it'll enter into this "stopped" state. You can check if a chatterbox has stopped using the `ChatterboxIsStopped()` GML function. You can use `ChatterboxJump()` to restart a chatterbox if stopped, should you wish to.
 
+Here's an example of how to set up very simple user input, taken from the basic example in the GitHub repo.
+
+```gml
+if (ChatterboxIsStopped(box))
+{
+    //If we're stopped then don't respond to user input
+}
+else if (ChatterboxIsWaiting(box))
+{
+    //If we're in a "waiting" state then let the user press <space> to advance dialogue
+    if (keyboard_check_released(vk_space))
+    {
+        ChatterboxContinue(box);
+    }
+}
+else
+{
+    //If we're not waiting then we have some options!
+    //Check for any keyboard input
+    var _index = undefined;
+    if (keyboard_check_released(ord("1"))) _index = 0;
+    if (keyboard_check_released(ord("2"))) _index = 1;
+    if (keyboard_check_released(ord("3"))) _index = 2;
+    if (keyboard_check_released(ord("4"))) _index = 3;
+    
+    //If we've pressed a button, select that option
+    if (_index != undefined) ChatterboxSelect(box, _index);
+}
+```
+
 ### Drawing chatterbox text
 
 Chatterbox is, ultimately, a string delivery device with some clever logic attached to it. You are responsible for marshalling, queuing, and displaying text that Chatterbox returns. To this end, the output functions that are available in Chatterbox are very simple. They're split into two kinds: **content** and **options**.
 
 Content is plain text that is intended to be displayed to the player for them to read. You might want to come up with your own text formatting system or a particular syntax for controlling the details of text rendering, but to Chatterbox, all content is plain text. In singleton mode, the default setting for Chatterbox, you should only receive one content string at a time which correlates to each individiual line of text in a YarnScript node. Regardless, you can find the number of content strings that a chatterbox is handing over to you by using `ChatterboxGetContentCount()` and you can read each individual piece of content using `ChatterboxGetContent()`.
 
-?> In non-singleton mode, you may receive many content strings at a time. Each line of text will be returned as a separate content string. If you're intending on displaying multiple lines of text using newlines, you may want to consider using `ChatterboxGetAllContentString()`.
+?> In non-singleton mode, you may receive many content strings at a time. Each line of text will be returned as a separate content string. If you're intending on displaying multiple lines of text using newlines, you may want to consider using `ChatterboxGetAllContentString()` to return a block of text.
+
+Similarly, options are also plain text. You can get the total number of options using `ChatterboxGetOptionCount()` and the text for each individual option with `ChatterboxGetOption()`. Options strings may be returned by a chatterbox at the same time as content strings depending on the layout of your YarnScript. Please read the previous section for more details.
+
+Exactly how and where you present content and options is up to you. Radial menu? Scrollable list? Roulette wheel? The choice is yours. Here's a very basic example of how to display content and options together taken from the basic example in the GitHub repo:
+
+```gml
+//Iterate over all text and draw it
+var _x = 10;
+var _y = 10;
+
+if (ChatterboxIsStopped(chatterbox))
+{
+    //If we're stopped then show that
+    draw_text(_x, _y, "(Chatterbox stopped)");
+}
+else
+{
+	//Draw all content
+    var _i = 0;
+    repeat(ChatterboxGetContentCount(chatterbox))
+    {
+        var _string = ChatterboxGetContent(chatterbox, _i);
+        draw_text(_x, _y, _string);
+        _y += string_height(_string);
+        ++_i;
+    }
+    
+    _y += 30; //Bit of spacing...
+
+    if (ChatterboxIsWaiting(chatterbox))
+    {
+        //If we're in a "waiting" state then prompt the user for basic input
+        draw_text(_x, _y, "(Press Space)");
+    }
+    else
+    {
+    	//Draw all options
+        var _i = 0;
+        repeat(ChatterboxGetOptionCount(chatterbox))
+        {
+            var _string = ChatterboxGetOption(chatterbox, _i);
+            draw_text(_x, _y, string(_i+1) + ") " + _string);
+            _y += string_height(_string);
+            ++_i;
+        }
+    }
+}
+```
 
 &nbsp;
 
