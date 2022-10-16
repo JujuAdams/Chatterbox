@@ -1,4 +1,4 @@
-# Variable and Constants Reference
+# Variables and Constants
 
 Functions on this page allow you to declare, access, and manipulate variables stored inside the Chatterbox library. Variables are shared across all individual chatterbox instances and are therefore "global" in scope. All functions on this page are prefixed with `ChatterboxVariable` or `ChatterboxVariables` (depending on scope).
 
