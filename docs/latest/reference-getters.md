@@ -1,82 +1,84 @@
 # Getters Reference
 
----
+&nbsp;
 
-### `ChatterboxGetVisited(nodeTitle, filename)`
+### `...GetVisited()`
+
+_Full function name:_ `ChatterboxGetVisited(nodeTitle, filename)`
 
 _Returns:_ Boolean, whether the given node has been visited
 
-| Name       | Datatype | Purpose                                                  |
-| ---------- | -------- | -------------------------------------------------------- |
-| `nodeTile` | string   | Name of the node to check                                |
-| `filename` | string   | Name of the [source file](concept-source-files) to check |
+|Name      |Datatype|Purpose                                                 |
+|----------|--------|--------------------------------------------------------|
+|`nodeTile`|string  |Name of the node to check                               |
+|`filename`|string  |Name of the [source file](concept-source-files) to check|
 
 &nbsp;
 
----
+### `...GetContent()`
 
-### `ChatterboxGetContent(chatterbox, contentIndex)`
+_Full function name:_ `ChatterboxGetContent(chatterbox, contentIndex)`
 
 _Returns:_ String, content with the given index
 
-| Name           | Datatype                           | Purpose                                          |
-| -------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
-| `contentIndex` | integer                            | Content item to return                           |
+|Name          |Datatype                          |Purpose                                         |
+|--------------|----------------------------------|------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`contentIndex`|integer                           |Content item to return                          |
 
 &nbsp;
 
----
+### `...GetAllContentString()`
 
-### `ChatterboxGetAllContentString(chatterbox, [separator])`
+_Full function name:_ `ChatterboxGetAllContentString(chatterbox, [separator])`
 
 _Returns:_ String, all individual content strings currently available in a chatterbox concatenated together, with a separator substring between each one
 
-| Name          | Datatype                           | Purpose                                                                                             |
-| ------------- | ---------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `chatterbox`  | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target                                                    |
-| `[separator]` | string                             | String to use to separate individual content strings. Defaults to a single newline character (`\n`) |
+|Name         |Datatype                          |Purpose                                                                                            |
+|-------------|----------------------------------|---------------------------------------------------------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                   |
+|`[separator]`|string                            |String to use to separate individual content strings. Defaults to a single newline character (`\n`)|
 
 ?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one content string at a time.
 
 &nbsp;
 
----
+### `...GetContentMetadata()`
 
-### `ChatterboxGetContentMetadata(chatterbox, contentIndex)`
+_Full function name:_ `ChatterboxGetContentMetadata(chatterbox, contentIndex)`
 
 _Returns:_ Array, the metadata tags associated with the content
 
-| Name           | Datatype                           | Purpose                                          |
-| -------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
-| `contentIndex` | integer                            | Content item to return                           |
+|Name          |Datatype                          |Purpose                                         |
+|--------------|----------------------------------|------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`contentIndex`|integer                           |Content item to return                          |
 
 &nbsp;
 
----
+### `...GetContentCount()`
 
-### `ChatterboxGetContentCount(chatterbox)`
+_Full function name:_ `ChatterboxGetContentCount(chatterbox)`
 
 _Returns:_ Integer, the total number of content strings in the given [chatterbox](concept-chatterboxes)
 
-| Name         | Datatype                           | Purpose                                          |
-| ------------ | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 &nbsp;
 
----
+### `...GetContentSpeech()`
 
-### `ChatterboxGetContentSpeech(chatterbox, contentIndex, [default])`
+_Full function name:_ `ChatterboxGetContentSpeech(chatterbox, contentIndex, [default])`
 
 _Returns:_ String
 
-| Name           | Datatype                           | Purpose                                                                                       |
-| -------------- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target                                              |
-| `contentIndex` | integer                            | Content item to return the speech for                                                         |
-| `[default]`    | any                                | Default value to return if no valid speech is found. If not specified this is an empty string |
+|Name          |Datatype                          |Purpose                                                                                      |
+|--------------|----------------------------------|---------------------------------------------------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                             |
+|`contentIndex`|integer                           |Content item to return the speech for                                                        |
+|`[default]`   |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
 
 This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetContentSpeech()` to work properly, line of text in your Yarn file should be formatted like so:
 
@@ -88,17 +90,17 @@ In this case, the "speech" part of this string is everything after the colon (`T
 
 &nbsp;
 
----
+### `...GetContentSpeaker()`
 
-### `ChatterboxGetContentSpeaker(chatterbox, contentIndex, [default])`
+_Full function name:_ `ChatterboxGetContentSpeaker(chatterbox, contentIndex, [default])`
 
 _Returns:_ String
 
-| Name           | Datatype                           | Purpose                                                                                       |
-| -------------- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target                                              |
-| `contentIndex` | integer                            | Content item to return the speaker for                                                        |
-| `[default]`    | any                                | Default value to return if no valid speech is found. If not specified this is an empty string |
+|Name          |Datatype                          |Purpose                                                                                      |
+|--------------|----------------------------------|---------------------------------------------------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                             |
+|`contentIndex`|integer                           |Content item to return the speaker for                                                       |
+|`[default]`   |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
 
 This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetContentSpeaker()` to work properly, line of text in your Yarn file should be formatted like so:
 
@@ -116,17 +118,17 @@ The speaker part of this string is everything before the speaker data start symb
 
 &nbsp;
 
----
+### `...GetContentSpeakerData()`
 
-### `ChatterboxGetContentSpeakerData(chatterbox, contentIndex, [default])`
+_Full function name:_ `ChatterboxGetContentSpeakerData(chatterbox, contentIndex, [default])`
 
 _Returns:_ String
 
-| Name           | Datatype                           | Purpose                                                                                       |
-| -------------- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target                                              |
-| `contentIndex` | integer                            | Content item to return the speaker data for                                                   |
-| `[default]`    | any                                | Default value to return if no valid speech is found. If not specified this is an empty string |
+|Name          |Datatype                          |Purpose                                                                                      |
+|--------------|----------------------------------|---------------------------------------------------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                             |
+|`contentIndex`|integer                           |Content item to return the speaker data for                                                  |
+|`[default]`   |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
 
 This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetContentSpeakerData()` to work properly, line of text in your Yarn file should be formatted like so:
 
@@ -138,130 +140,130 @@ In this case, the "speaker data" part of this string is everything between `[` a
 
 &nbsp;
 
----
+### `...GetContentArray()`
 
-### `ChatterboxGetContentArray(chatterbox)`
+_Full function name:_ `ChatterboxGetContentArray(chatterbox)`
 
 _Returns:_ Array, containing one struct (see below) for each available content string for the given chatterbox
 
-| Name           | Datatype                           | Purpose                                          |
-| -------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name          |Datatype                          |Purpose                                         |
+|--------------|----------------------------------|------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 The returned array is populated in canonical order: the 0th element of the array is equivalent to `ChatterboxGetContent(chatterbox, 0)` etc. Each struct in the array has this format:
 
-| Member Variable | Purpose                                               |
-| --------------- | ----------------------------------------------------- |
-| `.text`         | The text for the content string                       |
-| `.metadata`     | An array of metadata tags associated with the content |
+|Member Variable|Purpose                                              |
+|---------------|-----------------------------------------------------|
+|`.text`        |The text for the content string                      |
+|`.metadata`    |An array of metadata tags associated with the content|
 
 ?> This function is intended for use with singleton mode **turned off**. If you use this function in singleton mode then it will only return one struct at a time.
 
 &nbsp;
 
----
+### `...GetOption()`
 
-### `ChatterboxGetOption(chatterbox, optionIndex)`
+_Full function name:_ `ChatterboxGetOption(chatterbox, optionIndex)`
 
 _Returns:_ String, option with the given index
 
-| Name          | Datatype                           | Purpose                                          |
-| ------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`  | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
-| `optionIndex` | integer                            | Option item to return                            |
+|Name         |Datatype                          |Purpose                                         |
+|-------------|----------------------------------|------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`optionIndex`|integer                           |Option item to return                           |
 
 &nbsp;
 
----
+### `...GetOptionMetadata()`
 
-### `ChatterboxGetOptionMetadata(chatterbox, optionIndex)`
+_Full function name:_ `ChatterboxGetOptionMetadata(chatterbox, optionIndex)`
 
 _Returns:_ String, the metadata tags associated with the option
 
-| Name          | Datatype                           | Purpose                                          |
-| ------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`  | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
-| `optionIndex` | integer                            | Option item to return                            |
+|Name         |Datatype                          |Purpose                                         |
+|-------------|----------------------------------|------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`optionIndex`|integer                           |Option item to return                           |
 
 &nbsp;
 
----
+### `...GetOptionConditionBool()`
 
-### `ChatterboxGetOptionConditionBool(chatterbox, optionIndex)`
+_Full function name:_ `ChatterboxGetOptionConditionBool(chatterbox, optionIndex)`
 
 _Returns:_ Boolean, whether the option's if-statement passed
 
-| Name          | Datatype                           | Purpose                                          |
-| ------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`  | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
-| `optionIndex` | integer                            | Option item to return                            |
+|Name         |Datatype                          |Purpose                                         |
+|-------------|----------------------------------|------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`optionIndex`|integer                           |Option item to return                           |
 
 If the option had no if-statement associated with it then this function will always return `true`.
 
 &nbsp;
 
----
+### `...GetOptionCount()`
 
-### `ChatterboxGetOptionCount(chatterbox)`
+_Full function name:_ `ChatterboxGetOptionCount(chatterbox)`
 
 _Returns:_ Integer, the total number of option strings in the given [chatterbox](concept-chatterboxes)
 
-| Name         | Datatype                           | Purpose                                          |
-| ------------ | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 &nbsp;
 
----
+### `...GetOptionArray()`
 
-### `ChatterboxGetOptionArray(chatterbox)`
+_Full function name:_ `ChatterboxGetOptionArray(chatterbox)`
 
 _Returns:_ Array, containing one struct (see below) for each available option for the given chatterbox
 
-| Name           | Datatype                           | Purpose                                          |
-| -------------- | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox`   | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name          |Datatype                          |Purpose                                         |
+|--------------|----------------------------------|------------------------------------------------|
+|`chatterbox`  |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 The returned array is populated in canonical order: the 0th element of the array is equivalent to `ChatterboxGetOption(chatterbox, 0)` etc. Each struct in the array has this format:
 
-| Member Variable  | Purpose                                                        |
-| ---------------- | -------------------------------------------------------------- |
-| `.text`          | The text for the option                                        |
-| `.conditionBool` | Whether the conditional check for this option passed or failed |
-| `.metadata`      | An array of metadata tags associated with the content          |
+|Member Variable |Purpose                                                       |
+|----------------|--------------------------------------------------------------|
+|`.text`         |The text for the option                                       |
+|`.conditionBool`|Whether the conditional check for this option passed or failed|
+|`.metadata`     |An array of metadata tags associated with the content         |
 
 &nbsp
 
----
+### `...GetCurrent()`
 
-### `ChatterboxGetCurrent(chatterbox)`
+_Full function name:_ `ChatterboxGetCurrent(chatterbox)`
 
 _Returns:_ String, the name of the node that the given [chatterbox](concept-chatterboxes) is currently on
 
-| Name         | Datatype                           | Purpose                                          |
-| ------------ | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 &nbsp;
 
----
+### `...GetCurrentMetadata()`
 
-### `ChatterboxGetCurrentMetadata(chatterbox)`
+_Full function name:_ `ChatterboxGetCurrentMetadata(chatterbox)`
 
 _Returns:_ Array, the metadata associated with the node
 
-| Name         | Datatype                           | Purpose                                          |
-| ------------ | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 &nbsp;
 
----
+### `...GetCurrentSource()`
 
-### `ChatterboxGetCurrentSource(chatterbox)`
+_Full function name:_ `ChatterboxGetCurrentSource(chatterbox)`
 
 _Returns:_ String, the name of the source that the given [chatterbox](concept-chatterboxes) is currently on
 
-| Name         | Datatype                           | Purpose                                          |
-| ------------ | ---------------------------------- | ------------------------------------------------ |
-| `chatterbox` | [chatterbox](concept-chatterboxes) | The [chatterbox](concept-chatterboxes) to target |
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
