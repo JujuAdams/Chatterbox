@@ -106,7 +106,7 @@ Whether nodes without an explicit `<<stop>>` or `<<hopback>>` command at the end
 
 _Typical value:_ `":"`
 
-Character that separates speaker (and speaker data) from speech. This can be any arbitrary string, potentially composed of multiple characters.
+Character that separates speaker (and speaker data) from speech. This can be any arbitrary string, potentially composed of multiple characters. Please see the [speakers documentation](concept-speakers) for more information.
 
 &nbsp;
 
@@ -114,7 +114,7 @@ Character that separates speaker (and speaker data) from speech. This can be any
 
 _Typical value:_ `"["`
 
-Character that indicates where the speaker data string starts. This can be any arbitrary string, potentially composed of multiple characters.
+Character that indicates where the speaker data string starts. This can be any arbitrary string, potentially composed of multiple characters. Please see the [speakers documentation](concept-speakers) for more information.
 
 &nbsp;
 
@@ -122,7 +122,7 @@ Character that indicates where the speaker data string starts. This can be any a
 
 _Typical value:_ `"]"`
 
-WCharacter that indicates where the speaker data string ends. This can be any arbitrary string, potentially composed of multiple characters.
+WCharacter that indicates where the speaker data string ends. This can be any arbitrary string, potentially composed of multiple characters. Please see the [speakers documentation](concept-speakers) for more information.
 
 &nbsp;
 
