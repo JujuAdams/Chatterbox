@@ -1,8 +1,12 @@
 # Flow Reference
 
----
+Functions on this page relate to controlling the flow of a chatterbox as it progresses through YarnScript. All functions on this page are prefixed with `Chatterbox`.
 
-### `ChatterboxJump(chatterbox, nodeTitle, [filename])`
+&nbsp;
+
+### `...Jump()`
+
+_Full function name:_ `ChatterboxJump(chatterbox, nodeTitle, [filename])`
 
 _Returns:_ N/A (`undefined`)
 
@@ -16,9 +20,9 @@ This function jumps to a specific node in a [source file](concept-source-files).
 
 &nbsp;
 
----
+### `...Select()`
 
-### `ChatterboxSelect(chatterbox, optionIndex)`
+_Full function name:_ `ChatterboxSelect(chatterbox, optionIndex)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -31,9 +35,9 @@ This function selects an option as defined by a Yarn shortcut (`->`).
 
 &nbsp;
 
----
+### `...Continue()`
 
-### `ChatterboxContinue(chatterbox)`
+_Full function name:_ `ChatterboxContinue(chatterbox)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -45,9 +49,9 @@ Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait
 
 &nbsp;
 
----
+### `...Wait()`
 
-### `ChatterboxWait(chatterbox)`
+_Full function name:_ `ChatterboxWait(chatterbox)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -61,9 +65,9 @@ Forces a chatterbox to wait at the current instruction. This is similar to retur
 
 &nbsp;
 
----
+### `...IsWaiting()`
 
-### `ChatterboxIsWaiting(chatterbox)`
+_Full function name:_ `ChatterboxIsWaiting(chatterbox)`
 
 _Returns:_ Boolean, whether the given [chatterbox](concept-chatterboxes) is in a "waiting" state, either due to a Yarn `<<wait>>` command or singleton behaviour
 
@@ -73,9 +77,9 @@ _Returns:_ Boolean, whether the given [chatterbox](concept-chatterboxes) is in a
 
 &nbsp;
 
----
+### `...IsStopped()`
 
-### `ChatterboxIsStopped(chatterbox)`
+_Full function name:_ `ChatterboxIsStopped(chatterbox)`
 
 _Returns:_ Boolean, whether a [chatterbox](concept-chatterboxes) has stopped, either due to a `<<stop>>` command or because it has run out of content to display
 
@@ -85,9 +89,9 @@ _Returns:_ Boolean, whether a [chatterbox](concept-chatterboxes) has stopped, ei
 
 &nbsp;
 
----
+### `...FastForward()`
 
-### `chatterboxFastForward(chatterbox)`
+_Full function name:_ `ChatterboxFastForward(chatterbox)`
 
 _Returns:_ N/A (`undefined`)
 
