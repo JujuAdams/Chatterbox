@@ -1,4 +1,4 @@
-# Flow Reference
+# Flow Control
 
 Functions on this page relate to controlling the flow of a chatterbox as it progresses through YarnScript. All functions on this page are prefixed with `Chatterbox`.
 
