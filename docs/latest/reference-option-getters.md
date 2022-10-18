@@ -4,7 +4,7 @@ Functions on this page relate to getting option data from a chatterbox. All func
 
 &nbsp;
 
-### `...Option()`
+## `...Option()`
 
 _Full function name:_ `ChatterboxGetOption(chatterbox, optionIndex)`
 
@@ -17,7 +17,7 @@ _Returns:_ String, option with the given index
 
 &nbsp;
 
-### `...OptionMetadata()`
+## `...OptionMetadata()`
 
 _Full function name:_ `ChatterboxGetOptionMetadata(chatterbox, optionIndex)`
 
@@ -30,7 +30,7 @@ _Returns:_ String, the metadata tags associated with the option
 
 &nbsp;
 
-### `...OptionConditionBool()`
+## `...OptionConditionBool()`
 
 _Full function name:_ `ChatterboxGetOptionConditionBool(chatterbox, optionIndex)`
 
@@ -45,7 +45,7 @@ If the option had no if-statement associated with it then this function will alw
 
 &nbsp;
 
-### `...OptionCount()`
+## `...OptionCount()`
 
 _Full function name:_ `ChatterboxGetOptionCount(chatterbox)`
 
@@ -57,7 +57,7 @@ _Returns:_ Integer, the total number of option strings in the given [chatterbox]
 
 &nbsp;
 
-### `...OptionArray()`
+## `...OptionArray()`
 
 _Full function name:_ `ChatterboxGetOptionArray(chatterbox)`
 

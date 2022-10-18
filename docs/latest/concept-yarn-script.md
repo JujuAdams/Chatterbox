@@ -151,14 +151,14 @@ calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-s
 
 <!-- tabs:start -->
 
-#### **In GameMaker**
+#### **GML**
 
 ```gml
 ChatterboxLoad("example.json");
 ChatterboxAddFunction("playMusic", play_background_music);
 ```
 
-#### **In Yarn**
+#### **YarnScript**
 
 ```yarn
 Here's some text!
@@ -176,14 +176,14 @@ Parameters should separated by spaces. Parameters are passed into a script as an
 
 <!-- tabs:start -->
 
-#### **In GameMaker**
+#### **GML**
 
 ```gml
 ChatterboxLoad("example.json");
 ChatterboxAddFunction("gotoRoom", go_to_room);
 ```
 
-#### **In Yarn**
+#### **YarnScript**
 
 ```yarn
 Let's go see what the priest is up to.
@@ -260,14 +260,14 @@ Custom functions can return values, but they should be reals or strings.
 
 <!-- tabs:start -->
 
-#### **In GameMaker**
+#### **GML**
 
 ```gml
 ChatterboxLoad("example.json");
 ChatterboxAddFunction("AmIDead", am_i_dead);
 ```
 
-#### **In Yarn**
+#### **YarnScript**
 
 ```yarn
 Am I dead?

@@ -4,7 +4,7 @@ Functions on this page relate to getting content data from a chatterbox. All fun
 
 &nbsp;
 
-### `...Content()`
+## `...Content()`
 
 _Full function name:_ `ChatterboxGetContent(chatterbox, contentIndex)`
 
@@ -17,7 +17,7 @@ _Returns:_ String, content with the given index
 
 &nbsp;
 
-### `...AllContentString()`
+## `...AllContentString()`
 
 _Full function name:_ `ChatterboxGetAllContentString(chatterbox, [separator])`
 
@@ -32,7 +32,7 @@ _Returns:_ String, all individual content strings currently available in a chatt
 
 &nbsp;
 
-### `...ContentMetadata()`
+## `...ContentMetadata()`
 
 _Full function name:_ `ChatterboxGetContentMetadata(chatterbox, contentIndex)`
 
@@ -45,7 +45,7 @@ _Returns:_ Array, the metadata tags associated with the content
 
 &nbsp;
 
-### `...ContentCount()`
+## `...ContentCount()`
 
 _Full function name:_ `ChatterboxGetContentCount(chatterbox)`
 
@@ -57,7 +57,7 @@ _Returns:_ Integer, the total number of content strings in the given [chatterbox
 
 &nbsp;
 
-### `...ContentSpeech()`
+## `...ContentSpeech()`
 
 _Full function name:_ `ChatterboxGetContentSpeech(chatterbox, contentIndex, [default])`
 
@@ -79,7 +79,7 @@ In this case, the "speech" part of this string is everything after the colon (`T
 
 &nbsp;
 
-### `...ContentSpeaker()`
+## `...ContentSpeaker()`
 
 _Full function name:_ `ChatterboxGetContentSpeaker(chatterbox, contentIndex, [default])`
 
@@ -107,7 +107,7 @@ The speaker part of this string is everything before the speaker data start symb
 
 &nbsp;
 
-### `...ContentSpeakerData()`
+## `...ContentSpeakerData()`
 
 _Full function name:_ `ChatterboxGetContentSpeakerData(chatterbox, contentIndex, [default])`
 
@@ -129,7 +129,7 @@ In this case, the "speaker data" part of this string is everything between `[` a
 
 &nbsp;
 
-### `...ContentArray()`
+## `...ContentArray()`
 
 _Full function name:_ `ChatterboxGetContentArray(chatterbox)`
 

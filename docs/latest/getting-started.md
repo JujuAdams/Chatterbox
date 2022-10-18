@@ -92,11 +92,11 @@ Chatterbox requires a little setup inside GameMaker before you can start interac
 4. Call various [flow control](reference-flow) functions to navigate your dialogue
 5. Extract [content](reference-content-getters) and [option](reference-option-getters) strings from the chatterbox
 
-### Importing Chatterbox
+### 1. Importing Chatterbox
 
 Chatterbox is distributed as a .yymps file. This is a compressed file (literally a .zip!) that contains all the GML code that Chatterbox needs to run. You can find the latest release [here](https://github.com/JujuAdams/Chatterbox/releases) and it can be imported via the `Tools` dropdown menu then `Import Local Pakage`. Generally, you'll want to be on the latest stable version. You can always check what version you're using by checking the debug log - Chatterbox outputs its version on boot - or by reading the value of the `__CHATTERBOX_VERSION` macro. Make sure to import all the assets in the .yymps!
 
-### Loading your YarnScript source file
+### 2. Loading your YarnScript source file
 
 Before you can create a chatterbox you'll need to load in a YarnScript file. Make sure you've added a source file to GameMaker as an "Included File" by saving it to the `\datafiles` directory in your project files. Loading that file is then as simple as calling `ChatterboxLoadFromFile()` targeting that specific filename: 
 
@@ -111,7 +111,7 @@ Once a source file has been loaded it can be accessed from anywhere by a chatter
 
 !> Chatterbox parses and compiles YarnScript files when loaded for better performance later; as a result, you may find that there's a short hang when loading large YarnScript files. You should try to load YarnScript files during a loading screen to minimise disruption to the user experience.
 
-### Initializing a chatterbox
+### 3. Initializing a chatterbox
 
 Now that a YarnScript source file has been loaded, we can spin up a chatterbox and start navigating dialogue. Here's how:
 
@@ -124,7 +124,7 @@ ChatterboxJump(chatterbox, "StartNode");
 
 It's very important to hold a reference to the chatterbox that gets created by `ChatterboxCreate()` as you'll need it for all other API functions. In this case, because we've only loaded one source file, we don't need to specify a file for `ChatterboxCreate()`. If you load more than one file you'll need to tell `ChatterboxCreate()` which file to start reading from. `ChatterboxCreate()` can be further customised by setting values for its optional arguments, and you can read more about what those do [here](reference-chatterboxes).
 
-### Flow control
+### 4. Flow control
 
 Flow control functions are the way that you as a developer control how Chatterbox moves around inside a YarnScript file. You can see a full list of flow control functions [here](reference-flow).
 
@@ -168,7 +168,7 @@ else
 }
 ```
 
-### Drawing chatterbox text
+### 5. Drawing chatterbox text
 
 Chatterbox is, ultimately, a string delivery device with some clever logic attached to it. You are responsible for marshalling, queuing, and displaying text that Chatterbox returns. To this end, the output functions that are available in Chatterbox are very simple. They're split into two kinds: **content** and **options**.
 

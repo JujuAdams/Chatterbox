@@ -4,7 +4,7 @@ Functions on this page relate to chatterboxes, the basic machines that use sourc
 
 &nbsp;
 
-### `ChatterboxCreate()`
+## `ChatterboxCreate()`
 
 _Full function name:_ `ChatterboxCreate([filename], [singletonText]), [localScope])`
 
@@ -22,7 +22,7 @@ However, if `singletonText` is set to `false` then dialogue will be outputted mu
 
 &nbsp;
 
-### `IsChatterbox(value)`
+## `IsChatterbox(value)`
 
 _Full function name:_ `IsChatterbox(value)`
 
@@ -34,7 +34,7 @@ _Returns:_ Boolean, whether the given value is a [chatterbox](concept-chatterbox
 
 &nbsp;
 
-### `...GetVisited()`
+## `...GetVisited()`
 
 _Full function name:_ `ChatterboxGetVisited(nodeTitle, filename)`
 
@@ -47,7 +47,7 @@ _Returns:_ Boolean, whether the given node has been visited
 
 &nbsp;
 
-### `...GetCurrent()`
+## `...GetCurrent()`
 
 _Full function name:_ `ChatterboxGetCurrent(chatterbox)`
 
@@ -59,7 +59,7 @@ _Returns:_ String, the name of the node that the given [chatterbox](concept-chat
 
 &nbsp;
 
-### `...GetCurrentMetadata()`
+## `...GetCurrentMetadata()`
 
 _Full function name:_ `ChatterboxGetCurrentMetadata(chatterbox)`
 
@@ -71,7 +71,7 @@ _Returns:_ Array, the metadata associated with the node
 
 &nbsp;
 
-### `...GetCurrentSource()`
+## `...GetCurrentSource()`
 
 _Full function name:_ `ChatterboxGetCurrentSource(chatterbox)`
 

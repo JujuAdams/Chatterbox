@@ -4,7 +4,7 @@ Functions on this page relate to setting up how Chatterbox loads and interprets 
 
 &nbsp;
 
-### `...LoadFromFile()`
+## `...LoadFromFile()`
 
 _Full function name:_ `ChatterboxLoadFromFile(filename, [aliasName])`
 
@@ -19,7 +19,7 @@ If you use this function to reload a file (i.e. using the same filename as an ex
 
 &nbsp;
 
-### `...LoadFromString()`
+## `...LoadFromString()`
 
 _Full function name:_ `ChatterboxLoadFromString(filename, string)`
 
@@ -36,7 +36,7 @@ If you use this function to reload a file (i.e. load a buffer using the same fil
 
 &nbsp;
 
-### `...LoadFromBuffer()`
+## `...LoadFromBuffer()`
 
 _Full function name:_ `ChatterboxLoadFromBuffer(filename, buffer)`
 
@@ -53,7 +53,7 @@ If you use this function to reload a file (i.e. load a buffer using the same fil
 
 &nbsp;
 
-### `...Unload()`
+## `...Unload()`
 
 _Full function name:_ `ChatterboxUnload(filename)`
 
@@ -67,7 +67,7 @@ Frees memory associated with the source. All in-progress [chatterboxes](concept-
 
 &nbsp;
 
-### `...IsLoaded()`
+## `...IsLoaded()`
 
 _Full function name:_ `ChatterboxIsLoaded(filename)`
 
@@ -79,7 +79,7 @@ _Returns:_ Boolean, if the given file has been loaded as a [source file](concept
 
 &nbsp;
 
-### `...AddFunction()`
+## `...AddFunction()`
 
 _Full function name:_ `ChatterboxAddFunction(name, function)`
 
@@ -120,7 +120,7 @@ Custom functions can be added at any point but should be added before loading in
 
 &nbsp;
 
-### `...AddFindReplace()`
+## `...AddFindReplace()`
 
 _Full function name:_ `ChatterboxAddFindReplace(oldString, newString)`
 
@@ -135,7 +135,7 @@ Find-replace operations are applied to all source files on load. These operation
 
 &nbsp;
 
-### `...SourceNodeExists()`
+## `...SourceNodeExists()`
 
 _Full function name:_ `ChatterboxSourceNodeExists(sourceName, nodeTitle)`
 
@@ -148,7 +148,7 @@ _Returns:_ Boolean, if the given node exists in the given source
 
 &nbsp;
 
-### `...SourceNodeCount()`
+## `...SourceNodeCount()`
 
 _Full function name:_ `ChatterboxSourceNodeCount(sourceName)`
 
@@ -160,7 +160,7 @@ _Returns:_ Integer, the number of nodes in the source
 
 &nbsp;
 
-### `...SourceGetTags()`
+## `...SourceGetTags()`
 
 _Full function name:_ `ChatterboxSourceGetTags(sourceName)`
 

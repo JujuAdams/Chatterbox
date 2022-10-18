@@ -4,7 +4,7 @@ Functions on this page relate to controlling the flow of a chatterbox as it prog
 
 &nbsp;
 
-### `...Jump()`
+## `...Jump()`
 
 _Full function name:_ `ChatterboxJump(chatterbox, nodeTitle, [filename])`
 
@@ -20,7 +20,7 @@ This function jumps to a specific node in a [source file](concept-source-files).
 
 &nbsp;
 
-### `...Select()`
+## `...Select()`
 
 _Full function name:_ `ChatterboxSelect(chatterbox, optionIndex)`
 
@@ -35,7 +35,7 @@ This function selects an option as defined by a Yarn shortcut (`->`).
 
 &nbsp;
 
-### `...Continue()`
+## `...Continue()`
 
 _Full function name:_ `ChatterboxContinue(chatterbox)`
 
@@ -49,7 +49,7 @@ Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait
 
 &nbsp;
 
-### `...Hop()`
+## `...Hop()`
 
 _Full function name:_ `ChatterboxHop(chatterbox, nodeTitle, [filename])`
 
@@ -67,7 +67,7 @@ This function pushes the current node (and position in the node) to an internal 
 
 &nbsp;
 
-### `...HopBack()`
+## `...HopBack()`
 
 _Full function name:_ `ChatterboxHopBack(chatterbox)`
 
@@ -81,7 +81,7 @@ This function pops a node and position from the internal stack, and then jumps t
 
 &nbsp;
 
-### `...Wait()`
+## `...Wait()`
 
 _Full function name:_ `ChatterboxWait(chatterbox)`
 
@@ -97,7 +97,7 @@ Forces a chatterbox to wait at the current instruction. This is similar to retur
 
 &nbsp;
 
-### `...IsWaiting()`
+## `...IsWaiting()`
 
 _Full function name:_ `ChatterboxIsWaiting(chatterbox)`
 
@@ -109,7 +109,7 @@ _Returns:_ Boolean, whether the given [chatterbox](concept-chatterboxes) is in a
 
 &nbsp;
 
-### `...IsStopped()`
+## `...IsStopped()`
 
 _Full function name:_ `ChatterboxIsStopped(chatterbox)`
 
@@ -121,7 +121,7 @@ _Returns:_ Boolean, whether a [chatterbox](concept-chatterboxes) has stopped, ei
 
 &nbsp;
 
-### `...FastForward()`
+## `...FastForward()`
 
 _Full function name:_ `ChatterboxFastForward(chatterbox)`
 

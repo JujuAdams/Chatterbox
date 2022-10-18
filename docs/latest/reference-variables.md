@@ -6,7 +6,7 @@ Functions on this page allow you to declare, access, and manipulate variables st
 
 &nbsp;
 
-### `...Default()`
+## `...Default()`
 
 _Full function name:_ `ChatterboxVariableDefault(name)`
 
@@ -23,7 +23,7 @@ This function sets the default value for a Chatterbox variable. This is equivale
 
 &nbsp;
 
-### `...Get()`
+## `...Get()`
 
 _Full function name:_ `ChatterboxVariableGet(name)`
 
@@ -37,7 +37,7 @@ Returns the value stored in a Chatterbox variable.
 
 &nbsp;
 
-### `...Set()`
+## `...Set()`
 
 _Full function name:_ `ChatterboxVariableSet(name, value)`
 
@@ -54,7 +54,7 @@ Sets the value of a Chatterbox variable. Chatterbox variables must be strings, b
 
 &nbsp;
 
-### `...SetConstant()`
+## `...SetConstant()`
 
 _Full function name:_ `ChatterboxVariableSetConstant(name, value)`
 
@@ -76,7 +76,7 @@ Chatterbox constants can still have their value read by `ChatterboxVariableGet()
 
 &nbsp;
 
-### `...Reset()`
+## `...Reset()`
 
 _Full function name:_ `ChatterboxVariableReset(name)`
 
@@ -90,7 +90,7 @@ Resets the value of a Chatterbox variable to its default starting value, either 
 
 &nbsp;
 
-### `...ResetAll()`
+## `...ResetAll()`
 
 _Full function name:_ `ChatterboxVariablesResetAll()`
 
@@ -104,7 +104,7 @@ Resets the value of **all** Chatterbox variables (including `visited()` state) t
 
 &nbsp;
 
-### `...Export()`
+## `...Export()`
 
 _Full function name:_ `ChatterboxVariablesExport()`
 
@@ -118,7 +118,7 @@ The returned string also contains data on what nodes have been visited. This fun
 
 &nbsp;
 
-### `...Import()`
+## `...Import()`
 
 _Full function name:_ `ChatterboxVariablesImport(string)`
 
@@ -132,7 +132,7 @@ This function overwrites all Chatterbox variables, excluding constants, with wha
 
 &nbsp;
 
-### `...ClearVisited()`
+## `...ClearVisited()`
 
 _Full function name:_ `ChatterboxVariablesClearVisited(node, filename)`
 
@@ -147,7 +147,7 @@ Clears the visited state, as returned by the YarnScript native function `visited
 
 &nbsp;
 
-### `...ClearVisitedAll()`
+## `...ClearVisitedAll()`
 
 _Full function name:_ `ChatterboxVariablesClearVisitedAll()`
 
@@ -161,7 +161,7 @@ Clears the visited state, as returned by YarnScript native function `visited()`,
 
 &nbsp;
 
-### `...Find()`
+## `...Find()`
 
 _Full function name:_ `ChatterboxVariableFind(substring, mode, caseSensitive)`
 

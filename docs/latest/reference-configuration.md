@@ -6,7 +6,7 @@ The `__ChatterboxConfig()` script contains a multitude of macros that you can us
 
 &nbsp;
 
-### `CHATTERBOX_DEFAULT_SINGLETON`
+## `CHATTERBOX_DEFAULT_SINGLETON`
 
 _Typical value:_ `true`
 
@@ -14,7 +14,7 @@ Whether chatterboxes should default to being singleton.
 
 &nbsp;
 
-### `CHATTERBOX_ALLOW_SCRIPTS`
+## `CHATTERBOX_ALLOW_SCRIPTS`
 
 _Typical value:_ `true`
 
@@ -22,7 +22,7 @@ Whether to allow scripts to be added as Chatterbox functions.
 
 &nbsp;
 
-### `CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS`
+## `CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS`
 
 _Typical value:_ `true`
 
@@ -30,7 +30,7 @@ Whether to execute callbacks with an array of arguments. Setting this to `false`
 
 &nbsp;
 
-### `CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION`
+## `CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION`
 
 _Typical value:_ `false`
 
@@ -38,7 +38,7 @@ Whether a chatterbox will enter into a waiting state before options are enumerat
 
 &nbsp;
 
-### `CHATTERBOX_WAIT_BEFORE_STOP`
+## `CHATTERBOX_WAIT_BEFORE_STOP`
 
 _Typical value:_ `true`
 
@@ -46,7 +46,7 @@ Whether a chatterbox will enter into a waiting state before a chatterbox goes in
 
 &nbsp;
 
-### `CHATTERBOX_SHOW_REJECTED_OPTIONS`
+## `CHATTERBOX_SHOW_REJECTED_OPTIONS`
 
 _Typical value:_ `true`
 
@@ -54,7 +54,7 @@ Whether to expose options whose conditional check has failed. Setting this to `f
 
 &nbsp;
 
-### `CHATTERBOX_END_OF_NODE_HOPBACK`
+## `CHATTERBOX_END_OF_NODE_HOPBACK`
 
 _Typical value:_ `true`
 
@@ -62,7 +62,7 @@ Whether nodes without an explicit `<<stop>>` or `<<hopback>>` instruct at the en
 
 &nbsp;
 
-### `CHATTERBOX_DIRECTION_MODE`
+## `CHATTERBOX_DIRECTION_MODE`
 
 _Typical value:_ `0`
 
@@ -72,21 +72,21 @@ _Typical value:_ `0`
 1. Treat directions as expressions
 2. Treat directions as they were in version 1 (Python-esque function calls)
 
-**`CHATTERBOX_DIRECTION_MODE` = 0**
+### `CHATTERBOX_DIRECTION_MODE` = 0
 
 This is the officially recommended behaviour. The full contents of the direction (everything between `<<` and `>>`) are passed as a string to a function for parsing and execution by the developer (you). I think this behaviour is stupid but I've included it here because technically that is what the YarnScript specification says. You can set the function that receives the direction string by setting `CHATTERBOX_DIRECTION_FUNCTION`. Exactly what syntax you use for directions is therefore completely up to you.
 
-**`CHATTERBOX_DIRECTION_MODE` = 1**
+### `CHATTERBOX_DIRECTION_MODE` = 1
 
 Chatterbox will treat directions as expressions to be executed in a similar manner to in-line expressions. This is covenient if you want to treat directions as little snippets of code that Chatterbox can run. Syntax for directions becomes the same as in-line expressions, which is broadly similar to "standard" GML syntax. Functions that you wish to execute must be added by calling ChatterboxAddFunction(). An example would be: `<<giveItem("amulet", 1)>>`
 
-**`CHATTERBOX_DIRECTION_MODE` = 2**
+### `CHATTERBOX_DIRECTION_MODE` = 2
 
 Chatterbox will treat directions as expressions with a greatly simplified syntax. This is useful for writers and narrative designers who are less familiar with the particulars of coding and instead want to use a simple syntax to communicate with the underlying GameMaker application. The direction is sliced into arguments using spaces as delimiters. The first token in the direction is the name of the function call, as added by `ChatterboxAddFunction()`. Subsequent tokens are passed to the function call with each token being a function parameter. All parameters are passed as strings. If a parameter needs to contain a space then you may enclose the string in `"` double quote marks. An example, analogous to the example above, would be: `<<giveItem amulet 1>>`.
 
 &nbsp;
 
-### `CHATTERBOX_DIRECTION_FUNCTION`
+## `CHATTERBOX_DIRECTION_FUNCTION`
 
 _Typical value:_ `TestCaseDirectionFunction`
 
@@ -94,7 +94,7 @@ Function to use to handle directions. This only applies in mode `0` (see below).
 
 &nbsp;
 
-### `CHATTERBOX_END_OF_NODE_HOPBACK`
+## `CHATTERBOX_END_OF_NODE_HOPBACK`
 
 _Typical value:_ `true`
 
@@ -110,7 +110,7 @@ Character that separates speaker (and speaker data) from speech. This can be any
 
 &nbsp;
 
-### `CHATTERBOX_SPEAKER_DATA_START`
+## `CHATTERBOX_SPEAKER_DATA_START`
 
 _Typical value:_ `"["`
 
@@ -118,7 +118,7 @@ Character that indicates where the speaker data string starts. This can be any a
 
 &nbsp;
 
-### `CHATTERBOX_SPEAKER_DATA_END`
+## `CHATTERBOX_SPEAKER_DATA_END`
 
 _Typical value:_ `"]"`
 
@@ -134,7 +134,7 @@ Whether file metadata tags are [escaped](https://en.wikipedia.org/wiki/Escape_ch
 
 &nbsp;
 
-### `CHATTERBOX_ESCAPE_NODE_TAGS`
+## `CHATTERBOX_ESCAPE_NODE_TAGS`
 
 _Typical value:_ `true`
 
@@ -142,7 +142,7 @@ Whether node metadata tags are [escaped](https://en.wikipedia.org/wiki/Escape_ch
 
 &nbsp;
 
-### `CHATTERBOX_ESCAPE_CONTENT`
+## `CHATTERBOX_ESCAPE_CONTENT`
 
 _Typical value:_ `true`
 
@@ -150,7 +150,7 @@ Whether content strings are [escaped](https://en.wikipedia.org/wiki/Escape_chara
 
 &nbsp;
 
-### `CHATTERBOX_ESCAPE_EXPRESSION_STRINGS`
+## `CHATTERBOX_ESCAPE_EXPRESSION_STRINGS`
 
 _Typical value:_ `false`
 
@@ -158,7 +158,7 @@ Whether expression strings are [escaped](https://en.wikipedia.org/wiki/Escape_ch
 
 &nbsp;
 
-### `CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY`
+## `CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY`
 
 _Typical value:_ `""` (empty string)
 
@@ -166,7 +166,7 @@ Directory inside Included Files that holds all external `.yarn` files. Use an em
 
 &nbsp;
 
-### `CHATTERBOX_DECLARE_ON_COMPILE`
+## `CHATTERBOX_DECLARE_ON_COMPILE`
 
 _Typical value:_ `true`
 
@@ -174,13 +174,13 @@ Whether to declare variables when Chatterbox script is compiled. Set to `false` 
 
 &nbsp;
 
-### `CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE`
+## `CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE`
 
 _Typical value:_ `false`
 
 &nbsp;
 
-### `CHATTERBOX_INDENT_TAB_SIZE`
+## `CHATTERBOX_INDENT_TAB_SIZE`
 
 _Typical value:_ `4`
 
@@ -188,7 +188,7 @@ Size of tabs for YarnScript input.
 
 &nbsp;
 
-### `CHATTERBOX_FILENAME_SEPARATOR`
+## `CHATTERBOX_FILENAME_SEPARATOR`
 
 _Typical value:_ `":"`
 
@@ -196,7 +196,7 @@ Separator to use to concatenate filenames to node names, used to reference nodes
 
 &nbsp;
 
-### `CHATTERBOX_ERROR_NONSTANDARD_SYNTAX`
+## `CHATTERBOX_ERROR_NONSTANDARD_SYNTAX`
 
 _Typical value:_ `true`
 
@@ -204,7 +204,7 @@ Whether to throw an error when using a reasonable, though technically incorrect,
 
 &nbsp;
 
-### `CHATTERBOX_ERROR_UNDECLARED_VARIABLE`
+## `CHATTERBOX_ERROR_UNDECLARED_VARIABLE`
 
 _Typical value:_ `true`
 
@@ -212,7 +212,7 @@ Throws an error when trying to set a variable that has not been declared (either
 
 &nbsp;
 
-### `CHATTERBOX_ERROR_UNSET_VARIABLE`
+## `CHATTERBOX_ERROR_UNSET_VARIABLE`
 
 _Typical value:_ `true`
 
@@ -220,7 +220,7 @@ Throws an error when trying to read a variable that doesn't exist.
 
 &nbsp;
 
-### `CHATTERBOX_ERROR_REDECLARED_VARIABLE`
+## `CHATTERBOX_ERROR_REDECLARED_VARIABLE`
 
 _Typical value:_ `true`
 
@@ -228,7 +228,7 @@ Throws an error when trying to redeclare a variable (either using `<<declare>>` 
 
 &nbsp;
 
-### `CHATTERBOX_ERROR_NO_LOCAL_SCOPE`
+## `CHATTERBOX_ERROR_NO_LOCAL_SCOPE`
 
 _Typical value:_ `true`
 
@@ -236,7 +236,7 @@ Throws an error when trying to execute a function without a local scope being av
 
 &nbsp;
 
-### `CHATTERBOX_VARIABLE_MISSING_VALUE`
+## `CHATTERBOX_VARIABLE_MISSING_VALUE`
 
 _Typical value:_ `0`
 
