@@ -27,6 +27,8 @@ You see upon the shelf a selection of packets of flower seeds arranged clumsily.
 ===
 ```
 
+&nbsp;
+
 Chatterbox has the following in-built actions:
 
 ### `jump`
@@ -36,6 +38,8 @@ Chatterbox has the following in-built actions:
 *Example*: `<<jump $nodeTitleStoredInAVariable>>`
 
 The `<<jump>>` action causes a chatterbox to immediately swap execution to another node in a YarnScript file. Execution will start from the top of the new node. If you `<<jump>>` back to the old node then you will start execution from the top of the node. You can specify a particular YarnScript file to jump to by specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node. `<<jump>>` can be used to jump to a node stored in a variable by referencing the variable as the destination node title.
+
+&nbsp;
 
 ### `hop` and `hopback`
 
@@ -48,12 +52,16 @@ The `<<jump>>` action causes a chatterbox to immediately swap execution to anoth
 
 !> It is not possible to save or load the hop stack. Do not rely on the hop stack for tracking important game logic that may need to persist between game sessions.
 
+&nbsp;
+
 ### `declare`
 
 *Example:* `<<declare $favouriteFood = "Cheesecake">>`
 *Example:* `<<declare $favouriteFood as "Cheesecake">>`
 
 This action instructs Chatterbox to declare a variable and to give it a default value.
+
+&nbsp;
 
 ### `set`
 
@@ -62,11 +70,15 @@ This action instructs Chatterbox to declare a variable and to give it a default 
 
 Sets the value of a variable, plain and simple. The datatype of a variable (string, number, or boolean `true`/`false`) cannot change.
 
+&nbsp;
+
 ### `const`
 
 *Example:* `<<const $favouriteFood as "Crisps">>`
 
 The `<<const>>` action defines a special kind of variable - it is a variable whose value cannot be changed. This might seem contradictory at first glace - a variable must surely be able to vary?! - but this behaviour is very helpful when trying to keep track of so-called "magic numbers" in your game. For example, you might want to set the maximum number of health points that a player can have. At some point in development, that number might need to go up or down in order to balance the game's difficulty. Using a constant means that you can tweak the maximum number of health points throughout the game without having to find and adjust every single occurrence of a special number (a time-consuming endeavour that is likely to result in bugs).
+
+&nbsp;
 
 ### `wait`
 
@@ -78,6 +90,8 @@ The `<<const>>` action defines a special kind of variable - it is a variable who
 
 ?> `<<wait>>` is analogous to the `ChatterboxWait()` function.
 
+&nbsp;
+
 ### `stop`
 
 *Example:* `<<stop>>`
@@ -85,6 +99,8 @@ The `<<const>>` action defines a special kind of variable - it is a variable who
 Tells a chatterbox to stop processing entirely. The chatterbox can be restarted by calling `ChatterboxJump()`.
 
 ?> `<<stop>>` is analogous to the `ChatterboxStop()` function.
+
+&nbsp;
 
 ### `if`, `else` etc.
 
@@ -94,7 +110,9 @@ Branching logic is also written in between `<<` and `>>` too, such as `<<if visi
 
 ## Functions
 
-Custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) function. This is a global function and you only need to call it once per custom function.
+Chatterbox contains one custom function: `visited("NodeTitle")`. This function returns the number of times that a particular node has been visited. You can specifiy a node in a particular file by You can specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node.
+
+Powerful custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) function. This is a global function and you only need to call it once per custom function. Custom functions can do anything that GML can do... because they're written in GML!
 
 !> Custom functions must be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
 
