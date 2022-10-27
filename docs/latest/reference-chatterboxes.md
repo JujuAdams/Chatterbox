@@ -38,7 +38,7 @@ _Returns:_ Boolean, whether the given value is a [chatterbox](concept-chatterbox
 
 _Full function name:_ `ChatterboxGetVisited(nodeTitle, filename)`
 
-_Returns:_ Boolean, whether the given node has been visited
+_Returns:_ Number, how many times the given node has been visited
 
 |Name      |Datatype|Purpose                                                 |
 |----------|--------|--------------------------------------------------------|
