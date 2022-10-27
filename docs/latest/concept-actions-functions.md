@@ -116,7 +116,7 @@ Branching logic is also written in between `<<` and `>>` too, such as `<<if visi
 
 ## Functions
 
-Chatterbox contains one custom function: `visited("NodeTitle")`. This function returns the number of times that a particular node has been visited. You can specifiy a node in a particular file by You can specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node.
+Chatterbox contains one native function: `visited("NodeTitle")`. This function returns the number of times that a particular node has been visited. You can specifiy a node in a particular file by You can specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node.
 
 Powerful custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) function. This is a global function and you only need to call it once per custom function. Custom functions can do anything that GML can do... because they're written in GML!
 
