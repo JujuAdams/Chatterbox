@@ -34,7 +34,9 @@ Chatterbox has the following in-built actions:
 ### `jump`
 
 *Example:* `<<jump TheNodeOnTheHill>>`
+
 *Example*: `<<jump Christina.yarn:GenericGreeting>>`
+
 *Example*: `<<jump $nodeTitleStoredInAVariable>>`
 
 The `<<jump>>` action causes a chatterbox to immediately swap execution to another node in a YarnScript file. Execution will start from the top of the new node. If you `<<jump>>` back to the old node then you will start execution from the top of the node. You can specify a particular YarnScript file to jump to by specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node. `<<jump>>` can be used to jump to a node stored in a variable by referencing the variable as the destination node title.
@@ -44,7 +46,9 @@ The `<<jump>>` action causes a chatterbox to immediately swap execution to anoth
 ### `hop` and `hopback`
 
 *Example:* `<<hop WistfulMemories>>` and later `<<hopback>>`
+
 *Example:* `<<hop TangentialConversations.yarn:NatureOfBeing>>` and later `<<hopback>>`
+
 *Example*: `<<hop $nodeTitleStoredInAVariable>>` and later `<<hopback>>`
 
 
@@ -57,6 +61,7 @@ The `<<jump>>` action causes a chatterbox to immediately swap execution to anoth
 ### `declare`
 
 *Example:* `<<declare $favouriteFood = "Cheesecake">>`
+
 *Example:* `<<declare $favouriteFood as "Cheesecake">>`
 
 This action instructs Chatterbox to declare a variable and to give it a default value.
@@ -66,6 +71,7 @@ This action instructs Chatterbox to declare a variable and to give it a default 
 ### `set`
 
 *Example:* `<<set $favouriteFood = "Curry">>`
+    
 *Example:* `<<set $favouriteFood as "Curry">>`
 
 Sets the value of a variable, plain and simple. The datatype of a variable (string, number, or boolean `true`/`false`) cannot change.
