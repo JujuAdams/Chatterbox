@@ -64,13 +64,13 @@ Whether nodes without an explicit `<<stop>>` or `<<hopback>>` instruct at the en
 
 ## `CHATTERBOX_DIRECTION_MODE`
 
-_Typical value:_ `0`
+_Typical value:_ `1`
 
 `CHATTERBOX_DIRECTION_MODE` should be either 0, 1, or 2:
 
-0. Pass YarnScript directions as a raw string to a function, defined by `CHATTERBOX_DIRECTION_FUNCTION`
-1. Treat directions as expressions
-2. Treat directions as they were in version 1 (Python-esque function calls)
+- `0` Pass YarnScript directions as a raw string to a function, defined by `CHATTERBOX_DIRECTION_FUNCTION`
+- `1` Treat directions as expressions
+- `2` Treat directions as they were in version 1 (Python-esque function calls)
 
 ### `CHATTERBOX_DIRECTION_MODE` = 0
 
