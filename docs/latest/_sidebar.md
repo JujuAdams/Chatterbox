@@ -9,7 +9,7 @@
 -   [YarnScript](concept-yarn-script)
 -   [Source Files](concept-source-files)
 -   [Chatterboxes](concept-chatterboxes)
--   [Speakers](concept-speakers)
+-   [Metadata and Speakers](concept-metadata-and-speakers)
 
 ---
 
