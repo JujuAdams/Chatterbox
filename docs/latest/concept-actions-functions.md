@@ -94,11 +94,13 @@ Branching logic is also written in between `<<` and `>>` too, such as `<<if visi
 
 ## Functions
 
-Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script.
+Custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) function. This is a global function and you only need to call it once per custom function.
 
 !> Custom functions must be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
 
 Custom functions can have parameters. Parameters should be separated by spaces and are passed into a script as an array of values in `argument0`. Custom functions can return values, and like Chatterbox variables, a function must return a number, a string, or a boolean `true` / `false`. A function can also return nothing (`undefined`).
+
+?> You can use the `CHATTERBOX_CURRENT` read-only macro to get the chatterbox that is currently being processed. This is helpful when using `ChatterboxJump()` etc.
 
 <!-- tabs:start -->
 
@@ -164,3 +166,42 @@ Mode `2` is provided as an easier-to-use alternative for larger teams where peop
 1. `<<CustomFunction string "string with spaces" 3.14 true>>`
 2. You can reference variables by using the standard dollar-prefixed token wrapped in `{` `}` curly brackets e.g. `<<TransmutateLead Gold {$lead}>>`
 3. `<<ShowItem {"BigAssSword" + $modifier}>>`
+
+&nbsp;
+
+## Asynchronous Functions
+
+This is an advanced power move! It's possible to create asynchronous function execution so that you can temporarily pause a chatterbox whilst something else happens in your game, such as running an animation or showing a cutscene. To do this we need three different components:
+1. `CHATTERBOX_CURRENT` - Macro that contains a reference to the chatterbox that is currently being processed
+2. `ChatterboxWait()` - Function that forces a chatterbox into a waiting state (pauses processing)
+3. `ChatterboxContinue()` - Function that resumes processing for a chatterbox
+
+<!-- tabs:start -->
+
+#### **GML**
+
+```gml
+ChatterboxAddFunction("example", function(_duration)
+{
+    show_debug_message("Waiting chatterbox for " + string(_duration) + " seconds...");
+    time_source_start(time_source_create(time_source_game, _duration, time_source_unit_frames,
+    function(_chatterbox)
+    {
+        show_debug_message("...continuing chatterbox!");
+        ChatterboxContinue(_chatterbox);
+    },
+    [CHATTERBOX_CURRENT]));
+});
+```
+
+#### **YarnScript**
+
+```yarn
+Hello there, would you like to wait 5 seconds?
+-> Nah...
+-> Please.
+    <<example(5)>>
+Okey dokey.
+```
+
+<!-- tabs:end -->
