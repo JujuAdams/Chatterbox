@@ -10,7 +10,7 @@
 -   [Source Files](concept-source-files)
 -   [Chatterboxes](concept-chatterboxes)
 -   [Metadata and Speakers](concept-metadata-and-speakers)
--   [Actions/Functions](concept-actions-functions)
+-   [Actions and Functions](concept-actions-functions)
 
 ---
 
