@@ -207,6 +207,7 @@ This is an advanced power move! It's possible to create asynchronous function ex
 ```gml
 ChatterboxAddFunction("example", function(_duration)
 {
+    ChatterboxWait(CHATTERBOX_CURRENT);
     show_debug_message("Waiting chatterbox for " + string(_duration) + " seconds...");
     time_source_start(time_source_create(time_source_game, _duration, time_source_unit_frames,
     function(_chatterbox)
