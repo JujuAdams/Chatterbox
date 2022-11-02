@@ -6,7 +6,7 @@
 function ChatterboxLoadFromFile()
 {
     var _path      = argument[0];
-    var _aliasName = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : filename_name(_path);
+    var _aliasName = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _path;
     
     if (!is_string(_path))
     {

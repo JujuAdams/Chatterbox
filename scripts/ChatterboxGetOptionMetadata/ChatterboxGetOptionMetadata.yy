@@ -2,8 +2,8 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Options",
-    "path": "folders/Chatterbox/Getters/Options.yy",
+    "name": "Option Getters",
+    "path": "folders/Chatterbox/Option Getters.yy",
   },
   "resourceVersion": "1.0",
   "name": "ChatterboxGetOptionMetadata",
