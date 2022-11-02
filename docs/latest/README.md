@@ -4,7 +4,7 @@
 
 <img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" width="50%" style="display: block; margin: auto;" />
 <hr>
-<p align="center">Narrative engine for GameMaker Studio 2.3.2 by <a href="https://twitter.com/jujuadams" target="_blank">Juju Adams</a></p>
+<p align="center">Narrative engine for GameMaker 2022 LTS by <a href="https://twitter.com/jujuadams" target="_blank">Juju Adams</a></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/" target="_blank">Download the .yymps</a></p>
 <p align="center">Talk about Chatterbox on the <a href="https://discord.gg/8krYCqr" target="_blank">Discord server</a></p>
