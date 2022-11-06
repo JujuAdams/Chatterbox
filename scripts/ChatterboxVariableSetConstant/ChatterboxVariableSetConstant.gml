@@ -36,5 +36,5 @@ function ChatterboxVariableSetConstant(_name, _value)
     global.__chatterboxVariablesMap[? _name] = _value;
     global.__chatterboxConstantsMap[? _name] = true;
     
-    __ChatterboxTrace("Set Chatterbox constant $", _name, " to ", __ChatterboxReadableValue(_value));
+    if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Set Chatterbox constant $", _name, " to ", __ChatterboxReadableValue(_value));
 }
