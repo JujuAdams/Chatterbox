@@ -25,7 +25,7 @@ function ChatterboxVariableGet()
         }
         else
         {
-            __ChatterboxTrace("Chatterbox variable \"", _name, "\" cannot be read because it has not been set. Returning default value ", __ChatterboxReadableValue(_default));
+            __ChatterboxTrace("Warning! Chatterbox variable \"", _name, "\" cannot be read because it has not been set. Returning default value ", __ChatterboxReadableValue(_default));
         }
         
         return _default;

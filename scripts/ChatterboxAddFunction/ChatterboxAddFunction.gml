@@ -35,7 +35,7 @@ function ChatterboxAddFunction(_name, _in_function)
     
     if (CHATTERBOX_ALLOW_SCRIPTS && is_numeric(_function) && script_exists(_function))
     {
-        __ChatterboxTrace("Function provided for \"", _name, "\" was a script index (", _function, "=", script_get_name(_function), "), binding to <undefined> scope");
+        if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Function provided for \"", _name, "\" was a script index (", _function, "=", script_get_name(_function), "), binding to <undefined> scope");
         _function = method(undefined, _function);
     }
     
@@ -81,6 +81,6 @@ function ChatterboxAddFunction(_name, _in_function)
     }
     
     global.__chatterboxFunctions[? _name ] = _function;
-    __ChatterboxTrace("Permitting script \"", _name, "\", calling \"", _function, "()\"" );
+    if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Permitting script \"", _name, "\", calling \"", _function, "()\"" );
     return true;
 }

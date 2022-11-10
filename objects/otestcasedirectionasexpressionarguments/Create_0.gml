@@ -1,6 +1,6 @@
-if (CHATTERBOX_DIRECTION_MODE != 1)
+if (CHATTERBOX_ACTION_MODE != 1)
 {
-    __ChatterboxError("CHATTERBOX_DIRECTION_MODE should be 0 for this test");
+    __ChatterboxError("CHATTERBOX_ACTION_MODE should be 0 for this test");
 }
 
 ChatterboxLoadFromFile("testcase_direction_as_expression_arguments.yarn");
