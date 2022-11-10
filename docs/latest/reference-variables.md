@@ -15,7 +15,7 @@ _Returns:_ N/A (`undefined`)
 |Name   |Datatype|Purpose                |
 |-------|--------|-----------------------|
 |`name` |string  |Variable to set        |
-|`value`|any     |The default vlue to set|
+|`value`|any     |The default value to set|
 
 This function sets the default value for a Chatterbox variable. This is equivalent to using the `<<declare>>` action in YarnScript. Chatterbox variables must be strings, booleans, or numbers.
 
