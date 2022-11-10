@@ -2,5 +2,5 @@ if (CHATTERBOX_DIRECTION_MODE != 2) show_error("CHATTERBOX_DIRECTION_MODE must b
 
 ChatterboxLoadFromFile("testcase_stop_function.yarn");
 //Note that <<testcaseStop>> is added as a Chatterbox function in TestCaseStopFunction()
-box = ChatterboxCreate(undefined, false);
+box = ChatterboxCreate();
 ChatterboxJump(box, "Start");

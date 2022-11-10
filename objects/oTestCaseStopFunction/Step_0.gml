@@ -1,14 +1,14 @@
-if (ChatterboxIsWaiting(box))
+if (keyboard_check_released(ord("S")))
+{
+    ChatterboxStop(box);
+}
+else if (ChatterboxIsWaiting(box))
 {
     if (keyboard_check_released(vk_space)) ChatterboxContinue(box);
 }
 else if (keyboard_check_released(ord("W")))
 {
     ChatterboxWait(box);
-}
-else if (keyboard_check_released(ord("S")))
-{
-    ChatterboxStop(box);
 }
 else
 {
