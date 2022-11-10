@@ -46,6 +46,14 @@ Whether a chatterbox will enter into a waiting state before a chatterbox goes in
 
 &nbsp;
 
+## `CHATTERBOX_VERBOSE`
+
+_Typical value:_ `false`
+
+Whether Chatterbox will send lots of potentially useful debug information to the output log. You may find this debug information distracting, especially after you get more comfortable with Chatterbox, so you may want to set this macro to `false` to clean up your debug log. Warning messages are not turned off by `CHATTERBOX_VERBOSE`.
+
+&nbsp;
+
 ## `CHATTERBOX_SHOW_REJECTED_OPTIONS`
 
 _Typical value:_ `true`
