@@ -4,6 +4,7 @@
 #macro CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION  false
 #macro CHATTERBOX_WAIT_BEFORE_STOP              true
 #macro CHATTERBOX_SHOW_REJECTED_OPTIONS         true
+#macro CHATTERBOX_VERBOSE                       true
 
 // Whether nodes without an explicit <<stop>> or <<hopback>> instruct at the end should default
 // to <<hopback>>. Legacy behaviour (pre-2.7) is to set this to <false>

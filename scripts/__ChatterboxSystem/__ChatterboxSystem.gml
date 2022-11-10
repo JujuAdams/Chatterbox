@@ -7,8 +7,6 @@
 #macro CHATTERBOX_VARIABLES_LIST  global.__chatterboxVariablesList
 #macro CHATTERBOX_CURRENT         global.__chatterboxCurrent
 
-#macro CHATTERBOX_VERBOSE           true
-
 #macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
