@@ -190,23 +190,27 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Could not select option because \"", filename, "\" is not loaded");
             return undefined;
         }
+		
+		if (stopped)
+		{
+            __ChatterboxTrace("Warning! Could not select option because this chatterbox has been stopped");
+            return undefined;
+		}
+		
+        if ((_index < 0) || (_index >= array_length(option)))
+        {
+            __ChatterboxTrace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
+            return undefined;
+        }
+        
+        if (optionConditionBool[_index])
+        {
+            current_instruction = optionInstruction[_index];
+            __ChatterboxVM();
+        }
         else
         {
-            if ((_index < 0) || (_index >= array_length(option)))
-            {
-                __ChatterboxTrace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
-                return undefined;
-            }
-            
-            if (optionConditionBool[_index])
-            {
-                current_instruction = optionInstruction[_index];
-                __ChatterboxVM();
-            }
-            else
-            {
-                __ChatterboxTrace("Warning! Trying to select an option that failed its conditional check");
-            }
+            __ChatterboxTrace("Warning! Trying to select an option that failed its conditional check");
         }
     }
     
@@ -217,17 +221,21 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Could not continue because \"", filename, "\" is not loaded");
             return undefined;
         }
-        else
+		
+		if (stopped)
+		{
+            __ChatterboxTrace("Warning! Could not continue because this chatterbox has been stopped");
+            return undefined;
+		}
+		
+        if (!waiting)
         {
-            if (!waiting)
-            {
-                __ChatterboxError("Can't continue, provided chatterbox isn't waiting");
-                return undefined;
-            }
-            
-            current_instruction = wait_instruction;
-            __ChatterboxVM();
+            __ChatterboxError("Can't continue, provided chatterbox isn't waiting");
+            return undefined;
         }
+        
+        current_instruction = wait_instruction;
+        __ChatterboxVM();
     }
 	
 	static __CurrentlyProcessing = function()
