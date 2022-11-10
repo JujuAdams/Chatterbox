@@ -285,16 +285,16 @@ function __ChatterboxVMInner(_instruction)
                         var _direction_text = _instruction.text.Evaluate(local_scope, filename, true);
                         var _result = undefined;
                         
-                        switch(CHATTERBOX_DIRECTION_MODE)
+                        switch(CHATTERBOX_ACTION_MODE)
                         {
                             case 0:
-                                if (is_method(CHATTERBOX_DIRECTION_FUNCTION))
+                                if (is_method(CHATTERBOX_ACTION_FUNCTION))
                                 {
-                                    _result = CHATTERBOX_DIRECTION_FUNCTION(_direction_text);
+                                    _result = CHATTERBOX_ACTION_FUNCTION(_direction_text);
                                 }
-                                else if (is_numeric(CHATTERBOX_DIRECTION_FUNCTION) && script_exists(CHATTERBOX_DIRECTION_FUNCTION))
+                                else if (is_numeric(CHATTERBOX_ACTION_FUNCTION) && script_exists(CHATTERBOX_ACTION_FUNCTION))
                                 {
-                                    _result = script_execute(CHATTERBOX_DIRECTION_FUNCTION, _direction_text);
+                                    _result = script_execute(CHATTERBOX_ACTION_FUNCTION, _direction_text);
                                 }
                             break;
                             

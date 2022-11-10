@@ -9,41 +9,41 @@
 // to <<hopback>>. Legacy behaviour (pre-2.7) is to set this to <false>
 #macro CHATTERBOX_END_OF_NODE_HOPBACK  true
 
-// Direction mode controls how <<directions>> are processed by Chatterbox
+// Action mode controls how <<actions>> are processed by Chatterbox
 // There are three possible values:
 // 
-// CHATTERBOX_DIRECTION_MODE = 0
-// This is the officially recommended behaviour. The full contents of the direction (everything
+// CHATTERBOX_ACTION_MODE = 0
+// This is the officially recommended behaviour. The full contents of the action (everything
 // between << and >>) are passed as a string to a function for parsing and execution by the
 // developer (you). I think this behaviour is stupid but I've included it here because technically
 // that is what the YarnScript specification says. You can set the function that receives the
-// direction string by setting CHATTERBOX_DIRECTION_FUNCTION. Exactly what syntax you use for
-// directions is therefore completely up to you.
+// action string by setting CHATTERBOX_ACTION_FUNCTION. Exactly what syntax you use for
+// actions is therefore completely up to you.
 // 
-// CHATTERBOX_DIRECTION_MODE = 1
-// Chatterbox will treat directions as expressions to be executed in a similar manner to in-line
-// expressions. This is covenient if you want to treat directions as little snippets of code
-// that Chatterbox can run. Syntax for directions becomes the same as in-line expressions, which
+// CHATTERBOX_ACTION_MODE = 1
+// Chatterbox will treat actions as expressions to be executed in a similar manner to in-line
+// expressions. This is covenient if you want to treat actions as little snippets of code
+// that Chatterbox can run. Syntax for actions becomes the same as in-line expressions, which
 // is broadly similar to "standard" GML syntax. Functions that you wish to execute must be added
 // by calling ChatterboxAddFunction().
 // 
 // An example would be: <<giveItem("amulet", 1)>>
 // 
 // 
-// CHATTERBOX_DIRECTION_MODE = 2
-// Chatterbox will treat directions as expressions with a greatly simplified syntax. This is
+// CHATTERBOX_ACTION_MODE = 2
+// Chatterbox will treat actions as expressions with a greatly simplified syntax. This is
 // useful for writers and narrative designers who are less familiar with the particulars of
 // coding and instead want to use a simple syntax to communicate with the underlying GameMaker
-// application. The direction is sliced into arguments using spaces as delimiters. The first
-// token in the direction is the name of the function call, as added by ChatterboxAddFunction().
+// application. The action is sliced into arguments using spaces as delimiters. The first
+// token in the action is the name of the function call, as added by ChatterboxAddFunction().
 // Subsequent tokens are passed to the function call with each token being a function parameter.
 // All parameters are passed as strings. If a parameter needs to contain a space then you may
 // enclose the string in " double quote marks.
 // 
 // An example, analogous to the example above, would be: <<giveItem amulet 1>>
 
-#macro CHATTERBOX_DIRECTION_MODE      1         //See above
-#macro CHATTERBOX_DIRECTION_FUNCTION  (undefined) //The function to receive <<direction>> contents. This will only be called if CHATTERBOX_DIRECTION_MODE is 0
+#macro CHATTERBOX_ACTION_MODE      1           //See above
+#macro CHATTERBOX_ACTION_FUNCTION  (undefined) //The function to receive <<action>> contents. This will only be called if CHATTERBOX_ACTION_MODE is 0
 
 // Chatterbox offers three helper functions to assist with parsing content strings as dialogue:
 //   ChatterboxGetContentSpeech()

@@ -1,4 +1,4 @@
-if (CHATTERBOX_DIRECTION_MODE != 2) show_error("CHATTERBOX_DIRECTION_MODE must be set to 2 for this test case\n ", true);
+if (CHATTERBOX_ACTION_MODE != 2) show_error("CHATTERBOX_ACTION_MODE must be set to 2 for this test case\n ", true);
 
 ChatterboxLoadFromFile("testcase_wait_function.yarn");
 //Note that <<testcaseWaitReturn>> is added as a Chatterbox function in TestCaseWaitFunctionReturn()

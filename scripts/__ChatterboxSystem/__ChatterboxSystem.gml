@@ -55,23 +55,23 @@ if (!__CHATTERBOX_ON_WEB)
     }
 }
 
-//Verify CHATTERBOX_DIRECTION_FUNCTION has been set to a valid global function
+//Verify CHATTERBOX_ACTION_FUNCTION has been set to a valid global function
 try
 {
-    if (script_exists(CHATTERBOX_DIRECTION_FUNCTION) || is_method(CHATTERBOX_DIRECTION_FUNCTION))
+    if (script_exists(CHATTERBOX_ACTION_FUNCTION) || is_method(CHATTERBOX_ACTION_FUNCTION))
     {
-        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_DIRECTION_FUNCTION is valid");
+        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_ACTION_FUNCTION is valid");
     }
 }
 catch(_error)
 {
-    if (CHATTERBOX_DIRECTION_MODE == 0)
+    if (CHATTERBOX_ACTION_MODE == 0)
     {
-        __ChatterboxError("CHATTERBOX_DIRECTION_FUNCTION is not a valid global function\n\n(This is only a requirement if CHATTERBOX_DIRECTION_MODE == 0)");
+        __ChatterboxError("CHATTERBOX_ACTION_FUNCTION is not a valid global function\n\n(This is only a requirement if CHATTERBOX_ACTION_MODE == 0)");
     }
     else
     {
-        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_DIRECTION_FUNCTION is invalid, but CHATTERBOX_DIRECTION_MODE = ", CHATTERBOX_DIRECTION_MODE);
+        if (__CHATTERBOX_DEBUG_INIT) __ChatterboxTrace("CHATTERBOX_ACTION_FUNCTION is invalid, but CHATTERBOX_ACTION_MODE = ", CHATTERBOX_ACTION_MODE);
     }
 }
 
