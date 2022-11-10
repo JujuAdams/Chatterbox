@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxCreate",
+  "name": "TestCaseStopFunction",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Chatterboxes",
-    "path": "folders/Chatterbox/Chatterboxes.yy",
+    "name": "Test Cases",
+    "path": "folders/Test Cases.yy",
   },
 }

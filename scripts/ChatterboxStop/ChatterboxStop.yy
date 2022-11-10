@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxCreate",
+  "name": "ChatterboxStop",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Chatterboxes",
-    "path": "folders/Chatterbox/Chatterboxes.yy",
+    "name": "Flow",
+    "path": "folders/Chatterbox/Flow.yy",
   },
 }

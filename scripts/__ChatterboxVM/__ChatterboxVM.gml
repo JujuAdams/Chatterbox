@@ -124,9 +124,8 @@ function __ChatterboxVMInner(_instruction)
                                 &&  (_next.type != "stop")
                                 &&  !((_next.type == "hopback") && (array_length(hopStack) <= 0)))
                                 {
-                                    waiting = true;
+                                    waiting          = true;
                                     wait_instruction = _next;
-                                    _do_next = false;
                                 }
                             }
                         }
@@ -228,7 +227,6 @@ function __ChatterboxVMInner(_instruction)
                                 stopped = true;
                             }
                             
-                            _do_next = false;
                             if (__CHATTERBOX_DEBUG_VM)
                             {
                                 switch(_instruction.type)
@@ -282,7 +280,7 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "action":
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.text.raw_string);
                         
                         var _direction_text = _instruction.text.Evaluate(local_scope, filename, true);
                         var _result = undefined;
@@ -378,16 +376,15 @@ function __ChatterboxVMInner(_instruction)
     {
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Something insisted the VM wait");
         
-        waiting        = true;
-        forced_waiting = global.__chatterboxVMForceWait;
+        waiting          = true;
+        forced_waiting   = global.__chatterboxVMForceWait;
         wait_instruction = _instruction.next;
-        _do_next = false;
         
         global.__chatterboxVMWait      = false;
         global.__chatterboxVMForceWait = false;
     }
     
-    if (_do_next)
+    if (_do_next && !waiting && !stopped)
     {
         if (instanceof(_next) == "__ChatterboxClassInstruction")
         {
