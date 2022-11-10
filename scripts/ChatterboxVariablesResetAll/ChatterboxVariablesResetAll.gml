@@ -1,6 +1,6 @@
 function ChatterboxVariablesResetAll()
 {
-    if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Resetting all variables...");
+    __ChatterboxTrace("Resetting all variables...");
     
     ds_map_clear(global.__chatterboxVariablesMap);
     
@@ -11,5 +11,5 @@ function ChatterboxVariablesResetAll()
         ++_i;
     }
     
-    if (CHATTERBOX_VERBOSE) __ChatterboxTrace("....variable resetting complete");
+    __ChatterboxTrace("....variable resetting complete");
 }

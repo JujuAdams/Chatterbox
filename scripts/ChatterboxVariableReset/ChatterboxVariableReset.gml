@@ -39,6 +39,6 @@ function ChatterboxVariableReset(_name)
     {
         var _value = global.__chatterboxDefaultVariablesMap[? _name];
         global.__chatterboxVariablesMap[? _name] = _value;
-        if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Reset Chatterbox variable $", _name, " to ", __ChatterboxReadableValue(_value));
+        __ChatterboxTrace("Reset Chatterbox variable $", _name, " to ", __ChatterboxReadableValue(_value));
     }
 }

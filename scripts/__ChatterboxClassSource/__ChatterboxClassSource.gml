@@ -9,7 +9,7 @@ function __ChatterboxClassSource(_filename, _string) constructor
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
-    if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Parsing \"", filename, "\" as a source file named \"", name, "\"");
+    __ChatterboxTrace("Parsing \"", filename, "\" as a source file with alias \"", name, "\"");
     
     try
     {

@@ -38,7 +38,7 @@ function ChatterboxLoadFromFile()
     }
     else
     {
-        if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Using legacy file loading method on HTML5");
+        __ChatterboxTrace("Warning! Using legacy file loading method on HTML5");
         
         var _file = file_text_open_read(_path);
         var _string = "";
