@@ -41,6 +41,6 @@ function ChatterboxVariableDefault(_name, _value)
         global.__chatterboxDeclaredVariablesMap[? _name] = true;
         ds_list_add(global.__chatterboxVariablesList, _name);
         
-        __ChatterboxTrace("Declared Chatterbox variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");
+        if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Declared Chatterbox variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");
     }
 }
