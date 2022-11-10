@@ -1,0 +1,8 @@
+title: Start
+---
+Here's some text!
+Text followed by function call that executes TestCaseStopFunction()
+<<testcaseStop>>
+Final bit of text... we hopefully never see this.
+Or this either!
+===
