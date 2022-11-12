@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__ChatterboxClassNode",
+  "name": "__ChatterboxSplitBody",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

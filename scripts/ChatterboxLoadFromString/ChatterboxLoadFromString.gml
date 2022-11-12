@@ -22,9 +22,17 @@ function ChatterboxLoadFromString(_filename, _string)
     
     //Set our default file if we don't already have one
     if (global.__chatterboxDefaultFile == "") global.__chatterboxDefaultFile = _filename;
-    
+	
+	//Write the string directly into a buffer we can use for parsing
+    var _buffer = buffer_create(string_byte_length(_string)+1, buffer_fixed, 1);
+    buffer_write(_buffer, buffer_string, _string);
+    buffer_seek(_buffer, buffer_seek_start, 0);
+	
     //Create a struct that represents this source
-    var _source = new __ChatterboxClassSource(_filename, _string);
+    var _source = new __ChatterboxClassSource(_filename, _buffer);
+	
+	//No! Memory! Leaks!
+    buffer_delete(_buffer);
     
     //If we successfully decoded a buffer add it to our collection of chatterboxes
     if ((instanceof(_source) == "__ChatterboxClassSource") && _source.loaded)
