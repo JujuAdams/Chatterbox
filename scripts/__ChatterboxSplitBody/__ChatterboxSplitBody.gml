@@ -80,17 +80,15 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
             __ChatterboxTrace("Read \"", _text, "\", writing as type=", _type, ", line=", _line, ", indent=", _indent);
         }
         
-        array_push(_substring_array, [_text, _type, _line, _indent]);
-        
-        //array_push(_substring_array, {
-        //    buffer_start: _buffer_offset + _string_start,
-        //    buffer_end:   _buffer_offset + _string_end,
-        //    
-        //    text:   _text,
-        //    type:   _type,
-        //    line:   _line,
-        //    indent: _indent,
-        //});
+        array_push(_substring_array, {
+            buffer_start: _buffer_offset + _string_start,
+            buffer_end:   _buffer_offset + _string_end,
+            
+            text:   _text,
+            type:   _type,
+            line:   _line,
+            indent: _indent,
+        });
     }
     
     if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Line = ", _line);

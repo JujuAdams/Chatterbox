@@ -4,17 +4,15 @@
 function __ChatterboxCompile(_in_substring_array, _root_instruction)
 {
     //Make sure we always terminate with a <<stop>> or <<hopback>>
-    array_push(_in_substring_array, [CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", infinity, 0]);
-    
-    //array_push(_substring_array, {
-    //    buffer_start: undefined,
-    //    buffer_end:   undefined,
-    //    
-    //    text:   CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop",
-    //    type:   "command",
-    //    line:   _line,
-    //    indent: 0,
-    //});
+    array_push(_in_substring_array, {
+        buffer_start: undefined,
+        buffer_end:   undefined,
+        
+        text:   CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop",
+        type:   "command",
+        line:   infinity,
+        indent: 0,
+    });
     
     var _previous_instruction = _root_instruction;
     
@@ -28,11 +26,11 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
     var _s = 0;
     while(_s < _substring_count)
     {
-        var _substring_array = _in_substring_array[_s];
-        var _string          = _substring_array[0];
-        var _type            = _substring_array[1];
-        var _line            = _substring_array[2];
-        var _indent          = _substring_array[3];
+        var _substring_struct = _in_substring_array[_s];
+        var _string = _substring_struct.text;
+        var _type   = _substring_struct.type;
+        var _line   = _substring_struct.line;
+        var _indent = _substring_struct.indent;
         
         if (_line != _previous_line)
         {
