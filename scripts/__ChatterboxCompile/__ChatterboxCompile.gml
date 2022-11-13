@@ -4,15 +4,7 @@
 function __ChatterboxCompile(_in_substring_array, _root_instruction)
 {
     //Make sure we always terminate with a <<stop>> or <<hopback>>
-    array_push(_in_substring_array, {
-        buffer_start: undefined,
-        buffer_end:   undefined,
-        
-        text:   CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop",
-        type:   "command",
-        line:   infinity,
-        indent: 0,
-    });
+    array_push(_in_substring_array, new __ChatterboxClassBodySubstring(CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", infinity, 0, undefined, undefined));
     
     var _previous_instruction = _root_instruction;
     

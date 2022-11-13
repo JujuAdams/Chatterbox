@@ -24,7 +24,7 @@ function ChatterboxLoadFromBuffer(_filename, _buffer)
     if (global.__chatterboxDefaultFile == "") global.__chatterboxDefaultFile = _filename;
     
     //Create a struct that represents this source
-    var _source = new __ChatterboxClassSource(_filename, _buffer);
+    var _source = new __ChatterboxClassSource(_filename, _buffer, true);
     
     //If we successfully decoded a buffer add it to our collection of chatterboxes
     if ((instanceof(_source) == "__ChatterboxClassSource") && _source.loaded)

@@ -1,0 +1,1 @@
+ChatterboxCreateLocalizationTable("example.yarn", "table.csv");

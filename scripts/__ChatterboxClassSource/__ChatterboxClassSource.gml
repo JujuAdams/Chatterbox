@@ -1,7 +1,8 @@
 /// @param filename
 /// @param string
+/// @param compile
 
-function __ChatterboxClassSource(_filename, _buffer) constructor
+function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
 {
     filename = _filename;
     name     = _filename;
@@ -38,12 +39,14 @@ function __ChatterboxClassSource(_filename, _buffer) constructor
         }
         else
         {
-            var _node = new __ChatterboxClassNode(filename, _node_metadata, true, _buffer, _node_temp_struct.buffer_start, _node_temp_struct.buffer_end);
+            var _node = new __ChatterboxClassNode(filename, _node_metadata, _compile, _buffer, _node_temp_struct.buffer_start, _node_temp_struct.buffer_end);
             array_push(nodes, _node);
         }
         
         _n++;
     }
+    
+    loaded = true;
     
     
     
@@ -75,14 +78,20 @@ function __ChatterboxClassSource(_filename, _buffer) constructor
         return tags;
     }
     
+    static __AddToLineArray = function(_line_array)
+    {
+        var _i = 0;
+        repeat(array_length(nodes))
+        {
+            nodes[_i].__AddToLineArray(_line_array);
+            ++_i;
+        }
+    }
+    
     static toString = function()
     {
         return "File " + string(filename) + " " + string(nodes);
     }
-    
-    
-    
-    loaded = true;
 }
 
 /// @param string
