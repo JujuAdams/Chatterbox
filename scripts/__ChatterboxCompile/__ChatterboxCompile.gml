@@ -35,10 +35,11 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
         
         if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("ln ", string_format(_line, 4, 0), " ", __ChatterboxGenerateIndent(_indent), _string);
         
-        if (string_copy(_string, 1, 2) == "->") //Option //TODO - Make this part of the substring splitting step
+        if (_type == "option")
         {
+            // -> option
             var _instruction = new __ChatterboxClassInstruction("option", _line, _indent);
-            _instruction.text = new __ChatterboxClassText(__ChatterboxCompilerRemoveWhitespace(string_delete(_string, 1, 2), all));
+            _instruction.text = new __ChatterboxClassText(_string);
         }
         else if (_type == "command")
         {
@@ -239,6 +240,10 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
         {
             var _instruction = new __ChatterboxClassInstruction("content", _line, _indent);
             _instruction.text = new __ChatterboxClassText(_string);
+        }
+        else
+        {
+            __ChatterboxError("Unrecognised substring type \"", _type, "\"");
         }
         
         if (_instruction != undefined)

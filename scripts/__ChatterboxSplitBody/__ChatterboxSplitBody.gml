@@ -41,16 +41,17 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
     var _substring_array = [];
     
     var _string_start = buffer_tell(_buffer);
-    var _string_end   = _string_start; 
+    var _string_end   = _string_start-1; 
     
     var _type   = "text";
     var _line   = 0;
     var _indent = 0;
     
-    var _find_indent = true;
-    var _in_comment  = false;
-    var _in_metadata = false;
-    var _in_action   = false;
+    var _line_is_option = false;
+    var _find_indent    = true;
+    var _in_comment     = false;
+    var _in_metadata    = false;
+    var _in_action      = false;
     
     var _func_read_string = function(_substring_array, _buffer, _string_start, _string_end, _type, _line, _indent, _buffer_offset)
     {
@@ -116,9 +117,10 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 buffer_seek(_buffer, buffer_seek_relative, 1);
             }
             
-            _find_indent = true;
-            _in_comment  = false;
-            _in_metadata = false;
+            _line_is_option = false;
+            _find_indent    = true;
+            _in_comment     = false;
+            _in_metadata    = false;
             
             _type   = "text";
             _indent = 0;
@@ -152,8 +154,24 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 _find_indent = false;
                 if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of content, ident=", _indent);
                 
-                //Re-parse this byte
-                buffer_seek(_buffer, buffer_seek_relative, -1);
+                if ((_byte == ord("-")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord(">")))
+                {
+                    // -> option
+                    buffer_seek(_buffer, buffer_seek_relative, 1);
+                    
+                    //Skip over whitespace
+                    while(buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == 0x20) buffer_seek(_buffer, buffer_seek_relative, 1);
+                    
+                    _string_start = buffer_tell(_buffer);
+                    _string_end   = _string_start-1;
+                    
+                    _type = "option";
+                }
+                else
+                {
+                    //Re-parse this byte
+                    buffer_seek(_buffer, buffer_seek_relative, -1);
+                }
             }
         }
         else
@@ -213,7 +231,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                                   _line, _indent,
                                   _buffer_offset);
                 
-                _type = "text";
+                _type = _line_is_option? "option" : "text";
                 _in_action = false;
                 
                 buffer_seek(_buffer, buffer_seek_relative, 1);

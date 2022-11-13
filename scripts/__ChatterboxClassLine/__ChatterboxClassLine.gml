@@ -10,6 +10,7 @@ function __ChatterboxClassLine() constructor
         switch(_substring.type)
         {
             case "text":
+            case "option":
                 array_push(__text_substring_array, _substring);
             break;
             
