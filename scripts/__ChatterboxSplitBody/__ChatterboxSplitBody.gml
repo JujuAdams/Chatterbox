@@ -41,6 +41,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
     var _substring_array = [];
     
     var _string_start = buffer_tell(_buffer);
+    var _string_end   = _string_start; 
     
     var _type   = "text";
     var _line   = 0;
@@ -112,7 +113,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
             else
             {
                 _func_read_string(_substring_array,
-                                  _buffer, _string_start, buffer_tell(_buffer)-2,
+                                  _buffer, _string_start, _string_end,
                                   _type, _line, _indent,
                                   _buffer_offset);
             }
@@ -134,6 +135,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
             _line++;
             
             _string_start = buffer_tell(_buffer);
+            _string_end   = _string_start-1;
             
             if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Line = ", _line);
         }
@@ -141,33 +143,37 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
         {
             //Do nothing!
         }
+        else if (_find_indent)
+        {
+            if (_byte == 0x20)
+            {
+                ++_indent;
+                ++_string_start;
+                ++_string_end;
+            }
+            else if (_byte == 0x09)
+            {
+                _indent += CHATTERBOX_INDENT_TAB_SIZE;
+                ++_string_start;
+                ++_string_end;
+            }
+            else
+            {
+                _find_indent = false;
+                if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of content, ident=", _indent);
+                
+                //Re-parse this byte
+                buffer_seek(_buffer, buffer_seek_relative, -1);
+            }
+        }
         else
         {
-            if (_find_indent)
-            {
-                if (_byte == 0x20)
-                {
-                    ++_indent;
-                    ++_string_start;
-                }
-                else if (_byte == 0x09)
-                {
-                    _indent += CHATTERBOX_INDENT_TAB_SIZE;
-                    ++_string_start;
-                }
-                else
-                {
-                    _find_indent = false;
-                    if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of content, ident=", _indent);
-                }
-            }
-            
             if (_byte == ord("#") && (buffer_peek(_buffer, max(0, buffer_tell(_buffer)-2), buffer_u8) != ord("\\"))) // # but without leading \
             {
                 if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of metdata");
                 
                 _func_read_string(_substring_array,
-                                  _buffer, _string_start, buffer_tell(_buffer)-2,
+                                  _buffer, _string_start, _string_end,
                                   _type, _line, _indent,
                                   _buffer_offset);
                 
@@ -175,13 +181,14 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 _in_metadata = true;
                 
                 _string_start = buffer_tell(_buffer);
+                _string_end   = _string_start-1;
             }
             else if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/"))) //   //
             {
                 if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of comment");
                 
                 _func_read_string(_substring_array,
-                                  _buffer, _string_start, buffer_tell(_buffer)-2,
+                                  _buffer, _string_start, _string_end,
                                   _type, _line, _indent,
                                   _buffer_offset);
                 
@@ -195,7 +202,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of action");
                 
                 _func_read_string(_substring_array,
-                                  _buffer, _string_start, buffer_tell(_buffer)-2,
+                                  _buffer, _string_start, _string_end,
                                   _type, _line, _indent,
                                   _buffer_offset);
                 
@@ -204,13 +211,14 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 
                 buffer_seek(_buffer, buffer_seek_relative, 1);
                 _string_start = buffer_tell(_buffer);
+                _string_end   = _string_start-1;
             }
             else if (_in_action && (_byte == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER)) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord(__CHATTERBOX_ACTION_CLOSE_DELIMITER)))
             {
                 if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found end of action");
                 
                 _func_read_string(_substring_array,
-                                  _buffer, _string_start, buffer_tell(_buffer)-2,
+                                  _buffer, _string_start, _string_end,
                                   _type, _line, _indent,
                                   _line, _indent,
                                   _buffer_offset);
@@ -220,6 +228,11 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 
                 buffer_seek(_buffer, buffer_seek_relative, 1);
                 _string_start = buffer_tell(_buffer);
+                _string_end   = _string_start-1;
+            }
+            else if (_byte > 0x20)
+            {
+                _string_end = buffer_tell(_buffer)-1;
             }
         }
     }
