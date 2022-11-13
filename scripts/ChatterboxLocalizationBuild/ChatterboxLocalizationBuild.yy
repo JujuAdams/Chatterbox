@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxBuildLocalizationTable",
+  "name": "ChatterboxLocalizationBuild",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

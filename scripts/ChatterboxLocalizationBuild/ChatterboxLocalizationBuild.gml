@@ -11,7 +11,7 @@
 /// @param yarnPathArray   Array of paths to source YarnScript files, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
 /// @param csvOutputPath   Path to save the localisation CSV to, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
 
-function ChatterboxBuildLocalizationTable(_yarn_path_array, _csv_output_path)
+function ChatterboxLocalizationBuild(_yarn_path_array, _csv_output_path)
 {
     if (!CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING)
     {
@@ -19,15 +19,15 @@ function ChatterboxBuildLocalizationTable(_yarn_path_array, _csv_output_path)
     }
     else if (os_browser != browser_not_a_browser)
     {
-        __ChatterboxError("ChatterboxBuildLocalizationTable() not available when running in a browser");
+        __ChatterboxError("ChatterboxLocalizationBuild() not available when running in a browser");
     }
     else if ((os_type != os_windows) && (os_type != os_macosx) && (os_type != os_linux))
     {
-        __ChatterboxError("ChatterboxBuildLocalizationTable() only available when running on Windows, MacOS, or Linux");
+        __ChatterboxError("ChatterboxLocalizationBuild() only available when running on Windows, MacOS, or Linux");
     }
     else if (GM_build_type != "run")
     {
-        __ChatterboxError("ChatterboxBuildLocalizationTable() only available when running from the IDE");
+        __ChatterboxError("ChatterboxLocalizationBuild() only available when running from the IDE");
     }
     else
     {

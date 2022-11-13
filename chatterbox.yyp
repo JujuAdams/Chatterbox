@@ -116,7 +116,7 @@
     {"id":{"name":"ChatterboxWait","path":"scripts/ChatterboxWait/ChatterboxWait.yy",},"order":1,},
     {"id":{"name":"ChatterboxVariablesFind","path":"scripts/ChatterboxVariablesFind/ChatterboxVariablesFind.yy",},"order":5,},
     {"id":{"name":"oExample","path":"objects/oExample/oExample.yy",},"order":2,},
-    {"id":{"name":"ChatterboxBuildLocalizationTable","path":"scripts/ChatterboxBuildLocalizationTable/ChatterboxBuildLocalizationTable.yy",},"order":0,},
+    {"id":{"name":"ChatterboxLocalizationBuild","path":"scripts/ChatterboxLocalizationBuild/ChatterboxLocalizationBuild.yy",},"order":0,},
     {"id":{"name":"__ChatterboxCompile","path":"scripts/__ChatterboxCompile/__ChatterboxCompile.yy",},"order":12,},
     {"id":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},"order":1,},
     {"id":{"name":"ChatterboxGetContentSpeakerData","path":"scripts/ChatterboxGetContentSpeakerData/ChatterboxGetContentSpeakerData.yy",},"order":7,},
