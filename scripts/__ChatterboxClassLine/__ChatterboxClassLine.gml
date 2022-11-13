@@ -16,10 +16,10 @@ function __ChatterboxClassLine() constructor
             case "metadata":
                 //Filter out non-hash metadata
                 var _text = _substring.text;
-                if ((string_copy(_text, 1, 5) == "line:") && (string_length(_text) == 5 + CHATTERBOX_LINE_HASH_SIZE))
+                if (__ChatterboxMetadataStringIsLineHash(_text))
                 {
                     array_push(__hash_substring_array, _substring);
-                    array_push(__hash_array, string_delete(_text, 1, 5));
+                    array_push(__hash_array, string_delete(_text, 1, __CHATTERBOX_LINE_HASH_PREFIX_LENGTH));
                 }
             break;
         }

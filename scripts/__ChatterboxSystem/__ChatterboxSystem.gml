@@ -18,6 +18,9 @@
 #macro __CHATTERBOX_ACTION_OPEN_DELIMITER   "<"
 #macro __CHATTERBOX_ACTION_CLOSE_DELIMITER  ">"
 
+#macro __CHATTERBOX_LINE_HASH_PREFIX         "line:"
+#macro __CHATTERBOX_LINE_HASH_PREFIX_LENGTH  5
+
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android) || (os_type == os_tvos))
 #macro __CHATTERBOX_ON_WEB     (os_browser != browser_not_a_browser)
     
@@ -93,6 +96,7 @@ global.__chatterboxVMInstanceStack      = [];
 global.__chatterboxVMWait               = false;
 global.__chatterboxVMForceWait          = false;
 global.__chatterboxCurrent              = undefined;
+global.__chatterboxLocalisationMap      = ds_map_create();
 if (!variable_global_exists("__chatterbox_functions")) global.__chatterboxFunctions = ds_map_create();
 
 //Big ol' list of operators. Operators at the top at processed first

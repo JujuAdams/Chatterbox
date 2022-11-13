@@ -197,7 +197,11 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
             {
                 if ((_previous_instruction.type == "content") || (_previous_instruction.type == "option"))
                 {
-                    array_push(_previous_instruction.metadata, _string);
+                    if (!CHATTERBOX_HIDE_LINE_HASH_METADATA || !__ChatterboxMetadataStringIsLineHash(_string))
+                    {
+                        array_push(_previous_instruction.metadata, _string);
+                    }
+                    
                     ++_count;
                 }
                 
