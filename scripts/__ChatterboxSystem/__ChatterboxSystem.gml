@@ -9,6 +9,7 @@
 
 #macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false
+#macro __CHATTERBOX_DEBUG_SPLITTER  false
 #macro __CHATTERBOX_DEBUG_COMPILER  false
 #macro __CHATTERBOX_DEBUG_VM        false
 
