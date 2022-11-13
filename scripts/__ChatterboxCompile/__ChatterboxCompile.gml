@@ -197,7 +197,26 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
             {
                 if ((_previous_instruction.type == "content") || (_previous_instruction.type == "option"))
                 {
-                    if (!CHATTERBOX_HIDE_LINE_HASH_METADATA || !__ChatterboxMetadataStringIsLineHash(_string))
+                    var _is_line_hash = __ChatterboxMetadataStringIsLineHash(_string);
+                    if (_is_line_hash)
+                    {
+                        var _instruction_text = _previous_instruction.text;
+                        
+                        if (_instruction_text == undefined)
+                        {
+                            __ChatterboxTrace("Warning! Cannot apply a line hash to a non-textual instruction");
+                        }
+                        else if (_instruction_text.loc_hash != undefined)
+                        {
+                            __ChatterboxError("Cannot apply more than one line hash to an instruction");
+                        }
+                        else
+                        {
+                            _instruction_text.loc_hash = string_delete(_string, 1, __CHATTERBOX_LINE_HASH_PREFIX_LENGTH);
+                        }
+                    }
+                    
+                    if not (CHATTERBOX_HIDE_LINE_HASH_METADATA && _is_line_hash)
                     {
                         array_push(_previous_instruction.metadata, _string);
                     }

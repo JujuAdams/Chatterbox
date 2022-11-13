@@ -7,6 +7,7 @@ function __ChatterboxClassInstruction(_type, _line, _indent) constructor
     line     = _line;
     indent   = _indent;
     metadata = [];
+    text     = undefined;
     
     static toString = function()
     {
