@@ -2,6 +2,12 @@
 
 function ChatterboxLocalizationLoad(_path)
 {
+    ds_map_clear(global.__chatterboxLocalisationMap);
+    __ChatterboxLocalizationLoad(_path, global.__chatterboxLocalisationMap);
+}
+
+function __ChatterboxLocalizationLoad(_path, _map)
+{
     var _grid = load_csv(_path); //TODO - Replace with SNAP?
     
     var _filename = "????";
@@ -29,7 +35,7 @@ function ChatterboxLocalizationLoad(_path)
         
         if ((_hash != "") && (_text != ""))
         {
-            global.__chatterboxLocalisationMap[? _prefix + _hash] = _text;
+            _map[? _prefix + _hash] = _text;
         }
         
         ++_y;

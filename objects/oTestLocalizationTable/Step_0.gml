@@ -32,6 +32,5 @@ else
 
 if (keyboard_check_pressed(ord("X")))
 {
-    ChatterboxCreateLocalizationTable("example.yarn", "table.csv");
-    show_debug_message("Done!");
+    ChatterboxBuildLocalizationTable("testcase_localization.yarn", "localization table.csv");
 }

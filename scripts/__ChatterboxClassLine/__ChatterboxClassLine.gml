@@ -33,7 +33,7 @@ function __ChatterboxClassLine() constructor
         return array_length(__text_substring_array);
     }
     
-    static __BuildLocalisation = function(_buffer_batch, _loc_hash_dict, _loc_hash_order)
+    static __BuildLocalisation = function(_output_buffer, _buffer_batch)
     {
         if (array_length(__text_substring_array) > array_length(__hash_array))
         {
@@ -49,7 +49,7 @@ function __ChatterboxClassLine() constructor
             repeat(array_length(__text_substring_array) - array_length(__hash_array))
             {
                 //Make a new hash for the textual substring
-                var _hash = string_copy(md5_string_unicode(__text_substring_array[_i].text), 1, CHATTERBOX_LINE_HASH_SIZE);
+                var _hash = string_copy(md5_string_unicode(string(random(0xFFFFFFFF))), 1, CHATTERBOX_LINE_HASH_SIZE);
                 array_push(__hash_array, _hash);
                 
                 //Add new localisation hashes
@@ -74,13 +74,11 @@ function __ChatterboxClassLine() constructor
         var _i = 0;
         repeat(array_length(__text_substring_array))
         {
-            var _hash = __hash_array[_i];
-            with(__text_substring_array[_i])
-            {
-                _loc_hash_dict[$ _hash] = self;
-                array_push(_loc_hash_order, _hash);
-            }
-            
+            buffer_write(_output_buffer, buffer_text, ",,\"#");
+            buffer_write(_output_buffer, buffer_text, __hash_array[_i]);
+            buffer_write(_output_buffer, buffer_text, "\",\"");
+            buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(__text_substring_array[_i].text));
+            buffer_write(_output_buffer, buffer_text, "\"\n");
             ++_i;
         }
     }

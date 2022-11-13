@@ -82,6 +82,8 @@
 
 #macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY  ""
 
+#macro CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING  true
+
 #region Advanced
 
 #macro CHATTERBOX_DECLARE_ON_COMPILE  true //Whether to declare variables when Chatterbox script is compiled. Set to <false> for legacy (2.1 and earlier) behaviour
@@ -91,7 +93,7 @@
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 
-#macro CHATTERBOX_LINE_HASH_SIZE           10
+#macro CHATTERBOX_LINE_HASH_SIZE           6
 #macro CHATTERBOX_HIDE_LINE_HASH_METADATA  true
 
 #macro CHATTERBOX_ERROR_NONSTANDARD_SYNTAX   true  //Throws an error when using a reasonable, though technically illegal, syntax e.g. <<end if>> or <<elseif>>

@@ -1,0 +1,31 @@
+File,Node,Hash,Text
+testcase_localization.yarn,,,
+,Start,,
+,,#ba974e,All the text in this example is being read from a localisation CSV file
+,,#4928d3,"Gnillac detisiv(""Trats"") dluohs nruter Eurt won, ecnis ew evah detisiv siht edon."
+,,#520e4c,"Dellac detisiv(""Trats"") dna demrifnoc taht ew'ev detisiv Trats!"
+,,#bf57b3,"Gnillac detisiv(""4edoN"") dluohs nruter Eslaf, esuaceb ew nevah't neeb ereht tey."
+,,#4a8f44,Ruo noitadilav si nekorb! Ho on!
+,,#c6e14c,"A elbairav deman ""1elbairav"" si won tes ot Eurt, dna eht gubed gol dluohs tcelfer siht."
+,,#077d36,"Ew era otua-gnicnavda ot eht txen edon, ""1edoN""."
+,Node1,,
+,,#ed8793,"Ni siht edon, ew ekam a eciohc, gnisu kciuq eciohc xatnys, dna tes a elbairav desab ffo fo taht. Siht enil si gnol, oot, os ti spleh su htiw gnitset txet gnipparw."
+,,#10597d,Eciohc 1
+,,#c541ec,Eciohc 2
+,,#2daed9,"Desab ffo fo hcihw eciohc sah neeb detceles, elbairav ""2elbairav"" lliw eb rehtie 1 ro 2."
+,,#3463e3,Won ew esu na fi tnemetats ot kcehc ti.
+,,#7b9dee,Uoy esohc Eciohc 1!
+,,#958e25,Uoy esohc Eciohc 2!
+,,#69e077,Ew deliaf ot tes eht elbairav!
+,,#abe1e8,Ew evah yllufsseccus dekcehc a elbairav.
+,,#f4d7f3,Eht txen edon lliw esu dradnats eciohc xatnys.
+,Node2,,
+,,#4d799b,Dradnats eciohc xatnys tset.
+,,#089947,Eciohc 1
+,,#21d28f,Eciohc 2
+,Node3,,
+,Node4,,
+,Node5,,
+,,#ff09cd,Uoy esohc Eciohc 1 reilrae!
+,,#85b394,Uoy esohc Eciohc 2 reilrae!
+,,#10c4bc,Siht si eht dne fo eht Nray gnitset elif.

@@ -52,8 +52,15 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
         return "Node " + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title);
     }
     
-    static __AddToLineArray = function(_lines_array)
+    static __BuildLocalisation = function(_output_buffer, _buffer_batch)
     {
+        //Write this node title into the output buffer
+        buffer_write(_output_buffer, buffer_text, ",\"");
+        buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(title));
+        buffer_write(_output_buffer, buffer_text, "\",,\n");
+        
+        //Collect substrings together into lines
+        var _lines_array = [];
         var _current_line_number = undefined;
         var _current_line = new __ChatterboxClassLine();
         
@@ -61,9 +68,6 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
         repeat(array_length(substring_array))
         {
             var _substring_struct = substring_array[_i];
-            _substring_struct.__filename = filename;
-            _substring_struct.__node     = title;
-            
             if (_substring_struct.line != _current_line_number)
             {
                 if (_current_line.__Size() > 0) array_push(_lines_array, _current_line);
@@ -76,5 +80,13 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
         }
         
         if (_current_line.__Size() > 0) array_push(_lines_array, _current_line);
+        
+        //Build localisation for each line
+        var _i = 0;
+        repeat(array_length(_lines_array))
+        {
+            _lines_array[_i].__BuildLocalisation(_output_buffer, _buffer_batch);
+            ++_i;
+        }
     }
 }
