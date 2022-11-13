@@ -91,12 +91,12 @@ function __ChatterboxParseYarn(_buffer)
     var _node_array  = [];
     var _file_tags   = [];
     var _file_struct = {
-		tags:  _file_tags,
-		nodes: _node_array,
-	};
+        tags:  _file_tags,
+        nodes: _node_array,
+    };
     
-	//Ensure we have a null at the end of the buffer
-	buffer_resize(_buffer, buffer_get_size(_buffer)+1);
+    //Ensure we have a null at the end of the buffer
+    buffer_resize(_buffer, buffer_get_size(_buffer)+1);
     buffer_seek(_buffer, buffer_seek_start, 0);
     
     if (buffer_get_size(_buffer) >= 4)
@@ -166,22 +166,22 @@ function __ChatterboxParseYarn(_buffer)
                         else
                         {
                             if (__CHATTERBOX_DEBUG_LOADER)
-							{
-						        var _old_tell = buffer_tell(_buffer);
-						        buffer_poke(_buffer, _string_start, buffer_u8, 0x00);
-						        buffer_seek(_buffer, buffer_seek_start, _body_start);
-						        var _string = buffer_read(_buffer, buffer_string);
-						        buffer_poke(_buffer, _string_start, buffer_u8, _byte);
-						        buffer_seek(_buffer, buffer_seek_start, _old_tell);
-								
-								__ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_metadata);
-							}
+                            {
+                                var _old_tell = buffer_tell(_buffer);
+                                buffer_poke(_buffer, _string_start, buffer_u8, 0x00);
+                                buffer_seek(_buffer, buffer_seek_start, _body_start);
+                                var _string = buffer_read(_buffer, buffer_string);
+                                buffer_poke(_buffer, _string_start, buffer_u8, _byte);
+                                buffer_seek(_buffer, buffer_seek_start, _old_tell);
+                                
+                                __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_metadata);
+                            }
                             
                             array_push(_node_array, {
-								metadata:     _node_metadata,
-								buffer_start: _body_start,
-								buffer_end:   _string_start-1,
-							});
+                                metadata:     _node_metadata,
+                                buffer_start: _body_start,
+                                buffer_end:   _string_start-1,
+                            });
                             
                             _in_body = false;
                             _node_metadata = {};
@@ -248,22 +248,22 @@ function __ChatterboxParseYarn(_buffer)
         __ChatterboxTrace("Warning! File ended without a final body terminator (===)");
         
         if (__CHATTERBOX_DEBUG_LOADER)
-		{
-	        var _old_tell = buffer_tell(_buffer);
-	        buffer_poke(_buffer, _string_start, buffer_u8, 0x00);
-	        buffer_seek(_buffer, buffer_seek_start, _body_start);
-	        var _string = buffer_read(_buffer, buffer_string);
-	        buffer_poke(_buffer, _string_start, buffer_u8, _byte);
-	        buffer_seek(_buffer, buffer_seek_start, _old_tell);
-			
-			__ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_metadata);
-		}
+        {
+            var _old_tell = buffer_tell(_buffer);
+            buffer_poke(_buffer, _string_start, buffer_u8, 0x00);
+            buffer_seek(_buffer, buffer_seek_start, _body_start);
+            var _string = buffer_read(_buffer, buffer_string);
+            buffer_poke(_buffer, _string_start, buffer_u8, _byte);
+            buffer_seek(_buffer, buffer_seek_start, _old_tell);
+            
+            __ChatterboxTrace("Creating node \"", __ChatterboxStringLimit(_string, 100), "\"    ", _node_metadata);
+        }
         
         array_push(_node_array, {
-			metadata:     _node_metadata,
-			buffer_start: _body_start,
-			buffer_end:   _string_start-1,
-		});
+            metadata:     _node_metadata,
+            buffer_start: _body_start,
+            buffer_end:   _string_start-1,
+        });
         
         _node_metadata = {};
     }

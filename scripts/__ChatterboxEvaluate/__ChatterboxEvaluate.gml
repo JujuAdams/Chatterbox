@@ -128,7 +128,7 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
                             
                             with(_self)
                             {
-                            	return script_execute_ext(_func, _parameter_values);	
+                                return script_execute_ext(_func, _parameter_values);    
                             }
                         }
                     }

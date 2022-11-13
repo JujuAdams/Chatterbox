@@ -3,19 +3,19 @@
 
 function __ChatterboxCompile(_in_substring_array, _root_instruction)
 {
-	//Make sure we always terminate with a <<stop>> or <<hopback>>
-	array_push(_in_substring_array, [CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", infinity, 0]);
-	
-	//array_push(_substring_array, {
-	//	buffer_start: undefined,
-	//	buffer_end:   undefined,
-	//	
-	//	text:   CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop",
-	//	type:   "command",
-	//	line:   _line,
-	//	indent: 0,
-	//});
-	
+    //Make sure we always terminate with a <<stop>> or <<hopback>>
+    array_push(_in_substring_array, [CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", infinity, 0]);
+    
+    //array_push(_substring_array, {
+    //    buffer_start: undefined,
+    //    buffer_end:   undefined,
+    //    
+    //    text:   CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop",
+    //    type:   "command",
+    //    line:   _line,
+    //    indent: 0,
+    //});
+    
     var _previous_instruction = _root_instruction;
     
     var _previous_line = 0;
@@ -236,7 +236,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
         
         ++_s;
     }
-	
-	//Don't pollute the input array!
-	array_pop(_in_substring_array);
+    
+    //Don't pollute the input array!
+    array_pop(_in_substring_array);
 }

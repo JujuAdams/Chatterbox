@@ -190,13 +190,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Could not select option because \"", filename, "\" is not loaded");
             return undefined;
         }
-		
-		if (stopped)
-		{
+        
+        if (stopped)
+        {
             __ChatterboxTrace("Warning! Could not select option because this chatterbox has been stopped");
             return undefined;
-		}
-		
+        }
+        
         if ((_index < 0) || (_index >= array_length(option)))
         {
             __ChatterboxTrace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
@@ -221,13 +221,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Could not continue because \"", filename, "\" is not loaded");
             return undefined;
         }
-		
-		if (stopped)
-		{
+        
+        if (stopped)
+        {
             __ChatterboxTrace("Warning! Could not continue because this chatterbox has been stopped");
             return undefined;
-		}
-		
+        }
+        
         if (!waiting)
         {
             __ChatterboxError("Can't continue, provided chatterbox isn't waiting");
@@ -237,9 +237,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         current_instruction = wait_instruction;
         __ChatterboxVM();
     }
-	
-	static __CurrentlyProcessing = function()
-	{
+    
+    static __CurrentlyProcessing = function()
+    {
         //Figure out if we're currently processing this chatterbox in a VM
         var _i = 0;
         repeat(array_length(global.__chatterboxVMInstanceStack))
@@ -247,9 +247,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             if (global.__chatterboxVMInstanceStack[_i] == self) return true;
             ++_i;
         }
-		
-		return false;
-	}
+        
+        return false;
+    }
     
     static Wait = function()
     {
@@ -258,7 +258,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Could not wait because \"", filename, "\" is not loaded");
             return undefined;
         }
-		
+        
         if (waiting)
         {
             __ChatterboxError("Can't wait, provided chatterbox is already waiting");
@@ -281,17 +281,17 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             wait_instruction = current_instruction;
         }
     }
-	
-	static Stop = function()
-	{
+    
+    static Stop = function()
+    {
         if (stopped)
         {
             __ChatterboxTrace("Can't stop, provided chatterbox is already stopped");
             return undefined;
         }
-		
-		stopped = true;
-	}
+        
+        stopped = true;
+    }
     
     static IsWaiting = function()
     {
