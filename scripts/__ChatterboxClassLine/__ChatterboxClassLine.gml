@@ -64,7 +64,7 @@ function __ChatterboxClassLine() constructor
             repeat(array_length(__hash_array) - array_length(__text_substring_array))
             {
                 var _substring = __hash_substring_array[_i];
-                _buffer_batch.__Delete(_substring.buffer_start, 1 + _substring.buffer_end - _substring.buffer_start);
+                _buffer_batch.__Delete(_substring.buffer_start-1, 1 + _substring.buffer_end - (_substring.buffer_start-1));
                 ++_i;
             }
         }

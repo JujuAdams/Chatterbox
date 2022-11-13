@@ -5,7 +5,7 @@
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Setup",
-    "path": "folders/Chatterbox/Setup.yy",
+    "name": "Localisation",
+    "path": "folders/Chatterbox/Localisation.yy",
   },
 }
