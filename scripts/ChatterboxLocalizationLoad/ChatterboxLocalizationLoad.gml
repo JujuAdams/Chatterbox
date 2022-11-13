@@ -8,8 +8,8 @@ function ChatterboxLocalizationLoad(_path)
     var _node     = "????";
     var _prefix   = "????:????:";
     
-    var _y = 0;
-    repeat(ds_grid_height(_grid))
+    var _y = 1;
+    repeat(ds_grid_height(_grid)-1)
     {
         if (_grid[# 0, _y] != "")
         {

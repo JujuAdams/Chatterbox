@@ -25,7 +25,7 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
     if (compile)
     {
         root_instruction = new __ChatterboxClassInstruction(undefined, -1, 0);
-        __ChatterboxCompile(_substring_array, root_instruction);
+        __ChatterboxCompile(_substring_array, root_instruction, filename + ":" + title + ":#");
     }
     else
     {

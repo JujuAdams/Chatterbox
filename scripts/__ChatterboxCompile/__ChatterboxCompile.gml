@@ -1,7 +1,8 @@
 /// @param substringList
 /// @param rootInstruction
+/// @param hashPrefix
 
-function __ChatterboxCompile(_in_substring_array, _root_instruction)
+function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefix)
 {
     //Make sure we always terminate with a <<stop>> or <<hopback>>
     array_push(_in_substring_array, new __ChatterboxClassBodySubstring(CHATTERBOX_END_OF_NODE_HOPBACK? "hopback" : "stop", "command", infinity, 0, undefined, undefined));
@@ -212,7 +213,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction)
                         }
                         else
                         {
-                            _instruction_text.loc_hash = string_delete(_string, 1, __CHATTERBOX_LINE_HASH_PREFIX_LENGTH);
+                            _instruction_text.loc_hash = _hash_prefix + string_delete(_string, 1, __CHATTERBOX_LINE_HASH_PREFIX_LENGTH);
                         }
                     }
                     

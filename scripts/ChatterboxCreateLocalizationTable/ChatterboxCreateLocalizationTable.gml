@@ -34,10 +34,11 @@ function ChatterboxCreateLocalizationTable(_yarn_path_array, _output_path)
         var _i = 0;
         repeat(_count)
         {
-            var _path = _root_directory + _yarn_path_array[_i];
+            var _local_path = _yarn_path_array[_i];
+            var _absolute_path = _root_directory + _local_path;
             
-            var _buffer = buffer_load(_path);
-            var _source = new __ChatterboxClassSource(_path, _buffer, false);
+            var _buffer = buffer_load(_absolute_path);
+            var _source = new __ChatterboxClassSource(_local_path, _buffer, false);
             
             var _buffer_batch = new __ChatterboxBufferBatch();
             _buffer_batch.__FromBuffer(_buffer);
@@ -52,7 +53,7 @@ function ChatterboxCreateLocalizationTable(_yarn_path_array, _output_path)
                 ++_i;
             }
             
-            buffer_save(_buffer_batch.__GetBuffer(), _path);
+            buffer_save(_buffer_batch.__GetBuffer(), _absolute_path);
             _buffer_batch.__Destroy();
             
             ++_i;
