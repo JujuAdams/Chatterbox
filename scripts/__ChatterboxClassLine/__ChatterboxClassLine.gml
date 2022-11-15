@@ -33,7 +33,7 @@ function __ChatterboxClassLine() constructor
         return array_length(__text_substring_array);
     }
     
-    static __BuildLocalisation = function(_output_buffer, _buffer_batch)
+    static __BuildLocalisation = function(_hash_order, _hash_dict, _buffer_batch)
     {
         if (array_length(__text_substring_array) > array_length(__hash_array))
         {
@@ -74,11 +74,9 @@ function __ChatterboxClassLine() constructor
         var _i = 0;
         repeat(array_length(__text_substring_array))
         {
-            buffer_write(_output_buffer, buffer_text, ",,\"#");
-            buffer_write(_output_buffer, buffer_text, __hash_array[_i]);
-            buffer_write(_output_buffer, buffer_text, "\",\"");
-            buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(__text_substring_array[_i].text));
-            buffer_write(_output_buffer, buffer_text, "\"\n");
+            var _hash = __hash_array[_i];
+            array_push(_hash_order, _hash);
+            _hash_dict[$ _hash] = __text_substring_array[_i].text;
             ++_i;
         }
     }

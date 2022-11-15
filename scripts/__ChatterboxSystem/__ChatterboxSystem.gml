@@ -20,6 +20,7 @@
 
 #macro __CHATTERBOX_LINE_HASH_PREFIX         "line:"
 #macro __CHATTERBOX_LINE_HASH_PREFIX_LENGTH  5
+#macro __CHATTERBOX_TEXT_HASH_LENGTH         6
 
 #macro __CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android) || (os_type == os_tvos))
 #macro __CHATTERBOX_ON_WEB     (os_browser != browser_not_a_browser)

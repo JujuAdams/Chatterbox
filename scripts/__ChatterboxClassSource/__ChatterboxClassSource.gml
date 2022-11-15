@@ -78,16 +78,22 @@ function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
         return tags;
     }
     
-    static __BuildLocalisation = function(_output_buffer, _buffer_batch)
+    static __BuildLocalisation = function(_file_order, _file_dict, _buffer_batch)
     {
-        buffer_write(_output_buffer, buffer_text, "\"");
-        buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(filename));
-        buffer_write(_output_buffer, buffer_text, "\",,,\n");
+        array_push(_file_order, filename);
+        
+        var _node_order = [];
+        var _node_dict = {};
+        
+        _file_dict[$ filename] = {
+            order: _node_order,
+            nodes: _node_dict,
+        }
         
         var _i = 0;
         repeat(array_length(nodes))
         {
-            nodes[_i].__BuildLocalisation(_output_buffer, _buffer_batch);
+            nodes[_i].__BuildLocalisation(_node_order, _node_dict, _buffer_batch);
             ++_i;
         }
     }

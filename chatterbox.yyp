@@ -9,6 +9,7 @@
     {"id":{"name":"TestCaseWaitFunction","path":"scripts/TestCaseWaitFunction/TestCaseWaitFunction.yy",},"order":31,},
     {"id":{"name":"__ChatterboxSplitBody","path":"scripts/__ChatterboxSplitBody/__ChatterboxSplitBody.yy",},"order":11,},
     {"id":{"name":"oTestCaseFastForward","path":"objects/oTestCaseFastForward/oTestCaseFastForward.yy",},"order":34,},
+    {"id":{"name":"__ChatterboxLocalizationLoadIntoMap","path":"scripts/__ChatterboxLocalizationLoadIntoMap/__ChatterboxLocalizationLoadIntoMap.yy",},"order":15,},
     {"id":{"name":"ChatterboxGetVisited","path":"scripts/ChatterboxGetVisited/ChatterboxGetVisited.yy",},"order":5,},
     {"id":{"name":"oTestCaseParsers","path":"objects/oTestCaseParsers/oTestCaseParsers.yy",},"order":26,},
     {"id":{"name":"ChatterboxVariablesClearVisitedAll","path":"scripts/ChatterboxVariablesClearVisitedAll/ChatterboxVariablesClearVisitedAll.yy",},"order":7,},
