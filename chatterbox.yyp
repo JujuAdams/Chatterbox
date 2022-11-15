@@ -145,8 +145,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
     {"roomId":{"name":"rmMain","path":"rooms/rmMain/rmMain.yy",},},
+    {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Chatterbox","folderPath":"folders/Chatterbox.yy","order":0,},
