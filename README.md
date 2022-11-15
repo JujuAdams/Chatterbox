@@ -1,5 +1,5 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:400px"></p>
-<h1 align="center">2.10.0 Beta</h1>
+<h1 align="center">2.10.1</h1>
 
 <p align="center">Narrative engine for GameMaker 2022 LTS by <b>@jujuadams</b></p>
 
