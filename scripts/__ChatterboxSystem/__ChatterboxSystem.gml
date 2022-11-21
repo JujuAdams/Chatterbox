@@ -202,7 +202,15 @@ function __ChatterboxError()
         ++_i;
     }
     
-    show_error("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string + "\n ", false);
+    if (os_browser != browser_not_a_browser)
+    {
+        _string += "\n \n" + string(debug_get_callstack());
+        throw ("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string);
+    }
+    else
+    {
+        show_error("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string + "\n ", false);
+    }
     
     return _string;
 }
