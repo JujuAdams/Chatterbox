@@ -38,8 +38,7 @@ function ChatterboxAddFunction(_name, _in_function)
         if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Function provided for \"", _name, "\" was a script index (", _function, "=", script_get_name(_function), "), binding to <undefined> scope");
         _function = method(undefined, _function);
     }
-    
-    if (!is_method(_function))
+    else if (!is_method(_function))
     {
         __ChatterboxError("Function/method supplied for \"", _name, "\" is invalid (", _in_function, ")");
         return false;
