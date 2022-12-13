@@ -9,6 +9,7 @@
     {"id":{"name":"TestCaseWaitFunction","path":"scripts/TestCaseWaitFunction/TestCaseWaitFunction.yy",},"order":31,},
     {"id":{"name":"__ChatterboxSplitBody","path":"scripts/__ChatterboxSplitBody/__ChatterboxSplitBody.yy",},"order":11,},
     {"id":{"name":"oTestCaseFastForward","path":"objects/oTestCaseFastForward/oTestCaseFastForward.yy",},"order":34,},
+    {"id":{"name":"oTestCaseAsyncFunctions","path":"objects/oTestCaseAsyncFunctions/oTestCaseAsyncFunctions.yy",},"order":44,},
     {"id":{"name":"__ChatterboxLocalizationLoadIntoMap","path":"scripts/__ChatterboxLocalizationLoadIntoMap/__ChatterboxLocalizationLoadIntoMap.yy",},"order":15,},
     {"id":{"name":"ChatterboxGetVisited","path":"scripts/ChatterboxGetVisited/ChatterboxGetVisited.yy",},"order":5,},
     {"id":{"name":"oTestCaseParsers","path":"objects/oTestCaseParsers/oTestCaseParsers.yy",},"order":26,},
@@ -204,6 +205,7 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"example.yarn","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_localization.yarn","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"localization table.csv","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_async_functions.yarn","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.0.19",
