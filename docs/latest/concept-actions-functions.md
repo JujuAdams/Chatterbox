@@ -174,12 +174,12 @@ What a beautiful evening, Amelia.
 
 In this example, both `<<HideTheMoon>>` and `<<FlickerStars>>` are custom actions. 
 
-There are three ways that custom actions can be used in Chatterbox; to swap between the different implementations set [`CHATTERBOX_DIRECTION_MODE`](reference-configuration?id=chatterbox_direction_mode) to one of the following (the default is option `1`):
-- `0` Pass YarnScript actions as a raw string to a function, defined by `CHATTERBOX_DIRECTION_FUNCTION`
+There are three ways that custom actions can be used in Chatterbox; to swap between the different implementations set [`CHATTERBOX_ACTION_MODE`](reference-configuration?id=chatterbox_action_mode) to one of the following (the default is option `1`):
+- `0` Pass YarnScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
 - `1` Treat actions as expressions
 - `2` Treat actions as they were in version 1 (Python-esque function calls)
 
-Mode `0` is the official recommendation from the Yarn team. This mode instructs a chatter to actions as a strings into the game engine for manual interpretation. Chatterbox's implementation is that the function defined by `CHATTERBOX_DIRECTION_FUNCTION` is called when Chatterbox encounters an action, the first argument (`argument0`) for the function call being the text inside the action as a string. The intention is that you'd then parse that text and execute behaviour accordingly but... this sucks, it's a ton of work to actually do this, let's move on.
+Mode `0` is the official recommendation from the Yarn team. This mode instructs a chatter to actions as a strings into the game engine for manual interpretation. Chatterbox's implementation is that the function defined by `CHATTERBOX_ACTION_FUNCTION` is called when Chatterbox encounters an action, the first argument (`argument0`) for the function call being the text inside the action as a string. The intention is that you'd then parse that text and execute behaviour accordingly but... this sucks, it's a ton of work to actually do this, let's move on.
 
 Mode `1` is the default Chatterbox behaviour:
 1. Every custom action is expected to use GML-like syntax: functions are executed using their name followed by a comma-separated list of arguments e.g. `<<CustomFunction("string", "string with spaces", 3.14, true)>>`
@@ -200,16 +200,18 @@ This is an advanced power move! It's possible to create asynchronous function ex
 2. `ChatterboxWait()` - Function that forces a chatterbox into a waiting state (pauses processing)
 3. `ChatterboxContinue()` - Function that resumes processing for a chatterbox
 
+The following example assumes [`CHATTERBOX_ACTION_MODE`](reference-configuration?id=chatterbox_action_mode) has been set to `1` and [`CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS`](reference-configuration?id=chatterbox_function_array_arguments) has been set to `true`.
+
 <!-- tabs:start -->
 
 #### **GML**
 
 ```gml
-ChatterboxAddFunction("example", function(_duration)
+ChatterboxAddFunction("example", function(_argumentArray)
 {
     ChatterboxWait(CHATTERBOX_CURRENT);
-    show_debug_message("Waiting chatterbox for " + string(_duration) + " seconds...");
-    time_source_start(time_source_create(time_source_game, _duration, time_source_unit_frames,
+    show_debug_message("Waiting chatterbox for " + string(_argumentArray[0]) + " frames...");
+    time_source_start(time_source_create(time_source_game, _argumentArray[0], time_source_units_frames,
     function(_chatterbox)
     {
         show_debug_message("...continuing chatterbox!");
@@ -225,7 +227,7 @@ ChatterboxAddFunction("example", function(_duration)
 Hello there, would you like to wait 5 seconds?
 -> Nah...
 -> Please.
-    <<example(5)>>
+    <<example(300)>>
 Okey dokey.
 ```
 
