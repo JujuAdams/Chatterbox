@@ -191,7 +191,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                 _string_start = buffer_tell(_buffer);
                 _string_end   = _string_start-1;
             }
-            else if ((_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/"))) //   //
+            else if (!_in_action && (_byte == ord("/")) && (buffer_peek(_buffer, buffer_tell(_buffer), buffer_u8) == ord("/"))) //   //
             {
                 if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Found start of comment");
                 
