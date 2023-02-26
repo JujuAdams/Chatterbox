@@ -163,7 +163,7 @@ Clears the visited state, as returned by YarnScript native function `visited()`,
 
 ## `...Find()`
 
-_Full function name:_ `ChatterboxVariableFind(substring, mode, caseSensitive)`
+_Full function name:_ `ChatterboxVariablesFind(substring, mode, caseSensitive)`
 
 _Returns:_ Array, variables names that match the given search substring and mode
 
