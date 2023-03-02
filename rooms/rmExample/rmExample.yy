@@ -1,7 +1,7 @@
 {
   "resourceType": "GMRoom",
   "resourceVersion": "1.0",
-  "name": "rmMain",
+  "name": "rmExample",
   "isDnd": false,
   "volume": 1.0,
   "parentRoom": null,
@@ -25,7 +25,7 @@
   "creationCodeFile": "",
   "inheritCode": false,
   "instanceCreationOrder": [
-    {"name":"inst_BE5D9C7","path":"rooms/rmMain/rmMain.yy",},
+    {"name":"inst_BE5D9C7","path":"rooms/rmExample/rmExample.yy",},
   ],
   "inheritCreationOrder": false,
   "sequenceId": null,
@@ -49,7 +49,7 @@
     "PhysicsWorldPixToMetres": 0.1,
   },
   "parent": {
-    "name": "chatterbox",
-    "path": "chatterbox.yyp",
+    "name": "Examples",
+    "path": "folders/Examples.yy",
   },
 }

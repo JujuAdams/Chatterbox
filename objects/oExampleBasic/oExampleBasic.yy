@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "oExample",
+  "name": "oExampleBasic",
   "spriteId": null,
   "solid": false,
   "visible": true,
@@ -29,7 +29,7 @@
   "properties": [],
   "overriddenProperties": [],
   "parent": {
-    "name": "Examples",
-    "path": "folders/Examples.yy",
+    "name": "Basic",
+    "path": "folders/Examples/Basic.yy",
   },
 }
