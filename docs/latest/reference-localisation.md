@@ -21,7 +21,7 @@ _Returns:_ N/A (`undefined`)
 |`yarnPathArray`|array of strings|Array of paths to Yarn files to build localisation for|
 |`csvPathArray` |array of strings|Path to save the resulting localisation CSV to        |
 
-Adds `#line` metadata to any unmarked lines in the Yarn files specified. If the CSV file already exists it will be modified in place, noting any new or changed lines.
+Adds `#line` metadata to any unmarked lines in the Yarn files specified, and exports a CSV containing all text in the Yarn files (including previously marked lines). If the CSV file already exists it will be modified in place, noting any changed lines.
 
 !> This function will modify the Yarn files on disk. Ensure you have backed up your work in source control.
 
