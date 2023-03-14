@@ -1,0 +1,10 @@
+title: Start
+---
+This is the example project for displaying sprites from speakerdata.
+Apple[Happy]: Hi! I'm Apple. I'm here as an example of how Chatterbox can display sprites!
+Apple[Amazed]: Isn't that so cool!?
+Elppa[Happy]: A bit of an overreaction, don't you think?
+Apple[Ashamed]: Ahem. Anyways, that's how it works, pretty neat, right?
+Elppa[Crying]: This is an example of it using a fallback sprite when the requested sprite can't be found.
+Allpe: This is an example of it using the fallback character for a character not defined in the actors list.
+===
