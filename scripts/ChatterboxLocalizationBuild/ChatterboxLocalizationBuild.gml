@@ -15,7 +15,7 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
 {
     if (!CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING)
     {
-        __ChatterboxError("THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT\nENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL\n \nSet CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING to <false> to turn off this warning");
+        __ChatterboxError("THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT\nENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL\n \nSet CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING to <true> to turn off this warning");
     }
     else if (os_browser != browser_not_a_browser)
     {
