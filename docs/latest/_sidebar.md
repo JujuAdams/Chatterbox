@@ -1,4 +1,5 @@
 -   [Introduction](README)
+-   [Alternatives](Alternatives)
 -   [Getting Started](getting-started)
 -   [Spider Lily's Tutorial](https://spiderlilystudios.medium.com/chatterbox-branching-dialogue-for-game-maker-studio-2-6834b4452f3b)
 
