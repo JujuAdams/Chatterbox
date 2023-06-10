@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:400px"></p>
 <h1 align="center">Chatterbox 2.10.4</h1>
 
-<p align="center">Narrative engine for GameMaker 2022 LTS by <b>@jujuadams</b></p>
+<p align="center">Narrative engine for GameMaker 2022 LTS by <a href="https://www.jujuadams.com/" target="_blank">Juju Adams</a></p>
 
 &nbsp;
 
@@ -11,6 +11,7 @@
 - ### Download the [visual editor](https://github.com/FaultyFunctions/Crochet/) by [Faulty](https://github.com/FaultyFunctions)
 - ### Read the [documentation](http://jujuadams.github.io/Chatterbox)
 - ### Talk about Chatterbox on the [Discord server](https://discord.gg/8krYCqr)
+- ### You may also like [FriendlyCosmonaut's dialogue system](https://friendlycosmonaut.itch.io/dialoguesystem), [Quack](https://marketplace.yoyogames.com/assets/8789/quack-dialogue-system), and [gmdialogue](https://github.com/danielpancake/gmdialogue)
 - ### Learn how to add text effects to Chatterbox with [Scribble](https://github.com/JujuAdams/Scribblebox)
 
 &nbsp;
