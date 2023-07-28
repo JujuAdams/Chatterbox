@@ -1,3 +1,4 @@
+// Feather disable all
 /// Resets the visited state of a specific node in a specific file
 /// Future calls to Chatterbox's "visited()" function for this node will return 0
 /// 

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the value of the Chatterbox variable with the given name
 /// Chatterbox variables are only strings, numbers, or booleans
 /// If the variable doesn't exist, this function will return the given default value,

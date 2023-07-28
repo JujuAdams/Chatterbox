@@ -1,3 +1,4 @@
+// Feather disable all
 /// Creates a chatterbox
 /// 
 /// The "singletonText" parameter controls how dialogue is returned:

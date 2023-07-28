@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns a string that combines all individual content strings currently available in a chatterbox concatenated together
 /// In singleton mode, this function (should!) return the same value as ChatterboxGetContent(chatterbox, 0)
 ///

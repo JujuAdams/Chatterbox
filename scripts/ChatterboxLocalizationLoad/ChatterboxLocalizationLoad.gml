@@ -1,3 +1,4 @@
+// Feather disable all
 /// Loads a localisation CSV file created by ChatterboxLocalizationBuild()
 /// Any text in the base YarnScript file that either has no line hash or whose line hash cannot
 /// be found in the localisation CSV will be displayed in the native language. Only one

@@ -1,3 +1,4 @@
+// Feather disable all
 #region Internal Macro Definitions
 
 #macro __CHATTERBOX_VERSION  "2.10.4"

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the string after the first colon in a Chatterbox's content.
 ///
 /// @param chatterbox

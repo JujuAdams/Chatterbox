@@ -1,3 +1,4 @@
+// Feather disable all
 function ChatterboxVariablesResetAll()
 {
     __ChatterboxTrace("Resetting all variables...");

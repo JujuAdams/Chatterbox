@@ -1,3 +1,4 @@
+// Feather disable all
 /// Parses an array of YarnScript files stored in your project's Included Filess directory and
 /// creates a CSV that contains all strings in those source files. The YarnScript files are modified
 /// by this function such that they link up to the CSV. You should then create a copy of the CSV

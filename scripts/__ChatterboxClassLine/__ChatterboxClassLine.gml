@@ -1,3 +1,4 @@
+// Feather disable all
 function __ChatterboxClassLine() constructor
 {
     __substring_array      = [];

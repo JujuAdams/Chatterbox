@@ -1,3 +1,4 @@
+// Feather disable all
 /// Resets the visited state of every node
 /// Future calls to Chatterbox's "visited()" function for all nodes will return 0
 

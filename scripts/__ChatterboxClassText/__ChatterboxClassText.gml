@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param string
 
 function __ChatterboxClassText(_string) constructor

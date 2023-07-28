@@ -1,3 +1,4 @@
+// Feather disable all
 ChatterboxAddFunction("testcaseAction", TestCaseActionFunction);
 
 function TestCaseActionFunction(_array)

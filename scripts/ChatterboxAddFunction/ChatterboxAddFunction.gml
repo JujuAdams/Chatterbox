@@ -1,3 +1,4 @@
+// Feather disable all
 /// Adds a custom function that can be called by expressions
 /// 
 /// Custom functions can return values, but they should be numbers or strings.

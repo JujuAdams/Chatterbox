@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns metadata associated with the content string with the given index in the given chatterbox
 ///
 /// @param chatterbox

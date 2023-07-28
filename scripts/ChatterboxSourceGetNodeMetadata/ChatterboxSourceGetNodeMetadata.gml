@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the metadata for the given node from the given source
 ///
 /// @param sourceName

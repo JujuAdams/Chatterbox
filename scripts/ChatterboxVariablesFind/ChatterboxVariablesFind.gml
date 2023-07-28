@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns an array of variable names that match the given substring and search mode
 /// 
 /// Mode should be 0, 1, or 2:

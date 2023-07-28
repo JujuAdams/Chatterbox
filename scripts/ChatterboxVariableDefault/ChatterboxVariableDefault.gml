@@ -1,3 +1,4 @@
+// Feather disable all
 /// Sets the default value of the Chatterbox variable with the given name
 /// Chatterbox variables are only strings, numbers, or booleans
 /// 

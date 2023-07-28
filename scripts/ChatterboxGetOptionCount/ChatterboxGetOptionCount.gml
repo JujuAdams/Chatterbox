@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns the total number of option strings in the given chatterbox
 ///
 /// @param chatterbox

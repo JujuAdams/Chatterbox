@@ -1,3 +1,4 @@
+// Feather disable all
 /// Replaces a portion of Chatterbox script with a different portion of text
 /// This is performed before any compilation or parsing so can be used to insert commands into your scripts
 ///

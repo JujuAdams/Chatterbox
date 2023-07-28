@@ -1,3 +1,4 @@
+// Feather disable all
 function __ChatterboxClassBodySubstring(_text, _type, _line, _indent, _buffer_start, _buffer_end) constructor
 {
     buffer_start = _buffer_start;

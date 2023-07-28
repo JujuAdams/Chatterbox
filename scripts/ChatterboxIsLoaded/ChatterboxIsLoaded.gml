@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns if the given source file has been loaded
 ///
 /// @param filename  Name of the file to check

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Returns a string that represents the names and values of all Chatterbox variables (excluding constants)
 
 function ChatterboxVariablesExport()

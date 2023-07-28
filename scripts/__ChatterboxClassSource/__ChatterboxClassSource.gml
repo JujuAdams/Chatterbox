@@ -1,3 +1,4 @@
+// Feather disable all
 /// @param filename
 /// @param string
 /// @param compile

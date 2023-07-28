@@ -1,3 +1,4 @@
+// Feather disable all
 /// Forces a chatterbox to wait at the current instruction
 ///
 /// @param chatterbox

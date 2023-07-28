@@ -1,3 +1,4 @@
+// Feather disable all
 /// Replaces all Chatterbox variables with values found in the given string
 /// The string passed into this function should have been created by ChatterboxVariablesExport()
 /// 

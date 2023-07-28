@@ -1,3 +1,4 @@
+// Feather disable all
 ChatterboxAddFunction("testcaseNumericParamArguments", TestCaseNumericParamFunctionArguments);
 
 function TestCaseNumericParamFunctionArguments()

@@ -1,3 +1,4 @@
+// Feather disable all
 /// Forces a chatterbox to stop immediately
 ///
 /// @param chatterbox
