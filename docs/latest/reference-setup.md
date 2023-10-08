@@ -169,3 +169,16 @@ _Returns:_ Array, the metadata tags associated with the source
 |Name        |Datatype|Purpose                     |
 |------------|--------|----------------------------|
 |`sourceName`|string  |Name of the source to target|
+
+&nbsp;
+
+## `...SourceGetNodeMetadata`
+
+_Full function name:_ `ChatterboxSourceGetNodeMetadata(sourceName, nodeTitle)`
+
+_Returns:_ Struct, the metadata for the node in the given source
+
+|Name        |Datatype|Purpose                       |
+|------------|--------|------------------------------|
+|`sourceName`|string  |Name of the source to check in|
+|`nodeTitle` |string  |Name of the node to check for |

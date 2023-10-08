@@ -144,6 +144,8 @@ Chatterbox has the following native actions:
 <<stop>>
 <<wait>>
 <<forcewait>>
+<<fastforward>>
+<<fastmark>>
 ```
 
 Custom actions can be added to Chatterbox by using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Custom actions should be added before
@@ -245,7 +247,7 @@ Yarn will automatically convert between types. For example:
 
 ## Functions
 
-By default, Chatterbox includes a `visited()` function, used to check whether a node has been entered.
+By default, Chatterbox includes a `visited()` function which returns the number of times a node has been entered.
 
 ```yarn
 <<if visited("GoToCity")>>
@@ -253,10 +255,19 @@ By default, Chatterbox includes a `visited()` function, used to check whether a 
 <<endif>>
 ```
 
-Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
+Chatterbox also includes the `optionChosen()` function. This works similarly to `visited()` but can only be used in the condition for an option, like so:
 
-Parameters should be separated by spaces and are passed into a script as an array of values in `argument0`.
-Custom functions can return values, but they should be reals or strings.
+```yarn
+How can I help?
+-> Can I buy some green eggs please? <<if !optionChosen()>>
+    No... This is a stationery shop.
+-> Do you have any ham for sale? <<if !optionChosen()>>
+    Huh? We mostly sell birthday cards.
+```
+
+Using `optionChosen()` outside of an option condition is invalid and will throw an error. What options have been chosen is not intended to persist between gameplay sessions and is not included in the data returned by `ChatterboxVariablesExport()`. If you want to track which options have been chosen, you will instead need to write your own system.
+
+Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
 
 <!-- tabs:start -->
 
