@@ -320,3 +320,17 @@ Here's a list of supported operators (in no particular order) that are supported
 |     `eq`     |  `==`  | Equal to                               |
 |     `is`     |  `==`  | Equal to                               |
 |    `neq`     |  `!=`  | Not equal to                           |
+
+## Fast-Forwarding
+
+Chatterbox allows you to, at will, fast-forward past content strings. This is handy for games with a ton of content, or with a lot of replayability value as it allows players to skip past things they've seen before. Fast-forwarding will speed allow, skipping content strings, until hitting one of the following:
+
+1. The end of a Chatterbox or `<<stop>>`
+
+2. An option `->`
+
+3. A `<<forcewait>>` action
+
+Fast-forwarding is typically triggered by calling `ChatterboxFastForward()` but you may also find it useful to trigger a fast-forward from YarnScript. You can do this using `<<fastforward>>` in YarnScript as you would other actions.
+
+You can also turn fast-forwarding off from inside YarnScript as well; this is done with the `<<fastmark>>` action. Content **after** `<<fastmark>>` will still appear but any content between triggering fast-forwarding and `<<fastmark>>` will not appear.
