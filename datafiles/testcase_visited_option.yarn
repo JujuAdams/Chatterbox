@@ -1,0 +1,9 @@
+title: Start
+---
+Choose an option
+-> Option 1 (YarnScript condition) <<if !optionChosen()>>
+	Chose option 1
+-> Option 2 (GML condition)
+	Chose option 2
+<<jump Start>>
+===
