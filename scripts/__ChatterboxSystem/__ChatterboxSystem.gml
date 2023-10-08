@@ -1,7 +1,7 @@
 // Feather disable all
 #region Internal Macro Definitions
 
-#macro __CHATTERBOX_VERSION  "2.11.0"
+#macro __CHATTERBOX_VERSION  "2.11.0.1"
 #macro __CHATTERBOX_DATE     "2023-10-08"
 
 #macro CHATTERBOX_VARIABLES_MAP   global.__chatterboxVariablesMap
