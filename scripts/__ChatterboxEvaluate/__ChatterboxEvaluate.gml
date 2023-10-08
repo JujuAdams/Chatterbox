@@ -3,8 +3,9 @@
 /// @param filename
 /// @param expression
 /// @param behaviour
+/// @param optionUUID
 
-function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
+function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, _optionUUID)
 {
     if (!is_struct(_expression)) return _expression;
     
@@ -35,15 +36,15 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
         case "*=":
         case "-=":
         case "+=":
-            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined);
-            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined);
+            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined, _optionUUID);
+            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined, _optionUUID);
         break;
         
         case "!":
         case "neg":
         case "paren":
         case "param":
-            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined);
+            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined, _optionUUID);
         break;
         
         case "func":
@@ -52,13 +53,13 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
             var _p = 0;
             repeat(array_length(_parameters))
             {
-                _parameter_values[@ _p] = __ChatterboxEvaluate(_local_scope, _filename, _parameters[_p], undefined);
+                _parameter_values[@ _p] = __ChatterboxEvaluate(_local_scope, _filename, _parameters[_p], undefined, _optionUUID);
                 ++_p;
             }
         break;
         
         case "=":
-            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined);
+            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined, _optionUUID);
         break;
     }
     
@@ -93,6 +94,17 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour)
                 else
                 {
                     return ChatterboxGetVisited(_parameter_values[0], _filename);
+                }
+            }
+            else if (_expression.name == "optionChosen")
+            {
+                if (_optionUUID == undefined)
+                {
+                    __ChatterboxError("Cannot use optionChosen() outside of a option condition");
+                }
+                else
+                {
+                    return global.__chatterboxVariablesMap[? __CHATTERBOX_OPTION_CHOSEN_PREFIX + _optionUUID];
                 }
             }
             else

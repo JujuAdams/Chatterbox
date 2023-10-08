@@ -97,7 +97,7 @@ function __ChatterboxClassText(_string) constructor
             var _value = substrings[_i];
             if (is_struct(_value))
             {
-                _value = __ChatterboxEvaluate(_local_scope, _filename, _value, undefined);
+                _value = __ChatterboxEvaluate(_local_scope, _filename, _value, undefined, undefined);
                 if (is_string(_value) && _delimitStrings) _value = "\"" + _value + "\"";
             }
             

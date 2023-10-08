@@ -16,7 +16,7 @@ function __ChatterboxClassLine() constructor
             break;
             
             case "metadata":
-                //Filter out non-hash metadata
+                //Filter for hash metadata
                 var _text = _substring.text;
                 if (__ChatterboxMetadataStringIsLineHash(_text))
                 {

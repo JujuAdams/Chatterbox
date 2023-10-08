@@ -52,7 +52,10 @@ function __ChatterboxVMInner(_instruction)
         
         if (!((_instruction.type == "if") || (_instruction.type == "else if")) && variable_struct_exists(_instruction, "condition"))
         {
-            if (!__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined)) _condition_failed = true;
+            if (!__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined, _instruction[$ "optionUUID"]))
+            {
+                _condition_failed = true;
+            }
         }
         
         if (CHATTERBOX_SHOW_REJECTED_OPTIONS || !_condition_failed)
@@ -71,6 +74,7 @@ function __ChatterboxVMInner(_instruction)
                     array_push(optionConditionBool, !_condition_failed);
                     array_push(optionMetadata, _instruction.metadata);
                     array_push(optionInstruction, _branch);
+                    array_push(__optionUUIDArray, _instruction.optionUUID);
                     
                     array_push(optionStructArray, {
                         text: _optionString,
@@ -170,7 +174,7 @@ function __ChatterboxVMInner(_instruction)
                         
                         try
                         {
-                            var _destination = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression("(" + _instruction.destination + ")", false), undefined);
+                            var _destination = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression("(" + _instruction.destination + ")", false), undefined, undefined);
                         }
                         catch(_error)
                         {
@@ -282,17 +286,17 @@ function __ChatterboxVMInner(_instruction)
                     
                     case "declare":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
-                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "declare");
+                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "declare", undefined);
                     break;
                     
                     case "constant":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
-                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "constant");
+                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "constant", undefined);
                     break;
                     
                     case "set":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
-                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "set");
+                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "set", undefined);
                     break;
                     
                     case "action":
@@ -315,11 +319,11 @@ function __ChatterboxVMInner(_instruction)
                             break;
                             
                             case 1:
-                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, false), undefined);
+                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, false), undefined, undefined);
                             break;
                             
                             case 2:
-                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined);
+                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined, undefined);
                             break;
                         }
                         
@@ -347,7 +351,7 @@ function __ChatterboxVMInner(_instruction)
                     case "if":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<if>> ", _instruction.condition);
                         
-                        if (__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined))
+                        if (__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined, undefined))
                         {
                             rejected_if = false;
                         }
@@ -370,7 +374,7 @@ function __ChatterboxVMInner(_instruction)
                     case "else if":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<else if>> ", _instruction.condition);
                         
-                        if (rejected_if && __ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined))
+                        if (rejected_if && __ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined, undefined))
                         {
                             rejected_if = false;
                         }

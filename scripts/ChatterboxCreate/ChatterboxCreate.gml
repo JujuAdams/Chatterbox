@@ -59,6 +59,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     optionConditionBool = [];
     optionMetadata      = [];
     optionInstruction   = [];
+    __optionUUIDArray     = [];
     optionStructArray   = [];
     
     hopStack = [];
@@ -209,6 +210,17 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         
         if (optionConditionBool[_index])
         {
+            var _lookup = __CHATTERBOX_OPTION_CHOSEN_PREFIX + string(__optionUUIDArray[_index]);
+            if (ds_map_exists(global.__chatterboxVariablesMap, _lookup))
+            {
+                global.__chatterboxVariablesMap[? _lookup]++;
+            }
+            else
+            {
+                global.__chatterboxVariablesMap[? _lookup] = 1;
+                ds_list_add(global.__chatterboxConstantsList, _lookup);
+            }
+            
             current_instruction = optionInstruction[_index];
             __ChatterboxVM();
         }
@@ -387,6 +399,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return option[_index];
     }
     
+    static GetOptionVisited = function(_index)
+    {
+        VerifyIsLoaded();
+        if ((_index < 0) || (_index >= array_length(option))) return 0;
+        return global.__chatterboxVariablesMap[? __CHATTERBOX_OPTION_CHOSEN_PREFIX + string(__optionUUIDArray[_index])] ?? 0;
+    }
+    
     static GetOptionCount = function()
     {
         VerifyIsLoaded();
@@ -448,9 +467,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             {
                 __ChatterboxTrace("Warning! \"", filename, "\" has been unloaded, an in-progress chatterbox has been invalidated");
                 
-                content             = [];
-                option              = [];
-                optionInstruction   = [];
+                __ClearContent();
+                __ClearOptions();
+                
                 current_node        = undefined;
                 current_instruction = undefined;
                 stopped             = true;
@@ -478,6 +497,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         array_resize(optionConditionBool, _count);
         array_resize(optionMetadata,      _count);
         array_resize(optionInstruction,   _count);
+        array_resize(__optionUUIDArray,     _count);
         array_resize(optionStructArray,   _count);
     }
 }

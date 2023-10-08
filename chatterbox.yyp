@@ -117,6 +117,7 @@
     {"id":{"name":"ChatterboxLocalizationClear","path":"scripts/ChatterboxLocalizationClear/ChatterboxLocalizationClear.yy",},"order":2,},
     {"id":{"name":"oTestCaseInLineExpressions","path":"objects/oTestCaseInLineExpressions/oTestCaseInLineExpressions.yy",},"order":20,},
     {"id":{"name":"ChatterboxUnload","path":"scripts/ChatterboxUnload/ChatterboxUnload.yy",},"order":6,},
+    {"id":{"name":"ChatterboxGetOptionVisited","path":"scripts/ChatterboxGetOptionVisited/ChatterboxGetOptionVisited.yy",},"order":1,},
     {"id":{"name":"oTestCaseFileTags","path":"objects/oTestCaseFileTags/oTestCaseFileTags.yy",},"order":10,},
     {"id":{"name":"__ChatterboxMetadataStringIsLineHash","path":"scripts/__ChatterboxMetadataStringIsLineHash/__ChatterboxMetadataStringIsLineHash.yy",},"order":13,},
     {"id":{"name":"__ChatterboxClassLine","path":"scripts/__ChatterboxClassLine/__ChatterboxClassLine.yy",},"order":2,},
