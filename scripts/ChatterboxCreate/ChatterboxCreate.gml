@@ -68,6 +68,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     stopped             = true;
     waiting             = false;
     forced_waiting      = false;
+    fastForward         = false;
     loaded              = true;
     wait_instruction    = undefined;
     
@@ -269,7 +270,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         //Figure out if we're currently processing this chatterbox in a VM
         if (__CurrentlyProcessing())
         {
-            //If we *are* processing this chatterbox then set this particular global to <true>
+            //If we are processing this chatterbox then set this particular global to <true>
             //We pick this global up at the bottom of the VM
             global.__chatterboxVMWait      = true;
             global.__chatterboxVMForceWait = true;
@@ -326,9 +327,14 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        while ((GetOptionCount() <= 0) && IsWaiting() && !IsStopped() && !forced_waiting)
+        if (!__CurrentlyProcessing())
         {
-            Continue();
+            global.__chatterboxVMFastForward = true;
+        }
+        else
+        {
+            fastForward = true;
+            __ChatterboxVM();
         }
     }
     

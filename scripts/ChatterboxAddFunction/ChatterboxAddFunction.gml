@@ -60,6 +60,7 @@ function ChatterboxAddFunction(_name, _in_function)
         case "jump":
         case "stop":
         case "wait":
+        case "fastforward":
         case "forcewait":
         case "hop":
         case "hopback":

@@ -1,48 +1,52 @@
 // Feather disable all
 function __ChatterboxVM()
 {
-    content              = [];
-    contentConditionBool = [];
-    contentMetadata      = [];
-    contentStructArray   = [];
-    
-    option               = [];
-    optionConditionBool  = [];
-    optionMetadata       = [];
-    optionInstruction    = [];
-    optionStructArray    = [];
-    
-    stopped          = false;
-    waiting          = false;
-    forced_waiting   = false;
-    wait_instruction = undefined;
-    entered_option   = false;
-    leaving_option   = false;
-    rejected_if      = false;
-    
-    if (current_instruction.type == "stop")
+    do 
     {
-        stopped = true;
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<stop>>)");
-        return undefined;
+        content              = [];
+        contentConditionBool = [];
+        contentMetadata      = [];
+        contentStructArray   = [];
+        
+        option               = [];
+        optionConditionBool  = [];
+        optionMetadata       = [];
+        optionInstruction    = [];
+        optionStructArray    = [];
+        
+        stopped          = false;
+        waiting          = false;
+        forced_waiting   = false;
+        wait_instruction = undefined;
+        entered_option   = false;
+        leaving_option   = false;
+        rejected_if      = false;
+        
+        if (current_instruction.type == "stop")
+        {
+            stopped = true;
+            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<stop>>)");
+            return undefined;
+        }
+        
+        if ((current_instruction.type == "hopback") && (array_length(hopStack) <= 0))
+        {
+            stopped = true;
+            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<hopback>>)");
+            return undefined;
+        }
+        
+        array_push(global.__chatterboxVMInstanceStack, self);
+        global.__chatterboxCurrent = self;
+        
+        __ChatterboxVMInner(current_instruction);
+        
+        array_pop(global.__chatterboxVMInstanceStack);
+        global.__chatterboxCurrent = (array_length(global.__chatterboxVMInstanceStack) <= 0)? undefined : global.__chatterboxVMInstanceStack[array_length(global.__chatterboxVMInstanceStack)-1];
+        
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
     }
-    
-    if ((current_instruction.type == "hopback") && (array_length(hopStack) <= 0))
-    {
-        stopped = true;
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<hopback>>)");
-        return undefined;
-    }
-    
-    array_push(global.__chatterboxVMInstanceStack, self);
-    global.__chatterboxCurrent = self;
-    
-    __ChatterboxVMInner(current_instruction);
-    
-    array_pop(global.__chatterboxVMInstanceStack);
-    global.__chatterboxCurrent = (array_length(global.__chatterboxVMInstanceStack) <= 0)? undefined : global.__chatterboxVMInstanceStack[array_length(global.__chatterboxVMInstanceStack)-1];
-    
-    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
+    until(!fastForward || stopped)
 }
 
 function __ChatterboxVMInner(_instruction)
@@ -260,6 +264,11 @@ function __ChatterboxVMInner(_instruction)
                         }
                     break;
                     
+                    case "fastforward":
+                        fastForward = true;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>>");
+                    break;
+                    
                     case "option end":
                         leaving_option = true;
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<option end>>");
@@ -320,6 +329,11 @@ function __ChatterboxVMInner(_instruction)
                                 global.__chatterboxVMWait      = true;
                                 global.__chatterboxVMForceWait = true;
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>> returned by function");
+                            }
+                            else if (_result == "<<fastforward>>")
+                            {
+                                global.__chatterboxVMFastForward = true;
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>> returned by function");
                             }
                         }
                     break;
@@ -383,6 +397,24 @@ function __ChatterboxVMInner(_instruction)
         
         global.__chatterboxVMWait      = false;
         global.__chatterboxVMForceWait = false;
+    }
+    
+    if (global.__chatterboxVMFastForward)
+    {
+        global.__chatterboxVMFastForward = false;
+        fastForward = true;
+    }
+    
+    if (fastForward)
+    {
+        if (forced_waiting || entered_option)
+        {
+            fastForward = false
+        }
+        else if (waiting)
+        {
+            current_instruction = wait_instruction;
+        }
     }
     
     if (_do_next && !waiting && !stopped)

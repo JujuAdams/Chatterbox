@@ -170,11 +170,12 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 case "wait":
                 case "forcewait":
                 case "hopback":
+                case "fastforward":
                 case "stop":
                     _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
-                        __ChatterboxError("Cannot use arguments with <<wait>>, <<forcewait>>, <<hopback>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                        __ChatterboxError("Cannot use arguments with <<wait>>, <<forcewait>>, <<hopback>>, <<fastforward>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
                     }
                     else
                     {

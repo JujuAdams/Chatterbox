@@ -97,6 +97,7 @@ global.__chatterboxFindReplaceNewString = ds_list_create();
 global.__chatterboxVMInstanceStack      = [];
 global.__chatterboxVMWait               = false;
 global.__chatterboxVMForceWait          = false;
+global.__chatterboxVMFastForward        = false;
 global.__chatterboxCurrent              = undefined;
 global.__chatterboxLocalisationMap      = ds_map_create();
 if (!variable_global_exists("__chatterbox_functions")) global.__chatterboxFunctions = ds_map_create();

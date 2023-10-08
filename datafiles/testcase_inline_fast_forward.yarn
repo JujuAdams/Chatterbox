@@ -3,6 +3,16 @@ title: Start
 Line 1
 <<fastforward>>
 This line should never be seen
-<<forcewait>>
 Line 2
+<<forcewait>>
+Line 3
+<<fastforward>>
+This line should never be seen
+Line 4
+-> Skip line 5
+    <<fastforward>>
+-> Show line 5
+Line 5
+Line 6
+<<forcewait>>
 ===
