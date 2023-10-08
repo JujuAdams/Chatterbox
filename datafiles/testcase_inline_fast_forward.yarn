@@ -1,0 +1,8 @@
+title: Start
+---
+Line 1
+<<fastforward>>
+This line should never be seen
+<<forcewait>>
+Line 2
+===
