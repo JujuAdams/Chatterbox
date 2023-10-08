@@ -16,4 +16,17 @@ Line 4
 Line 5
 <<fastmark>>
 Line 6
+<<hop HopTarget>>
+Nope, don't look at this line
+<<fastmark>>
+Line 8
+===
+
+
+
+title: HopTarget
+---
+Line 7
+<<fastforward>>
+<<hopback>>
 ===
