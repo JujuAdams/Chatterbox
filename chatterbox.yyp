@@ -67,6 +67,7 @@
     {"id":{"name":"ChatterboxVariablesClearVisited","path":"scripts/ChatterboxVariablesClearVisited/ChatterboxVariablesClearVisited.yy",},"order":6,},
     {"id":{"name":"oTestCaseEscapedCharacters","path":"objects/oTestCaseEscapedCharacters/oTestCaseEscapedCharacters.yy",},"order":21,},
     {"id":{"name":"ChatterboxGetContent","path":"scripts/ChatterboxGetContent/ChatterboxGetContent.yy",},"order":1,},
+    {"id":{"name":"__ChatterboxXORShift32Random","path":"scripts/__ChatterboxXORShift32Random/__ChatterboxXORShift32Random.yy",},"order":16,},
     {"id":{"name":"fntDefault","path":"fonts/fntDefault/fntDefault.yy",},"order":2,},
     {"id":{"name":"oTestCaseExpressionDatatypes","path":"objects/oTestCaseExpressionDatatypes/oTestCaseExpressionDatatypes.yy",},"order":19,},
     {"id":{"name":"__ChatterboxClassText","path":"scripts/__ChatterboxClassText/__ChatterboxClassText.yy",},"order":5,},
@@ -160,8 +161,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
+    {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Chatterbox","folderPath":"folders/Chatterbox.yy","order":0,},

@@ -41,7 +41,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
             // -> option
             var _instruction = new __ChatterboxClassInstruction("option", _line, _indent);
             _instruction.text = new __ChatterboxClassText(_string);
-            _instruction.optionUUID = string(ptr(irandom(0xFFFFFFFF)));
+            _instruction.optionUUID = string(__ChatterboxXORShiftRandom());
         }
         else if (_type == "command")
         {

@@ -50,7 +50,7 @@ function __ChatterboxClassLine() constructor
             repeat(array_length(__text_substring_array) - array_length(__hash_array))
             {
                 //Make a new hash for the textual substring
-                var _hash = string_copy(md5_string_unicode(string(random(0xFFFFFFFF))), 1, CHATTERBOX_LINE_HASH_SIZE);
+                var _hash = string_copy(md5_string_unicode(string(__ChatterboxXORShiftRandom())), 1, CHATTERBOX_LINE_HASH_SIZE);
                 array_push(__hash_array, _hash);
                 
                 //Add new localisation hashes
