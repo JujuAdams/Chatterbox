@@ -327,7 +327,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        if (!__CurrentlyProcessing())
+        if (__CurrentlyProcessing())
         {
             global.__chatterboxVMFastForward = true;
         }
