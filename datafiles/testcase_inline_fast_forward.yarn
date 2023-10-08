@@ -3,16 +3,17 @@ title: Start
 Line 1
 <<fastforward>>
 This line should never be seen
+Nor should this line
+<<fastmark>>
 Line 2
-<<forcewait>>
 Line 3
 <<fastforward>>
-This line should never be seen
+This line shouldn't be seen either
 Line 4
 -> Skip line 5
     <<fastforward>>
 -> Show line 5
 Line 5
+<<fastmark>>
 Line 6
-<<forcewait>>
 ===
