@@ -45,6 +45,21 @@ If the option had no if-statement associated with it then this function will alw
 
 &nbsp;
 
+## `...OptionChosen()`
+
+_Full function name:_ `ChatterboxGetOptionChosen(chatterbox, optionIndex)`
+
+_Returns:_ Number, how many times the option has been chosen
+
+|Name         |Datatype                          |Purpose                                         |
+|-------------|----------------------------------|------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`optionIndex`|integer                           |Option item to return                           |
+
+If the option has not been chosen at all, this function will return `0`.
+
+&nbsp;
+
 ## `...OptionCount()`
 
 _Full function name:_ `ChatterboxGetOptionCount(chatterbox)`
