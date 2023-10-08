@@ -72,6 +72,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     loaded              = true;
     wait_instruction    = undefined;
     
+    __fastForwardContentCount = 0;
+    
     
     
     #region Flow
@@ -334,6 +336,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         else
         {
             fastForward = true;
+            __fastForwardContentCount = 0;
+            
             __ChatterboxVM();
         }
     }
@@ -458,5 +462,22 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         }
         
         return loaded;
+    }
+    
+    static __ClearContent = function(_count = 0)
+    {
+        array_resize(content,              _count);
+        array_resize(contentConditionBool, _count);
+        array_resize(contentMetadata,      _count);
+        array_resize(contentStructArray,   _count);
+    }
+    
+    static __ClearOptions = function(_count = 0)
+    {
+        array_resize(option,              _count);
+        array_resize(optionConditionBool, _count);
+        array_resize(optionMetadata,      _count);
+        array_resize(optionInstruction,   _count);
+        array_resize(optionStructArray,   _count);
     }
 }

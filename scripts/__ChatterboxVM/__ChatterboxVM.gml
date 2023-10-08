@@ -3,16 +3,8 @@ function __ChatterboxVM()
 {
     do 
     {
-        content              = [];
-        contentConditionBool = [];
-        contentMetadata      = [];
-        contentStructArray   = [];
-        
-        option               = [];
-        optionConditionBool  = [];
-        optionMetadata       = [];
-        optionInstruction    = [];
-        optionStructArray    = [];
+        __ClearContent(0);
+        __ClearOptions(0);
         
         stopped          = false;
         waiting          = false;
@@ -106,11 +98,12 @@ function __ChatterboxVMInner(_instruction)
                 switch(_instruction.type)
                 {
                     case "content":
+                        if (fastForward) __ClearContent(__fastForwardContentCount);
+                        
                         var _contentString = _instruction.text.Evaluate(local_scope, filename, false);
                         array_push(content, _contentString);
                         array_push(contentConditionBool, !_condition_failed);
                         array_push(contentMetadata, _instruction.metadata);
-                        
                         array_push(contentStructArray, {
                             text: _contentString,
                             conditionBool: !_condition_failed,
@@ -266,7 +259,20 @@ function __ChatterboxVMInner(_instruction)
                     
                     case "fastforward":
                         fastForward = true;
+                        __fastForwardContentCount = singleton_text? 0 : array_length(content);
+                        
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>>");
+                    break;
+                    
+                    case "fastmark":
+                        if (fastForward)
+                        {
+                            __ClearContent(__fastForwardContentCount);
+                            fastForward = false;
+                            global.__chatterboxVMFastForward = false;
+                        }
+                        
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastmark>>");
                     break;
                     
                     case "option end":
@@ -403,6 +409,7 @@ function __ChatterboxVMInner(_instruction)
     {
         global.__chatterboxVMFastForward = false;
         fastForward = true;
+        __fastForwardContentCount = singleton_text? 0 : array_length(content);
     }
     
     if (fastForward)

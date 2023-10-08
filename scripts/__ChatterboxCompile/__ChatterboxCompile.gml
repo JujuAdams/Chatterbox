@@ -171,6 +171,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 case "forcewait":
                 case "hopback":
                 case "fastforward":
+                case "fastmark":
                 case "stop":
                     _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
