@@ -3,7 +3,7 @@
 ---
 
 <img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" width="50%" style="display: block; margin: auto;" />
-<h1>v2.11</h1>
+<h1>v2.10</h1>
 <p align="center">Narrative engine for GameMaker 2022 LTS by <a href="https://www.jujuadams.com/" target="_blank">Juju Adams</a></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/" target="_blank">Download the .yymps</a></p>
