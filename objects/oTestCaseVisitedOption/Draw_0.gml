@@ -42,7 +42,7 @@ else
             var _meta = ChatterboxGetOptionMetadata(box, _i);
             _string += "    " + string(_meta);
             
-            if (ChatterboxGetOptionConditionBool(box, _i) && (ChatterboxGetOptionVisited(box, _i) <= 0))
+            if (ChatterboxGetOptionConditionBool(box, _i) && (ChatterboxGetOptionChosen(box, _i) <= 0))
             {
                 draw_text(_x, _y, string(_i+1) + ") " + _string);
             }

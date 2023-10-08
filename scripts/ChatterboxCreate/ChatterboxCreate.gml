@@ -399,7 +399,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return option[_index];
     }
     
-    static GetOptionVisited = function(_index)
+    static GetOptionChosen = function(_index)
     {
         VerifyIsLoaded();
         if ((_index < 0) || (_index >= array_length(option))) return 0;

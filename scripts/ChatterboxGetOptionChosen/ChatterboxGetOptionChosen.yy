@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxGetOptionVisited",
+  "name": "ChatterboxGetOptionChosen",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
