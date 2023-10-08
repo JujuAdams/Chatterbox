@@ -1,3 +1,5 @@
+// Feather disable all
+
 if (CHATTERBOX_ACTION_MODE != 0)
 {
     __ChatterboxError("CHATTERBOX_ACTION_MODE should be 0 for this test");

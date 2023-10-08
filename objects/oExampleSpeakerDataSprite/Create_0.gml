@@ -1,3 +1,5 @@
+// Feather disable all
+
 //A struct that contains the speaker names, and their possible sprites, with a fallback.
 //Written by Scott
 

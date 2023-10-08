@@ -1,3 +1,5 @@
+// Feather disable all
+
 draw_set_font(fntDefault);
 
 //Iterate over all text and draw it

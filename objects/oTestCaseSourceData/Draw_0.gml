@@ -1,3 +1,5 @@
+// Feather disable all
+
 var _source = ChatterboxGetCurrentSource(box);
 
 draw_set_font(fntDefault);

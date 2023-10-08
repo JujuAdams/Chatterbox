@@ -1,3 +1,5 @@
+// Feather disable all
+
 function __ChatterboxXORShiftRandom()
 {
     static _state = floor(1000000*date_current_datetime() + display_mouse_get_x() + display_get_width()*display_mouse_get_y());

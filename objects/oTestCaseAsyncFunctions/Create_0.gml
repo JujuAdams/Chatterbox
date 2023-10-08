@@ -1,3 +1,5 @@
+// Feather disable all
+
 delaying = false;
 
 ChatterboxAddFunction("delay", function(_argumentArray)

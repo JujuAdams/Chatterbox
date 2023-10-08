@@ -1,3 +1,5 @@
+// Feather disable all
+
 draw_set_font(fntDefault);
 draw_set_halign(fa_center);
 
