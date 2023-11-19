@@ -10,7 +10,7 @@
 - ### [Download the .yymps](https://github.com/JujuAdams/chatterbox/releases/)
 - ### Download the [visual editor](https://github.com/FaultyFunctions/Crochet/) by [Faulty](https://github.com/FaultyFunctions)
 - ### Read the [documentation](http://jujuadams.github.io/Chatterbox)
-- ### Talk about Chatterbox on the [Discord server](https://discord.gg/8krYCqr)
+- ### Talk about Chatterbox on the [Discord server](https://discord.gg/CHGVyN5ucC)
 - ### You may also like [FriendlyCosmonaut's dialogue system](https://friendlycosmonaut.itch.io/dialoguesystem), [Quack](https://marketplace.yoyogames.com/assets/8789/quack-dialogue-system), and [gmdialogue](https://github.com/danielpancake/gmdialogue)
 - ### Learn how to add text effects to Chatterbox with [Scribble](https://github.com/JujuAdams/Scribblebox)
 
