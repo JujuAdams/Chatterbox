@@ -12,7 +12,7 @@ If your Yarn file has been edited and is now out of sync with your CSV file(s) t
 
 ## `...LocalizationBuild()`
 
-_Full function name:_ `ChatterboxLocalizationBuild(yarnPathArray, csvPath)`
+_Full function name:_ `ChatterboxLocalizationBuild(yarnPathArray, csvPathArray)`
 
 _Returns:_ N/A (`undefined`)
 
