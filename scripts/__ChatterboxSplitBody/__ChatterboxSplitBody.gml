@@ -232,6 +232,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
                                                    _buffer, _string_start, _string_end,
                                                    _type, _line, _indent,
                                                    _buffer_offset);
+                //Correct the buffer position for when we apply localisation
                 _substring.buffer_end += 2;
                 
                 _type = _line_is_option? "option" : "text";
