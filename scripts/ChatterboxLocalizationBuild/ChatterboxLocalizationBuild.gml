@@ -94,7 +94,7 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
     repeat(array_length(_csv_path_array))
     {
         buffer_seek(_output_buffer, buffer_seek_start, 0);
-        buffer_write(_output_buffer, buffer_text, "Status,File,Node,Line ID,Hash,Text\n");
+        buffer_write(_output_buffer, buffer_text, "Status"+CHATTERBOX_CSV_DELIMITER+"File"+CHATTERBOX_CSV_DELIMITER+"Node"+CHATTERBOX_CSV_DELIMITER+"Line ID"+CHATTERBOX_CSV_DELIMITER+"Hash"+CHATTERBOX_CSV_DELIMITER+"Text\n");
         
         var _local_path = _csv_path_array[_c];
         var _absolute_path = _root_directory + _local_path;
@@ -107,9 +107,9 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
         {
             var _filename = _file_order[_f];
             
-            buffer_write(_output_buffer, buffer_text, ",\"");
+            buffer_write(_output_buffer, buffer_text, CHATTERBOX_CSV_DELIMITER+"\"");
             buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(_filename));
-            buffer_write(_output_buffer, buffer_text, "\",,,,\n");
+            buffer_write(_output_buffer, buffer_text, "\"" +CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+ "\n");
             
             var _file_struct = _file_dict[$ _filename];
             var _node_order = _file_struct.order;
@@ -120,9 +120,9 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
             {
                 var _node_title = _node_order[_n];
                 
-                buffer_write(_output_buffer, buffer_text, ",,\"");
+                buffer_write(_output_buffer, buffer_text, CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+"\"");
                 buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(_node_title));
-                buffer_write(_output_buffer, buffer_text, "\",,,\n");
+                buffer_write(_output_buffer, buffer_text, "\""+CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+"\n");
                 
                 var _node_struct = _node_dict[$ _node_title];
                 var _string_order = _node_struct.order;
@@ -160,11 +160,11 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
                     }
                     
                     buffer_write(_output_buffer, buffer_text, _status);
-                    buffer_write(_output_buffer, buffer_text, ",,,\"#");
+                    buffer_write(_output_buffer, buffer_text, CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+CHATTERBOX_CSV_DELIMITER+"\"#");
                     buffer_write(_output_buffer, buffer_text, _line_id);
-                    buffer_write(_output_buffer, buffer_text, "\",\"");
+                    buffer_write(_output_buffer, buffer_text, "\""+CHATTERBOX_CSV_DELIMITER+"\"");
                     buffer_write(_output_buffer, buffer_text, _new_hash);
-                    buffer_write(_output_buffer, buffer_text, "\",\"");
+                    buffer_write(_output_buffer, buffer_text, "\""+CHATTERBOX_CSV_DELIMITER+"\"");
                     buffer_write(_output_buffer, buffer_text, _write_text);
                     buffer_write(_output_buffer, buffer_text, "\"\n");
                     
