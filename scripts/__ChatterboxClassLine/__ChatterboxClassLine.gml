@@ -24,6 +24,10 @@ function __ChatterboxClassLine() constructor
                     array_push(__hash_array, string_delete(_text, 1, __CHATTERBOX_LINE_HASH_PREFIX_LENGTH));
                 }
             break;
+            case "command":
+                // Removes the ">>" correctly on commands
+                _substring.buffer_end = _substring.buffer_end + 2
+            break;
         }
         
         array_push(__substring_array, _substring);
