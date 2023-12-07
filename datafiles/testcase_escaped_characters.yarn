@@ -7,6 +7,6 @@ metadata: some metadata\nwith a newline
 
 New\nline\nnewline!
 Tabs\tare fun\ttoo
-We \<should\> also be able to \"escape\" random other characters too
+We \<should\> also be able to \"escape\" random other \#Characters too \#\#\##metadata
 
 ===
