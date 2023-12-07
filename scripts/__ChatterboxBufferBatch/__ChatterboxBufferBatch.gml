@@ -65,7 +65,7 @@ function __ChatterboxBufferBatch() constructor
     {
         if (__destroyed) __Error("Worker has been destroyed");
         
-        GetBuffer();
+        __GetBuffer();
         
         buffer_seek(__outBuffer, buffer_seek_start, 0);
         return buffer_read(__outBuffer, buffer_text);
