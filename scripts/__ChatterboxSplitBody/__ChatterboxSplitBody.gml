@@ -56,7 +56,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
     
     var _func_read_string = function(_substring_array, _buffer, _string_start, _string_end, _type, _line, _indent, _buffer_offset)
     {
-        if (_string_start >= _string_end)
+        if (_string_start > _string_end)
         {
             if (_type == "text")
             {
