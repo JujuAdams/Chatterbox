@@ -227,8 +227,9 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"example_speakerdata_sprite.yarn","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_inline_fast_forward.yarn","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_visited_option.yarn","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"chatterbox_license.txt","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
-    "IDEVersion": "2022.0.1.31",
+    "IDEVersion": "2022.0.2.51",
   },
 }
