@@ -54,6 +54,14 @@ Whether Chatterbox will send lots of potentially useful debug information to the
 
 &nbsp;
 
+## `CHATTERBOX_REPLACE_ALIAS_BACKSLASHES`
+
+_Typical value:_ `true`
+
+Set to `true` to automatically replace backslashes `\` in paths for forward slashes `/`. This standardises path references making a number of path-related arguments consistent across many Chatterbox functions. Setting this macro to `false` will turn off slash replacement and may result in, for example, files being reported as non-existent or not loaded.
+
+&nbsp;
+
 ## `CHATTERBOX_SHOW_REJECTED_OPTIONS`
 
 _Typical value:_ `true`
