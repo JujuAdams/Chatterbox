@@ -68,8 +68,8 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
     var _i = 0;
     repeat(_count)
     {
-        var _local_path = _yarn_path_array[_i];
-        var _absolute_path = _root_directory + _local_path;
+        var _local_path    = __ChatterboxReplaceBackslashes(_yarn_path_array[_i]);
+        var _absolute_path = __ChatterboxReplaceBackslashes(_root_directory + _local_path);
         
         var _buffer = buffer_load(_absolute_path);
         var _source = new __ChatterboxClassSource(_local_path, _buffer, false);
@@ -96,8 +96,8 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
         buffer_seek(_output_buffer, buffer_seek_start, 0);
         buffer_write(_output_buffer, buffer_text, "Status,File,Node,Line ID,Hash,Text\n");
         
-        var _local_path = _csv_path_array[_c];
-        var _absolute_path = _root_directory + _local_path;
+        var _local_path    = __ChatterboxReplaceBackslashes(_csv_path_array[_c]);
+        var _absolute_path = __ChatterboxReplaceBackslashes(_root_directory + _local_path);
         
         ds_map_clear(_csv_loc_map);
         __ChatterboxLocalizationLoadIntoMap(_absolute_path, _csv_loc_map, true);
