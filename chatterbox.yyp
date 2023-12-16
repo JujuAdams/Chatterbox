@@ -134,6 +134,7 @@
     {"id":{"name":"ChatterboxVariablesFind","path":"scripts/ChatterboxVariablesFind/ChatterboxVariablesFind.yy",},"order":5,},
     {"id":{"name":"oExampleBasic","path":"objects/oExampleBasic/oExampleBasic.yy",},"order":0,},
     {"id":{"name":"ChatterboxLocalizationBuild","path":"scripts/ChatterboxLocalizationBuild/ChatterboxLocalizationBuild.yy",},"order":0,},
+    {"id":{"name":"__ChatterboxReplaceBackslashes","path":"scripts/__ChatterboxReplaceBackslashes/__ChatterboxReplaceBackslashes.yy",},"order":17,},
     {"id":{"name":"__ChatterboxCompile","path":"scripts/__ChatterboxCompile/__ChatterboxCompile.yy",},"order":12,},
     {"id":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},"order":0,},
     {"id":{"name":"ChatterboxGetContentSpeakerData","path":"scripts/ChatterboxGetContentSpeakerData/ChatterboxGetContentSpeakerData.yy",},"order":7,},

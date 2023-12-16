@@ -193,7 +193,7 @@ function __ChatterboxVMInner(_instruction)
                         }
                         else
                         {
-                            var _file = global.chatterboxFiles[? _split.filename];
+                            var _file = global.chatterboxFiles[? __ChatterboxReplaceBackslashes(_split.filename)];
                             if (instanceof(_file) == "__ChatterboxClassSource")
                             {
                                 file = _file;
@@ -249,7 +249,7 @@ function __ChatterboxVMInner(_instruction)
                             
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  -->  ", _next);
                             
-                            var _file = global.chatterboxFiles[? _filename];
+                            var _file = global.chatterboxFiles[? __ChatterboxReplaceBackslashes(_filename)];
                             if (instanceof(_file) != "__ChatterboxClassSource")
                             {
                                 __ChatterboxTrace("Error! File \"", _split.filename, "\" not found or not loaded");

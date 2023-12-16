@@ -1,21 +1,23 @@
 // Feather disable all
 /// Returns the metadata for the given node from the given source
 ///
-/// @param sourceName
+/// @param aliasName
 /// @param nodeTitle
 
-function ChatterboxSourceGetNodeMetadata(_sourceName, _nodeTitle)
+function ChatterboxSourceGetNodeMetadata(_aliasName, _nodeTitle)
 {
-    if (!ChatterboxIsLoaded(_sourceName))
+    _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
+    
+    if (!ChatterboxIsLoaded(_aliasName))
     {
-        __ChatterboxError("Source file \"", _sourceName, "\" has not been loaded");
+        __ChatterboxError("\"", _aliasName, "\" has not been loaded");
         return [];
     }
     
-    var _node = global.chatterboxFiles[? _sourceName].FindNode(_nodeTitle);
+    var _node = global.chatterboxFiles[? _aliasName].FindNode(_nodeTitle);
     if (_node == undefined)
     {
-        __ChatterboxError("Node \"", _nodeTitle, "\" does not exist in source \"", _sourceName, "\"");
+        __ChatterboxError("Node \"", _nodeTitle, "\" does not exist in \"", _aliasName, "\"");
     }
     
     return _node.metadata;

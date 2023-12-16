@@ -4,10 +4,9 @@
 /// @param path         Path to the file to add, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
 /// @param [aliasName]  Alias for this file (overwrites the filename with whatever you provide)
 
-function ChatterboxLoadFromFile()
+function ChatterboxLoadFromFile(_path, _aliasName = _path)
 {
-    var _path      = argument[0];
-    var _aliasName = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : _path;
+    _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     if (!is_string(_path))
     {

@@ -1,4 +1,5 @@
 // Feather disable all
+
 #macro CHATTERBOX_DEFAULT_SINGLETON             true
 #macro CHATTERBOX_ALLOW_SCRIPTS                 true
 #macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS      true
@@ -6,6 +7,7 @@
 #macro CHATTERBOX_WAIT_BEFORE_STOP              true
 #macro CHATTERBOX_SHOW_REJECTED_OPTIONS         true
 #macro CHATTERBOX_VERBOSE                       true
+#macro CHATTERBOX_REPLACE_ALIAS_BACKSLASHES     true
 
 // Whether nodes without an explicit <<stop>> or <<hopback>> instruct at the end should default
 // to <<hopback>>. Legacy behaviour (pre-2.7) is to set this to <false>

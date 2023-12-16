@@ -1,15 +1,17 @@
 // Feather disable all
 /// Returns the file tags for the given source
 ///
-/// @param sourceName
+/// @param aliasName
 
-function ChatterboxSourceGetTags(_sourceName)
+function ChatterboxSourceGetTags(_aliasName)
 {
-    if (!ChatterboxIsLoaded(_sourceName))
+    _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
+    
+    if (!ChatterboxIsLoaded(_aliasName))
     {
-        __ChatterboxError("Source file \"", _sourceName, "\" has not been loaded");
+        __ChatterboxError("\"", _aliasName, "\" has not been loaded");
         return [];
     }
     
-    return global.chatterboxFiles[? _sourceName].GetTags();
+    return global.chatterboxFiles[? _aliasName].GetTags();
 }

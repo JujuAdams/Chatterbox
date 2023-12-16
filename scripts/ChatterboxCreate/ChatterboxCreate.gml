@@ -39,6 +39,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return undefined;
     }
     
+    _filename = __ChatterboxReplaceBackslashes(_filename);
+    
     if (!ChatterboxIsLoaded(_filename))
     {
         __ChatterboxError("Could not create chatterbox because \"", _filename, "\" is not loaded");
@@ -87,6 +89,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         
         if (_filename != undefined)
         {
+            _filename = __ChatterboxReplaceBackslashes(_filename);
+            
             var _file = global.chatterboxFiles[? _filename];
             if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
             
@@ -128,6 +132,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         
         if (_filename != undefined)
         {
+            _filename = __ChatterboxReplaceBackslashes(_filename);
+            
             var _file = global.chatterboxFiles[? _filename];
             if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
             
@@ -167,7 +173,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         var _hop_data = hopStack[array_length(hopStack)-1];
         var _next     = _hop_data.next;
         var _node     = _hop_data.node;
-        var _filename = _hop_data.filename;
+        var _filename = __ChatterboxReplaceBackslashes(_hop_data.filename);
         array_pop(hopStack);
         
         var _file = global.chatterboxFiles[? _filename];

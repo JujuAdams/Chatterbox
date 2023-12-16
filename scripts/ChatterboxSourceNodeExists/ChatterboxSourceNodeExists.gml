@@ -1,16 +1,18 @@
 // Feather disable all
 /// Returns whether the given node exists in the given source
 /// 
-/// @param sourceName
+/// @param aliasName
 /// @param nodeTitle
 
-function ChatterboxSourceNodeExists(_sourceName, _nodeTitle)
+function ChatterboxSourceNodeExists(_aliasName, _nodeTitle)
 {
-    if (!ChatterboxIsLoaded(_sourceName))
+    _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
+    
+    if (!ChatterboxIsLoaded(_aliasName))
     {
-        __ChatterboxError("Source file \"", _sourceName, "\" has not been loaded");
+        __ChatterboxError("\"", _aliasName, "\" has not been loaded");
         return false;
     }
     
-    return global.chatterboxFiles[? _sourceName].NodeExists(_nodeTitle);
+    return global.chatterboxFiles[? _aliasName].NodeExists(_nodeTitle);
 }

@@ -6,30 +6,31 @@
 /// @param aliasName  Alias to use for this buffer (effectively a fake filename)
 /// @param buffer     Buffer to read
 
-function ChatterboxLoadFromBuffer(_filename, _buffer)
+function ChatterboxLoadFromBuffer(_aliasName, _buffer)
 {
-    if (!is_string(_filename))
+    _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
+    
+    if (CHATTERBOX_REPLACE_ALIAS_BACKSLASHES)
     {
-        __ChatterboxError("Buffers should have a filename specified as a string.\n(Input was an invalid datatype)");
-        return undefined;
+        _aliasName = string_replace_all(_aliasName, "\\", "/");
     }
     
-    if (ChatterboxIsLoaded(_filename))
+    if (ChatterboxIsLoaded(_aliasName))
     {
         //Unload what we have already if needed
         //This will invalidate any chatterboxes that currently exist and are using the file
-        ChatterboxUnload(_filename);
+        ChatterboxUnload(_aliasName);
     }
     
     //Set our default file if we don't already have one
-    if (global.__chatterboxDefaultFile == "") global.__chatterboxDefaultFile = _filename;
+    if (global.__chatterboxDefaultFile == "") global.__chatterboxDefaultFile = _aliasName;
     
     //Create a struct that represents this source
-    var _source = new __ChatterboxClassSource(_filename, _buffer, true);
+    var _source = new __ChatterboxClassSource(_aliasName, _buffer, true);
     
     //If we successfully decoded a buffer add it to our collection of chatterboxes
     if ((instanceof(_source) == "__ChatterboxClassSource") && _source.loaded)
     {
-        global.chatterboxFiles[? _filename] = _source;
+        global.chatterboxFiles[? _aliasName] = _source;
     }
 }

@@ -1,22 +1,24 @@
 // Feather disable all
 /// Returns an array of node titles for the given source
 ///
-/// @param sourceName
+/// @param aliasName
 
-function ChatterboxSourceGetNodeTitles(_sourceName)
+function ChatterboxSourceGetNodeTitles(_aliasName)
 {
-    if (!ChatterboxIsLoaded(_sourceName))
+    _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
+    
+    if (!ChatterboxIsLoaded(_aliasName))
     {
-        __ChatterboxError("Source file \"", _sourceName, "\" has not been loaded");
+        __ChatterboxError("\"", _aliasName, "\" has not been loaded");
         return [];
     }
     
     var _i = 0;
     var _array = [];
     
-    repeat (array_length(global.chatterboxFiles[? _sourceName].nodes))
+    repeat (array_length(global.chatterboxFiles[? _aliasName].nodes))
     {
-        array_push(_array,global.chatterboxFiles[? _sourceName].nodes[_i].title);
+        array_push(_array,global.chatterboxFiles[? _aliasName].nodes[_i].title);
         ++_i;
     }
     
