@@ -69,23 +69,40 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
                     {
                         //Convert friendly human-readable operators into symbolic operators
                         //Also handle numeric keywords too
-                        switch(_read)
+                        if (CHATTERBOX_KEYWORD_OPERATORS)
                         {
-                            case "and":       _read = "&&";      _is_symbol = true; break;
-                            case "le" :       _read = "<";       _is_symbol = true; break;
-                            case "gt" :       _read = ">";       _is_symbol = true; break;
-                            case "or" :       _read = "||";      _is_symbol = true; break;
-                            case "leq":       _read = "<=";      _is_symbol = true; break;
-                            case "geq":       _read = ">=";      _is_symbol = true; break;
-                            case "eq" :       _read = "==";      _is_symbol = true; break;
-                            case "is" :       _read = "==";      _is_symbol = true; break;
-                            case "neq":       _read = "!=";      _is_symbol = true; break;
-                            case "to" :       _read = "=";       _is_symbol = true; break;
-                            case "not":       _read = "!";       _is_symbol = true; break;
-                            case "true":      _read = true;      _is_number = true; break;
-                            case "false":     _read = false;     _is_number = true; break;
-                            case "undefined": _read = undefined; _is_number = true; break;
-                            case "null":      _read = undefined; _is_number = true; break;
+                            switch(_read)
+                            {
+                                case "and":       _read = "&&";      _is_symbol = true; break;
+                                case "le" :       _read = "<";       _is_symbol = true; break;
+                                case "lt" :       _read = "<";       _is_symbol = true; break;
+                                case "ge" :       _read = ">";       _is_symbol = true; break;
+                                case "gt" :       _read = ">";       _is_symbol = true; break;
+                                case "or" :       _read = "||";      _is_symbol = true; break;
+                                case "lte":       _read = "<=";      _is_symbol = true; break;
+                                case "gte":       _read = ">=";      _is_symbol = true; break;
+                                case "leq":       _read = "<=";      _is_symbol = true; break;
+                                case "geq":       _read = ">=";      _is_symbol = true; break;
+                                case "eq" :       _read = "==";      _is_symbol = true; break;
+                                case "is" :       _read = "==";      _is_symbol = true; break;
+                                case "neq":       _read = "!=";      _is_symbol = true; break;
+                                case "to" :       _read = "=";       _is_symbol = true; break;
+                                case "not":       _read = "!";       _is_symbol = true; break;
+                                case "true":      _read = true;      _is_number = true; break;
+                                case "false":     _read = false;     _is_number = true; break;
+                                case "undefined": _read = undefined; _is_number = true; break;
+                                case "null":      _read = undefined; _is_number = true; break;
+                            }
+                        }
+                        else
+                        {
+                            switch(_read)
+                            {
+                                case "true":      _read = true;      _is_number = true; break;
+                                case "false":     _read = false;     _is_number = true; break;
+                                case "undefined": _read = undefined; _is_number = true; break;
+                                case "null":      _read = undefined; _is_number = true; break;
+                            }
                         }
                     }
                     

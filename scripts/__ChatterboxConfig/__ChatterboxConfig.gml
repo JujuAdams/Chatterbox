@@ -9,6 +9,25 @@
 #macro CHATTERBOX_VERBOSE                       true
 #macro CHATTERBOX_REPLACE_ALIAS_BACKSLASHES     true
 
+// Whether to allow use of keyword operators. Setting this macro to <true> will enable use of the
+// following operators as keywords:
+//    and = &&
+//    le  = < 
+//    lt  = < 
+//    ge  = > 
+//    gt  = > 
+//    or  = ||
+//    lte = <=
+//    gte = >=
+//    leq = <=
+//    geq = >=
+//    eq  = ==
+//    is  = ==
+//    neq = !=
+//    to  = =
+//    not = !
+#macro CHATTERBOX_KEYWORD_OPERATORS  true
+
 // Whether nodes without an explicit <<stop>> or <<hopback>> instruct at the end should default
 // to <<hopback>>. Legacy behaviour (pre-2.7) is to set this to <false>
 #macro CHATTERBOX_END_OF_NODE_HOPBACK  true
