@@ -1,13 +1,43 @@
 // Feather disable all
 
-#macro CHATTERBOX_DEFAULT_SINGLETON             true
-#macro CHATTERBOX_ALLOW_SCRIPTS                 true
-#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS      true
+// Whether chatterboxes should default to singleton mode. This is useful to most RPGs where lines
+// of dialogue arrive one at a time. More modern narrative games tend to deliver larger chunks of
+// text and, as such, singleton mode is less useful for those sorts of games.
+#macro CHATTERBOX_DEFAULT_SINGLETON  true
+
+// Root folder in Included Files to look in for Chatterbox files.
+#macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY  ""
+
+// Whether to allow scripts to be added as Chatterbox functions. This is potentially insecure but
+// also very convenient.
+#macro CHATTERBOX_ALLOW_SCRIPTS  true
+
+// Whether Chatterbox functions should be executed using an array of parameters.
+#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS  true
+
+// Whether to enter into a "wait" state before options are presented when using singleton
+// chatterboxes. This is helpful for games where you want to visually replace dialogue with a
+// series of options for the player to choose from.
 #macro CHATTERBOX_SINGLETON_WAIT_BEFORE_OPTION  false
-#macro CHATTERBOX_WAIT_BEFORE_STOP              true
-#macro CHATTERBOX_SHOW_REJECTED_OPTIONS         true
-#macro CHATTERBOX_VERBOSE                       true
-#macro CHATTERBOX_REPLACE_ALIAS_BACKSLASHES     true
+
+// Whether a chatterbox should enter a "wait" state before marking the chatterbox as stopped. This
+// makes implementing dialogue boxes that automatically destroy themselves a lot easier.
+#macro CHATTERBOX_WAIT_BEFORE_STOP  true
+
+// Whether to add rejected (failed) options to the list of chooseable options. The default setting
+// is <true> which will show failed options in the list and therefore requires that you filter
+// those options yourself. This is useful for games like Fallout 3 which show you options that you
+// could have taken if you had e.g. higher charisma. Set this option to <false> if you deliberately
+// want to hide every failed option (which is a lot simpler to implement!).
+#macro CHATTERBOX_SHOW_REJECTED_OPTIONS  true
+
+// Whether to show extra debug information. This is useful to narrow down problems that you might
+// run into.
+#macro CHATTERBOX_VERBOSE  false
+
+// Replaces backslashes \ in Chatterbox aliases with front slashes /. This improves consistency
+// when accessing Included Files in folder across different platforms.
+#macro CHATTERBOX_REPLACE_ALIAS_BACKSLASHES  true
 
 // Whether to allow use of keyword operators. Setting this macro to <true> will enable use of the
 // following operators as keywords:
@@ -97,18 +127,20 @@
 #macro CHATTERBOX_SPEAKER_DATA_START  "["  //Character that indicates where the speaker data string starts. This can be any arbitrary string, potentially composed of multiple characters
 #macro CHATTERBOX_SPEAKER_DATA_END    "]"  //Character that indicates where the speaker data string ends. This can be any arbitrary string, potentially composed of multiple characters
 
-#macro CHATTERBOX_ESCAPE_FILE_TAGS             true
-#macro CHATTERBOX_ESCAPE_NODE_TAGS             true
-#macro CHATTERBOX_ESCAPE_CONTENT               true
-#macro CHATTERBOX_ESCAPE_EXPRESSION_STRINGS    false
-
-#macro CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY  ""
+#macro CHATTERBOX_ESCAPE_FILE_TAGS           true
+#macro CHATTERBOX_ESCAPE_NODE_TAGS           true
+#macro CHATTERBOX_ESCAPE_CONTENT             true
+#macro CHATTERBOX_ESCAPE_EXPRESSION_STRINGS  false
 
 #macro CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING  false
 
+
+
 #region Advanced
 
-#macro CHATTERBOX_DECLARE_ON_COMPILE  true //Whether to declare variables when Chatterbox script is compiled. Set to <false> for legacy (2.1 and earlier) behaviour
+// Whether to declare variables when Chatterbox script is compiled. Set to <false> for the highly
+// inconvenient legacy (2.1 and earlier) behaviour.
+#macro CHATTERBOX_DECLARE_ON_COMPILE  true
 
 #macro CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE  false  //Set to <true> if you're coming from pre-2.7.1
 
