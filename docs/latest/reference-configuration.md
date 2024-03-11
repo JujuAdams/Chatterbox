@@ -62,6 +62,32 @@ Set to `true` to automatically replace backslashes `\` in paths for forward slas
 
 &nbsp;
 
+## `CHATTERBOX_KEYWORD_OPERATORS`
+
+_Typical value:_ `true`
+
+Whether to allow use of keyword operators. Setting this macro to `true` will enable use of the following operators as keywords:
+
+|Keyword|Operator|
+|-------|--------|
+|`and`  |`&&`    |
+|`le`   |`<`     |
+|`lt`   |`<`     |
+|`ge`   |`>`     |
+|`gt`   |`>`     |
+|`or`   |`||`    |
+|`lte`  |`<=`    |
+|`gte`  |`>=`    |
+|`leq`  |`<=`    |
+|`geq`  |`>=`    |
+|`eq`   |`==`    |
+|`is`   |`==`    |
+|`neq`  |`!=`    |
+|`to`   |`=`     |
+|`not`  |`!`     |
+
+&nbsp;
+
 ## `CHATTERBOX_SHOW_REJECTED_OPTIONS`
 
 _Typical value:_ `true`
