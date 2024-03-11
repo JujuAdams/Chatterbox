@@ -92,11 +92,14 @@ Options that follow a `<<random option>>` action are never presented to the play
 ```yarn
 Letting forth a discrete drunken burp, you put all your chips on lucky red number 1 and let the roulette wheel spin. You cross your fingers in your pocket, hoping no one will notice your anxiety.
 -> #45%
-    Oooh, the ball lands on black ... better luck next time. If you had any money there'd be a next time anyway.
+    Oooh, the ball lands on black ... better luck next time.
+    If you had any money there'd be a next time anyway.
 -> #40%
-    Your eyes fuzz over for a second and by the time you regain your composure your chips have been shuffled away. What number did it land on? You can't recall, but it wasn't red number 1.
+    Your eyes fuzz over for a second. By the time you regain your composure your chips have been shuffled away.
+    What number did it land on? You can't recall, but it wasn't red number 1.
 -> //Implicitly a 14% chance
-    As you're focusing on your life-changing bet, Daniel stumbles into you and spills his pina colada all down your trousers. To make things worse, the wheel isn't kind either and you lose your bet. Dammit Daniel!
+    As you're focusing on your life-changing bet, Daniel stumbles into you and spills his pina colada all down your trousers.
+    To make things worse, the wheel isn't kind either and you lose your bet. Dammit Daniel!
 -> #1%
     It ... lands on lucky red number 1! Incredible!
     <<add_coins(1000)>>
