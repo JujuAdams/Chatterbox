@@ -70,6 +70,53 @@ Bob: What would you like?
 Bob: Thanks for coming!
 ```
 
+## Random Outcomes
+
+The option syntax above can be extended to allow for random outcomes by using the `<<random option>>` action.
+
+```yarn
+The hedge rustle besides you.
+-> Investigate
+You peer into the hedge and ...
+<<random option>>
+->
+    Out hops a rabbit!
+->
+    A cat tumbles through a gap in the branches!
+->
+    A bird cheeps at you, irritated by your nosiness!
+```
+
+Options that follow a `<<random option>>` action are never presented to the player (and don't need any option text) and instead are chosen at random by Chatterbox. Options can be weighted by percentage by using metadata. Any option that doesn't have a percentage weight will "split the difference" between the accumulated percentage and 100%.
+
+```yarn
+Letting forth a discrete drunken burp, you put all your chips on lucky red number 1 and let the roulette wheel spin. You cross your fingers in your pocket, hoping no one will notice your anxiety.
+-> #45%
+    Oooh, the ball lands on black ... better luck next time. If you had any money there'd be a next time anyway.
+-> #40%
+    Your eyes fuzz over for a second and by the time you regain your composure your chips have been shuffled away. What number did it land on? You can't recall, but it wasn't red number 1.
+-> //Implicitly a 14% chance
+    As you're focusing on your life-changing bet, Daniel stumbles into you and spills his pina colada all down your trousers. To make things worse, the wheel isn't kind either and you lose your bet. Dammit Daniel!
+-> #1%
+    It ... lands on lucky red number 1! Incredible!
+    <<add_coins(1000)>>
+```
+
+Randomly chosen options also respect if-statements. Any option that is set to be randomly chosen and fails the if-statement check cannot be selected.
+
+```yarn
+-> <<if inventory_has("carrot")>>
+    Out hops a rabbit!
+-> <<if inventory_has("tuna")>>
+    A cat tumbles through a gap in the branches!
+-> <<if inventory_has("seeds")>>
+    A bird cheeps at you, irritated by your nosiness!
+->
+    Nothing but the wind ...
+```
+
+In the above example, if the player has obtained all three items then they have an equal chance of each of the four outcomes happening.
+
 ## Links Between Nodes
 
 Moving between nodes can be done using a `<<jump>>` action (other action are available, see below):
@@ -143,6 +190,7 @@ Chatterbox has the following native actions:
 <<set "expression">>
 <<stop>>
 <<wait>>
+<<random option>>
 <<forcewait>>
 <<fastforward>>
 <<fastmark>>
@@ -212,7 +260,7 @@ All variables must start with a dollar sign. Internal Yarn variables are, in rea
 
 If needed, you can access this ds_map via the `CHATTERBOX_VARIABLES_MAP` macro, found in [`__ChatterboxConfig()`](reference-configuration#__chatterboxconfig).
 
-### If/Else Statements: <!-- {docsify-ignore} -->
+### if/else Statements: <!-- {docsify-ignore} -->
 
 Yarn supports standard if/else/elseif statements.
 
@@ -317,6 +365,8 @@ Here's a list of supported operators (in no particular order) that are supported
 |     `or`     | `\|\|` | Logical OR                             |
 |    `leq`     |  `<=`  | Less-than-or-equal-to                  |
 |    `geq`     |  `>=`  | Greater-than-or-equal-to               |
+|    `lte`     |  `<=`  | Less-than-or-equal-to                  |
+|    `gte`     |  `>=`  | Greater-than-or-equal-to               |
 |     `eq`     |  `==`  | Equal to                               |
 |     `is`     |  `==`  | Equal to                               |
 |    `neq`     |  `!=`  | Not equal to                           |
