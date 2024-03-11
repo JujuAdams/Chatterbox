@@ -61,8 +61,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     optionConditionBool = [];
     optionMetadata      = [];
     optionInstruction   = [];
-    __optionUUIDArray     = [];
+    __optionUUIDArray   = [];
     optionStructArray   = [];
+    optionWeightArray   = [];
     
     hopStack = [];
     
@@ -503,7 +504,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         array_resize(optionConditionBool, _count);
         array_resize(optionMetadata,      _count);
         array_resize(optionInstruction,   _count);
-        array_resize(__optionUUIDArray,     _count);
+        array_resize(__optionUUIDArray,   _count);
         array_resize(optionStructArray,   _count);
+        array_resize(optionWeightArray,   _count);
     }
 }

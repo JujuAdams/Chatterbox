@@ -12,6 +12,7 @@ function __ChatterboxVM()
         wait_instruction = undefined;
         entered_option   = false;
         leaving_option   = false;
+        randomize_option = false;
         rejected_if      = false;
         
         if (current_instruction.type == "stop")
@@ -82,6 +83,35 @@ function __ChatterboxVMInner(_instruction)
                         metadata: _instruction.metadata,
                     });
                     
+                    if (randomize_option)
+                    {
+                        //Parse metadata and search for weights
+                        var _weight = undefined;
+                        
+                        var _metadataArray = _instruction.metadata;
+                        var _i = 0;
+                        repeat(array_length(_metadataArray))
+                        {
+                            var _metadata = _metadataArray[_i];
+                            if (string_char_at(_metadata, string_length(_metadata)) == "%")
+                            {
+                                try
+                                {
+                                    _weight = real(string_copy(_metadata, 1, string_length(_metadata)-1)) / 100;
+                                    break;
+                                }
+                                catch(_error)
+                                {
+                                    //Failed to parse metadata
+                                }
+                            }
+                            
+                            ++_i;
+                        }
+                        
+                        array_push(optionWeightArray, _weight);
+                    }
+                    
                     if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), "-> \"", _instruction.text.raw_string, "\"    ", instanceof(_branch));
                 }
             }
@@ -94,7 +124,86 @@ function __ChatterboxVMInner(_instruction)
             {
                 if (_instruction.type != "option")
                 {
-                    _do_next = false;
+                    if (randomize_option)
+                    {
+                        entered_option = false;
+                        
+                        //Calculate the total weight and unweighted count
+                        var _totalWeight      = 0;
+                        var _unweightedCount  = 0;
+                        var _unweightedWeight = 0;
+                        
+                        var _i = 0;
+                        repeat(array_length(optionWeightArray))
+                        {
+                            if (optionConditionBool[_i])
+                            {
+                                var _weight = optionWeightArray[_i];
+                                if (_weight == undefined)
+                                {
+                                    _unweightedCount++;
+                                }
+                                else
+                                {
+                                    _totalWeight += real(_weight); 
+                                }
+                            }
+                            
+                            ++_i;
+                        }
+                        
+                        //Figure out how much weight we should ascribe to unweighted options
+                        if (_unweightedCount > 0)
+                        {
+                            if (_totalWeight < 1)
+                            {
+                                _unweightedWeight = (1 - _totalWeight) / _unweightedCount;
+                                _totalWeight = 1;
+                            }
+                            else
+                            {
+                                _unweightedWeight = 0.1*_totalWeight;
+                                _totalWeight += _unweightedWeight*_unweightedCount;
+                                __ChatterboxTrace("Warning! Total weight for random option exceeds 1 but there are unweighted options");
+                            }
+                        }
+                        
+                        //Choose!
+                        var _random = random(_totalWeight);
+                        var _random_option = undefined;
+                        
+                        var _i = 0;
+                        repeat(array_length(optionWeightArray))
+                        {
+                            if (optionConditionBool[_i])
+                            {
+                                var _weight = optionWeightArray[_i];
+                                if (_weight == undefined)
+                                {
+                                    _random -= _unweightedWeight;
+                                }
+                                else
+                                {
+                                    _random -= real(_weight);
+                                }
+                                
+                                if (_random <= 0)
+                                {
+                                    _random_option = _i;
+                                    break;
+                                }
+                            }
+                            
+                            ++_i;
+                        }
+                        
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Choosing random option index ", _random_option);
+                        _next = optionInstruction[_random_option];
+                    }
+                    else
+                    {
+                        _do_next = false;
+                    }
                 }
             }
             else
@@ -346,6 +455,11 @@ function __ChatterboxVMInner(_instruction)
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>> returned by function");
                             }
                         }
+                    break;
+                    
+                    case "random option":
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<random option>>");
+                        randomize_option = true;
                     break;
                     
                     case "if":
