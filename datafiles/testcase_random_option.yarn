@@ -1,0 +1,11 @@
+title: Start
+---
+<<random option>>
+-> #10%
+  Outcome 1
+-> #10%
+  Outcome 2
+-> #30%
+  Outcome 3
+<<jump Start>>
+===
