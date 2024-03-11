@@ -91,6 +91,7 @@ Options that follow a `<<random option>>` action are never presented to the play
 
 ```yarn
 Letting forth a discrete drunken burp, you put all your chips on lucky red number 1 and let the roulette wheel spin. You cross your fingers in your pocket, hoping no one will notice your anxiety.
+<<random option>>
 -> #45%
     Oooh, the ball lands on black ... better luck next time.
     If you had any money there'd be a next time anyway.
@@ -108,6 +109,7 @@ Letting forth a discrete drunken burp, you put all your chips on lucky red numbe
 Randomly chosen options also respect if-statements. Any option that is set to be randomly chosen and fails the if-statement check cannot be selected.
 
 ```yarn
+<<random option>>
 -> <<if inventory_has("carrot")>>
     Out hops a rabbit!
 -> <<if inventory_has("tuna")>>
