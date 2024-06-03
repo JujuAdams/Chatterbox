@@ -1,6 +1,6 @@
 # Localisation
 
-The functions on this page relate to the use of Chatterbox's native localisation implement. Use of these functions is purely optional and you may find using your own solution is preferable.
+The functions on this page relate to the use of Chatterbox's native localisation implementation. Use of these functions is purely optional and you may find using your own solution is preferable.
 
 Chatterbox's localisation system automates a lot of the process for you. Of particular note is `LocalizationBuild()` which automatically tags every line in your Yarn files with metadata in the format `#line:??????` where the question marks are a unique hash that identifies a line of dialogue. Note that the hash is attached to the _line_ rather than the _text_ and the hash isn't generated based on the content of the line itself. The hash for each line of dialogue indentifies that line of dialogue and allows Chatterbox to replace the original text with new text.
 
