@@ -7,6 +7,7 @@
 
 &nbsp;
 
+- ### Got questions? [Make a new issue!](https://github.com/JujuAdams/Chatterbox/issues/new)
 - ### [Download the .yymps](https://github.com/JujuAdams/chatterbox/releases/)
 - ### Download the [visual editor](https://github.com/FaultyFunctions/Crochet/) by [Faulty](https://github.com/FaultyFunctions)
 - ### Read the [documentation](http://jujuadams.github.io/Chatterbox)
