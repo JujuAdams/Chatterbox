@@ -8,11 +8,11 @@
 &nbsp;
 
 - ### Got questions? [Make a new issue!](https://github.com/JujuAdams/Chatterbox/issues/new)
+- ### There is also a [Discord server](https://discord.gg/hwgWpnsNw2) (but GitHub issues are preferred)
 - ### [Download the .yymps](https://github.com/JujuAdams/chatterbox/releases/)
 - ### Download the [visual editor](https://github.com/FaultyFunctions/Crochet/) by [Faulty](https://github.com/FaultyFunctions)
 - ### Read the [documentation](http://jujuadams.github.io/Chatterbox)
 - ### You may also like [FriendlyCosmonaut's dialogue system](https://friendlycosmonaut.itch.io/dialoguesystem), [Quack](https://marketplace.yoyogames.com/assets/8789/quack-dialogue-system), and [gmdialogue](https://github.com/danielpancake/gmdialogue)
-- ### Learn how to add text effects to Chatterbox with [Scribble](https://github.com/JujuAdams/Scribblebox)
 
 &nbsp;
 
