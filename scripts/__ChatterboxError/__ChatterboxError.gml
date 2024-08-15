@@ -16,11 +16,11 @@ function __ChatterboxError()
     if (os_browser != browser_not_a_browser)
     {
         _string += "\n \n" + string(debug_get_callstack());
-        throw ("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string);
+        throw ("Chatterbox " + CHATTERBOX_VERSION + ":\n" + _string);
     }
     else
     {
-        show_error("Chatterbox " + __CHATTERBOX_VERSION + ":\n" + _string + "\n ", false);
+        show_error("Chatterbox " + CHATTERBOX_VERSION + ":\n" + _string + "\n ", false);
     }
     
     return _string;

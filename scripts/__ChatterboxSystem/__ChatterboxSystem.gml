@@ -9,11 +9,11 @@ function __ChatterboxSystem()
     _system = {};
     with(_system)
     {
-        __ChatterboxTrace("Welcome to Chatterbox by Juju Adams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
+        __ChatterboxTrace("Welcome to Chatterbox by Juju Adams! This is version " + CHATTERBOX_VERSION + ", " + CHATTERBOX_DATE);
         
         var _chatterboxDirectory = CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY;
         
-        if (__CHATTERBOX_ON_MOBILE)
+        if (CHATTERBOX_ON_MOBILE)
         {
             if (_chatterboxDirectory != "")
             {
@@ -29,7 +29,7 @@ function __ChatterboxSystem()
             if (_char != "\\") && (_char != "/") _chatterboxDirectory += "\\";
         }
         
-        if (!__CHATTERBOX_ON_WEB)
+        if (!CHATTERBOX_ON_WEB)
         {
             //Check if the directory exists
             if ((_chatterboxDirectory != "") && !directory_exists(_chatterboxDirectory))
