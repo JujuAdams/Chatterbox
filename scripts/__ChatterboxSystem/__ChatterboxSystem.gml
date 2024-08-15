@@ -87,6 +87,7 @@ global.__chatterboxDirectory            = _chatterbox_directory;
 
 global.__chatterboxVariablesMap         = ds_map_create();
 global.__chatterboxVariablesList        = ds_list_create();
+global.__chatterboxVariablesSetCallback = undefined;
 global.__chatterboxConstantsMap         = ds_map_create();
 global.__chatterboxConstantsList        = ds_list_create();
 global.__chatterboxDefaultVariablesMap  = ds_map_create();

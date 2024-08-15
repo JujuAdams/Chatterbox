@@ -40,11 +40,11 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
         var _value = global.__chatterboxVariablesMap[? _long_name];
         if (_value == undefined)
         {
-            global.__chatterboxVariablesMap[? _long_name] = 1;
+            __ChatterboxVariableSetInternal(_long_name, 1);
         }
         else
         {
-            global.__chatterboxVariablesMap[? _long_name]++;
+            __ChatterboxVariableSetInternal(_long_name, global.__chatterboxVariablesMap[? _long_name] + 1);
         }
     }
     

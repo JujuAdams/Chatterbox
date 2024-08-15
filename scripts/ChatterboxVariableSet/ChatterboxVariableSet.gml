@@ -1,4 +1,5 @@
 // Feather disable all
+
 /// Sets the value of the Chatterbox variable with the given name
 /// Chatterbox variables are only strings, numbers, or booleans
 /// 
@@ -43,7 +44,7 @@ function ChatterboxVariableSet(_name, _value)
         }
     }
     
-    global.__chatterboxVariablesMap[? _name] = _value;
+    __ChatterboxVariableSetInternal(_name, _value);
     global.__chatterboxConstantsMap[? _name] = false;
     if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Set Chatterbox variable $", _name, " to ", __ChatterboxReadableValue(_value));
 }

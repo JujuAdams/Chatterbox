@@ -220,11 +220,11 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             var _lookup = __CHATTERBOX_OPTION_CHOSEN_PREFIX + string(__optionUUIDArray[_index]);
             if (ds_map_exists(global.__chatterboxVariablesMap, _lookup))
             {
-                global.__chatterboxVariablesMap[? _lookup]++;
+                __ChatterboxVariableSetInternal(_lookup, global.__chatterboxVariablesMap[? _lookup] + 1);
             }
             else
             {
-                global.__chatterboxVariablesMap[? _lookup] = 1;
+                __ChatterboxVariableSetInternal(_lookup, 1);
                 ds_list_add(global.__chatterboxConstantsList, _lookup);
             }
             
