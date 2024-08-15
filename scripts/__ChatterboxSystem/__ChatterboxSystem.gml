@@ -11,30 +11,30 @@ function __ChatterboxSystem()
     {
         __ChatterboxTrace("Welcome to Chatterbox by Juju Adams! This is version " + __CHATTERBOX_VERSION + ", " + __CHATTERBOX_DATE);
         
-        var _chatterbox_directory = CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY;
+        var _chatterboxDirectory = CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY;
         
         if (__CHATTERBOX_ON_MOBILE)
         {
-            if (_chatterbox_directory != "")
+            if (_chatterboxDirectory != "")
             {
-                __ChatterboxError("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for SCRIBBLE_INCLUDED_FILES_SUBDIRECTORY and place fonts in the root of Included Files");
+                __ChatterboxError("GameMaker's Included Files work a bit strangely on iOS and Android.\nPlease use an empty string for CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY and place fonts in the root of Included Files");
                 exit;
             }
         }
         
-        if (_chatterbox_directory != "")
+        if (_chatterboxDirectory != "")
         {
             //Fix the font directory name if it's weird
-            var _char = string_char_at(_chatterbox_directory, string_length(_chatterbox_directory));
-            if (_char != "\\") && (_char != "/") _chatterbox_directory += "\\";
+            var _char = string_char_at(_chatterboxDirectory, string_length(_chatterboxDirectory));
+            if (_char != "\\") && (_char != "/") _chatterboxDirectory += "\\";
         }
         
         if (!__CHATTERBOX_ON_WEB)
         {
             //Check if the directory exists
-            if ((_chatterbox_directory != "") && !directory_exists(_chatterbox_directory))
+            if ((_chatterboxDirectory != "") && !directory_exists(_chatterboxDirectory))
             {
-                __ChatterboxTrace("Warning! Font directory \"" + string(_chatterbox_directory) + "\" could not be found in \"" + game_save_id + "\"!");
+                __ChatterboxTrace("Warning! Font directory \"" + string(_chatterboxDirectory) + "\" could not be found in \"" + game_save_id + "\"!");
             }
         }
         
@@ -59,7 +59,7 @@ function __ChatterboxSystem()
         }
         
         //Declare global variables
-        global.__chatterboxDirectory            = _chatterbox_directory;
+        global.__chatterboxDirectory            = _chatterboxDirectory;
         
         global.__chatterboxVariablesMap         = ds_map_create();
         global.__chatterboxVariablesList        = ds_list_create();
