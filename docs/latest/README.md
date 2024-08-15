@@ -31,12 +31,6 @@ Yarn files can be written by hand, but the best way to start with Yarn is to use
 
 ?> For a full explanation of Yarn's features and syntax, please read the [YarnScript](concept-yarn-script) page.
 
-## About & Support
-
-If you'd like to report a bug or suggest a feature, please use the repo's [Issues page](https://github.com/JujuAdams/chatterbox/issues). Chatterbox is constantly being maintained and upgraded; bugs are usually addressed within a few days of being reported.
-
-Chatterbox is supported for all GameMaker export modules, apart from HTML5. You might run into edge cases on platforms that I haven't tested; please [report any bugs](https://github.com/JujuAdams/chatterbox/issues) if and when you find them.
-
 ## Updating
 
 Releases go out once in while, typically expedited if there is a serious bug. This library uses [semantic versioning](https://semver.org/). In short, if the left-most number in the version is increased then this is a "major version increase". Major version increases introduce breaking changes and you'll almost certainly have to rewrite some code. However, if the middle or right-most number in the version is increased then you probably won't have to rewrite any code. For example, moving from `1.1.0` to `2.0.0` is a major version increase but moving from `1.1.0` to `1.2.0` isn't.
@@ -52,6 +46,12 @@ At any rate, the process to update is as follows:
 5. Restore your configuration script from the back-up line by line
 
 !> Because configuration macros might be added or removed between versions, it's important to restore your configuration script carefully.
+
+## About & Support
+
+If you'd like to report a bug or suggest a feature, please use the repo's [Issues page](https://github.com/JujuAdams/chatterbox/issues). Chatterbox is constantly being maintained and upgraded; bugs are usually addressed within a few days of being reported.
+
+Chatterbox is supported for all GameMaker export modules, apart from HTML5. You might run into edge cases on platforms that I haven't tested; please [report any bugs](https://github.com/JujuAdams/chatterbox/issues) if and when you find them.
 
 ---
 
