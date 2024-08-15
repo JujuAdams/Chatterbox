@@ -80,7 +80,7 @@ function __ChatterboxSystem()
         global.__chatterboxVMFastForward        = false;
         global.__chatterboxCurrent              = undefined;
         global.__chatterboxLocalisationMap      = ds_map_create();
-        if (!variable_global_exists("__chatterbox_functions")) global.__chatterboxFunctions = ds_map_create();
+        if (!variable_global_exists("__chatterboxFunctions")) global.__chatterboxFunctions = ds_map_create();
         
         //Big ol' list of operators. Operators at the top at processed first
         //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
