@@ -40,7 +40,7 @@ Releases go out once in while, typically expedited if there is a serious bug. Th
 At any rate, the process to update is as follows:
 
 1. **Back up your whole project using source control!**
-2. Back up the contents of your configuration script (`__ChatterboxConfig`) within your project. Duplicating the script is sufficient
+2. Back up the contents of your configuration script (`__ChatterboxConfig` or `__ChatterboxConfigMacros` depending on the version) within your project. Duplicating the script is sufficient
 3. Delete all library scripts from your project. Unless you've moved things around, this means deleting the library folder from the asset browser
 4. Import the latest [.yymps](https://github.com/JujuAdams/chatterbox/releases/)
 5. Restore your configuration script from the back-up line by line
