@@ -37,9 +37,25 @@ If you'd like to report a bug or suggest a feature, please use the repo's [Issue
 
 Chatterbox is supported for all GameMaker export modules, apart from HTML5. You might run into edge cases on platforms that I haven't tested; please [report any bugs](https://github.com/JujuAdams/chatterbox/issues) if and when you find them.
 
+## Updating
+
+Releases go out once in while, typically expedited if there is a serious bug. This library uses [semantic versioning](https://semver.org/). In short, if the left-most number in the version is increased then this is a "major version increase". Major version increases introduce breaking changes and you'll almost certainly have to rewrite some code. However, if the middle or right-most number in the version is increased then you probably won't have to rewrite any code. For example, moving from `1.1.0` to `2.0.0` is a major version increase but moving from `1.1.0` to `1.2.0` isn't.
+
+?> Please always read patch notes.
+
+At any rate, the process to update is as follows:
+
+1. **Back up your whole project using source control!**
+2. Back up the contents of your configuration script (`__ChatterboxConfig`) within your project. Duplicating the script is sufficient
+3. Delete all library scripts from your project. Unless you've moved things around, this means deleting the library folder from the asset browser
+4. Import the latest [.yymps](https://github.com/JujuAdams/chatterbox/releases/)
+5. Restore your configuration script from the back-up line by line
+
+!> Because configuration macros might be added or removed between versions, it's important to restore your configuration script carefully.
+
 ---
 
-Chatterbox is built and maintained by [@jujuadams](https://twitter.com/jujuadams) who has a long history of fiddling with text engines. Juju's worked on a lot of [commercial GameMaker games](http://www.jujuadams.com/); Chatterbox is the product of experience writing a custom narrative scripting language for [Retrace](https://store.steampowered.com/app/1052640/Retrace/) and tooling for another major GameMaker title, as yet unreleased.
+Chatterbox is built and maintained by [Juju Adams](https://www.jujuadams.com/) who has a long history of fiddling with text engines. Juju's worked on a lot of [commercial GameMaker games](http://www.jujuadams.com/); Chatterbox is the product of experience writing a custom narrative scripting language for [Retrace](https://store.steampowered.com/app/1052640/Retrace/) and tooling for another major GameMaker title, as yet unreleased.
 
 Additional contributions have been made by [squircledev](https://github.com/squircledev) and [Faulty](https://github.com/FaultyFunctions). A big thank you to Els White, Jukio Kallio, rIKmAN, and squircledev for helping to test this library.
 
