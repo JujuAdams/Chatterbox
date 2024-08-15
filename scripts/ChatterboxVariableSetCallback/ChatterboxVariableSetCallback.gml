@@ -12,5 +12,7 @@
 
 function ChatterboxVariableSetCallback(_function)
 {
-    global.__chatterboxVariablesSetCallback = _function;
+    static _system = __ChatterboxSystem();
+    
+    _system.__variablesSetCallback = _function;
 }

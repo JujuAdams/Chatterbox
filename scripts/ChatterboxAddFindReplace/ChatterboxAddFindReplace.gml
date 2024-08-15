@@ -7,6 +7,8 @@
 
 function ChatterboxAddFindReplace(_old, _new)
 {
-    ds_list_add(global.__chatterboxFindReplaceOldString, _old);
-    ds_list_add(global.__chatterboxFindReplaceNewString, _new);
+    static _system = __ChatterboxSystem();
+    
+    ds_list_add(_system.__findReplaceOldString, _old);
+    ds_list_add(_system.__findReplaceNewString, _new);
 }

@@ -5,6 +5,8 @@
 
 function ChatterboxSourceGetNodeTitles(_aliasName)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     if (!ChatterboxIsLoaded(_aliasName))
@@ -16,9 +18,9 @@ function ChatterboxSourceGetNodeTitles(_aliasName)
     var _i = 0;
     var _array = [];
     
-    repeat (array_length(global.chatterboxFiles[? _aliasName].nodes))
+    repeat (array_length(_system.__files[? _aliasName].nodes))
     {
-        array_push(_array,global.chatterboxFiles[? _aliasName].nodes[_i].title);
+        array_push(_array,_system.__files[? _aliasName].nodes[_i].title);
         ++_i;
     }
     

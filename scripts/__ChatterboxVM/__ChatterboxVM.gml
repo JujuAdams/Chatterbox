@@ -1,6 +1,8 @@
 // Feather disable all
 function __ChatterboxVM()
 {
+    static _system = __ChatterboxSystem();
+    
     do 
     {
         __ClearContent(0);
@@ -29,13 +31,13 @@ function __ChatterboxVM()
             return undefined;
         }
         
-        array_push(global.__chatterboxVMInstanceStack, self);
-        global.__chatterboxCurrent = self;
+        array_push(_system.__vmInstanceStack, self);
+        _system.__current = self;
         
         __ChatterboxVMInner(current_instruction);
         
-        array_pop(global.__chatterboxVMInstanceStack);
-        global.__chatterboxCurrent = (array_length(global.__chatterboxVMInstanceStack) <= 0)? undefined : global.__chatterboxVMInstanceStack[array_length(global.__chatterboxVMInstanceStack)-1];
+        array_pop(_system.__vmInstanceStack);
+        _system.__current = (array_length(_system.__vmInstanceStack) <= 0)? undefined : _system.__vmInstanceStack[array_length(_system.__vmInstanceStack)-1];
         
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
     }
@@ -44,6 +46,8 @@ function __ChatterboxVM()
 
 function __ChatterboxVMInner(_instruction)
 {
+    static _system = __ChatterboxSystem();
+    
     var _do_next = true;
     var _next = variable_struct_get(_instruction, "next");
     
@@ -243,13 +247,13 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "wait":
-                        global.__chatterboxVMWait = true;
+                        _system.__vmWait = true;
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>>");
                     break;
                     
                     case "forcewait":
-                        global.__chatterboxVMWait      = true;
-                        global.__chatterboxVMForceWait = true;
+                        _system.__vmWait      = true;
+                        _system.__vmForceWait = true;
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>>");
                     break;
                     
@@ -302,7 +306,7 @@ function __ChatterboxVMInner(_instruction)
                         }
                         else
                         {
-                            var _file = global.chatterboxFiles[? __ChatterboxReplaceBackslashes(_split.filename)];
+                            var _file = _system.__files[? __ChatterboxReplaceBackslashes(_split.filename)];
                             if (instanceof(_file) == "__ChatterboxClassSource")
                             {
                                 file = _file;
@@ -358,7 +362,7 @@ function __ChatterboxVMInner(_instruction)
                             
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  -->  ", _next);
                             
-                            var _file = global.chatterboxFiles[? __ChatterboxReplaceBackslashes(_filename)];
+                            var _file = _system.__files[? __ChatterboxReplaceBackslashes(_filename)];
                             if (instanceof(_file) != "__ChatterboxClassSource")
                             {
                                 __ChatterboxTrace("Error! File \"", _split.filename, "\" not found or not loaded");
@@ -382,7 +386,7 @@ function __ChatterboxVMInner(_instruction)
                         {
                             __ClearContent(__fastForwardContentCount);
                             fastForward = false;
-                            global.__chatterboxVMFastForward = false;
+                            _system.__vmFastForward = false;
                         }
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastmark>>");
@@ -440,18 +444,18 @@ function __ChatterboxVMInner(_instruction)
                         {
                             if (_result == "<<wait>>")
                             {
-                                global.__chatterboxVMWait = true;
+                                _system.__vmWait = true;
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> returned by function");
                             }
                             else if (_result == "<<forcewait>>")
                             {
-                                global.__chatterboxVMWait      = true;
-                                global.__chatterboxVMForceWait = true;
+                                _system.__vmWait      = true;
+                                _system.__vmForceWait = true;
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>> returned by function");
                             }
                             else if (_result == "<<fastforward>>")
                             {
-                                global.__chatterboxVMFastForward = true;
+                                _system.__vmFastForward = true;
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>> returned by function");
                             }
                         }
@@ -511,21 +515,21 @@ function __ChatterboxVMInner(_instruction)
         }
     }
     
-    if (global.__chatterboxVMWait)
+    if (_system.__vmWait)
     {
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Something insisted the VM wait");
         
         waiting          = true;
-        forced_waiting   = global.__chatterboxVMForceWait;
+        forced_waiting   = _system.__vmForceWait;
         wait_instruction = _instruction.next;
         
-        global.__chatterboxVMWait      = false;
-        global.__chatterboxVMForceWait = false;
+        _system.__vmWait      = false;
+        _system.__vmForceWait = false;
     }
     
-    if (global.__chatterboxVMFastForward)
+    if (_system.__vmFastForward)
     {
-        global.__chatterboxVMFastForward = false;
+        _system.__vmFastForward = false;
         fastForward = true;
         __fastForwardContentCount = singleton_text? 0 : array_length(content);
     }

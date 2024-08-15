@@ -372,6 +372,8 @@ function __ChatterboxParseExpression(_string, _alt_direction_syntax)
 /// @param endIndex
 function __ChatterboxCompileExpression(_source_array)
 {
+    static _system = __ChatterboxSystem();
+    
     //Handle parentheses
     var _depth = 0;
     var _open = undefined;
@@ -503,9 +505,9 @@ function __ChatterboxCompileExpression(_source_array)
     }
     
     var _o = 0;
-    repeat(ds_list_size(global.__chatterboxOpList))
+    repeat(ds_list_size(_system.__opList))
     {
-        var _operator = global.__chatterboxOpList[| _o];
+        var _operator = _system.__opList[| _o];
         
         var _t = 0;
         while(_t < array_length(_source_array))

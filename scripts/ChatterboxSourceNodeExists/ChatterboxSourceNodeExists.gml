@@ -6,6 +6,8 @@
 
 function ChatterboxSourceNodeExists(_aliasName, _nodeTitle)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     if (!ChatterboxIsLoaded(_aliasName))
@@ -14,5 +16,5 @@ function ChatterboxSourceNodeExists(_aliasName, _nodeTitle)
         return false;
     }
     
-    return global.chatterboxFiles[? _aliasName].NodeExists(_nodeTitle);
+    return _system.__files[? _aliasName].NodeExists(_nodeTitle);
 }

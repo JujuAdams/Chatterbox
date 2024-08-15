@@ -5,15 +5,17 @@
 
 function __ChatterboxVariableSetInternal(_name, _value)
 {
-    var _oldValue = global.__chatterboxVariablesMap[? _name];
-    global.__chatterboxVariablesMap[? _name] = _value;
+    static _system = __ChatterboxSystem();
     
-    if (is_undefined(global.__chatterboxVariablesSetCallback))
+    var _oldValue = _system.__variablesMap[? _name];
+    _system.__variablesMap[? _name] = _value;
+    
+    if (is_undefined(_system.__variablesSetCallback))
     {
         //Do nothing!
     }
-    else if (is_method(global.__chatterboxVariablesSetCallback) || script_exists(global.__chatterboxVariablesSetCallback))
+    else if (is_method(_system.__variablesSetCallback) || script_exists(_system.__variablesSetCallback))
     {
-        global.__chatterboxVariablesSetCallback(_name, _value, _oldValue);
+        _system.__variablesSetCallback(_name, _value, _oldValue);
     }
 }

@@ -7,6 +7,8 @@
 
 function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, _optionUUID)
 {
+    static _system = __ChatterboxSystem();
+    
     if (!is_struct(_expression)) return _expression;
     
     if (_expression.op == "var") return ChatterboxVariableGet(_expression.name);
@@ -104,12 +106,12 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
                 }
                 else
                 {
-                    return global.__chatterboxVariablesMap[? __CHATTERBOX_OPTION_CHOSEN_PREFIX + _optionUUID];
+                    return _system.__variablesMap[? __CHATTERBOX_OPTION_CHOSEN_PREFIX + _optionUUID];
                 }
             }
             else
             {
-                var _method = global.__chatterboxFunctions[? _expression.name];
+                var _method = _system.__functionsMap[? _expression.name];
                 if (is_method(_method))
                 {
                     if (_local_scope == undefined)
@@ -169,15 +171,15 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
         switch(_behaviour)
         {
             case "declare valueless":
-                if (ds_map_exists(global.__chatterboxConstantsMap, _variable_name) && global.__chatterboxConstantsMap[? _variable_name])
+                if (ds_map_exists(_system.__constantsMap, _variable_name) && _system.__constantsMap[? _variable_name])
                 {
                     __ChatterboxError("Trying to declare Chatterbox variable $", _variable_name, " but it has already been declared as a constant");
                 }
-                else if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _variable_name))
+                else if (!ds_map_exists(_system.__declaredVariablesMap, _variable_name))
                 {
-                    global.__chatterboxDeclaredVariablesMap[? _variable_name] = true;
-                    global.__chatterboxConstantsMap[? _variable_name] = false;
-                    ds_list_add(global.__chatterboxVariablesList, _variable_name);
+                    _system.__declaredVariablesMap[? _variable_name] = true;
+                    _system.__constantsMap[? _variable_name] = false;
+                    ds_list_add(_system.__variablesList, _variable_name);
                 }
             break;
             

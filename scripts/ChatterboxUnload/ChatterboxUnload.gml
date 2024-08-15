@@ -5,15 +5,17 @@
 
 function ChatterboxUnload(_aliasName)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
-    if (ds_map_exists(global.chatterboxFiles, _aliasName))
+    if (ds_map_exists(_system.__files, _aliasName))
     {
-        var _file = global.chatterboxFiles[? _aliasName];
+        var _file = _system.__files[? _aliasName];
         if (_file.loaded)
         {
             _file.loaded = false;
-            ds_map_delete(global.chatterboxFiles, _aliasName);
+            ds_map_delete(_system.__files, _aliasName);
             if (__CHATTERBOX_DEBUG_LOADER) __ChatterboxTrace("\"", _aliasName, "\" unloaded");
         }
     }

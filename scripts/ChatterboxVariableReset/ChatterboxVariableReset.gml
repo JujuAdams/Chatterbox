@@ -3,18 +3,20 @@
 
 function ChatterboxVariableReset(_name)
 {
+    static _system = __ChatterboxSystem();
+    
     if (string_pos(" ", _name))
     {
         __ChatterboxError("Chatterbox variable names must not contain spaces (\"", _name, "\")");
         exit;
     }
     
-    if (ds_map_exists(global.__chatterboxConstantsMap, _name) && global.__chatterboxConstantsMap[? _name])
+    if (ds_map_exists(_system.__constantsMap, _name) && _system.__constantsMap[? _name])
     {
         __ChatterboxError("Trying to reset Chatterbox variable $", _name, " but it has been declared as a constant");
     }
     
-    if (!ds_map_exists(global.__chatterboxDeclaredVariablesMap, _name))
+    if (!ds_map_exists(_system.__declaredVariablesMap, _name))
     {
         if (string_copy(_name, 1, 8) != "visited(") //Don't throw an error for "node visited" variables
         {
@@ -28,17 +30,17 @@ function ChatterboxVariableReset(_name)
             }
         }
         
-        ds_map_delete(global.__chatterboxVariablesMap, _name);
+        ds_map_delete(_system.__variablesMap, _name);
     }
-    else if (!ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
+    else if (!ds_map_exists(_system.__defaultVariablesMap, _name))
     {
         //If we don't have a default value then just delete the variable
         //This can happen when <<set>> implicitly declares a variable on compile
-        ds_map_delete(global.__chatterboxVariablesMap, _name);
+        ds_map_delete(_system.__variablesMap, _name);
     }
     else
     {
-        var _value = global.__chatterboxDefaultVariablesMap[? _name];
+        var _value = _system.__defaultVariablesMap[? _name];
         __ChatterboxVariableSetInternal(_name, _value);
         __ChatterboxTrace("Reset Chatterbox variable $", _name, " to ", __ChatterboxReadableValue(_value));
     }

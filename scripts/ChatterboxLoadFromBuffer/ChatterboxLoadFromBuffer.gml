@@ -8,6 +8,8 @@
 
 function ChatterboxLoadFromBuffer(_aliasName, _buffer)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     if (CHATTERBOX_REPLACE_ALIAS_BACKSLASHES)
@@ -23,7 +25,7 @@ function ChatterboxLoadFromBuffer(_aliasName, _buffer)
     }
     
     //Set our default file if we don't already have one
-    if (global.__chatterboxDefaultFile == "") global.__chatterboxDefaultFile = _aliasName;
+    if (_system.__defaultFile == "") _system.__defaultFile = _aliasName;
     
     //Create a struct that represents this source
     var _source = new __ChatterboxClassSource(_aliasName, _buffer, true);
@@ -31,6 +33,6 @@ function ChatterboxLoadFromBuffer(_aliasName, _buffer)
     //If we successfully decoded a buffer add it to our collection of chatterboxes
     if ((instanceof(_source) == "__ChatterboxClassSource") && _source.loaded)
     {
-        global.chatterboxFiles[? _aliasName] = _source;
+        _system.__files[? _aliasName] = _source;
     }
 }

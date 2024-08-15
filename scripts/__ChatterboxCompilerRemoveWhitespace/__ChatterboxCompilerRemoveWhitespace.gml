@@ -5,7 +5,9 @@
 
 function __ChatterboxCompilerRemoveWhitespace(_string, _leading)
 {
-    global.__chatterboxIndentSize = 0;
+    static _system = __ChatterboxSystem();
+    
+    _system.__indentSize = 0;
     
     var _result = _string;
     
@@ -16,8 +18,8 @@ function __ChatterboxCompilerRemoveWhitespace(_string, _leading)
         {
             var _ord = ord(string_char_at(_result, _i));
             if (_ord  > 32) break;
-            if (_ord == 32) global.__chatterboxIndentSize++;
-            if (_ord ==  9) global.__chatterboxIndentSize += CHATTERBOX_INDENT_TAB_SIZE;
+            if (_ord == 32) _system.__indentSize++;
+            if (_ord ==  9) _system.__indentSize += CHATTERBOX_INDENT_TAB_SIZE;
             _i++;
         }
         
@@ -31,8 +33,8 @@ function __ChatterboxCompilerRemoveWhitespace(_string, _leading)
         {
             var _ord = ord(string_char_at(_result, _i));
             if (_ord  > 32) break;
-            if (_ord == 32) global.__chatterboxIndentSize++;
-            if (_ord ==  9) global.__chatterboxIndentSize += CHATTERBOX_INDENT_TAB_SIZE;
+            if (_ord == 32) _system.__indentSize++;
+            if (_ord ==  9) _system.__indentSize += CHATTERBOX_INDENT_TAB_SIZE;
             _i--;
         }
         

@@ -26,6 +26,8 @@
 
 function ChatterboxAddFunction(_name, _in_function)
 {
+    static _system = __ChatterboxSystem();
+    
     var _function = _in_function;
     
     if (!is_string(_name))
@@ -72,18 +74,13 @@ function ChatterboxAddFunction(_name, _in_function)
         break;
     }
     
-    if (!variable_global_exists("__chatterboxFunctions"))
-    {
-        global.__chatterboxFunctions = ds_map_create();
-    }
-    
-    var _old_function = global.__chatterboxFunctions[? _name];
+    var _old_function = _system.__functionsMap[? _name];
     if (is_method(_old_function))
     {
         __ChatterboxTrace("WARNING! Overwriting script name \"", _name, "\" tied to \"", _old_function, "()\"" );
     }
     
-    global.__chatterboxFunctions[? _name ] = _function;
+    _system.__functionsMap[? _name ] = _function;
     if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Permitting script \"", _name, "\", calling \"", _function, "()\"" );
     return true;
 }

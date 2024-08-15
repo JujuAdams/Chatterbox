@@ -6,6 +6,8 @@
 
 function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buffer_end, _apply_string_replacement)
 {
+    static _system = __ChatterboxSystem();
+    
     if (__CHATTERBOX_DEBUG_SPLITTER) __ChatterboxTrace("Splitting body of node \"", title, "\" in file \"", filename, "\", metadata = ", metadata);
     
     var _buffer = _source_buffer;
@@ -17,7 +19,7 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
     buffer_poke(_source_buffer, _source_buffer_end+1, buffer_u8, 0x00);
     
     //If we want to perform any string replacement then we'll need to extract the raw string from the source buffer, transform it, and write it to its own buffer
-    if (_apply_string_replacement && (ds_list_size(global.__chatterboxFindReplaceOldString) > 0))
+    if (_apply_string_replacement && (ds_list_size(_system.__findReplaceOldString) > 0))
     {
         _buffer_offset = _source_buffer_start;
         
@@ -26,11 +28,11 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
         
         //Perform find-replace
         var _i = 0;
-        repeat(ds_list_size(global.__chatterboxFindReplaceOldString))
+        repeat(ds_list_size(_system.__findReplaceOldString))
         {
             _work_string = string_replace_all(_work_string,
-                                                global.__chatterboxFindReplaceOldString[| _i],
-                                                global.__chatterboxFindReplaceNewString[| _i]);
+                                                _system.__findReplaceOldString[| _i],
+                                                _system.__findReplaceNewString[| _i]);
             ++_i;
         }
         

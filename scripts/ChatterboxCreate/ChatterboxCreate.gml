@@ -16,7 +16,9 @@
 
 function ChatterboxCreate()
 {
-    var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : global.__chatterboxDefaultFile;
+    static _system = __ChatterboxSystem();
+    
+    var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : _system.__defaultFile;
     var _singleton   = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
     var _local_scope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
     
@@ -33,6 +35,8 @@ function ChatterboxCreate()
 /// @param singletonText
 function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
 {
+    static _system = __ChatterboxSystem();
+    
     if (!is_string(_filename))
     {
         __ChatterboxError("Source files must be strings (got \"" + string(_filename) + "\")");
@@ -50,7 +54,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     local_scope         = _local_scope;
     singleton_text      = _singleton;
     filename            = _filename;
-    file                = global.chatterboxFiles[? filename];
+    file                = _system.__files[? filename];
     
     content              = [];
     contentConditionBool = [];
@@ -92,7 +96,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         {
             _filename = __ChatterboxReplaceBackslashes(_filename);
             
-            var _file = global.chatterboxFiles[? _filename];
+            var _file = _system.__files[? _filename];
             if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
             
             file = _file;
@@ -135,7 +139,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         {
             _filename = __ChatterboxReplaceBackslashes(_filename);
             
-            var _file = global.chatterboxFiles[? _filename];
+            var _file = _system.__files[? _filename];
             if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
             
             file = _file;
@@ -177,7 +181,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         var _filename = __ChatterboxReplaceBackslashes(_hop_data.filename);
         array_pop(hopStack);
         
-        var _file = global.chatterboxFiles[? _filename];
+        var _file = _system.__files[? _filename];
         if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
         
         file = _file;
@@ -218,14 +222,14 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         if (optionConditionBool[_index])
         {
             var _lookup = __CHATTERBOX_OPTION_CHOSEN_PREFIX + string(__optionUUIDArray[_index]);
-            if (ds_map_exists(global.__chatterboxVariablesMap, _lookup))
+            if (ds_map_exists(_system.__variablesMap, _lookup))
             {
-                __ChatterboxVariableSetInternal(_lookup, global.__chatterboxVariablesMap[? _lookup] + 1);
+                __ChatterboxVariableSetInternal(_lookup, _system.__variablesMap[? _lookup] + 1);
             }
             else
             {
                 __ChatterboxVariableSetInternal(_lookup, 1);
-                ds_list_add(global.__chatterboxConstantsList, _lookup);
+                ds_list_add(_system.__constantsList, _lookup);
             }
             
             current_instruction = optionInstruction[_index];
@@ -265,9 +269,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     {
         //Figure out if we're currently processing this chatterbox in a VM
         var _i = 0;
-        repeat(array_length(global.__chatterboxVMInstanceStack))
+        repeat(array_length(_system.__vmInstanceStack))
         {
-            if (global.__chatterboxVMInstanceStack[_i] == self) return true;
+            if (_system.__vmInstanceStack[_i] == self) return true;
             ++_i;
         }
         
@@ -293,8 +297,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         {
             //If we are processing this chatterbox then set this particular global to <true>
             //We pick this global up at the bottom of the VM
-            global.__chatterboxVMWait      = true;
-            global.__chatterboxVMForceWait = true;
+            _system.__vmWait      = true;
+            _system.__vmForceWait = true;
         }
         else
         {
@@ -350,7 +354,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         
         if (__CurrentlyProcessing())
         {
-            global.__chatterboxVMFastForward = true;
+            _system.__vmFastForward = true;
         }
         else
         {
@@ -410,7 +414,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     {
         VerifyIsLoaded();
         if ((_index < 0) || (_index >= array_length(option))) return 0;
-        return global.__chatterboxVariablesMap[? __CHATTERBOX_OPTION_CHOSEN_PREFIX + string(__optionUUIDArray[_index])] ?? 0;
+        return _system.__variablesMap[? __CHATTERBOX_OPTION_CHOSEN_PREFIX + string(__optionUUIDArray[_index])] ?? 0;
     }
     
     static GetOptionCount = function()

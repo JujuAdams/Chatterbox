@@ -3,6 +3,8 @@
 
 function __ChatterboxClassText(_string) constructor
 {
+    static _system = __ChatterboxSystem();
+    
     raw_string       = _string;
     loc_hash         = undefined;
     localised_string = _string;
@@ -81,7 +83,7 @@ function __ChatterboxClassText(_string) constructor
         //Check our localisation map to see if we need to re-parse this chunk of text
         if (loc_hash != undefined)
         {
-            var _found_string = global.__chatterboxLocalisationMap[? loc_hash] ?? raw_string;
+            var _found_string = _system.__localisationMap[? loc_hash] ?? raw_string;
             if (_found_string != localised_string)
             {
                 localised_string = _found_string;

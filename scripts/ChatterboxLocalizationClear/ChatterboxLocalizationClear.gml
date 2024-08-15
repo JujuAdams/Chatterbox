@@ -4,5 +4,7 @@
 
 function ChatterboxLocalizationClear()
 {
-    ds_map_clear(global.__chatterboxLocalisationMap);
+    static _system = __ChatterboxSystem();
+    
+    ds_map_clear(_system.__localisationMap);
 }

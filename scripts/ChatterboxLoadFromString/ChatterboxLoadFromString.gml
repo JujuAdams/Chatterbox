@@ -8,6 +8,8 @@
 
 function ChatterboxLoadFromString(_aliasName, _string)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     //Write the string directly into a buffer we can use for parsing

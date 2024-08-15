@@ -59,71 +59,71 @@ function __ChatterboxSystem()
         }
         
         //Declare global variables
-        global.__chatterboxDirectory            = _chatterboxDirectory;
+        __directory            = _chatterboxDirectory;
         
-        global.__chatterboxVariablesMap         = ds_map_create();
-        global.__chatterboxVariablesList        = ds_list_create();
-        global.__chatterboxVariablesSetCallback = undefined;
-        global.__chatterboxConstantsMap         = ds_map_create();
-        global.__chatterboxConstantsList        = ds_list_create();
-        global.__chatterboxDefaultVariablesMap  = ds_map_create();
-        global.__chatterboxDeclaredVariablesMap = ds_map_create();
+        __variablesMap         = ds_map_create();
+        __variablesList        = ds_list_create();
+        __variablesSetCallback = undefined;
+        __constantsMap         = ds_map_create();
+        __constantsList        = ds_list_create();
+        __defaultVariablesMap  = ds_map_create();
+        __declaredVariablesMap = ds_map_create();
         
-        global.chatterboxFiles                  = ds_map_create();
-        global.__chatterboxDefaultFile          = "";
-        global.__chatterboxIndentSize           = 0;
-        global.__chatterboxFindReplaceOldString = ds_list_create();
-        global.__chatterboxFindReplaceNewString = ds_list_create();
-        global.__chatterboxVMInstanceStack      = [];
-        global.__chatterboxVMWait               = false;
-        global.__chatterboxVMForceWait          = false;
-        global.__chatterboxVMFastForward        = false;
-        global.__chatterboxCurrent              = undefined;
-        global.__chatterboxLocalisationMap      = ds_map_create();
-        if (!variable_global_exists("__chatterboxFunctions")) global.__chatterboxFunctions = ds_map_create();
+        __files                = ds_map_create();
+        __defaultFile          = "";
+        __indentSize           = 0;
+        __findReplaceOldString = ds_list_create();
+        __findReplaceNewString = ds_list_create();
+        __vmInstanceStack      = [];
+        __vmWait               = false;
+        __vmForceWait          = false;
+        __vmFastForward        = false;
+        __current              = undefined;
+        __localisationMap      = ds_map_create();
+        __functionsMap         = ds_map_create();
         
         //Big ol' list of operators. Operators at the top at processed first
         //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
-        global.__chatterboxOpList = ds_list_create();
+        __opList = ds_list_create();
         if (CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE)
         {
-            ds_list_add(global.__chatterboxOpList, "+" );
-            ds_list_add(global.__chatterboxOpList, "-" );
-            ds_list_add(global.__chatterboxOpList, "*" );
-            ds_list_add(global.__chatterboxOpList, "/" );
-            ds_list_add(global.__chatterboxOpList, "==");
-            ds_list_add(global.__chatterboxOpList, "!=");
-            ds_list_add(global.__chatterboxOpList, ">" );
-            ds_list_add(global.__chatterboxOpList, "<" );
-            ds_list_add(global.__chatterboxOpList, ">=");
-            ds_list_add(global.__chatterboxOpList, "<=");
-            ds_list_add(global.__chatterboxOpList, "||");
-            ds_list_add(global.__chatterboxOpList, "&&");
-            ds_list_add(global.__chatterboxOpList, "+=");
-            ds_list_add(global.__chatterboxOpList, "-=");
-            ds_list_add(global.__chatterboxOpList, "*=");
-            ds_list_add(global.__chatterboxOpList, "/=");
-            ds_list_add(global.__chatterboxOpList, "=" );
+            ds_list_add(__opList, "+" );
+            ds_list_add(__opList, "-" );
+            ds_list_add(__opList, "*" );
+            ds_list_add(__opList, "/" );
+            ds_list_add(__opList, "==");
+            ds_list_add(__opList, "!=");
+            ds_list_add(__opList, ">" );
+            ds_list_add(__opList, "<" );
+            ds_list_add(__opList, ">=");
+            ds_list_add(__opList, "<=");
+            ds_list_add(__opList, "||");
+            ds_list_add(__opList, "&&");
+            ds_list_add(__opList, "+=");
+            ds_list_add(__opList, "-=");
+            ds_list_add(__opList, "*=");
+            ds_list_add(__opList, "/=");
+            ds_list_add(__opList, "=" );
         }
         else
         {
-            ds_list_add(global.__chatterboxOpList, "*" );
-            ds_list_add(global.__chatterboxOpList, "/" );
-            ds_list_add(global.__chatterboxOpList, "-" );
-            ds_list_add(global.__chatterboxOpList, "+" );
-            ds_list_add(global.__chatterboxOpList, ">" );
-            ds_list_add(global.__chatterboxOpList, "<" );
-            ds_list_add(global.__chatterboxOpList, ">=");
-            ds_list_add(global.__chatterboxOpList, "<=");
-            ds_list_add(global.__chatterboxOpList, "==");
-            ds_list_add(global.__chatterboxOpList, "!=");
-            ds_list_add(global.__chatterboxOpList, "&&");
-            ds_list_add(global.__chatterboxOpList, "||");
-            ds_list_add(global.__chatterboxOpList, "+=");
-            ds_list_add(global.__chatterboxOpList, "-=");
-            ds_list_add(global.__chatterboxOpList, "*=");
-            ds_list_add(global.__chatterboxOpList, "/=");
-            ds_list_add(global.__chatterboxOpList, "=" );
+            ds_list_add(__opList, "*" );
+            ds_list_add(__opList, "/" );
+            ds_list_add(__opList, "-" );
+            ds_list_add(__opList, "+" );
+            ds_list_add(__opList, ">" );
+            ds_list_add(__opList, "<" );
+            ds_list_add(__opList, ">=");
+            ds_list_add(__opList, "<=");
+            ds_list_add(__opList, "==");
+            ds_list_add(__opList, "!=");
+            ds_list_add(__opList, "&&");
+            ds_list_add(__opList, "||");
+            ds_list_add(__opList, "+=");
+            ds_list_add(__opList, "-=");
+            ds_list_add(__opList, "*=");
+            ds_list_add(__opList, "/=");
+            ds_list_add(__opList, "=" );
         }
     }
     

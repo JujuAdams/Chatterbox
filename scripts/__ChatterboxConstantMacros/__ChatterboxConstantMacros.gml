@@ -3,9 +3,9 @@
 #macro __CHATTERBOX_VERSION  "2.14.0"
 #macro __CHATTERBOX_DATE     "2024-06-14"
 
-#macro CHATTERBOX_VARIABLES_MAP   global.__chatterboxVariablesMap
-#macro CHATTERBOX_VARIABLES_LIST  global.__chatterboxVariablesList
-#macro CHATTERBOX_CURRENT         global.__chatterboxCurrent
+#macro CHATTERBOX_VARIABLES_MAP   (__ChatterboxSystem().__variablesMap)
+#macro CHATTERBOX_VARIABLES_LIST  (__ChatterboxSystem().__variablesList)
+#macro CHATTERBOX_CURRENT         (__ChatterboxSystem().__current)
 
 #macro __CHATTERBOX_DEBUG_INIT      false
 #macro __CHATTERBOX_DEBUG_LOADER    false

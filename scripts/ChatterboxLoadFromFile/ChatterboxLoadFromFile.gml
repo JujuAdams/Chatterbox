@@ -6,6 +6,8 @@
 
 function ChatterboxLoadFromFile(_path, _aliasName = _path)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     if (!is_string(_path))
@@ -20,7 +22,7 @@ function ChatterboxLoadFromFile(_path, _aliasName = _path)
         return undefined;
     }
     
-    _path = global.__chatterboxDirectory + _path;
+    _path = _system.__directory + _path;
     
     if (!file_exists(_path))
     {

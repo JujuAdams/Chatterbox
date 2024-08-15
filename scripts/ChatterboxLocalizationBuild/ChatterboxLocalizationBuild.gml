@@ -14,6 +14,8 @@
 
 function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
 {
+    static _system = __ChatterboxSystem();
+    
     if (!CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING)
     {
         __ChatterboxError("THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT\nENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL\n \nSet CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING to <true> to turn off this warning");
@@ -30,7 +32,7 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
     {
         __ChatterboxError("ChatterboxLocalizationBuild() only available when running from the IDE");
     }
-    var _root_directory = filename_dir(GM_project_filename) + "/datafiles/" + global.__chatterboxDirectory;
+    var _root_directory = filename_dir(GM_project_filename) + "/datafiles/" + _system.__directory;
     
     if (!directory_exists(_root_directory))
     {

@@ -9,6 +9,8 @@
 
 function ChatterboxVariableGet()
 {
+    static _system = __ChatterboxSystem();
+    
     var _name    = argument[0];
     var _default = (argument_count > 1)? argument[1] : CHATTERBOX_VARIABLE_MISSING_VALUE;
     
@@ -18,7 +20,7 @@ function ChatterboxVariableGet()
         exit;
     }
     
-    if (!ds_map_exists(global.__chatterboxVariablesMap, _name))
+    if (!ds_map_exists(_system.__variablesMap, _name))
     {
         if (CHATTERBOX_ERROR_UNSET_VARIABLE)
         {
@@ -32,7 +34,7 @@ function ChatterboxVariableGet()
         return _default;
     }
     
-    var _value = global.__chatterboxVariablesMap[? _name];
+    var _value = _system.__variablesMap[? _name];
         
     if (!is_numeric(_value) && !is_string(_value) && !is_bool(_value))
     {

@@ -4,6 +4,8 @@
 
 function ChatterboxGetVisited(_node_title, _filename)
 {
+    static _system = __ChatterboxSystem();
+    
     if (string_pos(":", _node_title) > 0)
     {
         //We have a colon, the name is a filename:node reference
@@ -17,7 +19,7 @@ function ChatterboxGetVisited(_node_title, _filename)
         var _key = "visited(" + string(_filename) + CHATTERBOX_FILENAME_SEPARATOR + string(_node_title) + ")";
     }
     
-    var _value = global.__chatterboxVariablesMap[? _key];
+    var _value = _system.__variablesMap[? _key];
     if (_value == undefined) return 0;
     return _value;
 }

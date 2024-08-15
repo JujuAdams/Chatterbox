@@ -5,6 +5,8 @@
 
 function ChatterboxSourceNodeCount(_aliasName)
 {
+    static _system = __ChatterboxSystem();
+    
     _aliasName = __ChatterboxReplaceBackslashes(_aliasName);
     
     if (!ChatterboxIsLoaded(_aliasName))
@@ -13,5 +15,5 @@ function ChatterboxSourceNodeCount(_aliasName)
         return false;
     }
     
-    return global.chatterboxFiles[? _aliasName].NodeCount();
+    return _system.__files[? _aliasName].NodeCount();
 }

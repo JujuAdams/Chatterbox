@@ -5,5 +5,7 @@
 
 function ChatterboxIsLoaded(_aliasName)
 {
-    return ds_map_exists(global.chatterboxFiles, __ChatterboxReplaceBackslashes(_aliasName));
+    static _system = __ChatterboxSystem();
+    
+    return ds_map_exists(_system.__files, __ChatterboxReplaceBackslashes(_aliasName));
 }

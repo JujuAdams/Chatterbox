@@ -9,6 +9,8 @@
 
 function ChatterboxLocalizationLoad(_path)
 {
-    ds_map_clear(global.__chatterboxLocalisationMap);
-    __ChatterboxLocalizationLoadIntoMap(_path, global.__chatterboxLocalisationMap);
+    static _system = __ChatterboxSystem();
+    
+    ds_map_clear(_system.__localisationMap);
+    __ChatterboxLocalizationLoadIntoMap(_path, _system.__localisationMap);
 }

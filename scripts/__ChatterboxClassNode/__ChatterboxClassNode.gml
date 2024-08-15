@@ -9,6 +9,8 @@
 
 function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _buffer_start, _buffer_end) constructor
 {
+    static _system = __ChatterboxSystem();
+    
     filename         = _filename;
     title            = _node_metadata.title;
     metadata         = _node_metadata;
@@ -37,14 +39,14 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
     {
         var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
         
-        var _value = global.__chatterboxVariablesMap[? _long_name];
+        var _value = _system.__variablesMap[? _long_name];
         if (_value == undefined)
         {
             __ChatterboxVariableSetInternal(_long_name, 1);
         }
         else
         {
-            __ChatterboxVariableSetInternal(_long_name, global.__chatterboxVariablesMap[? _long_name] + 1);
+            __ChatterboxVariableSetInternal(_long_name, _system.__variablesMap[? _long_name] + 1);
         }
     }
     

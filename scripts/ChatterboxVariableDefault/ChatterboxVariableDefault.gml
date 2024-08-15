@@ -7,6 +7,8 @@
 
 function ChatterboxVariableDefault(_name, _value)
 {
+    static _system = __ChatterboxSystem();
+    
     if (string_pos(" ", _name))
     {
         __ChatterboxError("Chatterbox variable names must not contain spaces (\"", _name, "\")");
@@ -19,12 +21,12 @@ function ChatterboxVariableDefault(_name, _value)
         exit;
     }
     
-    if (ds_map_exists(global.__chatterboxConstantsMap, _name) && global.__chatterboxConstantsMap[? _name])
+    if (ds_map_exists(_system.__constantsMap, _name) && _system.__constantsMap[? _name])
     {
         __ChatterboxError("Trying to set Chatterbox variable $", _name, " but it has already been declared as a constant");
     }
     
-    if (ds_map_exists(global.__chatterboxDefaultVariablesMap, _name))
+    if (ds_map_exists(_system.__defaultVariablesMap, _name))
     {
         if (CHATTERBOX_ERROR_REDECLARED_VARIABLE)
         {
@@ -37,10 +39,10 @@ function ChatterboxVariableDefault(_name, _value)
     }
     else
     {
-        global.__chatterboxVariablesMap[? _name] = _value;
-        global.__chatterboxDefaultVariablesMap[? _name] = _value;
-        global.__chatterboxDeclaredVariablesMap[? _name] = true;
-        ds_list_add(global.__chatterboxVariablesList, _name);
+        _system.__variablesMap[? _name] = _value;
+        _system.__defaultVariablesMap[? _name] = _value;
+        _system.__declaredVariablesMap[? _name] = true;
+        ds_list_add(_system.__variablesList, _name);
         
         if (CHATTERBOX_VERBOSE) __ChatterboxTrace("Declared Chatterbox variable $", _name, " (= ", __ChatterboxReadableValue(_value), ")");
     }
