@@ -8,6 +8,8 @@ function __ChatterboxClassLine() constructor
     
     static __Push = function(_substring)
     {
+        if (_substring.text == "") return;
+        
         switch(_substring.type)
         {
             case "text":
