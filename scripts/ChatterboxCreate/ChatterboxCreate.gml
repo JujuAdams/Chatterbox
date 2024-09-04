@@ -116,9 +116,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        current_node = _node;
+        __ChangeNode(_node, true);
         current_instruction = current_node.root_instruction;
-        current_node.MarkVisited();
         
         __ChatterboxVM();
     }
@@ -159,9 +158,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        current_node = _node;
+        __ChangeNode(_node, true);
         current_instruction = current_node.root_instruction;
-        current_node.MarkVisited();
         
         __ChatterboxVM();
     }
@@ -193,7 +191,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        current_node = _node;
+        __ChangeNode(_node, false);
         current_instruction = _next;
         
         __ChatterboxVM();
@@ -511,5 +509,23 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         array_resize(__optionUUIDArray,   _count);
         array_resize(optionStructArray,   _count);
         array_resize(optionWeightArray,   _count);
+    }
+    
+    static __ChangeNode = function(_newNode, _markAsVisited)
+    {
+        var _oldNode = current_node;
+        
+        current_node = _newNode;
+        if (_markAsVisited) current_node.MarkVisited();
+        
+        if (is_undefined(_system.__nodeChangeCallback))
+        {
+            //Do nothing!
+        }
+        else if (is_method(_system.__nodeChangeCallback) || script_exists(_system.__nodeChangeCallback))
+        {
+            _system.__nodeChangeCallback((_oldNode != undefined)? _oldNode.title : undefined, 
+                                         (_newNode != undefined)? _newNode.title : undefined);
+        }
     }
 }

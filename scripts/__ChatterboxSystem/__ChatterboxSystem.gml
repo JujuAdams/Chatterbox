@@ -64,6 +64,7 @@ function __ChatterboxSystem()
         __variablesMap         = ds_map_create();
         __variablesList        = ds_list_create();
         __variablesSetCallback = undefined;
+        __nodeChangeCallback   = undefined;
         __constantsMap         = ds_map_create();
         __constantsList        = ds_list_create();
         __defaultVariablesMap  = ds_map_create();
