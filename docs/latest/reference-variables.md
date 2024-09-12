@@ -54,6 +54,34 @@ Sets the value of a Chatterbox variable. Chatterbox variables must be strings, b
 
 &nbsp;
 
+## `...SetCallback()`
+
+_Full function name:_ `ChatterboxVariableSetCallback(function)`
+
+_Returns:_ N/A (`undefined`)
+
+|Name      |Datatype|Purpose                                   |
+|----------|--------|------------------------------------------|
+|`function`|function|Function to execute when a variable is set|
+
+Sets a callback functiojn that is executed whenever a Chatterbox variable is set. The callback will be executed in the following situations:
+
+- Setting a variable in YarnScript
+
+- Calling `ChatterboxVariableSet()`
+
+- Calling `ChatterboxVariableReset()`
+
+The callback will be executed with the following arguments:
+
+|Name          |Datatype|Purpose                                                           |
+|--------------|--------|------------------------------------------------------------------|
+|`variableName`|string  |Name of the variable that has been set (without the preceding `$`)|
+|`newValue`    |any     |New value for the variable                                        |
+|`oldValue`    |any     |Old value for the variable                                        |
+
+&nbsp;
+
 ## `...SetConstant()`
 
 _Full function name:_ `ChatterboxVariableSetConstant(name, value)`
