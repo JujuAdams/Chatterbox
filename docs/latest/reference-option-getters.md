@@ -90,4 +90,76 @@ The returned array is populated in canonical order: the 0th element of the array
 |`.conditionBool`|Whether the conditional check for this option passed or failed|
 |`.metadata`     |An array of metadata tags associated with the content         |
 
-&nbsp
+&nbsp;
+
+## `...OptionSpeech()`
+
+_Full function name:_ `ChatterboxGetOptionSpeech(chatterbox, optionIndex, [default])`
+
+_Returns:_ String
+
+|Name         |Datatype                          |Purpose                                                                                      |
+|-------------|----------------------------------|---------------------------------------------------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                             |
+|`optionIndex`|integer                           |Option to return the speaker data for                                                        |
+|`[default]`  |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
+
+This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeech()` to work properly, line of text in your Yarn file should be formatted like so:
+
+```
+-> Speaker Name: The words that the speaker is saying.
+```
+
+In this case, the "speech" part of this string is everything after the colon (`The words that the speaker is saying.`). Any whitespace that leads or follows speech is removed.
+
+&nbsp;
+
+## `...OptionSpeaker()`
+
+_Full function name:_ `ChatterboxGetOptionSpeaker(chatterbox, contentIndex, [default])`
+
+_Returns:_ String
+
+|Name         |Datatype                          |Purpose                                                                                      |
+|-------------|----------------------------------|---------------------------------------------------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                             |
+|`optionIndex`|integer                           |Option to return the speaker data for                                                        |
+|`[default]`  |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
+
+This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeaker()` to work properly, line of text in your Yarn file should be formatted like so:
+
+```
+Speaker Name: The words that the speaker is saying.
+```
+
+In this case, the "speaker" part of this string is everything before the colon (`Speaker Name`). Any whitespace that leads or follows the speaker name is removed. In the next example, "speaker data" is added to the line of text.
+
+```
+-> Speaker Name[additional speaker data]: The words that the speaker is saying.
+```
+
+The speaker part of this string is everything before the speaker data start symbol (see below), which is again `Speaker Name`.
+
+&nbsp;
+
+## `...OptionSpeakerData()`
+
+_Full function name:_ `ChatterboxGetOptionSpeakerData(chatterbox, contentIndex, [default])`
+
+_Returns:_ String
+
+|Name         |Datatype                          |Purpose                                                                                      |
+|-------------|----------------------------------|---------------------------------------------------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                             |
+|`optionIndex`|integer                           |Option to return the speaker data for                                                        |
+|`[default]`  |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
+
+This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeakerData()` to work properly, line of text in your Yarn file should be formatted like so:
+
+```
+-> Speaker Name[additional speaker data]: The words that the speaker is saying.
+```
+
+In this case, the "speaker data" part of this string is everything between `[` and `]` (`additional speaker data`). Any whitespace that leads or follows the speaker data is removed. The symbols used to define where speaker data is stored is controlled by the `CHATTERBOX_SPEAKER_DATA_START` and `CHATTERBOX_SPEAKER_DATA_END` macros. Speaker data must follow the speaker's name and precede the colon that separates the speaker from the speech. If no speaker data is found, the provided default value is returned.
+
+&nbsp;
