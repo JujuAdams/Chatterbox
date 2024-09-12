@@ -1,6 +1,6 @@
 // Feather disable all
 
-/// Sets a callback functiojn that is executed whenever a Chatterbox variable is set. The callback
+/// Sets a callback function that is executed whenever a Chatterbox variable is set. The callback
 /// will be executed in the following situations:
 /// 
 /// - Setting a variable in YarnScript
