@@ -135,6 +135,33 @@ Find-replace operations are applied to all source files on load. These operation
 
 &nbsp;
 
+## `...NodeChangeCallback()`
+
+_Full function name:_ `ChatterboxNodeChangeCallback(function)`
+
+_Returns:_ N/A (`undefined`)
+
+|Name      |Datatype|Purpose                                      |
+|----------|--------|---------------------------------------------|
+|`function`|function|Function to execute when moving between nodes|
+
+Sets a callback function that is executed whenever a chatterbox changes node. The callback will be executed in the following situations:
+
+- Jumping to a node
+
+- Hopping to a node
+
+- Hopping back to a node
+
+The callback will be executed with the following arguments:
+
+|Name     |Datatype|Purpose                           |
+|---------|--------|----------------------------------|
+|`oldNode`|string  |Name of the node that we have left|
+|`newNode`|string  |Name of the node we have entered  |
+
+&nbsp;
+
 ## `...SourceNodeExists()`
 
 _Full function name:_ `ChatterboxSourceNodeExists(sourceName, nodeTitle)`

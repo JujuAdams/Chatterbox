@@ -64,7 +64,7 @@ _Returns:_ N/A (`undefined`)
 |----------|--------|------------------------------------------|
 |`function`|function|Function to execute when a variable is set|
 
-Sets a callback functiojn that is executed whenever a Chatterbox variable is set. The callback will be executed in the following situations:
+Sets a callback function that is executed whenever a Chatterbox variable is set. The callback will be executed in the following situations:
 
 - Setting a variable in YarnScript
 
