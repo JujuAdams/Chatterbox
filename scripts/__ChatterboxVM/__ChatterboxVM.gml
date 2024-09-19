@@ -202,7 +202,11 @@ function __ChatterboxVMInner(_instruction)
                         }
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Choosing random option index ", _random_option);
+                        
                         _next = optionInstruction[_random_option];
+                        
+                        //Make sure we don't leak option data
+                        __ClearOptions(0);
                     }
                     else
                     {
