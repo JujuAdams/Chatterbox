@@ -29,7 +29,7 @@ else
     if (ChatterboxIsWaiting(box))
     {
         //If we're in a "waiting" state then prompt the user for basic input
-        draw_text(_x, _y, "(Press Space)");
+        draw_text(_x, _y, "(Press Space)\nOption count = " + string(ChatterboxGetOptionCount(box)));
     }
     else
     {
