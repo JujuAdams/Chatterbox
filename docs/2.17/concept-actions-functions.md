@@ -92,11 +92,13 @@ The `<<const>>` action defines a special kind of variable - it is a variable who
 
 `<<wait>>` will put a chatterbox into a "waiting" state. This is used to break up sections of dialogue in non-singleton mode. You can tell a chatterbox to "un-wait" by calling `ChatterboxContinue()`.
 
+If the chatterbox is running in fast-forward mode (see `ChatterboxFastForward()`) then a standard `<<wait>>` action will be ignored. To always wait, even when in fast-forward mode, please use `<<forcewait>>`.
+
 You can also specify a name in a wait command. This name is then used to filter continue commands when calling `ChatterboxContinue()`. For example, the command `<<wait timer>>` can only be continued by calling `ChatterboxContinue(chatterbox, "timer")`. A wait command with no name (`<<wait>>`) is treated as having an empty string `""` as a name.
 
 ?> In singleton mode this action does nothing because `<<wait>>` is implicitly and automatically called after every line of dialogue (so long as that dialogue isn't followed immediately by an `->` option).
 
-?> `<<wait>>` is analogous to the `ChatterboxWait()` function.
+?> `ChatterboxWait()` can be called from a Chatterbox action to cause a chatterbox to forcibly wait. Doing so will ignore fast-forward mode (`ChatterboxWait()` is analogous to `<<forcewait>>`).
 
 &nbsp;
 
@@ -113,6 +115,26 @@ Tells a chatterbox to stop processing entirely. The chatterbox can be restarted 
 ### `if`, `else` etc.
 
 Branching logic is also written in between `<<` and `>>` too, such as `<<if visited("Home") == 4>>`. These are used to selectively execute parts of your YarnScript but aren't considered "actions" per se.
+
+&nbsp;
+
+### `forcewait`
+
+*Example:* `<<forcewait>>`
+
+`<<forcewait>>` will put a chatterbox into a "waiting" state regardless of whether a chatterbox is fast-forwarding or not. You can tell a chatterbox to "un-wait" by calling `ChatterboxContinue()` as you would with the `<<wait>>` action.
+
+You can also specify a name in a force wait command. This name is then used to filter continue commands when calling `ChatterboxContinue()`. For example, the command `<<forcewait timer>>` can only be continued by calling `ChatterboxContinue(chatterbox, "timer")`. A force wait command with no name (`<<forcewait>>`) is treated as having an empty string `""` as a name.
+
+?> `<<forcewait>>` is analogous to the `ChatterboxWait()` function.
+
+&nbsp;
+
+### `v`
+
+*Example:* `<<fastmark>>`
+
+`<<fastmark>>` will not pause a chatterbox but it will disable fast-forward mode. Any content after the `<<fastmark>>` action will still be displayed but any content between triggering fast-forward mode and `<<fastmark>>` will not appear. If a chatterbox is not fast-forwarding then this action does nothing.
 
 &nbsp;
 
