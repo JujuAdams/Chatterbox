@@ -37,15 +37,20 @@ This function selects an option as defined by a Yarn shortcut (`->`).
 
 ## `...Continue()`
 
-_Full function name:_ `ChatterboxContinue(chatterbox)`
+_Full function name:_ `ChatterboxContinue(chatterbox, [name=""])`
 
 _Returns:_ N/A (`undefined`)
 
-|Name        |Datatype                          |Purpose                                         |
-|------------|----------------------------------|------------------------------------------------|
-|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|Name        |Datatype                          |Purpose                                                                   |
+|------------|----------------------------------|--------------------------------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|[Chatterbox](concept-chatterboxes) to target                              |
+|`[name]`    |string                            |Name for the continue command. If not specified, the name defaults to `""`|
 
 Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait>>` command, calling `ChatterboxWait()` or singleton behaviour.
+
+The name is used to link continue commands to similarly named wait commands (either `<<wait name>>` or `ChatterboxWait(chatterbox, "name")`). This is helpful for cutscene systems where you might want to wait until a particular type of action has been completed but you don't want to write complex logic to link chatterbox state to cutscene state.
+
+?> When calling this function it's often useful to know the current chatterbox that's being executed. You can access the current chatterbox by using the `CHATTERBOX_CURRENT` macro.
 
 &nbsp;
 
@@ -83,15 +88,18 @@ This function pops a node and position from the internal stack, and then jumps t
 
 ## `...Wait()`
 
-_Full function name:_ `ChatterboxWait(chatterbox)`
+_Full function name:_ `ChatterboxWait(chatterbox, [name=""])`
 
 _Returns:_ N/A (`undefined`)
 
 |Name        |Datatype                          |Purpose                                         |
 |------------|----------------------------------|------------------------------------------------|
 |`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+|`[name]`    |string                            |Name for the wait command. If not specified, the filter name defaults to `""`|
 
 Forces a chatterbox to wait at the current instruction. This is similar to returning `"<<wait>>"` from a function called by an `<<action>>`.
+
+The name is used to link continue commands to similarly named wait commands (either `<<wait name>>` or `ChatterboxWait(chatterbox, "name")`). This is helpful for cutscene systems where you might want to wait until a particular type of action has been completed but you don't want to write complex logic to link chatterbox state to cutscene state.
 
 ?> When calling this function it's often useful to know the current chatterbox that's being executed. You can access the current chatterbox by using the `CHATTERBOX_CURRENT` macro.
 
