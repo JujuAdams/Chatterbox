@@ -1,0 +1,11 @@
+title: Start
+---
+Here's some text!
+Text followed by <wait> but without a name
+<<wait>>
+Text followed by <wait> using "enter"
+<<wait enter>>
+Text followed by <wait> using "enter" but with some extra spacing
+<<wait    enter   >>
+Done!
+===

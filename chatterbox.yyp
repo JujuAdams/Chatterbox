@@ -27,6 +27,7 @@
     {"id":{"name":"ChatterboxAddFunction","path":"scripts/ChatterboxAddFunction/ChatterboxAddFunction.yy",},"order":1,},
     {"id":{"name":"oTestLocalizationTable","path":"objects/oTestLocalizationTable/oTestLocalizationTable.yy",},"order":44,},
     {"id":{"name":"ChatterboxIsWaiting","path":"scripts/ChatterboxIsWaiting/ChatterboxIsWaiting.yy",},"order":6,},
+    {"id":{"name":"oTestCaseWaitNames","path":"objects/oTestCaseWaitNames/oTestCaseWaitNames.yy",},"order":48,},
     {"id":{"name":"ChatterboxVariableReset","path":"scripts/ChatterboxVariableReset/ChatterboxVariableReset.yy",},"order":4,},
     {"id":{"name":"sElppaHappy","path":"sprites/sElppaHappy/sElppaHappy.yy",},"order":9,},
     {"id":{"name":"ChatterboxStop","path":"scripts/ChatterboxStop/ChatterboxStop.yy",},"order":2,},
@@ -258,6 +259,7 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_visited_option.yarn","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"chatterbox_license.txt","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_random_option.yarn","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_wait_names.yarn","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.2.51",
