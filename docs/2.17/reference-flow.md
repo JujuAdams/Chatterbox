@@ -41,10 +41,10 @@ _Full function name:_ `ChatterboxContinue(chatterbox, [name=""])`
 
 _Returns:_ N/A (`undefined`)
 
-|Name        |Datatype                          |Purpose                                                                   |
-|------------|----------------------------------|--------------------------------------------------------------------------|
-|`chatterbox`|[chatterbox](concept-chatterboxes)|[Chatterbox](concept-chatterboxes) to target                              |
-|`[name]`    |string                            |Name for the continue command. If not specified, the name defaults to `""`|
+|Name        |Datatype                          |Purpose                                                                                                          |
+|------------|----------------------------------|-----------------------------------------------------------------------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|[Chatterbox](concept-chatterboxes) to target. Use the special value `"all"` to continue all existing chatterboxes|
+|`[name]`    |string                            |Name for the continue command. If not specified, the name defaults to `""`                                       |
 
 Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait>>` command, calling `ChatterboxWait()` or singleton behaviour.
 
