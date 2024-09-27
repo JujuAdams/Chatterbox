@@ -92,6 +92,8 @@ The `<<const>>` action defines a special kind of variable - it is a variable who
 
 `<<wait>>` will put a chatterbox into a "waiting" state. This is used to break up sections of dialogue in non-singleton mode. You can tell a chatterbox to "un-wait" by calling `ChatterboxContinue()`.
 
+You can also specify a name in a wait command. This name is then used to filter continue commands when calling `ChatterboxContinue()`. For example, the command `<<wait timer>>` can only be continued by calling `ChatterboxContinue(chatterbox, "timer")`. A wait command with no name (`<<wait>>`) is treated as having an empty string `""` as a name.
+
 ?> In singleton mode this action does nothing because `<<wait>>` is implicitly and automatically called after every line of dialogue (so long as that dialogue isn't followed immediately by an `->` option).
 
 ?> `<<wait>>` is analogous to the `ChatterboxWait()` function.
