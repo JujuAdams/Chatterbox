@@ -78,6 +78,7 @@ function __ChatterboxSystem()
         __vmInstanceStack      = [];
         __vmWait               = false;
         __vmForceWait          = false;
+        __vmWaitName           = "";
         __vmFastForward        = false;
         __current              = undefined;
         __localisationMap      = ds_map_create();

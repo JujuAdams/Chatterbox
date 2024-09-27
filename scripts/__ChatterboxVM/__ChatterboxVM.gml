@@ -11,6 +11,7 @@ function __ChatterboxVM()
         stopped          = false;
         waiting          = false;
         forced_waiting   = false;
+        waitingName      = "";
         wait_instruction = undefined;
         entered_option   = false;
         leaving_option   = false;
@@ -244,6 +245,7 @@ function __ChatterboxVMInner(_instruction)
                                 &&  !((_next.type == "hopback") && (array_length(hopStack) <= 0)))
                                 {
                                     waiting          = true;
+                                    waitingName      = "";
                                     wait_instruction = _next;
                                 }
                             }
@@ -251,13 +253,15 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "wait":
-                        _system.__vmWait = true;
+                        _system.__vmWait     = true;
+                        _system.__vmWaitName = "";
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>>");
                     break;
                     
                     case "forcewait":
                         _system.__vmWait      = true;
                         _system.__vmForceWait = true;
+                        _system.__vmWaitName  = "";
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>>");
                     break;
                     
@@ -338,6 +342,7 @@ function __ChatterboxVMInner(_instruction)
                             if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
                             {
                                 waiting          = true;
+                                waitingName      = "";
                                 forced_waiting   = true;
                                 wait_instruction = _instruction;
                             }
@@ -449,13 +454,15 @@ function __ChatterboxVMInner(_instruction)
                         {
                             if (_result == "<<wait>>")
                             {
-                                _system.__vmWait = true;
+                                _system.__vmWait     = true;
+                                _system.__vmWaitName = "";
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> returned by function");
                             }
                             else if (_result == "<<forcewait>>")
                             {
                                 _system.__vmWait      = true;
                                 _system.__vmForceWait = true;
+                                _system.__vmWaitName  = "";
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>> returned by function");
                             }
                             else if (_result == "<<fastforward>>")
@@ -526,10 +533,12 @@ function __ChatterboxVMInner(_instruction)
         
         waiting          = true;
         forced_waiting   = _system.__vmForceWait;
+        waitingName      = _system.__vmWaitName;
         wait_instruction = _instruction.next;
         
         _system.__vmWait      = false;
         _system.__vmForceWait = false;
+        _system.__vmWaitName  = "";
     }
     
     if (_system.__vmFastForward)

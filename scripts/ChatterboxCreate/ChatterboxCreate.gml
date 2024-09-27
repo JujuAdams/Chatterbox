@@ -76,6 +76,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     stopped             = true;
     waiting             = false;
     forced_waiting      = false;
+    waitingName         = "";
     fastForward         = false;
     loaded              = true;
     wait_instruction    = undefined;
@@ -239,7 +240,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         }
     }
     
-    static Continue = function()
+    static Continue = function(_name = "")
     {
         if (!VerifyIsLoaded())
         {
@@ -259,6 +260,11 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
+        if (waitingName != _name)
+        {
+            return;
+        }
+        
         current_instruction = wait_instruction;
         __ChatterboxVM();
     }
@@ -276,7 +282,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return false;
     }
     
-    static Wait = function()
+    static Wait = function(_name = "")
     {
         if (!VerifyIsLoaded())
         {
@@ -297,12 +303,14 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             //We pick this global up at the bottom of the VM
             _system.__vmWait      = true;
             _system.__vmForceWait = true;
+            _system.__vmWaitName  = _name;
         }
         else
         {
             //Otherwise set up a waiting state
             waiting          = true;
             forced_waiting   = true;
+            waitingName      = _name;
             wait_instruction = current_instruction;
         }
     }
@@ -484,6 +492,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
                 stopped             = true;
                 waiting             = false;
                 forced_waiting      = false;
+                waitingName         = "";
             }
             
             loaded = false;
