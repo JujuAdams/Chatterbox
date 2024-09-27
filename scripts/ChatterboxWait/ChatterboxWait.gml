@@ -2,7 +2,7 @@
 /// Forces a chatterbox to wait at the current instruction
 ///
 /// @param chatterbox
-/// @param [name]
+/// @param [name=""]
 
 function ChatterboxWait(_chatterbox, _name = "")
 {

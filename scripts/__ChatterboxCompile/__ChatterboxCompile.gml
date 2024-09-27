@@ -170,6 +170,10 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 
                 case "wait":
                 case "forcewait":
+                    var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
+                    _instruction.waitName = __ChatterboxCompilerRemoveWhitespace(_remainder, all);
+                break;
+                
                 case "hopback":
                 case "fastforward":
                 case "fastmark":
@@ -177,7 +181,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
-                        __ChatterboxError("Cannot use arguments with <<wait>>, <<forcewait>>, <<hopback>>, <<fastforward>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                        __ChatterboxError("Cannot use arguments with <<hopback>>, <<fastforward>>, <<fastmark>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
                     }
                     else
                     {

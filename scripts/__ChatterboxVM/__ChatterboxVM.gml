@@ -254,15 +254,15 @@ function __ChatterboxVMInner(_instruction)
                     
                     case "wait":
                         _system.__vmWait     = true;
-                        _system.__vmWaitName = "";
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>>");
+                        _system.__vmWaitName = _instruction.waitName;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait \"" + string(_system.__vmWaitName) + "\">>");
                     break;
                     
                     case "forcewait":
                         _system.__vmWait      = true;
                         _system.__vmForceWait = true;
-                        _system.__vmWaitName  = "";
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>>");
+                        _system.__vmWaitName  = _instruction.waitName;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait \"" + string(_system.__vmWaitName) + "\">>");
                     break;
                     
                     case "jump":
@@ -452,6 +452,8 @@ function __ChatterboxVMInner(_instruction)
                         
                         if (is_string(_result))
                         {
+                            //TODO - Superceded by ChatterboxWait() / ChatterboxFastForward(). Remove in v3.0
+                            
                             if (_result == "<<wait>>")
                             {
                                 _system.__vmWait     = true;
