@@ -28,13 +28,17 @@ function ChatterboxVariableDefault(_name, _value)
     
     if (ds_map_exists(_system.__defaultVariablesMap, _name))
     {
-        if (CHATTERBOX_ERROR_REDECLARED_VARIABLE)
+        //Only a problem if the dev is trying to change the value
+        if (_system.__defaultVariablesMap[? _name] != _value)
         {
-            __ChatterboxError("Trying to re-declare default value for Chatterbox variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
-        }
-        else
-        {
-            __ChatterboxTrace("Warning! Trying to re-declare default value for Chatterbox variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
+            if (CHATTERBOX_ERROR_REDECLARED_VARIABLE)
+            {
+                __ChatterboxError("Trying to re-declare default value for Chatterbox variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
+            }
+            else
+            {
+                __ChatterboxTrace("Warning! Trying to re-declare default value for Chatterbox variable $", _name, " (=", __ChatterboxReadableValue(_value), ")");
+            }
         }
     }
     else
