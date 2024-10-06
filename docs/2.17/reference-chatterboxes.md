@@ -59,6 +59,20 @@ _Returns:_ String, the name of the node that the given [chatterbox](concept-chat
 
 &nbsp;
 
+## `...GetPrevious()`
+
+_Full function name:_ `ChatterboxGetPrevious(chatterbox)`
+
+_Returns:_ String, the name of the node that the given [chatterbox](concept-chatterboxes) was previously on
+
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+
+!> This function will return `undefined` if there is no previous node (the current node is the first node that the chatterbox has visited).
+
+&nbsp;
+
 ## `...GetCurrentMetadata()`
 
 _Full function name:_ `ChatterboxGetCurrentMetadata(chatterbox)`
