@@ -143,7 +143,7 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     static IsStopped = function()
     {
         if (array_length(__vmStack) <= 0) return true;
-        return __vmCurrent.__stopped;
+        return __vmCurrent.__exit;
     }
     
     #endregion

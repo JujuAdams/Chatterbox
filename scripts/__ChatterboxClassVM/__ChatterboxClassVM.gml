@@ -33,7 +33,9 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
     
     current_node        = undefined;
     current_instruction = undefined;
-    __stopped           = true;
+    __exit              = true;
+    __stopped           = false;
+    __hopped            = false;
     waiting             = false;
     forced_waiting      = false;
     waitingName         = "";
@@ -423,7 +425,9 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
                 
                 current_node        = undefined;
                 current_instruction = undefined;
-                __stopped           = true;
+                __exit              = true;
+                __stopped           = false;
+                __hopped            = false;
                 waiting             = false;
                 forced_waiting      = false;
                 waitingName         = "";
