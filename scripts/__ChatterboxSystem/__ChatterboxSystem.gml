@@ -75,14 +75,16 @@ function __ChatterboxSystem()
         __indentSize           = 0;
         __findReplaceOldString = ds_list_create();
         __findReplaceNewString = ds_list_create();
-        __vmInstanceStack      = [];
-        __vmWait               = false;
-        __vmForceWait          = false;
-        __vmWaitName           = "";
-        __vmFastForward        = false;
-        __current              = undefined;
         __localisationMap      = ds_map_create();
         __functionsMap         = ds_map_create();
+        
+        __globalCurrent       = undefined;
+        __globalVMStack       = [];
+        __globalVMWait        = false;
+        __globalVMForceWait   = false;
+        __globalVMWaitName    = "";
+        __globalVMFastForward = false;
+        __globalVMCurrent     = undefined;
         
         //Big ol' list of operators. Operators at the top at processed first
         //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately

@@ -7,7 +7,7 @@
 
 function ChatterboxContinue(_chatterbox, _name = "")
 {
-    static _vmInstanceStack = __ChatterboxSystem().__vmInstanceStack;
+    static _vmInstanceStack = __ChatterboxSystem().__globalVMStack;
     
     if (_chatterbox == "all")
     {

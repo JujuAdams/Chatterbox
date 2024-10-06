@@ -16,7 +16,7 @@
 
 #macro CHATTERBOX_VARIABLES_MAP   (__ChatterboxSystem().__variablesMap)
 #macro CHATTERBOX_VARIABLES_LIST  (__ChatterboxSystem().__variablesList)
-#macro CHATTERBOX_CURRENT         (__ChatterboxSystem().__current)
+#macro CHATTERBOX_CURRENT         (__ChatterboxSystem().__globalCurrent)
 
 #macro CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android) || (os_type == os_tvos))
 #macro CHATTERBOX_ON_WEB     (os_browser != browser_not_a_browser)

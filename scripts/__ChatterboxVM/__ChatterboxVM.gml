@@ -8,7 +8,7 @@ function __ChatterboxVM()
         __ClearContent(0);
         __ClearOptions(0);
         
-        stopped          = false;
+        __stopped        = false;
         waiting          = false;
         forced_waiting   = false;
         waitingName      = "";
@@ -20,29 +20,34 @@ function __ChatterboxVM()
         
         if (current_instruction.type == "stop")
         {
-            stopped = true;
+            __stopped = true;
             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<stop>>)");
             return undefined;
         }
         
         if ((current_instruction.type == "hopback") && __HopEmpty())
         {
-            stopped = true;
+            __stopped = true;
             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<hopback>>)");
             return undefined;
         }
         
-        array_push(_system.__vmInstanceStack, self);
-        _system.__current = self;
+        //Push this VM to the stack. We also keep track of which chatterbox is currently in focus
+        array_push(_system.__globalVMStack, self);
+        _system.__globalVMCurrent = self;
+        _system.__globalCurrent   = __chatterbox;
         
+        //Execute a tick of the virtual machine
         __ChatterboxVMInner(current_instruction);
         
-        array_pop(_system.__vmInstanceStack);
-        _system.__current = (array_length(_system.__vmInstanceStack) <= 0)? undefined : _system.__vmInstanceStack[array_length(_system.__vmInstanceStack)-1];
+        //Pop the VM stack and update the current chatterbox
+        array_pop(_system.__globalVMStack);
+        _system.__globalVMCurrent = (array_length(_system.__globalVMStack) <= 0)? undefined : _system.__globalVMStack[array_length(_system.__globalVMStack)-1];
+        _system.__globalCurrent   = (_system.__globalVMCurrent != undefined)? _system.__globalVMCurrent.__chatterbox : undefined;
         
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
     }
-    until(!fastForward || stopped)
+    until((not fastForward) || __stopped)
 }
 
 function __ChatterboxVMInner(_instruction)
@@ -58,7 +63,7 @@ function __ChatterboxVMInner(_instruction)
         
         if (!((_instruction.type == "if") || (_instruction.type == "else if")) && variable_struct_exists(_instruction, "condition"))
         {
-            if (!__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined, _instruction[$ "optionUUID"]))
+            if (!__ChatterboxEvaluate(__localScope, filename, _instruction.condition, undefined, _instruction[$ "optionUUID"]))
             {
                 _condition_failed = true;
             }
@@ -75,7 +80,7 @@ function __ChatterboxVMInner(_instruction)
                     var _branch = variable_struct_get(_instruction, "option_branch");
                     if (_branch == undefined) _branch = variable_struct_get(_instruction, "next");
                     
-                    var _optionString = _instruction.text.Evaluate(local_scope, filename, false);
+                    var _optionString = _instruction.text.Evaluate(__localScope, filename, false);
                     array_push(option, _optionString);
                     array_push(optionConditionBool, !_condition_failed);
                     array_push(optionMetadata, _instruction.metadata);
@@ -222,7 +227,7 @@ function __ChatterboxVMInner(_instruction)
                     case "content":
                         if (fastForward) __ClearContent(__fastForwardContentCount);
                         
-                        var _contentString = _instruction.text.Evaluate(local_scope, filename, false);
+                        var _contentString = _instruction.text.Evaluate(__localScope, filename, false);
                         array_push(content, _contentString);
                         array_push(contentConditionBool, !_condition_failed);
                         array_push(contentMetadata, _instruction.metadata);
@@ -234,7 +239,7 @@ function __ChatterboxVMInner(_instruction)
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), _instruction.text.raw_string);
                         
-                        if (singleton_text)
+                        if (__singletonText)
                         {
                             if (instanceof(_next) == "__ChatterboxClassInstruction")
                             {
@@ -253,16 +258,16 @@ function __ChatterboxVMInner(_instruction)
                     break;
                     
                     case "wait":
-                        _system.__vmWait     = true;
-                        _system.__vmWaitName = _instruction.waitName;
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait \"" + string(_system.__vmWaitName) + "\">>");
+                        _system.__globalVMWait     = true;
+                        _system.__globalVMWaitName = _instruction.waitName;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait \"" + string(_system.__globalVMWaitName) + "\">>");
                     break;
                     
                     case "forcewait":
-                        _system.__vmWait      = true;
-                        _system.__vmForceWait = true;
-                        _system.__vmWaitName  = _instruction.waitName;
-                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait \"" + string(_system.__vmWaitName) + "\">>");
+                        _system.__globalVMWait      = true;
+                        _system.__globalVMForceWait = true;
+                        _system.__globalVMWaitName  = _instruction.waitName;
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait \"" + string(_system.__globalVMWaitName) + "\">>");
                     break;
                     
                     case "jump":
@@ -292,7 +297,7 @@ function __ChatterboxVMInner(_instruction)
                         
                         try
                         {
-                            var _destination = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression("(" + _instruction.destination + ")", false), undefined, undefined);
+                            var _destination = __ChatterboxEvaluate(__localScope, filename, __ChatterboxParseExpression("(" + _instruction.destination + ")", false), undefined, undefined);
                         }
                         catch(_error)
                         {
@@ -345,7 +350,7 @@ function __ChatterboxVMInner(_instruction)
                             }
                             else
                             {
-                                stopped = true;
+                                __stopped = true;
                             }
                             
                             if (__CHATTERBOX_DEBUG_VM)
@@ -382,7 +387,7 @@ function __ChatterboxVMInner(_instruction)
                     
                     case "fastforward":
                         fastForward = true;
-                        __fastForwardContentCount = singleton_text? 0 : array_length(content);
+                        __fastForwardContentCount = __singletonText? 0 : array_length(content);
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>>");
                     break;
@@ -392,7 +397,7 @@ function __ChatterboxVMInner(_instruction)
                         {
                             __ClearContent(__fastForwardContentCount);
                             fastForward = false;
-                            _system.__vmFastForward = false;
+                            _system.__globalVMFastForward = false;
                         }
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastmark>>");
@@ -405,23 +410,23 @@ function __ChatterboxVMInner(_instruction)
                     
                     case "declare":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
-                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "declare", undefined);
+                        __ChatterboxEvaluate(__localScope, filename, _instruction.expression, "declare", undefined);
                     break;
                     
                     case "constant":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
-                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "constant", undefined);
+                        __ChatterboxEvaluate(__localScope, filename, _instruction.expression, "constant", undefined);
                     break;
                     
                     case "set":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.expression);
-                        __ChatterboxEvaluate(local_scope, filename, _instruction.expression, "set", undefined);
+                        __ChatterboxEvaluate(__localScope, filename, _instruction.expression, "set", undefined);
                     break;
                     
                     case "action":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(_instruction.text.raw_string);
                         
-                        var _direction_text = _instruction.text.Evaluate(local_scope, filename, true);
+                        var _direction_text = _instruction.text.Evaluate(__localScope, filename, true);
                         var _result = undefined;
                         
                         switch(CHATTERBOX_ACTION_MODE)
@@ -438,11 +443,11 @@ function __ChatterboxVMInner(_instruction)
                             break;
                             
                             case 1:
-                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, false), undefined, undefined);
+                                _result = __ChatterboxEvaluate(__localScope, filename, __ChatterboxParseExpression(_direction_text, false), undefined, undefined);
                             break;
                             
                             case 2:
-                                _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined, undefined);
+                                _result = __ChatterboxEvaluate(__localScope, filename, __ChatterboxParseExpression(_direction_text, true), undefined, undefined);
                             break;
                         }
                         
@@ -452,20 +457,20 @@ function __ChatterboxVMInner(_instruction)
                             
                             if (_result == "<<wait>>")
                             {
-                                _system.__vmWait     = true;
-                                _system.__vmWaitName = "";
+                                _system.__globalVMWait     = true;
+                                _system.__globalVMWaitName = "";
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> returned by function");
                             }
                             else if (_result == "<<forcewait>>")
                             {
-                                _system.__vmWait      = true;
-                                _system.__vmForceWait = true;
-                                _system.__vmWaitName  = "";
+                                _system.__globalVMWait      = true;
+                                _system.__globalVMForceWait = true;
+                                _system.__globalVMWaitName  = "";
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>> returned by function");
                             }
                             else if (_result == "<<fastforward>>")
                             {
-                                _system.__vmFastForward = true;
+                                _system.__globalVMFastForward = true;
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>> returned by function");
                             }
                         }
@@ -479,7 +484,7 @@ function __ChatterboxVMInner(_instruction)
                     case "if":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<if>> ", _instruction.condition);
                         
-                        if (__ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined, undefined))
+                        if (__ChatterboxEvaluate(__localScope, filename, _instruction.condition, undefined, undefined))
                         {
                             rejected_if = false;
                         }
@@ -502,7 +507,7 @@ function __ChatterboxVMInner(_instruction)
                     case "else if":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("<<else if>> ", _instruction.condition);
                         
-                        if (rejected_if && __ChatterboxEvaluate(local_scope, filename, _instruction.condition, undefined, undefined))
+                        if (rejected_if && __ChatterboxEvaluate(__localScope, filename, _instruction.condition, undefined, undefined))
                         {
                             rejected_if = false;
                         }
@@ -525,25 +530,25 @@ function __ChatterboxVMInner(_instruction)
         }
     }
     
-    if (_system.__vmWait)
+    if (_system.__globalVMWait)
     {
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Something insisted the VM wait");
         
         waiting          = true;
-        forced_waiting   = _system.__vmForceWait;
-        waitingName      = _system.__vmWaitName;
+        forced_waiting   = _system.__globalVMForceWait;
+        waitingName      = _system.__globalVMWaitName;
         wait_instruction = _instruction.next;
         
-        _system.__vmWait      = false;
-        _system.__vmForceWait = false;
-        _system.__vmWaitName  = "";
+        _system.__globalVMWait      = false;
+        _system.__globalVMForceWait = false;
+        _system.__globalVMWaitName  = "";
     }
     
-    if (_system.__vmFastForward)
+    if (_system.__globalVMFastForward)
     {
-        _system.__vmFastForward = false;
+        _system.__globalVMFastForward = false;
         fastForward = true;
-        __fastForwardContentCount = singleton_text? 0 : array_length(content);
+        __fastForwardContentCount = __singletonText? 0 : array_length(content);
     }
     
     if (fastForward)
@@ -558,7 +563,7 @@ function __ChatterboxVMInner(_instruction)
         }
     }
     
-    if (_do_next && !waiting && !stopped)
+    if (_do_next && !waiting && !__stopped)
     {
         if (instanceof(_next) == "__ChatterboxClassInstruction")
         {
@@ -567,7 +572,7 @@ function __ChatterboxVMInner(_instruction)
         else
         {
             __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Warning! Instruction found without next node (datatype=", instanceof(_next), ")");
-            stopped = true;
+            __stopped = true;
         }
     }
 }

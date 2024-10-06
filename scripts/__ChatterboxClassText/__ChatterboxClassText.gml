@@ -78,7 +78,7 @@ function __ChatterboxClassText(_string) constructor
         buffer_delete(_buffer);
     }
     
-    static Evaluate = function(_local_scope, _filename, _delimitStrings)
+    static Evaluate = function(_localScope, _filename, _delimitStrings)
     {
         //Check our localisation map to see if we need to re-parse this chunk of text
         if (loc_hash != undefined)
@@ -99,7 +99,7 @@ function __ChatterboxClassText(_string) constructor
             var _value = substrings[_i];
             if (is_struct(_value))
             {
-                _value = __ChatterboxEvaluate(_local_scope, _filename, _value, undefined, undefined);
+                _value = __ChatterboxEvaluate(_localScope, _filename, _value, undefined, undefined);
                 if (is_string(_value) && _delimitStrings) _value = "\"" + _value + "\"";
             }
             

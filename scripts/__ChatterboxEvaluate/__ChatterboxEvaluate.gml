@@ -5,7 +5,7 @@
 /// @param behaviour
 /// @param optionUUID
 
-function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, _optionUUID)
+function __ChatterboxEvaluate(_localScope, _filename, _expression, _behaviour, _optionUUID)
 {
     static _system = __ChatterboxSystem();
     
@@ -38,15 +38,15 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
         case "*=":
         case "-=":
         case "+=":
-            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined, _optionUUID);
-            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined, _optionUUID);
+            _a = __ChatterboxEvaluate(_localScope, _filename, _expression.a, undefined, _optionUUID);
+            _b = __ChatterboxEvaluate(_localScope, _filename, _expression.b, undefined, _optionUUID);
         break;
         
         case "!":
         case "neg":
         case "paren":
         case "param":
-            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined, _optionUUID);
+            _a = __ChatterboxEvaluate(_localScope, _filename, _expression.a, undefined, _optionUUID);
         break;
         
         case "func":
@@ -55,13 +55,13 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
             var _p = 0;
             repeat(array_length(_parameters))
             {
-                _parameter_values[@ _p] = __ChatterboxEvaluate(_local_scope, _filename, _parameters[_p], undefined, _optionUUID);
+                _parameter_values[@ _p] = __ChatterboxEvaluate(_localScope, _filename, _parameters[_p], undefined, _optionUUID);
                 ++_p;
             }
         break;
         
         case "=":
-            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined, _optionUUID);
+            _b = __ChatterboxEvaluate(_localScope, _filename, _expression.b, undefined, _optionUUID);
         break;
     }
     
@@ -114,7 +114,7 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
                 var _method = _system.__functionsMap[? _expression.name];
                 if (is_method(_method))
                 {
-                    if (_local_scope == undefined)
+                    if (_localScope == undefined)
                     {
                         if (CHATTERBOX_ERROR_NO_LOCAL_SCOPE)
                         {
@@ -128,7 +128,7 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
                         return undefined;
                     }
                     
-                    with (_local_scope)
+                    with (_localScope)
                     {
                         if (CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS)
                         {

@@ -20,13 +20,13 @@ function ChatterboxCreate()
     
     var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : _system.__defaultFile;
     var _singleton   = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
-    var _local_scope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
+    var _localScope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
     
     //Check for people accidentally referencing objects
-    if (is_numeric(_local_scope) && (_local_scope < 100000))
+    if (is_numeric(_localScope) && (_localScope < 100000))
     {
-        __ChatterboxError("Local scope set to an invalid instance ID (was ", _local_scope, ", must be >= 100000)");
+        __ChatterboxError("Local scope set to an invalid instance ID (was ", _localScope, ", must be >= 100000)");
     }
     
-    return new __ChatterboxClass(_filename, _singleton, _local_scope);
+    return new __ChatterboxClass(_filename, _singleton, _localScope);
 }

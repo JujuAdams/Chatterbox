@@ -2,29 +2,19 @@
 
 /// @param filename
 /// @param singletonText
+/// @param localScope
+/// @param chatter
 
-function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
+function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) constructor
 {
     static _system = __ChatterboxSystem();
     
-    if (!is_string(_filename))
-    {
-        __ChatterboxError("Source files must be strings (got \"" + string(_filename) + "\")");
-        return undefined;
-    }
+    __localScope    = _localScope;
+    __singletonText = _singleton;
+    filename        = _filename;
+    __chatterbox    = _chatterbox;
     
-    _filename = __ChatterboxReplaceBackslashes(_filename);
-    
-    if (!ChatterboxIsLoaded(_filename))
-    {
-        __ChatterboxError("Could not create chatterbox because \"", _filename, "\" is not loaded");
-        return undefined;
-    }
-    
-    local_scope         = _local_scope;
-    singleton_text      = _singleton;
-    filename            = _filename;
-    file                = _system.__files[? filename];
+    file = _system.__files[? filename];
     
     content              = [];
     contentConditionBool = [];
@@ -43,7 +33,7 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
     
     current_node        = undefined;
     current_instruction = undefined;
-    stopped             = true;
+    __stopped           = true;
     waiting             = false;
     forced_waiting      = false;
     waitingName         = "";
@@ -196,12 +186,6 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        if (stopped)
-        {
-            __ChatterboxTrace("Warning! Could not select option because this chatterbox has been stopped");
-            return undefined;
-        }
-        
         if ((_index < 0) || (_index >= array_length(option)))
         {
             __ChatterboxTrace("Out of bounds option index (got ", _index, ", maximum index for options is ", array_length(option)-1, ")");
@@ -238,12 +222,6 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        if (stopped)
-        {
-            __ChatterboxTrace("Warning! Could not continue because this chatterbox has been stopped");
-            return undefined;
-        }
-        
         if (!waiting)
         {
             __ChatterboxError("Can't continue, provided chatterbox isn't waiting");
@@ -263,9 +241,9 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
     {
         //Figure out if we're currently processing this chatterbox in a VM
         var _i = 0;
-        repeat(array_length(_system.__vmInstanceStack))
+        repeat(array_length(_system.__globalVMStack))
         {
-            if (_system.__vmInstanceStack[_i] == self) return true;
+            if (_system.__globalVMStack[_i] == self) return true;
             ++_i;
         }
         
@@ -291,9 +269,9 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
         {
             //If we are processing this chatterbox then set this particular global to <true>
             //We pick this global up at the bottom of the VM
-            _system.__vmWait      = true;
-            _system.__vmForceWait = true;
-            _system.__vmWaitName  = _name;
+            _system.__globalVMWait      = true;
+            _system.__globalVMForceWait = true;
+            _system.__globalVMWaitName  = _name;
         }
         else
         {
@@ -305,27 +283,10 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
         }
     }
     
-    static Stop = function()
-    {
-        if (stopped)
-        {
-            __ChatterboxTrace("Can't stop, provided chatterbox is already stopped");
-            return undefined;
-        }
-        
-        stopped = true;
-    }
-    
     static IsWaiting = function()
     {
         VerifyIsLoaded();
         return waiting;
-    }
-    
-    static IsStopped = function()
-    {
-        VerifyIsLoaded();
-        return stopped;
     }
     
     static FastForward = function()
@@ -333,12 +294,6 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
         if (!VerifyIsLoaded())
         {
             __ChatterboxError("Could not fast forward because \"", filename, "\" is not loaded");
-            return undefined;
-        }
-        
-        if (stopped)
-        {
-            __ChatterboxTrace("Error! Chatterbox has stopped, cannot fast forward");
             return undefined;
         }
         
@@ -350,7 +305,7 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
         
         if (__CurrentlyProcessing())
         {
-            _system.__vmFastForward = true;
+            _system.__globalVMFastForward = true;
         }
         else
         {
@@ -479,7 +434,7 @@ function __ChatterboxClassVM(_filename, _singleton, _local_scope) constructor
                 
                 current_node        = undefined;
                 current_instruction = undefined;
-                stopped             = true;
+                __stopped           = true;
                 waiting             = false;
                 forced_waiting      = false;
                 waitingName         = "";
