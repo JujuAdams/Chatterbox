@@ -118,7 +118,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        __ChangeNode(_node, true);
+        __ChangeNode(_node, true, "jump");
         current_instruction = current_node.root_instruction;
         
         __ChatterboxVM();
@@ -153,7 +153,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        __ChangeNode(_node, true);
+        __ChangeNode(_node, true, "hop");
         current_instruction = current_node.root_instruction;
         
         __ChatterboxVM();
@@ -213,7 +213,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        __ChangeNode(_hop_data.node, false);
+        __ChangeNode(_hop_data.node, false, "hopback");
         current_instruction = _hop_data.next;
         
         __ChatterboxVM();
@@ -548,7 +548,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         array_resize(optionWeightArray,   _count);
     }
     
-    static __ChangeNode = function(_newNode, _markAsVisited)
+    static __ChangeNode = function(_newNode, _markAsVisited, _type)
     {
         var _oldNode = current_node;
         
@@ -564,7 +564,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         else if (is_method(_system.__nodeChangeCallback) || script_exists(_system.__nodeChangeCallback))
         {
             _system.__nodeChangeCallback((_oldNode != undefined)? _oldNode.title : undefined, 
-                                         (_newNode != undefined)? _newNode.title : undefined);
+                                         (_newNode != undefined)? _newNode.title : undefined,
+                                         _type);
         }
     }
 }

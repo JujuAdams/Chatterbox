@@ -306,7 +306,7 @@ function __ChatterboxVMInner(_instruction)
                             var _next_node = FindNode(_split.node);
                             if (_next_node == undefined) __ChatterboxError("Node \"", _split.node, "\" could not be found in \"", filename, "\"");
                             
-                            __ChangeNode(_next_node, true);
+                            __ChangeNode(_next_node, true, _instruction.type);
                             _next = _next_node.root_instruction;
                         }
                         else
@@ -320,7 +320,7 @@ function __ChatterboxVMInner(_instruction)
                                 _next_node = FindNode(_split.node);
                                 if (_next_node == undefined) __ChatterboxError("Node \"", _split.node, "\" could not be found in \"", _split.filename, "\"");
                                 
-                                __ChangeNode(_next_node, true);
+                                __ChangeNode(_next_node, true, _instruction.type);
                                 _next = _next_node.root_instruction;
                             }
                             else
@@ -376,7 +376,7 @@ function __ChatterboxVMInner(_instruction)
                             file     = _file;
                             filename = _file.filename;
                             
-                            __ChangeNode(_node, false);
+                            __ChangeNode(_node, false, "hopback");
                         }
                     break;
                     
