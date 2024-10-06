@@ -1,4 +1,5 @@
 // Feather disable all
+
 function __ChatterboxVM()
 {
     static _system = __ChatterboxSystem();
@@ -22,14 +23,14 @@ function __ChatterboxVM()
         {
             __stopped = true;
             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<stop>>)");
-            return undefined;
+            break;
         }
         
         if ((current_instruction.type == "hopback") && __HopEmpty())
         {
             __stopped = true;
             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<hopback>>)");
-            return undefined;
+            break;
         }
         
         //Push this VM to the stack. We also keep track of which chatterbox is currently in focus
@@ -42,12 +43,18 @@ function __ChatterboxVM()
         
         //Pop the VM stack and update the current chatterbox
         array_pop(_system.__globalVMStack);
-        _system.__globalVMCurrent = (array_length(_system.__globalVMStack) <= 0)? undefined : _system.__globalVMStack[array_length(_system.__globalVMStack)-1];
+        _system.__globalVMCurrent =__ChatterboxArrayLast(_system.__globalVMStack);
         _system.__globalCurrent   = (_system.__globalVMCurrent != undefined)? _system.__globalVMCurrent.__chatterbox : undefined;
         
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT");
     }
     until((not fastForward) || __stopped)
+    
+    if (__stopped)
+    {
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("VM stopped, removing VM from chatterbox");
+        __chatterbox.__VMStackRemove(self);
+    }
 }
 
 function __ChatterboxVMInner(_instruction)

@@ -22,6 +22,7 @@
     {"id":{"name":"ChatterboxGetVisited","path":"scripts/ChatterboxGetVisited/ChatterboxGetVisited.yy",},"order":5,},
     {"id":{"name":"sAppleAmazed","path":"sprites/sAppleAmazed/sAppleAmazed.yy",},"order":2,},
     {"id":{"name":"oTestCaseParsers","path":"objects/oTestCaseParsers/oTestCaseParsers.yy",},"order":26,},
+    {"id":{"name":"__ChatterboxArrayLast","path":"scripts/__ChatterboxArrayLast/__ChatterboxArrayLast.yy",},"order":34,},
     {"id":{"name":"ChatterboxVariablesClearVisitedAll","path":"scripts/ChatterboxVariablesClearVisitedAll/ChatterboxVariablesClearVisitedAll.yy",},"order":7,},
     {"id":{"name":"ChatterboxContinue","path":"scripts/ChatterboxContinue/ChatterboxContinue.yy",},"order":0,},
     {"id":{"name":"ChatterboxAddFunction","path":"scripts/ChatterboxAddFunction/ChatterboxAddFunction.yy",},"order":1,},
@@ -129,6 +130,7 @@
     {"id":{"name":"oTestCaseDirectionAsWeirdo","path":"objects/oTestCaseDirectionAsWeirdo/oTestCaseDirectionAsWeirdo.yy",},"order":17,},
     {"id":{"name":"ChatterboxGetOptionArray","path":"scripts/ChatterboxGetOptionArray/ChatterboxGetOptionArray.yy",},"order":5,},
     {"id":{"name":"ChatterboxAddFindReplace","path":"scripts/ChatterboxAddFindReplace/ChatterboxAddFindReplace.yy",},"order":0,},
+    {"id":{"name":"__ChatterboxArrayGetIndex","path":"scripts/__ChatterboxArrayGetIndex/__ChatterboxArrayGetIndex.yy",},"order":33,},
     {"id":{"name":"__ChatterboxClassNode","path":"scripts/__ChatterboxClassNode/__ChatterboxClassNode.yy",},"order":2,},
     {"id":{"name":"ChatterboxVariablesImport","path":"scripts/ChatterboxVariablesImport/ChatterboxVariablesImport.yy",},"order":10,},
     {"id":{"name":"__ChatterboxArrayToString","path":"scripts/__ChatterboxArrayToString/__ChatterboxArrayToString.yy",},"order":32,},
@@ -192,8 +194,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
+    {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Chatterbox","folderPath":"folders/Chatterbox.yy","order":0,},

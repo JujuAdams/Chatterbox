@@ -53,7 +53,7 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
         if (__VMStackEmpty()) return;
         
         array_pop(__vmStack);
-        __vmCurrent = (array_length(__vmStack) <= 0)? undefined : __vmStack[array_length(__vmStack)-1];
+        __vmCurrent = __ChatterboxArrayLast(__vmStack);
         
         return __vmCurrent;
     }
@@ -61,6 +61,21 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     static __VMStackEmpty = function()
     {
         return (array_length(__vmStack) <= 0);
+    }
+    
+    static __VMStackRemove = function(_target)
+    {
+        if (__VMStackEmpty()) return;
+        
+        if (__vmStack[array_length(__vmStack)-1] == _target)
+        {
+            __VMStackPop();
+        }
+        else
+        {
+            var _index = __ChatterboxArrayGetIndex(__vmStack, _target);
+            if (_index >= 0) array_delete(__vmStack, _index);
+        }
     }
     
     #endregion
@@ -99,7 +114,7 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     static Continue = function(_name = "")
     {
         if (__VMStackEmpty()) return;
-        return __vmCurrent.Continue();
+        return __vmCurrent.Continue(_name);
     }
     
     static Wait = function(_name = "")

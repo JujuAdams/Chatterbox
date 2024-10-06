@@ -239,15 +239,7 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
     
     static __CurrentlyProcessing = function()
     {
-        //Figure out if we're currently processing this chatterbox in a VM
-        var _i = 0;
-        repeat(array_length(_system.__globalVMStack))
-        {
-            if (_system.__globalVMStack[_i] == self) return true;
-            ++_i;
-        }
-        
-        return false;
+        return (__ChatterboxArrayGetIndex(_system.__globalVMStack, self) >= 0);
     }
     
     static Wait = function(_name = "")
