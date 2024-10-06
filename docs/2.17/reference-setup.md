@@ -159,6 +159,7 @@ The callback will be executed with the following arguments:
 |---------|--------|----------------------------------|
 |`oldNode`|string  |Name of the node that we have left|
 |`newNode`|string  |Name of the node we have entered  |
+|`type`   |string  |What type of instruction caused the node change. Will be one of `"jump"`, `"hop"`, or `"hopback"`|
 
 &nbsp;
 
