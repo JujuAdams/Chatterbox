@@ -25,7 +25,7 @@ function __ChatterboxVM()
             return undefined;
         }
         
-        if ((current_instruction.type == "hopback") && (array_length(hopStack) <= 0))
+        if ((current_instruction.type == "hopback") && __HopEmpty())
         {
             stopped = true;
             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<hopback>>)");
@@ -242,7 +242,7 @@ function __ChatterboxVMInner(_instruction)
                                 &&  (_next.type != "wait")
                                 &&  (_next.type != "forcewait")
                                 &&  (_next.type != "stop")
-                                &&  !((_next.type == "hopback") && (array_length(hopStack) <= 0)))
+                                &&  !((_next.type == "hopback") && __HopEmpty()))
                                 {
                                     waiting          = true;
                                     waitingName      = "";
@@ -279,17 +279,15 @@ function __ChatterboxVMInner(_instruction)
                         switch(_instruction.type)
                         {
                             case "jump":
-                                if (array_length(hopStack) > 0) __ChatterboxTrace(__CHATTERBOX_DEBUG_VM? __ChatterboxGenerateIndent(_instruction.indent) : "", "Warning! Jumping to \"", _instruction.destination, "\" but hop stack has content. This may cause unexpected behaviour");
+                                if (not __HopEmpty())
+                                {
+                                    __ChatterboxTrace(__CHATTERBOX_DEBUG_VM? __ChatterboxGenerateIndent(_instruction.indent) : "", "Warning! Jumping to \"", _instruction.destination, "\" but hop stack has content. This may cause unexpected behaviour");
+                                }
                             break;
                             
                             case "hop":
                                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Pushed \"", _next, "\" to hop stack");
-                                
-                                array_push(hopStack, {
-                                    next:     _next,
-                                    node:     current_node,
-                                    filename: filename,
-                                });
+                                __HopPush(_next);
                             break;
                         }
                         
@@ -335,7 +333,7 @@ function __ChatterboxVMInner(_instruction)
                     
                     case "stop":
                     case "hopback":
-                        if ((_instruction.type == "stop") || (array_length(hopStack) <= 0))
+                        if ((_instruction.type == "stop") || __HopEmpty())
                         {
                             //If there's nothing left in the hop stack, execute <<stop>> behaviour
                             
@@ -363,11 +361,10 @@ function __ChatterboxVMInner(_instruction)
                         else
                         {
                             //Otherwise pop a node off of our stack and go to it
-                            var _hop_data = hopStack[array_length(hopStack)-1];
+                            var _hop_data = __HopPop();
                             var _next     = _hop_data.next;
                             var _node     = _hop_data.node;
                             var _filename = _hop_data.filename;
-                            array_pop(hopStack);
                             
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>  -->  ", _next);
                             

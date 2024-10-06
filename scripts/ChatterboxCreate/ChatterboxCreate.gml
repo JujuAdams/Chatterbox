@@ -124,16 +124,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     }
     
     //Jumps to a given node in the given source
-    static Hop = function()
+    static Hop = function(_title, _filename = undefined)
     {
-        var _title    = argument[0];
-        var _filename = (argument_count > 1)? argument[1] : undefined;
-        
-        array_push(hopStack, {
-            next:     current_instruction,
-            node:     current_node,
-            filename: filename,
-        });
+        __HopPush(current_instruction);
         
         if (_filename != undefined)
         {
@@ -165,20 +158,45 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChatterboxVM();
     }
     
+    static __HopPush = function(_next)
+    {
+        if (true) __ChatterboxTrace("Pushing to hop stack");
+        
+        array_push(hopStack, {
+            next:     _next,
+            node:     current_node,
+            filename: filename,
+        });
+    }
+    
+    static __HopPop = function()
+    {
+        if (__HopEmpty())
+        {
+            __ChatterboxError("Hop stack is empty");
+        }
+        
+        if (true) __ChatterboxTrace("Popping from hop stack");
+        
+        return array_pop(hopStack);
+    }
+    
+    static __HopEmpty = function()
+    {
+        return (array_length(hopStack) <= 0);
+    }
+    
     //Jumps to a given node in the given source
     static HopBack = function()
     {
-        if (array_length(hopStack) <= 0)
+        if (__HopEmpty())
         {
             __ChatterboxError("Hop stack is empty");
         }
         
         //Otherwise pop a node off of our stack and go to it
-        var _hop_data = hopStack[array_length(hopStack)-1];
-        var _next     = _hop_data.next;
-        var _node     = _hop_data.node;
+        var _hop_data = __HopPop();
         var _filename = __ChatterboxReplaceBackslashes(_hop_data.filename);
-        array_pop(hopStack);
         
         var _file = _system.__files[? _filename];
         if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
@@ -192,8 +210,8 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             return undefined;
         }
         
-        __ChangeNode(_node, false);
-        current_instruction = _next;
+        __ChangeNode(_hop_data.node, false);
+        current_instruction = _hop_data.next;
         
         __ChatterboxVM();
     }
