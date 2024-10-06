@@ -71,6 +71,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     
     hopStack = [];
     
+    previous_node       = undefined;
     current_node        = undefined;
     current_instruction = undefined;
     stopped             = true;
@@ -490,6 +491,12 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return current_node.title;
     }
     
+    static GetPreviousNodeTitle = function()
+    {
+        VerifyIsLoaded();
+        return (previous_node != undefined)? previous_node.title : undefined;
+    }
+    
     static GetCurrentNodeMetadata = function()
     {
         VerifyIsLoaded();
@@ -507,6 +514,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
                 __ClearContent();
                 __ClearOptions();
                 
+                previous_node       = undefined;
                 current_node        = undefined;
                 current_instruction = undefined;
                 stopped             = true;
@@ -544,7 +552,9 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     {
         var _oldNode = current_node;
         
+        if (_oldNode != _newNode) previous_node = _oldNode;
         current_node = _newNode;
+        
         if (_markAsVisited) current_node.MarkVisited();
         
         if (is_undefined(_system.__nodeChangeCallback))
