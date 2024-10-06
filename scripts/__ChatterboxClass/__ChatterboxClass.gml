@@ -33,19 +33,19 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     
     #region Helper Funcions
     
-    static __VMStackPush = function(_filename = __lastFilename)
+    static __VMStackPush = function(_filename = undefined)
     {
-        __lastFilename = _filename;
+        _filename = _filename ?? ((__vmCurrent == undefined)? __lastFilename : __vmCurrent.filename);
         
-        __vmCurrent = new __ChatterboxClassVM(__lastFilename, __singleton, __localScope, self);
+        __vmCurrent = new __ChatterboxClassVM(_filename, __singleton, __localScope, self);
         array_push(__vmStack, __vmCurrent);
         
         return __vmCurrent;
     }
     
-    static __VMStackEnsure = function()
+    static __VMStackEnsure = function(_filename)
     {
-        if (__VMStackEmpty()) __VMStackPush(undefined);
+        if (__VMStackEmpty()) __VMStackPush(_filename);
     }
     
     static __VMStackPop = function()
@@ -54,6 +54,7 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
         
         array_pop(__vmStack);
         __vmCurrent = __ChatterboxArrayLast(__vmStack);
+        if (__vmCurrent != undefined) __lastFilename = __vmCurrent.filename;
         
         return __vmCurrent;
     }
@@ -61,6 +62,11 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     static __VMStackEmpty = function()
     {
         return (array_length(__vmStack) <= 0);
+    }
+    
+    static __VMStackOne = function()
+    {
+        return (array_length(__vmStack) == 1);
     }
     
     static __VMStackRemove = function(_target)
@@ -84,25 +90,22 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     
     #region Flow
     
-    //Jumps to a given node in the given source
     static Jump = function(_title, _filename = undefined)
     {
         __VMStackEnsure(_filename);
         return __vmCurrent.Jump(_title, _filename);
     }
     
-    //Jumps to a given node in the given source
     static Hop = function(_title, _filename = undefined)
     {
-        __VMStackEnsure(_filename);
-        return __vmCurrent.Hop(_title, _filename);
+        __VMStackPush(_filename);
+        return __vmCurrent.Jump(_title);
     }
     
-    //Jumps to a given node in the given source
     static HopBack = function()
     {
-        if (__VMStackEmpty()) return;
-        return __vmCurrent.HopBack();
+        __VMStackPop();
+        with(__vmCurrent) __ChatterboxVM();
     }
     
     static Select = function(_index)
@@ -123,15 +126,15 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
         return __vmCurrent.Wait(_name);
     }
     
-    static Stop = function()
-    {
-        array_resize(__vmStack, 0);
-    }
-    
     static FastForward = function()
     {
         if (__VMStackEmpty()) return;
         return __vmCurrent.FastForward();
+    }
+    
+    static Stop = function()
+    {
+        array_resize(__vmStack, 0);
     }
     
     static IsWaiting = function()
@@ -142,8 +145,8 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
     
     static IsStopped = function()
     {
-        if (array_length(__vmStack) <= 0) return true;
-        return __vmCurrent.__exit;
+        if (__VMStackEmpty()) return true;
+        return __vmCurrent.__dispose;
     }
     
     #endregion

@@ -4,57 +4,79 @@ function __ChatterboxVM()
 {
     static _system = __ChatterboxSystem();
     
-    do 
-    {
-        __ClearContent(0);
-        __ClearOptions(0);
-        
-        __exit           = false;
-        __stopped        = false;
-        __hopped         = false;
-        waiting          = false;
-        forced_waiting   = false;
-        waitingName      = "";
-        wait_instruction = undefined;
-        entered_option   = false;
-        leaving_option   = false;
-        randomize_option = false;
-        rejected_if      = false;
-        
-        if (current_instruction.type == "stop")
-        {
-            __stopped = true;
-            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("STOP (<<stop>>)");
-            break;
-        }
-        
-        //Push this VM to the stack. We also keep track of which chatterbox is currently in focus
-        array_push(_system.__globalVMStack, self);
-        _system.__globalVMCurrent = self;
-        _system.__globalCurrent   = __chatterbox;
-        
-        //Execute a tick of the virtual machine
-        __ChatterboxVMInner(current_instruction);
-        
-        //Pop the VM stack and update the current chatterbox
-        array_pop(_system.__globalVMStack);
-        _system.__globalVMCurrent =__ChatterboxArrayLast(_system.__globalVMStack);
-        _system.__globalCurrent   = (_system.__globalVMCurrent != undefined)? _system.__globalVMCurrent.__chatterbox : undefined;
-        
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("HALT (exit=", __exit, ", stopped=", __stopped, ", fastForward=", fastForward, ", hopped=", __hopped, ")");
-    }
-    until((not fastForward) || __exit)
+    var _vmStack = __chatterbox.__vmStack;
     
-    if (__stopped)
+    do
     {
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("VM exited, clearing chatterbox");
-        __chatterbox.Stop();
+        var _vm = __ChatterboxArrayLast(_vmStack);
+        if (_vm == undefined) break;
+        
+        var _repeat = false;
+        with(_vm)
+        {
+            if (__dispose)
+            {
+                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Top VM has been disposed, popping and iterating the next VM in the stack");
+                
+                __chatterbox.__VMStackPop();
+                _repeat = true;
+                break;
+            }
+            else
+            {
+                //Perform an iteration of the VM at least once, and then repeat whilst we're fast-forwarding
+                do
+                {
+                    __ClearContent(0);
+                    __ClearOptions(0);
+                    
+                    __vmStateHalt    = false;
+                    __hopped         = false;
+                    waiting          = false;
+                    forced_waiting   = false;
+                    waitingName      = "";
+                    wait_instruction = undefined;
+                    entered_option   = false;
+                    leaving_option   = false;
+                    randomize_option = false;
+                    rejected_if      = false;
+                    
+                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Starting VM iteration");
+                    
+                    //Push this VM to the stack. We also keep track of which chatterbox is currently in focus
+                    array_push(_system.__globalVMStack, self);
+                    _system.__globalVMCurrent = self;
+                    _system.__globalCurrent   = __chatterbox;
+                    
+                    //Execute a tick of the virtual machine
+                    __ChatterboxVMInner(current_instruction);
+                    
+                    //Pop the VM stack and update the current chatterbox
+                    array_pop(_system.__globalVMStack);
+                    _system.__globalVMCurrent =__ChatterboxArrayLast(_system.__globalVMStack);
+                    _system.__globalCurrent   = (_system.__globalVMCurrent != undefined)? _system.__globalVMCurrent.__chatterbox : undefined;
+                
+                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Ended VM iteration (vmStateBreak=", __vmStateHalt, ", dispose=", __dispose, ", fastForward=", fastForward, ", hopped=", __hopped, ")");
+                }
+                until((not fastForward) || __vmStateHalt)
+                
+                if (__dispose)
+                {
+                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("VM disposed");
+                    __chatterbox.__VMStackRemove(self);
+                    _repeat = true;
+                }
+                
+                //If this VM hopped out then move over to the new VM at the top of the stack
+                if (__hopped)
+                {
+                    if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("VM hopped, doing another iteration");
+                    _repeat = true;
+                }
+            }
+        }
     }
-    else if (__exit)
-    {
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("VM exited, removing VM from chatterbox");
-        __chatterbox.__VMStackRemove(self);
-    }
+    until(_repeat)
 }
 
 function __ChatterboxVMInner(_instruction)
@@ -254,8 +276,9 @@ function __ChatterboxVMInner(_instruction)
                                 &&  (_next.type != "wait")
                                 &&  (_next.type != "forcewait")
                                 &&  (_next.type != "stop")
-                                &&  !((_next.type == "hopback") && __HopEmpty()))
+                                &&  (_next.type != "hopback"))
                                 {
+                                    __vmStateHalt    = true;
                                     waiting          = true;
                                     waitingName      = "";
                                     wait_instruction = _next;
@@ -326,6 +349,7 @@ function __ChatterboxVMInner(_instruction)
                     case "stop":
                         if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
                         {
+                            __vmStateHalt    = true;
                             waiting          = true;
                             waitingName      = "";
                             forced_waiting   = true;
@@ -333,8 +357,11 @@ function __ChatterboxVMInner(_instruction)
                         }
                         else
                         {
-                            __exit = true;
-                            __stopped = true;
+                            __vmStateHalt = true;
+                            __dispose = true;
+                            
+                            //Explicit stop, wipe out the entire chatterbox
+                            __chatterbox.Stop();
                         }
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<stop>>");
@@ -354,17 +381,16 @@ function __ChatterboxVMInner(_instruction)
                         }
                         
                         var _split = __ChatterboxSplitGoto(_destination);
+                        __chatterbox.Hop(_split.node, _split.filename);
                         
-                        var _newVM = __chatterbox.__VMStackPush(_split.filename ?? filename);
-                        _newVM.Jump(_split.node);
-                        
-                        __exit = true;
+                        __vmStateHalt = true;
                         __hopped = true;
                     break;
                     
                     case "hopback":
                         if (CHATTERBOX_WAIT_BEFORE_STOP && (array_length(content) > 0) && (array_length(option) <= 0))
                         {
+                            __vmStateHalt    = true;
                             waiting          = true;
                             waitingName      = "";
                             forced_waiting   = true;
@@ -372,8 +398,11 @@ function __ChatterboxVMInner(_instruction)
                         }
                         else
                         {
-                            __exit = true;
-                            __stopped = true;
+                            __chatterbox.HopBack();
+                            
+                            //Dispose of this VM
+                            __vmStateHalt = true;
+                            __dispose = true;
                         }
                         
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hopback>>");
@@ -528,6 +557,7 @@ function __ChatterboxVMInner(_instruction)
     {
         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Something insisted the VM wait");
         
+        __vmStateHalt    = true;
         waiting          = true;
         forced_waiting   = _system.__globalVMForceWait;
         waitingName      = _system.__globalVMWaitName;
@@ -553,11 +583,12 @@ function __ChatterboxVMInner(_instruction)
         }
         else if (waiting)
         {
+            __vmStateHalt = false;
             current_instruction = wait_instruction;
         }
     }
     
-    if (_do_next && (not waiting) && (not __exit))
+    if (_do_next && (not __vmStateHalt))
     {
         if (instanceof(_next) == "__ChatterboxClassInstruction")
         {
@@ -566,8 +597,10 @@ function __ChatterboxVMInner(_instruction)
         else
         {
             __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Warning! Instruction found without next node (datatype=", instanceof(_next), ")");
-            __exit = true;
-            __stopped = true;
+            
+            //Dispose of this VM
+            __vmStateHalt = true;
+            __dispose = true;
         }
     }
 }

@@ -29,12 +29,10 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
     optionStructArray   = [];
     optionWeightArray   = [];
     
-    hopStack = [];
-    
     current_node        = undefined;
     current_instruction = undefined;
-    __exit              = true;
-    __stopped           = false;
+    __vmStateHalt       = false;
+    __dispose           = true;
     __hopped            = false;
     waiting             = false;
     forced_waiting      = false;
@@ -78,101 +76,6 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
         
         __ChangeNode(_node, true);
         current_instruction = current_node.root_instruction;
-        
-        __ChatterboxVM();
-    }
-    
-    //Jumps to a given node in the given source
-    static Hop = function(_title, _filename = undefined)
-    {
-        __HopPush(current_instruction);
-        
-        if (_filename != undefined)
-        {
-            _filename = __ChatterboxReplaceBackslashes(_filename);
-            
-            var _file = _system.__files[? _filename];
-            if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
-            
-            file = _file;
-            filename = file.filename;
-        }
-        
-        if (!VerifyIsLoaded())
-        {
-            __ChatterboxError("Could not go to node \"", _title, "\" because \"", filename, "\" is not loaded");
-            return undefined;
-        }
-        
-        var _node = FindNode(_title);
-        if (_node == undefined)
-        {
-            __ChatterboxError("Could not find node \"", _title, "\" in \"", filename, "\"");
-            return undefined;
-        }
-        
-        __ChangeNode(_node, true);
-        current_instruction = current_node.root_instruction;
-        
-        __ChatterboxVM();
-    }
-    
-    static __HopPush = function(_next)
-    {
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Pushing to hop stack: node = <", current_node, ">, next instruction = <", _next, ">, filename = \"", filename, "\"");
-        
-        array_push(hopStack, {
-            next:     _next,
-            node:     current_node,
-            filename: filename,
-        });
-    }
-    
-    static __HopPop = function()
-    {
-        if (__HopEmpty())
-        {
-            __ChatterboxError("Hop stack is empty");
-        }
-        
-        var _data = array_pop(hopStack);
-        
-        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Pushing to hop stack: node = <", _data.node, ">, next instruction = <", _data.next, ">, filename = \"", _data.filename, "\"");
-        
-        return _data;
-    }
-    
-    static __HopEmpty = function()
-    {
-        return (array_length(hopStack) <= 0);
-    }
-    
-    //Jumps to a given node in the given source
-    static HopBack = function()
-    {
-        if (__HopEmpty())
-        {
-            __ChatterboxError("Hop stack is empty");
-        }
-        
-        //Otherwise pop a node off of our stack and go to it
-        var _hop_data = __HopPop();
-        var _filename = __ChatterboxReplaceBackslashes(_hop_data.filename);
-        
-        var _file = _system.__files[? _filename];
-        if (instanceof(_file) != "__ChatterboxClassSource") __ChatterboxTrace("Error! File \"", _filename, "\" not found or not loaded");
-        
-        file = _file;
-        filename = file.filename;
-        
-        if (!VerifyIsLoaded())
-        {
-            __ChatterboxError("Could hop back because \"", filename, "\" is not loaded");
-            return undefined;
-        }
-        
-        __ChangeNode(_hop_data.node, false);
-        current_instruction = _hop_data.next;
         
         __ChatterboxVM();
     }
@@ -267,6 +170,7 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
         else
         {
             //Otherwise set up a waiting state
+            __vmStateHalt    = true;
             waiting          = true;
             forced_waiting   = true;
             waitingName      = _name;
@@ -418,15 +322,15 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
         {
             if (loaded)
             {
-                __ChatterboxTrace("Warning! \"", filename, "\" has been unloaded, an in-progress chatterbox has been invalidated");
+                __ChatterboxTrace("Warning! \"", filename, "\" has been unloaded, an in-progress Chatterbox VM has been invalidated");
                 
                 __ClearContent();
                 __ClearOptions();
                 
                 current_node        = undefined;
                 current_instruction = undefined;
-                __exit              = true;
-                __stopped           = false;
+                __vmStateHalt       = false;
+                __dispose           = true;
                 __hopped            = false;
                 waiting             = false;
                 forced_waiting      = false;
