@@ -286,7 +286,6 @@ function __ChatterboxVMInner(_instruction)
                             break;
                             
                             case "hop":
-                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Pushed \"", _next, "\" to hop stack");
                                 __HopPush(_next);
                             break;
                         }

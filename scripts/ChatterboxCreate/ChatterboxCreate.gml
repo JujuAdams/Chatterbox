@@ -160,7 +160,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     
     static __HopPush = function(_next)
     {
-        if (true) __ChatterboxTrace("Pushing to hop stack");
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Pushing to hop stack: node = <", current_node, ">, next instruction = <", json_stringify(_next), ">, filename = \"", filename, "\"");
         
         array_push(hopStack, {
             next:     _next,
@@ -176,9 +176,11 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             __ChatterboxError("Hop stack is empty");
         }
         
-        if (true) __ChatterboxTrace("Popping from hop stack");
+        var _data = array_pop(hopStack);
         
-        return array_pop(hopStack);
+        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace("Pushing to hop stack: node = <", _data.node, ">, next instruction = <", json_stringify(_data.next), ">, filename = \"", _data.filename, "\"");
+        
+        return _data;
     }
     
     static __HopEmpty = function()
