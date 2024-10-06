@@ -1,16 +1,16 @@
 // Feather disable all
 
 /// @param array
-/// @param index
+/// @param target
 
-function __ChatterboxArrayGetIndex(_array, _index)
+function __ChatterboxArrayGetIndex(_array, _target)
 {
     var _index = -1;
     
     var _i = 0;
     repeat(array_length(_array))
     {
-        if (_array[_i] == _index) return _index;
+        if (_array[_i] == _target) return _index;
         ++_i;
     }
     

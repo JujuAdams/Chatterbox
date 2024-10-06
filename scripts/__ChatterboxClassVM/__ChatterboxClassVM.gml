@@ -48,11 +48,8 @@ function __ChatterboxClassVM(_filename, _singleton, _localScope, _chatterbox) co
     #region Flow
     
     //Jumps to a given node in the given source
-    static Jump = function()
+    static Jump = function(_title, _filename = undefined)
     {
-        var _title    = argument[0];
-        var _filename = (argument_count > 1)? argument[1] : undefined;
-        
         if (_filename != undefined)
         {
             _filename = __ChatterboxReplaceBackslashes(_filename);

@@ -74,7 +74,7 @@ function __ChatterboxClass(_filename, _singleton, _localScope) constructor
         else
         {
             var _index = __ChatterboxArrayGetIndex(__vmStack, _target);
-            if (_index >= 0) array_delete(__vmStack, _index);
+            if (_index >= 0) array_delete(__vmStack, _index, 1);
         }
     }
     
