@@ -1,0 +1,13 @@
+title: Start
+---
+This is the start node.
+You have visited this node {visited("Start")} time(s).
+<<jump Node2>>
+===
+
+title: Node2
+---
+You are in the second node.
+A test of the "jumpback" action follows.
+<<jumpback>>
+===
