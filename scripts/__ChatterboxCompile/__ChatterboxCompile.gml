@@ -175,13 +175,14 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 break;
                 
                 case "hopback":
+                case "jumpback":
                 case "fastforward":
                 case "fastmark":
                 case "stop":
                     _remainder = __ChatterboxCompilerRemoveWhitespace(_remainder, true);
                     if (_remainder != "")
                     {
-                        __ChatterboxError("Cannot use arguments with <<hopback>>, <<fastforward>>, <<fastmark>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
+                        __ChatterboxError("Cannot use arguments with <<hopback>>, <<jumpback>>, <<fastforward>>, <<fastmark>>, or <<stop>>\n\Action was \"<<", _string, ">>\"");
                     }
                     else
                     {

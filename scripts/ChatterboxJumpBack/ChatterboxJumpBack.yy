@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxHop",
+  "name": "ChatterboxJumpBack",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

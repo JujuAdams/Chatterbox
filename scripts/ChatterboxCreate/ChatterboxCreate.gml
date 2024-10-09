@@ -89,10 +89,12 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     #region Flow
     
     //Jumps to a given node in the given source
-    static Jump = function()
+    static Jump = function(_title, _filename = undefined)
     {
-        var _title    = argument[0];
-        var _filename = (argument_count > 1)? argument[1] : undefined;
+        if (_title == undefined)
+        {
+            return;
+        }
         
         if (_filename != undefined)
         {
@@ -119,6 +121,16 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         }
         
         __ChangeNode(_node, true, "jump");
+        current_instruction = current_node.root_instruction;
+        
+        __ChatterboxVM();
+    }
+    
+    static JumpBack = function()
+    {
+        if (previous_node == undefined) return;
+        
+        __ChangeNode(previous_node, true, "jump");
         current_instruction = current_node.root_instruction;
         
         __ChatterboxVM();

@@ -271,8 +271,8 @@ function __ChatterboxVMInner(_instruction)
                         {
                             switch(_instruction.type)
                             {
-                                case "jump": __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[jump ", _instruction.destination, "]"); break;
-                                case "hop":  __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "[hop ",  _instruction.destination, "]"); break;
+                                case "jump": __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<jump ", _instruction.destination, ">>"); break;
+                                case "hop":  __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<hop ",  _instruction.destination, ">>"); break;
                             }
                         }
                         
@@ -378,6 +378,13 @@ function __ChatterboxVMInner(_instruction)
                             
                             __ChangeNode(_node, false, "hopback");
                         }
+                    break;
+                    
+                    case "jumpback":
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<jumpback>>");
+                        
+                        __ChangeNode(previous_node, true, "jump");
+                        _next = current_node.root_instruction;
                     break;
                     
                     case "fastforward":

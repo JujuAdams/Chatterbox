@@ -1,15 +1,12 @@
 // Feather disable all
-/// Jumps to a specific node in a source file
+
+/// Jumps to a specific node in a source file. You can hop back with with <<hopback>>
 ///
 /// @param chatterbox
 /// @param nodeTitle
 /// @param [filename]
 
-function ChatterboxHop()
+function ChatterboxHop(_chatterbox, _title, _filename = undefined)
 {
-    var _chatterbox = argument[0];
-    var _title      = argument[1];
-    var _filename   = (argument_count > 2)? argument[2] : undefined;
-    
     return _chatterbox.Hop(_title, _filename);
 }
