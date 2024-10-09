@@ -140,7 +140,11 @@ Jump actions can be placed after options which allows for branching dialogue org
 <<jump DifferentNode>>
 ```
 
-Chatterbox adds the ability to target nodes in other files:
+Occasionally you might want to jump back to the top of the previously visited node. The `<<jumpback>>` action does exactly this. If there is no previous node, `<<jumpback>>` will do nothing.
+
+?> `jumpback` doesn't use a stack and will literally jump back to previous node. This means calling `<<jumpback>>` multiple times in a row will bounce between two nodes.
+
+Chatterbox adds the ability to target nodes in other files too:
 
 ```yarn
 -> A link to a node in another file.

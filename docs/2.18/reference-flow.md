@@ -54,6 +54,22 @@ The name is used to link continue commands to similarly named wait commands (eit
 
 &nbsp;
 
+## `...JumpBack()`
+
+_Full function name:_ `ChatterboxJumpBack(chatterbox)`
+
+_Returns:_ N/A (`undefined`)
+
+|Name        |Datatype                          |Purpose                                                                                                                                                                 |
+|------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                                                                        |
+
+This function jumps to the previously visited node. If there is no previous node, this function does nothing.
+
+?> `ChatterboxJumpBack()` doesn't use a stack and will literally jump back to previous node. This means calling `ChatterboxJumpBack()` multiple times in a row will bounce between two nodes.
+
+&nbsp;
+
 ## `...Hop()`
 
 _Full function name:_ `ChatterboxHop(chatterbox, nodeTitle, [filename])`
