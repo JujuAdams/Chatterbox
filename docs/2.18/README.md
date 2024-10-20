@@ -51,7 +51,7 @@ At any rate, the process to update is as follows:
 
 If you'd like to report a bug or suggest a feature, please use the repo's [Issues page](https://github.com/JujuAdams/chatterbox/issues). Chatterbox is constantly being maintained and upgraded; bugs are usually addressed within a few days of being reported.
 
-Chatterbox is supported for all GameMaker export modules, apart from HTML5. You might run into edge cases on platforms that I haven't tested; please [report any bugs](https://github.com/JujuAdams/chatterbox/issues) if and when you find them.
+Chatterbox is supported for all GameMaker export modules, apart from HTML5. You might run into edge cases on platforms that I haven't tested; please [report any bugs](https://github.com/JujuAdams/chatterbox/issues) if and when you find them. **Please note** that GMRT / "new runtime" is not supported by this library.
 
 ---
 
