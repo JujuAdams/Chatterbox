@@ -141,16 +141,16 @@ Finally, you can completely stop processing in a chatterbox using `ChatterboxSto
 Here's an example of how to set up very simple user input, taken from the basic example in the GitHub repo.
 
 ```gml
-if (ChatterboxIsStopped(box))
+if (ChatterboxIsStopped(chatterbox))
 {
     //If we're stopped then don't respond to user input
 }
-else if (ChatterboxIsWaiting(box))
+else if (ChatterboxIsWaiting(chatterbox))
 {
     //If we're in a "waiting" state then let the user press <space> to advance dialogue
     if (keyboard_check_released(vk_space))
     {
-        ChatterboxContinue(box);
+        ChatterboxContinue(chatterbox);
     }
 }
 else
@@ -164,7 +164,7 @@ else
     if (keyboard_check_released(ord("4"))) _index = 3;
     
     //If we've pressed a button, select that option
-    if (_index != undefined) ChatterboxSelect(box, _index);
+    if (_index != undefined) ChatterboxSelect(chatterbox, _index);
 }
 ```
 
