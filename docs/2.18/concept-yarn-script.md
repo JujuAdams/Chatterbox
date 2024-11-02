@@ -269,6 +269,19 @@ All variables must start with a dollar sign. Internal Yarn variables are, in rea
 
 If needed, you can access this ds_map via the `CHATTERBOX_VARIABLES_MAP` macro, found in [`__ChatterboxConfig()`](reference-configuration#__chatterboxconfig).
 
+### String Interpolation
+
+You may be familiar with string interpolation in native GML where the syntax `$"Some text, {aVariableToInsert}, some more text"` can be used to insert a value from a variable into a string. YarnScript has a similar feature and its syntax is very close. Variables can be inserted into string by wrapping a variable name in curly brackets. Variables can contain any type of data, strings or numbers. In fact, any YarnScript expression can be put inside curly brackets to insert the value returned by the expression into a string.
+
+```yarn
+Clive: How many bottles of beer are there on the wall?
+Claire: {$bottlesOfBeer} bottles of beer.
+Clive: {$bottlesOfBeer}?
+Claire: Yes, there are {$bottlesOfBeer-1} on the wall.
+Claire: Hold on, did you just drink a bottle?
+Clive: ... no.
+```
+
 ### if/else Statements: <!-- {docsify-ignore} -->
 
 Yarn supports standard if/else/elseif statements.
