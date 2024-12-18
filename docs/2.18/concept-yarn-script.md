@@ -2,8 +2,6 @@
 
 ---
 
-?> This is an edited copy of the [YarnSpinner Quick Refence Guide](https://github.com/thesecretlab/YarnSpinner/blob/master/Documentation/YarnSpinner-Dialogue/Yarn-Syntax.md) (retrieved 2019-04-18)
-
 ## Introduction
 
 Chatterbox is an implementation of the YarnScripting language. However, Chatterbox does slightly extend its functionality,
