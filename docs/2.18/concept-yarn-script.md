@@ -4,16 +4,11 @@
 
 ## Introduction
 
-Chatterbox is an implementation of the YarnScripting language. However, Chatterbox does slightly extend its functionality,
-adding more control to variable handling. This enables convenient direct access of GML variables from inside the dialogue script.
-Please see the [Variables & Conditionals](concept-yarn-script#variables-amp-conditionals) and [Functions](concept-yarn-script#functions) sections for more information. Chatterbox additionally allows redirects and options to
-point to nodes found in other [source files](concept-source-files).
+Chatterbox is an implementation of the YarnScripting language. However, Chatterbox does slightly extend its functionality, adding more control to variable handling. This enables convenient direct access of GML variables from inside the dialogue script. Please see the [Variables & Conditionals](concept-yarn-script#variables-amp-conditionals) and [Functions](concept-yarn-script#functions) sections for more information. Chatterbox additionally allows redirects and options to point to nodes found in other [source files](concept-source-files).
 
-This document is intended to act as a comprehensive and concise reference for Yarn syntax and structure, for use by programmers
-and designers. It assumes a working knowledge of modern programming/scripting languages. For a more thorough explanation
-of Yarn usage, see the [offical Yarn tutorial](https://yarnspinner.dev/docs/tutorial).
+This document is intended to act as a comprehensive and concise reference for Yarn syntax and structure, for use by programmers and designers. It assumes a working knowledge of modern programming/scripting languages. For a more thorough explanation of Yarn usage, see the [offical Yarn tutorial](https://yarnspinner.dev/docs/tutorial).
 
-!> **Note**: As of 29/07/2021, the official Yarn tutorials show syntax from version 1 of Yarn, while Chatterbox v2 implements the updated version 2 of the Yarn specification. The syntax listed here is the most up to date for what Chatterbox v2 uses.
+!> Chatterbox is an implementation of version 2 of YarnScript with a few added features. When reading third-party documentation on YarnScript please make sure it is for version 2 of the language.
 
 ## Nodes
 
