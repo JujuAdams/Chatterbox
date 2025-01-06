@@ -124,7 +124,6 @@
     {"id":{"name":"oTestCaseIf","path":"objects/oTestCaseIf/oTestCaseIf.yy",},"order":5,},
     {"id":{"name":"oTestCaseJump","path":"objects/oTestCaseJump/oTestCaseJump.yy",},"order":14,},
     {"id":{"name":"oTestCaseDirectionAsExpressionArguments","path":"objects/oTestCaseDirectionAsExpressionArguments/oTestCaseDirectionAsExpressionArguments.yy",},"order":40,},
-    {"id":{"name":"TestCaseWaitFunctionReturn","path":"scripts/TestCaseWaitFunctionReturn/TestCaseWaitFunctionReturn.yy",},"order":30,},
     {"id":{"name":"__ChatterboxArrayCopyPart","path":"scripts/__ChatterboxArrayCopyPart/__ChatterboxArrayCopyPart.yy",},"order":26,},
     {"id":{"name":"oTestCaseDirectionAsWeirdo","path":"objects/oTestCaseDirectionAsWeirdo/oTestCaseDirectionAsWeirdo.yy",},"order":17,},
     {"id":{"name":"ChatterboxGetOptionArray","path":"scripts/ChatterboxGetOptionArray/ChatterboxGetOptionArray.yy",},"order":5,},

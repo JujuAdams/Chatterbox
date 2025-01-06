@@ -452,30 +452,6 @@ function __ChatterboxVMInner(_instruction)
                                 _result = __ChatterboxEvaluate(local_scope, filename, __ChatterboxParseExpression(_direction_text, true), undefined, undefined);
                             break;
                         }
-                        
-                        if (is_string(_result))
-                        {
-                            //TODO - Superceded by ChatterboxWait() / ChatterboxFastForward(). Remove in v3.0
-                            
-                            if (_result == "<<wait>>")
-                            {
-                                _system.__vmWait     = true;
-                                _system.__vmWaitName = "";
-                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<wait>> returned by function");
-                            }
-                            else if (_result == "<<forcewait>>")
-                            {
-                                _system.__vmWait      = true;
-                                _system.__vmForceWait = true;
-                                _system.__vmWaitName  = "";
-                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<forcewait>> returned by function");
-                            }
-                            else if (_result == "<<fastforward>>")
-                            {
-                                _system.__vmFastForward = true;
-                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<fastforward>> returned by function");
-                            }
-                        }
                     break;
                     
                     case "random option":

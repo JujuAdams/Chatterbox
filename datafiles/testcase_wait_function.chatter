@@ -3,8 +3,6 @@ title: Start
 Here's some text!
 Text followed by <wait>
 <<wait>>
-Text followed by function call that returns "<wait>"
-<<testcaseWaitReturn>>
 Text followed by function call that executes TestCaseWaitFunction()
 <<testcaseWait>>
 Final bit of text
