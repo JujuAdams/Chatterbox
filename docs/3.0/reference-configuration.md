@@ -24,9 +24,9 @@ Whether to allow scripts to be added as Chatterbox functions.
 
 ## `CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS`
 
-_Typical value:_ `true`
+_Typical value:_ `false`
 
-Whether to execute callbacks with an array of arguments. Setting this to `false` will execute callbacks with individual arguments.
+Whether to execute callbacks with an array of arguments. Setting this to `false` will execute callbacks with individual arguments, setting this to `true` will execute callbacks with a single array that contains the arguments.
 
 &nbsp;
 
@@ -108,15 +108,10 @@ Whether nodes without an explicit `<<stop>>` or `<<hopback>>` instruct at the en
 
 _Typical value:_ `1`
 
-`CHATTERBOX_ACTION_MODE` should be either 0, 1, or 2:
+`CHATTERBOX_ACTION_MODE` should be either 1 or 2:
 
-- `0` Pass ChatterScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
 - `1` Treat actions as expressions
 - `2` Treat actions as they were in version 1 (Python-esque function calls)
-
-### `CHATTERBOX_ACTION_MODE` = 0
-
-This is the officially recommended behaviour. The full contents of the direction (everything between `<<` and `>>`) are passed as a string to a function for parsing and execution by the developer (you). I think this behaviour is stupid but I've included it here because technically that is what the ChatterScript specification says. You can set the function that receives the direction string by setting `CHATTERBOX_ACTION_FUNCTION`. Exactly what syntax you use for actions is therefore completely up to you.
 
 ### `CHATTERBOX_ACTION_MODE` = 1
 
@@ -125,14 +120,6 @@ Chatterbox will treat actions as expressions to be executed in a similar manner 
 ### `CHATTERBOX_ACTION_MODE` = 2
 
 Chatterbox will treat actions as expressions with a greatly simplified syntax. This is useful for writers and narrative designers who are less familiar with the particulars of coding and instead want to use a simple syntax to communicate with the underlying GameMaker application. The direction is sliced into arguments using spaces as delimiters. The first token in the direction is the name of the function call, as added by `ChatterboxAddFunction()`. Subsequent tokens are passed to the function call with each token being a function parameter. All parameters are passed as strings. If a parameter needs to contain a space then you may enclose the string in `"` double quote marks. An example, analogous to the example above, would be: `<<giveItem amulet 1>>`.
-
-&nbsp;
-
-## `CHATTERBOX_DIRECTION_FUNCTION`
-
-_Typical value:_ `ExampleActionFunction`
-
-Function to use to handle actions. This only applies in mode `0` (see below).
 
 &nbsp;
 
@@ -205,20 +192,6 @@ Whether expression strings are [escaped](https://en.wikipedia.org/wiki/Escape_ch
 _Typical value:_ `""` (empty string)
 
 Directory inside Included Files that holds all external ChatterScript files. Use an empty string for the root of Included Files.
-
-&nbsp;
-
-## `CHATTERBOX_DECLARE_ON_COMPILE`
-
-_Typical value:_ `true`
-
-Whether to declare variables when Chatterbox script is compiled. Set to `false` for legacy (2.1 and earlier) behaviour.
-
-&nbsp;
-
-## `CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE`
-
-_Typical value:_ `false`
 
 &nbsp;
 

@@ -199,11 +199,8 @@ What a beautiful evening, Amelia.
 In this example, both `<<HideTheMoon>>` and `<<FlickerStars>>` are custom actions. 
 
 There are three ways that custom actions can be used in Chatterbox; to swap between the different implementations set [`CHATTERBOX_ACTION_MODE`](reference-configuration?id=chatterbox_action_mode) to one of the following (the default is option `1`):
-- `0` Pass ChatterScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
 - `1` Treat actions as expressions
 - `2` Treat actions as they were in version 1 (Python-esque function calls)
-
-Mode `0` is provided for compatibility with YarnScript. This mode instructs a chatter to actions as a strings into the game engine for manual interpretation. Chatterbox's implementation is that the function defined by `CHATTERBOX_ACTION_FUNCTION` is called when Chatterbox encounters an action, the first argument (`argument0`) for the function call being the text inside the action as a string. The intention is that you'd then parse that text and execute behaviour accordingly but... this sucks, it's a ton of work to actually do this, let's move on.
 
 Mode `1` is the default Chatterbox behaviour:
 1. Every custom action is expected to use GML-like syntax: functions are executed using their name followed by a comma-separated list of arguments e.g. `<<CustomFunction("string", "string with spaces", 3.14, true)>>`
