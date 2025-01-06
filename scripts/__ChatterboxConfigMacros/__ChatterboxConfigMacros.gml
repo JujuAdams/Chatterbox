@@ -65,13 +65,6 @@
 // Action mode controls how <<actions>> are processed by Chatterbox
 // There are three possible values:
 // 
-// CHATTERBOX_ACTION_MODE = 0
-// Provided for compatibility with YarnScript. The full contents of the action (everything
-// between << and >>) are passed as a string to a function for parsing and execution by the
-// developer (you). You can set the function that receives the action string by setting
-// `CHATTERBOX_ACTION_FUNCTION`. Exactly what syntax you use for actions is therefore completely
-// up to you.
-// 
 // CHATTERBOX_ACTION_MODE = 1
 // Chatterbox will treat actions as expressions to be executed in a similar manner to in-line
 // expressions. This is covenient if you want to treat actions as little snippets of code
@@ -80,7 +73,6 @@
 // by calling ChatterboxAddFunction().
 // 
 // An example would be: <<giveItem("amulet", 1)>>
-// 
 // 
 // CHATTERBOX_ACTION_MODE = 2
 // Chatterbox will treat actions as expressions with a greatly simplified syntax. This is
