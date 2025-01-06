@@ -9,7 +9,7 @@
 
 Chatterbox is a GameMaker narrative design tool. It is loosely based on version 2 of the [YarnScript language](https://yarnspinner.dev/), used in games such as [Far From Noise](https://www.georgebatchelor.com/farfromnoise), [Knights and Bikes](https://foamswordgames.com/#knights), and [Night In The Woods](http://www.nightinthewoods.com/).
 
-ChatterScript files can be written by hand, but the best way to start with ChatterScript is to use an editor. The best editor to use [Crochet](https://github.com/FaultyFunctions/Crochet), available on [Windows, MacOS, & Ubuntu](https://github.com/FaultyFunctions/Crochet/releases), or as a [web-based editor](https://faultyfunctions.github.io/Crochet/).
+Chatterbox uses a custom scripting language called "ChatterScript" that is both convenient for writing complex branching dialogue and accessible for people who are less confident when programming. ChatterScript files can be written by hand, but the best way to start with ChatterScript is to use an editor. The best editor to use [Crochet](https://github.com/FaultyFunctions/Crochet), available on [Windows, MacOS, & Ubuntu](https://github.com/FaultyFunctions/Crochet/releases), or as a [web-based editor](https://faultyfunctions.github.io/Crochet/).
 
 ## Features
 
