@@ -13,7 +13,7 @@
 #macro CHATTERBOX_ALLOW_SCRIPTS  true
 
 // Whether Chatterbox functions should be executed using an array of parameters.
-#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS  true
+#macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS  false
 
 // Whether to enter into a "wait" state before options are presented when using singleton
 // chatterboxes. This is helpful for games where you want to visually replace dialogue with a
