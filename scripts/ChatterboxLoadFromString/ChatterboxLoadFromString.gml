@@ -1,7 +1,6 @@
 // Feather disable all
-/// Loads a Yarn source for use with Chatterbox directly from a string
-///
-/// To find out more about Chatterbox's scripting language, "Yarn", please read the __chatterbox_syntax()
+
+/// Loads a ChatterScript source for use with Chatterbox directly from a string
 ///
 /// @param aliasName  Alias to refer to this content (effectively a fake filename)
 /// @param string     String to read

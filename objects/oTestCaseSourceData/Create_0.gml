@@ -1,2 +1,2 @@
-ChatterboxLoadFromFile("Test.yarn");
+ChatterboxLoadFromFile("Test.chatter");
 box = ChatterboxCreate();

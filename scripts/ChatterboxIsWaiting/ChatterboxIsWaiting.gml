@@ -1,5 +1,7 @@
 // Feather disable all
-/// Returns if the given chatterbox is in a "waiting" state, either due to a Yarn <<wait>> command or singleton behaviour
+
+/// Returns if the given chatterbox is in a "waiting" state, either due to a ChatterScript <<wait>>
+/// command or singleton behaviour
 ///
 /// @param chatterbox
 

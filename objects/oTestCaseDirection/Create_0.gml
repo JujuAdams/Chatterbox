@@ -10,6 +10,6 @@ if (CHATTERBOX_ACTION_FUNCTION != TestCaseDirectionFunction)
     __ChatterboxError("CHATTERBOX_ACTION_FUNCTION should be TestCaseDirectionFunction for this test");
 }
 
-ChatterboxLoadFromFile("testcase_direction.yarn");
+ChatterboxLoadFromFile("testcase_direction.chatter");
 box = ChatterboxCreate();
 ChatterboxJump(box, "Start");

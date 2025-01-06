@@ -1,7 +1,7 @@
 //This should throw an error if CHATTERBOX_ERROR_UNDECLARED_VARIABLE is <true>
 
-ChatterboxLoadFromFile("testcase_constants.yarn");
-box = ChatterboxCreate("testcase_constants.yarn");
+ChatterboxLoadFromFile("testcase_constants.chatter");
+box = ChatterboxCreate("testcase_constants.chatter");
 ChatterboxJump(box, "Start");
 
 ChatterboxVariableSetConstant("GML_CONSTANT", "this is a constant");

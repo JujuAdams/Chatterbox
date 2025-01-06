@@ -17,6 +17,6 @@ ChatterboxAddFunction("delay", function(_argumentArray)
     [CHATTERBOX_CURRENT]));
 });
 
-ChatterboxLoadFromFile("testcase_async_functions.yarn");
+ChatterboxLoadFromFile("testcase_async_functions.chatter");
 box = ChatterboxCreate();
 ChatterboxJump(box, "Start");

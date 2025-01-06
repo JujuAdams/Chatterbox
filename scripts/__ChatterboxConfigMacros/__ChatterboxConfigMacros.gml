@@ -66,12 +66,11 @@
 // There are three possible values:
 // 
 // CHATTERBOX_ACTION_MODE = 0
-// This is the officially recommended behaviour. The full contents of the action (everything
+// Provided for compatibility with YarnScript. The full contents of the action (everything
 // between << and >>) are passed as a string to a function for parsing and execution by the
-// developer (you). I think this behaviour is stupid but I've included it here because technically
-// that is what the YarnScript specification says. You can set the function that receives the
-// action string by setting CHATTERBOX_ACTION_FUNCTION. Exactly what syntax you use for
-// actions is therefore completely up to you.
+// developer (you). You can set the function that receives the action string by setting
+// `CHATTERBOX_ACTION_FUNCTION`. Exactly what syntax you use for actions is therefore completely
+// up to you.
 // 
 // CHATTERBOX_ACTION_MODE = 1
 // Chatterbox will treat actions as expressions to be executed in a similar manner to in-line

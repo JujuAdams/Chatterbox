@@ -138,7 +138,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 
                 case "elif":
                 case "else if":
-                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<", _first_word, ">> is non-standard Yarn syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<", _first_word, ">> is non-standard ChatterScript syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
                 case "elseif":
                     var _instruction = new __ChatterboxClassInstruction("else if", _line, _indent);
                     _instruction.condition = __ChatterboxParseExpression(_remainder, false);
@@ -154,7 +154,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 break;
                 
                 case "end if":
-                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<end if>> is non-standard Yarn syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                    if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<end if>> is non-standard ChatterScript syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
                 case "endif":
                     var _instruction = new __ChatterboxClassInstruction("end if", _line, _indent);
                     if (_if_depth < 0)

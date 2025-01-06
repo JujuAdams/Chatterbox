@@ -1,5 +1,6 @@
 // Feather disable all
-/// Loads a Yarn file (either .yarn or .json) for use with Chatterbox
+
+/// Loads a ChatterScript file (either .chatter or .json) for use with Chatterbox
 ///
 /// @param path         Path to the file to add, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
 /// @param [aliasName]  Alias for this file (overwrites the filename with whatever you provide)

@@ -15,7 +15,7 @@ function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
     
     try
     {
-        var _file_struct = __ChatterboxParseYarn(_buffer);
+        var _file_struct = __ChatterboxParseChatterScript(_buffer);
     }
     catch(_error)
     {
@@ -106,7 +106,7 @@ function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
 }
 
 /// @param string
-function __ChatterboxParseYarn(_buffer)
+function __ChatterboxParseChatterScript(_buffer)
 {
     var _node_array  = [];
     var _file_tags   = [];

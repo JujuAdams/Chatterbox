@@ -29,10 +29,10 @@ actorsList = {
 
 
 //Load in some source files
-ChatterboxLoadFromFile("example_speakerdata_sprite.yarn");
+ChatterboxLoadFromFile("example_speakerdata_sprite.chatter");
 
 //Create a chatterbox
-box = ChatterboxCreate("example_speakerdata_sprite.yarn");
+box = ChatterboxCreate("example_speakerdata_sprite.chatter");
 
 //Tell the chatterbox to jump to a node
 ChatterboxJump(box, "Start");

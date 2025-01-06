@@ -1,18 +1,19 @@
 // Feather disable all
-/// Parses an array of YarnScript files stored in your project's Included Filess directory and
-/// creates a CSV that contains all strings in those source files. The YarnScript files are modified
-/// by this function such that they link up to the CSV. You should then create a copy of the CSV
-/// file for each language you're localising into and load then using ChatterboxLocalizationLoad()
-/// when you wish to localise Chatterbox text into a different language.
+/// Parses an array of ChatternScript files stored in your project's Included Filess directory and
+/// creates a CSV that contains all strings in those source files. The ChatterScript files are
+/// modified by this function such that they link up to the CSV. You should then create a copy of
+/// the CSV file for each language you're localising into and load then using
+/// `ChatterboxLocalizationLoad()` when you wish to localise Chatterbox text into a different
+/// language.
 /// 
 ///   !!! WARNING !!!
 ///   THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT
 ///   ENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL
 /// 
-/// @param yarnPathArray   Array of paths to source YarnScript files, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
-/// @param csvOutputPath   Path to save the localisation CSV to, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
+/// @param chatterPathArray   Array of paths to source ChatterScript files, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
+/// @param csvOutputPath      Path to save the localisation CSV to, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
 
-function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
+function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
 {
     static _system = __ChatterboxSystem();
     
@@ -39,7 +40,7 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
         __ChatterboxError("Could not find \"", _root_directory, "\"\nPlease check the file system sandbox is disabled");
     }
     
-    if (!is_array(_yarn_path_array)) _yarn_path_array = [_yarn_path_array];
+    if (!is_array(_chatter_path_array)) _chatter_path_array = [_chatter_path_array];
     if (!is_array( _csv_path_array))  _csv_path_array = [ _csv_path_array];
     
     var _file_order = [];
@@ -66,11 +67,11 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
     //     }.
     // }
     
-    var _count = array_length(_yarn_path_array);
+    var _count = array_length(_chatter_path_array);
     var _i = 0;
     repeat(_count)
     {
-        var _local_path    = __ChatterboxReplaceBackslashes(_yarn_path_array[_i]);
+        var _local_path    = __ChatterboxReplaceBackslashes(_chatter_path_array[_i]);
         var _absolute_path = __ChatterboxReplaceBackslashes(_root_directory + _local_path);
         
         var _buffer = buffer_load(_absolute_path);
@@ -81,7 +82,7 @@ function ChatterboxLocalizationBuild(_yarn_path_array, _csv_path_array)
         
         _source.__BuildLocalisation(_file_order, _file_dict, _buffer_batch);
         
-        //Save out the modified YarnScript file
+        //Save out the modified ChatterScript file
         buffer_save(_buffer_batch.__GetBuffer(), _absolute_path);
         _buffer_batch.__Destroy();
         

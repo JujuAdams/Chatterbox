@@ -1,3 +1,3 @@
-ChatterboxLoadFromFile("testcase_bom.yarn");
+ChatterboxLoadFromFile("testcase_bom.chatter");
 box = ChatterboxCreate();
 ChatterboxJump(box, "Start");

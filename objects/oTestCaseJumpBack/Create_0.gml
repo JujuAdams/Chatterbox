@@ -1,4 +1,4 @@
-ChatterboxLoadFromFile("testcase_jumpback.yarn");
+ChatterboxLoadFromFile("testcase_jumpback.chatter");
 
-box = ChatterboxCreate("testcase_jumpback.yarn");
+box = ChatterboxCreate("testcase_jumpback.chatter");
 ChatterboxJump(box, "Start");

@@ -1,4 +1,4 @@
-ChatterboxLoadFromFile("testcase_parsers.yarn");
+ChatterboxLoadFromFile("testcase_parsers.chatter");
 box = ChatterboxCreate();
 ChatterboxJump(box, "Start");
 

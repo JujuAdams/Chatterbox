@@ -1,5 +1,7 @@
 // Feather disable all
-/// Selects an option, either defined by a Yarn option ( -> ) or a Yarn option ( [[text|node]] )
+
+/// Selects an option, either defined by a ChatterScript option ( -> ) or a ChatterScript
+/// option ( [[text|node]] )
 ///
 /// @param chatterbox
 /// @param optionIndex

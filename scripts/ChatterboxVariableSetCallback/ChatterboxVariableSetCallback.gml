@@ -3,7 +3,7 @@
 /// Sets a callback function that is executed whenever a Chatterbox variable is set. The callback
 /// will be executed in the following situations:
 /// 
-/// - Setting a variable in YarnScript
+/// - Setting a variable in ChatterScript
 /// - Calling ChatterboxVariableSet()
 /// - Calling ChatterboxVariableReset()
 /// 
