@@ -137,12 +137,6 @@
 
 #region Advanced
 
-// Whether to declare variables when Chatterbox script is compiled. Set to <false> for the highly
-// inconvenient legacy (2.1 and earlier) behaviour.
-#macro CHATTERBOX_DECLARE_ON_COMPILE  true
-
-#macro CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE  false  //Set to <true> if you're coming from pre-2.7.1
-
 #macro CHATTERBOX_INDENT_TAB_SIZE     4    //Space size of a tab character
 #macro CHATTERBOX_FILENAME_SEPARATOR  ":"  //The character used to separate filenames from node titles in redirects and options
 

@@ -87,46 +87,23 @@ function __ChatterboxSystem()
         //Big ol' list of operators. Operators at the top at processed first
         //Not included here are negative signs, negation (! / NOT), and parentheses - these are handled separately
         __opList = ds_list_create();
-        if (CHATTERBOX_LEGACY_WEIRD_OPERATOR_PRECEDENCE)
-        {
-            ds_list_add(__opList, "+" );
-            ds_list_add(__opList, "-" );
-            ds_list_add(__opList, "*" );
-            ds_list_add(__opList, "/" );
-            ds_list_add(__opList, "==");
-            ds_list_add(__opList, "!=");
-            ds_list_add(__opList, ">" );
-            ds_list_add(__opList, "<" );
-            ds_list_add(__opList, ">=");
-            ds_list_add(__opList, "<=");
-            ds_list_add(__opList, "||");
-            ds_list_add(__opList, "&&");
-            ds_list_add(__opList, "+=");
-            ds_list_add(__opList, "-=");
-            ds_list_add(__opList, "*=");
-            ds_list_add(__opList, "/=");
-            ds_list_add(__opList, "=" );
-        }
-        else
-        {
-            ds_list_add(__opList, "*" );
-            ds_list_add(__opList, "/" );
-            ds_list_add(__opList, "-" );
-            ds_list_add(__opList, "+" );
-            ds_list_add(__opList, ">" );
-            ds_list_add(__opList, "<" );
-            ds_list_add(__opList, ">=");
-            ds_list_add(__opList, "<=");
-            ds_list_add(__opList, "==");
-            ds_list_add(__opList, "!=");
-            ds_list_add(__opList, "&&");
-            ds_list_add(__opList, "||");
-            ds_list_add(__opList, "+=");
-            ds_list_add(__opList, "-=");
-            ds_list_add(__opList, "*=");
-            ds_list_add(__opList, "/=");
-            ds_list_add(__opList, "=" );
-        }
+        ds_list_add(__opList, "*" );
+        ds_list_add(__opList, "/" );
+        ds_list_add(__opList, "-" );
+        ds_list_add(__opList, "+" );
+        ds_list_add(__opList, ">" );
+        ds_list_add(__opList, "<" );
+        ds_list_add(__opList, ">=");
+        ds_list_add(__opList, "<=");
+        ds_list_add(__opList, "==");
+        ds_list_add(__opList, "!=");
+        ds_list_add(__opList, "&&");
+        ds_list_add(__opList, "||");
+        ds_list_add(__opList, "+=");
+        ds_list_add(__opList, "-=");
+        ds_list_add(__opList, "*=");
+        ds_list_add(__opList, "/=");
+        ds_list_add(__opList, "=" );
     }
     
     return _system;
