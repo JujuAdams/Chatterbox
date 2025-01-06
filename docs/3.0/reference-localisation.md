@@ -12,14 +12,14 @@ If your ChatterScript file has been edited and is now out of sync with your CSV 
 
 ## `...LocalizationBuild()`
 
-_Full function name:_ `ChatterboxLocalizationBuild(yarnPathArray, csvPathArray)`
+_Full function name:_ `ChatterboxLocalizationBuild(chatterPathArray, csvPathArray)`
 
 _Returns:_ N/A (`undefined`)
 
-|Name           |Datatype        |Purpose                                                                             |
-|---------------|----------------|------------------------------------------------------------------------------------|
-|`yarnPathArray`|array of strings|Array of paths to ChatterScript files to build localisation for                     |
-|`csvPathArray` |array of strings|Array of paths to save the resulting localisation CSV to e.g. for multiple languages|
+|Name              |Datatype        |Purpose                                                                             |
+|------------------|----------------|------------------------------------------------------------------------------------|
+|`chatterPathArray`|array of strings|Array of paths to ChatterScript files to build localisation for                     |
+|`csvPathArray`    |array of strings|Array of paths to save the resulting localisation CSV to e.g. for multiple languages|
 
 Adds `#line` metadata to any unmarked lines in the ChatterScript files specified, and exports a CSV containing all text in the ChatterScript files (including previously marked lines). If the CSV file already exists it will be modified in place, noting any changed lines.
 

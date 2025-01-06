@@ -102,7 +102,7 @@ Before you can create a chatterbox you'll need to load in a ChatterScript file. 
 
 ```gml
 /// Create event for an object
-ChatterboxLoadFromFile("example.yarn");
+ChatterboxLoadFromFile("example.chatter");
 ```
 
 Once a source file has been loaded it can be accessed from anywhere by a chatterbox. You will encounter errors if a source file has not been loaded and you try to use it so be careful how you structure your ChatterScript.
@@ -117,7 +117,7 @@ Now that a ChatterScript source file has been loaded, we can spin up a chatterbo
 
 ```gml
 /// Create event for an object
-ChatterboxLoadFromFile("example.yarn");
+ChatterboxLoadFromFile("example.chatter");
 chatterbox = ChatterboxCreate();
 ChatterboxJump(chatterbox, "StartNode");
 ```
@@ -231,7 +231,7 @@ ChatterScript is considerably more complex than showing content and options and 
 
 Firstly, the `<<jump>>` action allows you to move between nodes in a ChatterScript source file. The syntax for this action is `<<jump NameOfNode>>`. You can also jump to a node whose name is stored in a variable (and we saw an example of this earlier) by simply inserting the variable into the action, like so: `<<jump $nodeVariable>>` where `$nodeVariable` is the variable that holds the name of the node to jump to.
 
-There's more, however! `<<jump>>` can also allow you to jump to a node in a _different_ source file entirely. You must have previously loaded the source file into memory using `ChatterboxLoadFromFile()`, and you can jump to a node into another file using this syntax: `<<jump filename.yarn:NameOfNode>>`. If you want to jump to node outside the current source file then you **must** specify the filename.
+There's more, however! `<<jump>>` can also allow you to jump to a node in a _different_ source file entirely. You must have previously loaded the source file into memory using `ChatterboxLoadFromFile()`, and you can jump to a node into another file using this syntax: `<<jump filename.chatter:NameOfNode>>`. If you want to jump to node outside the current source file then you **must** specify the filename.
 
 ?> Remember, node names must be unique _within_ a ChatterScript file. Node names are allowed to collide _between_ source files. This is useful for templating character interactions.
 

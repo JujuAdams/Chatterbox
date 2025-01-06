@@ -35,7 +35,7 @@ Chatterbox has the following in-built actions:
 
 *Example:* `<<jump TheNodeOnTheHill>>`
 
-*Example*: `<<jump Christina.yarn:GenericGreeting>>`
+*Example*: `<<jump Christina.chatter:GenericGreeting>>`
 
 *Example*: `<<jump $nodeTitleStoredInAVariable>>`
 
@@ -47,7 +47,7 @@ The `<<jump>>` action causes a chatterbox to immediately swap execution to anoth
 
 *Example:* `<<hop WistfulMemories>>` and later `<<hopback>>`
 
-*Example:* `<<hop TangentialConversations.yarn:NatureOfBeing>>` and later `<<hopback>>`
+*Example:* `<<hop TangentialConversations.chatter:NatureOfBeing>>` and later `<<hopback>>`
 
 *Example*: `<<hop $nodeTitleStoredInAVariable>>` and later `<<hopback>>`
 
@@ -203,7 +203,7 @@ There are three ways that custom actions can be used in Chatterbox; to swap betw
 - `1` Treat actions as expressions
 - `2` Treat actions as they were in version 1 (Python-esque function calls)
 
-Mode `0` is the official recommendation from the Yarn team. This mode instructs a chatter to actions as a strings into the game engine for manual interpretation. Chatterbox's implementation is that the function defined by `CHATTERBOX_ACTION_FUNCTION` is called when Chatterbox encounters an action, the first argument (`argument0`) for the function call being the text inside the action as a string. The intention is that you'd then parse that text and execute behaviour accordingly but... this sucks, it's a ton of work to actually do this, let's move on.
+Mode `0` is provided for compatibility with YarnScript. This mode instructs a chatter to actions as a strings into the game engine for manual interpretation. Chatterbox's implementation is that the function defined by `CHATTERBOX_ACTION_FUNCTION` is called when Chatterbox encounters an action, the first argument (`argument0`) for the function call being the text inside the action as a string. The intention is that you'd then parse that text and execute behaviour accordingly but... this sucks, it's a ton of work to actually do this, let's move on.
 
 Mode `1` is the default Chatterbox behaviour:
 1. Every custom action is expected to use GML-like syntax: functions are executed using their name followed by a comma-separated list of arguments e.g. `<<CustomFunction("string", "string with spaces", 3.14, true)>>`

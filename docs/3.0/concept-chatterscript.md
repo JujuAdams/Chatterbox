@@ -8,22 +8,20 @@ Chatterbox uses a custom scripting language called **ChatterScript**. This is lo
 
 ## Nodes
 
-Nodes act as containers for ChatterScript, and must have unique titles within each [source file](concept-source-files). The script in the body of a node is processed line by line. A node's header contains its metadata - by default, Yarn only uses the title field, but can be extended to use arbitrary fields.
+Nodes act as containers for ChatterScript, and must have unique titles within each [source file](concept-source-files). The script in the body of a node is processed line by line. A node's header contains its metadata - by default, ChatterScript only uses the title field, but can be extended to use arbitrary fields.
 
 ```chatterscript
 title: ExampleNodeName
 tags: foo, bar
 ---
 
-Yarn content goes here.
+ChatterScript content goes here.
 This is the second line.
 
 ===
 ```
 
-A script file can contain multiple nodes. In this case, nodes are delineated using three equals (`===`) characters.
-Additionally, Yarn can check if a node has been visited by calling `visited("NodeName")` in an if-statement
-(i.e. `<<if visited("NodeName") == true>>`).
+A script file can contain multiple nodes. In this case, nodes are delineated using three equals (`===`) characters. Additionally, ChatterScript can check if a node has been visited by calling `visited("NodeName")` in an if-statement (i.e. `<<if visited("NodeName") == true>>`).
 
 ## Options
 
@@ -142,8 +140,6 @@ Chatterbox adds the ability to target nodes in other files too:
 
 The name of the file (with that file's extension!) comes first, followed by a colon (`:`), followed by the name of the node.
 
-?> **Please note:** Referencing nodes in other [source files](concept-source-files) is not officially supported by Yarn and this feature is an addition unique to Chatterbox.
-
 You can also opt to "hop" out of a node to some other destination node. A hop is a reversible jump; you can hop back from your destination node back to your origin node at exactly the place you hopped out. You can call `<<hopback>>` to return to the node you came from. You can hop back and forth as much as you want. If you call `<<hopback>>` without any node to hop to then Chatterbox will instead interpret that command as a `<<stop>>`.
 
 <!-- tabs:start -->
@@ -254,7 +250,7 @@ This statement serves to set a variable's value. No declarative statement is req
 <<set $ExampleVariable to 1>>
 ```
 
-All variables must start with a dollar sign. Internal Yarn variables are, in reality, key:value pairs stored in a global ds_map. Chatterbox has [a handful of functions](reference-variables) dedicated to handling variables, including importing and exporting them.
+All variables must start with a dollar sign. Internal ChatterScript variables are, in reality, key:value pairs stored in a global ds_map. Chatterbox has [a handful of functions](reference-variables) dedicated to handling variables, including importing and exporting them.
 
 If needed, you can access this ds_map via the `CHATTERBOX_VARIABLES_MAP` macro, found in [`__ChatterboxConfig()`](reference-configuration#__chatterboxconfig).
 
@@ -273,7 +269,7 @@ Clive: ... no.
 
 ### if/else Statements: <!-- {docsify-ignore} -->
 
-Yarn supports standard if/else/elseif statements.
+ChatterScript supports standard if/else/elseif statements.
 
 ```chatterscript
 <<if "hi" == "hi">>
@@ -290,9 +286,9 @@ Yarn supports standard if/else/elseif statements.
 
 ### Expressions: <!-- {docsify-ignore} -->
 
-There are four different types of variable in Yarn: strings, floating-point numbers, booleans, and null.
+There are four different types of variable in ChatterScript: strings, floating-point numbers, booleans, and null.
 
-Yarn will automatically convert between types. For example:
+ChatterScript will automatically convert between types. For example:
 
 ```chatterscript
 <<if "hi" == "hi">>
