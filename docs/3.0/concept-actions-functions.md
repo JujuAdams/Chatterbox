@@ -1,6 +1,6 @@
 # Actions and Functions
 
-YarnScript allows for flow control and the execution of external code by using its "action" syntax. Actions in YarnScript are commands written in between `<<` and `>>` like so:
+ChatterScript allows for flow control and the execution of external code by using its "action" syntax. Actions in ChatterScript are commands written in between `<<` and `>>` like so:
 
 ```yaml
 title: FlowerSeedShelf
@@ -39,7 +39,7 @@ Chatterbox has the following in-built actions:
 
 *Example*: `<<jump $nodeTitleStoredInAVariable>>`
 
-The `<<jump>>` action causes a chatterbox to immediately swap execution to another node in a YarnScript file. Execution will start from the top of the new node. If you `<<jump>>` back to the old node then you will start execution from the top of the node. You can specify a particular YarnScript file to jump to by specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node. `<<jump>>` can be used to jump to a node stored in a variable by referencing the variable as the destination node title.
+The `<<jump>>` action causes a chatterbox to immediately swap execution to another node in a ChatterScript file. Execution will start from the top of the new node. If you `<<jump>>` back to the old node then you will start execution from the top of the node. You can specify a particular ChatterScript file to jump to by specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node. `<<jump>>` can be used to jump to a node stored in a variable by referencing the variable as the destination node title.
 
 &nbsp;
 
@@ -114,7 +114,7 @@ Tells a chatterbox to stop processing entirely. The chatterbox can be restarted 
 
 ### `if`, `else` etc.
 
-Branching logic is also written in between `<<` and `>>` too, such as `<<if visited("Home") == 4>>`. These are used to selectively execute parts of your YarnScript but aren't considered "actions" per se.
+Branching logic is also written in between `<<` and `>>` too, such as `<<if visited("Home") == 4>>`. These are used to selectively execute parts of your ChatterScript but aren't considered "actions" per se.
 
 &nbsp;
 
@@ -165,9 +165,9 @@ ChatterboxLoad("example.json");
 ChatterboxAddFunction("AmIDead", am_i_dead);
 ```
 
-#### **YarnScript**
+#### **ChatterScript**
 
-```yarn
+```chatterscript
 Am I dead?
 <<if AmIDead("player")>>
     Yup. Definitely dead.
@@ -184,11 +184,11 @@ This example shows how the script `am_i_dead()` is called by Chatterbox in an if
 
 ## Custom Actions
 
-A function that has been added to Chatterbox can further be executed as an action. This means you can execute any old code you like using Chatterbox; if you were so inclined you code write an entire game's logic from within YarnScript.
+A function that has been added to Chatterbox can further be executed as an action. This means you can execute any old code you like using Chatterbox; if you were so inclined you code write an entire game's logic from within ChatterScript.
 
 You can also define custom actions which are used in a similar way to in-built actions:
 
-```yarn
+```chatterscript
 What a beautiful evening, Amelia.
 -> It'd be a shame if the Moon hid behind the clouds.
     <<HideTheMoon>>
@@ -199,7 +199,7 @@ What a beautiful evening, Amelia.
 In this example, both `<<HideTheMoon>>` and `<<FlickerStars>>` are custom actions. 
 
 There are three ways that custom actions can be used in Chatterbox; to swap between the different implementations set [`CHATTERBOX_ACTION_MODE`](reference-configuration?id=chatterbox_action_mode) to one of the following (the default is option `1`):
-- `0` Pass YarnScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
+- `0` Pass ChatterScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
 - `1` Treat actions as expressions
 - `2` Treat actions as they were in version 1 (Python-esque function calls)
 
@@ -245,9 +245,9 @@ ChatterboxAddFunction("example", function(_argumentArray)
 });
 ```
 
-#### **YarnScript**
+#### **ChatterScript**
 
-```yarn
+```chatterscript
 Hello there, would you like to wait 5 seconds?
 -> Nah...
 -> Please.

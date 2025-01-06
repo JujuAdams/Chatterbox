@@ -6,7 +6,7 @@ Games with a narrative focus typically have lines of dialogue delivered by speci
 
 Chatterbox has support for metadata out of the box:
 
-```chatterbox
+```chatterscript
 Welcome to the frog shop! #FrogShopkeeper
 How may I *hop* to your assistance today?
 Oh... I... thought this was the dog shop. #Customer
@@ -30,7 +30,7 @@ Metadata is useful tons of other things, not least identifying individual string
 
 However, this metadata notion is unfamiliar for writers and can be hard to read. Instead, Chatterbox offers a separate system to metadata that allows for a more convenient syntax to describe who's speaking. It looks like this:
 
-```chatterbox
+```chatterscript
 FrogShopkeeper: Welcome to the frog shop!
 How may I *hop* to your assistance today?
 Customer: Oh... I... thought this was the dog shop.

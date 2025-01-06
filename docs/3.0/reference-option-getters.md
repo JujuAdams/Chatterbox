@@ -104,7 +104,7 @@ _Returns:_ String
 |`optionIndex`|integer                           |Option to return the speaker data for                                                        |
 |`[default]`  |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
 
-This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeech()` to work properly, line of text in your Yarn file should be formatted like so:
+This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeech()` to work properly, line of text in your ChatterScript file should be formatted like so:
 
 ```
 -> Speaker Name: The words that the speaker is saying.
@@ -126,7 +126,7 @@ _Returns:_ String
 |`optionIndex`|integer                           |Option to return the speaker data for                                                        |
 |`[default]`  |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
 
-This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeaker()` to work properly, line of text in your Yarn file should be formatted like so:
+This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeaker()` to work properly, line of text in your ChatterScript file should be formatted like so:
 
 ```
 Speaker Name: The words that the speaker is saying.
@@ -154,7 +154,7 @@ _Returns:_ String
 |`optionIndex`|integer                           |Option to return the speaker data for                                                        |
 |`[default]`  |any                               |Default value to return if no valid speech is found. If not specified this is an empty string|
 
-This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeakerData()` to work properly, line of text in your Yarn file should be formatted like so:
+This is an optional function that adds additional helpful parsing capabilities to Chatterbox. For `ChatterboxGetOptionSpeakerData()` to work properly, line of text in your ChatterScript file should be formatted like so:
 
 ```
 -> Speaker Name[additional speaker data]: The words that the speaker is saying.

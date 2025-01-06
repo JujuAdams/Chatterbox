@@ -30,7 +30,7 @@ _Returns:_ N/A (`undefined`)
 |`aliasName`|string  |Name to use to reference the string (the "filename" to use for the string)|
 |`string`   |string  |String to parse as a [source file](concept-source-files)                  |
 
-Loads a string as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The string should be formatted as a `.yarn` file. See the [Source Files](concept-source-files) pages for more information.
+Loads a string as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The string should be formatted as a ChatterScript file. See the [Source Files](concept-source-files) pages for more information.
 
 If you use this function to reload a file (i.e. load a buffer using the same filename as an existing [source file](concept-source-files)) then all in-progress [chatterboxes](concept-chatterboxes) that were using the previous [source file](concept-source-files) will be invalidated and will need to be restarted.
 
@@ -47,7 +47,7 @@ _Returns:_ N/A (`undefined`)
 |`aliasName`|string                                                                                  |Name to use to reference the buffer (the "filename" to use for the buffer)|
 |`buffer`   |[buffer](https://manual.yoyogames.com/Additional_Information/Guide_To_Using_Buffers.htm)|Buffer to use as a [source file](concept-source-files)                    |
 
-Loads a buffer as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The buffer should contain a single string that is formatted as a `.yarn` file. See the [Source Files](concept-source-files) pages for more information.
+Loads a buffer as a source file, emulating the [`ChatterboxLoadFromFile()`](reference-configuration#chatterboxloadfromfilefilename-aliasname). The buffer should contain a single string that is formatted as a ChatterScript file. See the [Source Files](concept-source-files) pages for more information.
 
 If you use this function to reload a file (i.e. load a buffer using the same filename as an existing [source file](concept-source-files)) then all in-progress [chatterboxes](concept-chatterboxes) that were using the previous [source file](concept-source-files) will be invalidated and will need to be restarted.
 
@@ -85,12 +85,12 @@ _Full function name:_ `ChatterboxAddFunction(name, function)`
 
 _Returns:_ Boolean, whether the function was added successfully
 
-|Name      |Datatype       |Purpose                           |
-|----------|---------------|----------------------------------|
-|`name`    |string         |Function name to use in YarnScript|
-|`function`|function/method|GML function to call              |
+|Name      |Datatype       |Purpose                              |
+|----------|---------------|-------------------------------------|
+|`name`    |string         |Function name to use in ChatterScript|
+|`function`|function/method|GML function to call                 |
 
-Adds a custom function that can be called by Yarn expressions.
+Adds a custom function that can be called by ChatterScript expressions.
 
 Custom functions can return values, but they should be **numbers** or **strings**.
 
@@ -101,9 +101,9 @@ ChatterboxLoad("example.json");
 ChatterboxAddFunction("AmIDead", am_i_dead);
 ```
 
-Yarn:
+ChatterScript:
 
-```yarn
+```chatterscript
 Am I dead?
 <<if AmIDead("player")>>
 Yup. Definitely dead.
@@ -114,7 +114,7 @@ No, not yet!
 
 This example shows how the script `am_i_dead()` is called by Chatterbox in an if statement. The value returned from `am_i_dead()` determines which text is displayed.
 
-Parameters for custom functions executed by YarnScript should be separated by spaces. The parameters are passed into the given function as an array of values as `argument0`.
+Parameters for custom functions executed by ChatterScript should be separated by spaces. The parameters are passed into the given function as an array of values as `argument0`.
 
 Custom functions can be added at any point but should be added before loading in any source files.
 

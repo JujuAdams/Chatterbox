@@ -110,13 +110,13 @@ _Typical value:_ `1`
 
 `CHATTERBOX_ACTION_MODE` should be either 0, 1, or 2:
 
-- `0` Pass YarnScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
+- `0` Pass ChatterScript actions as a raw string to a function, defined by `CHATTERBOX_ACTION_FUNCTION`
 - `1` Treat actions as expressions
 - `2` Treat actions as they were in version 1 (Python-esque function calls)
 
 ### `CHATTERBOX_ACTION_MODE` = 0
 
-This is the officially recommended behaviour. The full contents of the direction (everything between `<<` and `>>`) are passed as a string to a function for parsing and execution by the developer (you). I think this behaviour is stupid but I've included it here because technically that is what the YarnScript specification says. You can set the function that receives the direction string by setting `CHATTERBOX_ACTION_FUNCTION`. Exactly what syntax you use for actions is therefore completely up to you.
+This is the officially recommended behaviour. The full contents of the direction (everything between `<<` and `>>`) are passed as a string to a function for parsing and execution by the developer (you). I think this behaviour is stupid but I've included it here because technically that is what the ChatterScript specification says. You can set the function that receives the direction string by setting `CHATTERBOX_ACTION_FUNCTION`. Exactly what syntax you use for actions is therefore completely up to you.
 
 ### `CHATTERBOX_ACTION_MODE` = 1
 
@@ -204,7 +204,7 @@ Whether expression strings are [escaped](https://en.wikipedia.org/wiki/Escape_ch
 
 _Typical value:_ `""` (empty string)
 
-Directory inside Included Files that holds all external `.yarn` files. Use an empty string for the root of Included Files.
+Directory inside Included Files that holds all external ChatterScript files. Use an empty string for the root of Included Files.
 
 &nbsp;
 
@@ -226,7 +226,7 @@ _Typical value:_ `false`
 
 _Typical value:_ `4`
 
-Size of tabs for YarnScript input.
+Size of tabs for ChatterScript input.
 
 &nbsp;
 

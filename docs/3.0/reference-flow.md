@@ -1,6 +1,6 @@
 # Flow Control
 
-Functions on this page relate to controlling the flow of a chatterbox as it progresses through YarnScript. All functions on this page are prefixed with `Chatterbox`.
+Functions on this page relate to controlling the flow of a chatterbox as it progresses through a ChatterScript file. All functions on this page are prefixed with `Chatterbox`.
 
 &nbsp;
 
@@ -31,7 +31,7 @@ _Returns:_ N/A (`undefined`)
 |`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                         |
 |`optionIndex`|integer                           |Option to select, as detailed by [`chatterbox_get_option()`](reference-getters#chatterboxgetoptionchatterbox-optionindex)|
 
-This function selects an option as defined by a Yarn shortcut (`->`).
+This function selects an option as defined by a ChatterScript shortcut (`->`).
 
 &nbsp;
 
@@ -46,7 +46,7 @@ _Returns:_ N/A (`undefined`)
 |`chatterbox`|[chatterbox](concept-chatterboxes)|[Chatterbox](concept-chatterboxes) to target. Use the special value `"all"` to continue all existing chatterboxes|
 |`[name]`    |string                            |Name for the continue command. If not specified, the name defaults to `""`                                       |
 
-Advances dialogue in a chatterbox that's "waiting", either due to a Yarn `<<wait>>` command, calling `ChatterboxWait()` or singleton behaviour.
+Advances dialogue in a chatterbox that's "waiting", either due to a ChatterScript `<<wait>>` command, calling `ChatterboxWait()` or singleton behaviour.
 
 The name is used to link continue commands to similarly named wait commands (either `<<wait name>>` or `ChatterboxWait(chatterbox, "name")`). This is helpful for cutscene systems where you might want to wait until a particular type of action has been completed but you don't want to write complex logic to link chatterbox state to cutscene state.
 
@@ -125,7 +125,7 @@ The name is used to link continue commands to similarly named wait commands (eit
 
 _Full function name:_ `ChatterboxIsWaiting(chatterbox)`
 
-_Returns:_ Boolean, whether the given [chatterbox](concept-chatterboxes) is in a "waiting" state, either due to a Yarn `<<wait>>` command or singleton behaviour
+_Returns:_ Boolean, whether the given [chatterbox](concept-chatterboxes) is in a "waiting" state, either due to a ChatterScript `<<wait>>` command or singleton behaviour
 
 |Name        |Datatype                          |Purpose                                         |
 |------------|----------------------------------|------------------------------------------------|

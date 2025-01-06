@@ -8,9 +8,9 @@ Chatterbox uses a custom scripting language called **ChatterScript**. This is lo
 
 ## Nodes
 
-Nodes act as containers for YarnScript, and must have unique titles within each [source file](concept-source-files). The script in the body of a node is processed line by line. A node's header contains its metadata - by default, Yarn only uses the title field, but can be extended to use arbitrary fields.
+Nodes act as containers for ChatterScript, and must have unique titles within each [source file](concept-source-files). The script in the body of a node is processed line by line. A node's header contains its metadata - by default, Yarn only uses the title field, but can be extended to use arbitrary fields.
 
-```yarn
+```chatterscript
 title: ExampleNodeName
 tags: foo, bar
 ---
@@ -27,9 +27,9 @@ Additionally, Yarn can check if a node has been visited by calling `visited("Nod
 
 ## Options
 
-Options allow for small branches in YarnScripts without requiring extra nodes. Options can have any number of sub-branches, but it's recommended that branching is kept somewhat limited for the sake of script readability.
+Options allow for small branches in ChatterScript without requiring extra nodes. Options can have any number of sub-branches, but it's recommended that branching is kept somewhat limited for the sake of script readability.
 
-```yarn
+```chatterscript
 Mae: What did you say to her?
 -> Nothing.
     Mae: Oh, man. Maybe you should have.
@@ -46,7 +46,7 @@ Mae: Anyway, I'd better get going.
 Additionally, shortcut options can utilize conditional logic, actions, and functions (detailed below), and can include standard node
 links:
 
-```yarn
+```chatterscript
 Bob: What would you like?
 -> A burger. <<if $money > 5>>
     Bob: Nice. Enjoy!
@@ -63,7 +63,7 @@ Bob: Thanks for coming!
 
 The option syntax above can be extended to allow for random outcomes by using the `<<random option>>` action.
 
-```yarn
+```chatterscript
 The hedge rustle besides you.
 -> Investigate
 You peer into the hedge and ...
@@ -78,7 +78,7 @@ You peer into the hedge and ...
 
 Options that follow a `<<random option>>` action are never presented to the player (and don't need any option text) and instead are chosen at random by Chatterbox. Options can be weighted by percentage by using metadata. Any option that doesn't have a percentage weight will "split the difference" between the accumulated percentage and 100%.
 
-```yarn
+```chatterscript
 Letting forth a discrete drunken burp, you put all your chips on lucky red number 1 and let the roulette wheel spin. You cross your fingers in your pocket, hoping no one will notice your anxiety.
 <<random option>>
 -> #45%
@@ -97,7 +97,7 @@ Letting forth a discrete drunken burp, you put all your chips on lucky red numbe
 
 Randomly chosen options also respect if-statements. Any option that is set to be randomly chosen and fails the if-statement check cannot be selected.
 
-```yarn
+```chatterscript
 <<random option>>
 -> <<if inventory_has("carrot")>>
     Out hops a rabbit!
@@ -115,14 +115,14 @@ In the above example, if the player has obtained all three items then they have 
 
 Moving between nodes can be done using a `<<jump>>` action (other action are available, see below):
 
-```yarn
+```chatterscript
 After this text is shown, we'll move to another node.
 <<jump DestinationNode>>
 ```
 
 Jump actions can be placed after options which allows for branching dialogue organised across multiple nodes.
 
-```yarn
+```chatterscript
 -> This is a link to a node.
 <<jump DestinationNode>>
 -> This is a link to a different node.
@@ -135,7 +135,7 @@ Occasionally you might want to jump back to the top of the previously visited no
 
 Chatterbox adds the ability to target nodes in other files too:
 
-```yarn
+```chatterscript
 -> A link to a node in another file.
    <<jump TheOtherFile.json:DestinationNode>>
 ```
@@ -150,7 +150,7 @@ You can also opt to "hop" out of a node to some other destination node. A hop is
 
 #### Origin
 
-```yarn
+```chatterscript
 I wonder what I should have for breakfast.
 -> We have something tasty in the fridge I think?
     <<hop BreakfastNode>>
@@ -160,7 +160,7 @@ Time to start my day.
 
 #### Destination
 
-```yarn
+```chatterscript
 -> Pineapple juice
     Refreshing!
 -> Ham and cheese
@@ -180,7 +180,7 @@ Hopping to a node counts as visiting a node for the purposes of the `visited()` 
 
 Chatterbox has the following native actions:
 
-```yarn
+```chatterscript
 <<if "expression">>
 <<else>>
 <<elseif "expression">>
@@ -206,9 +206,9 @@ ChatterboxLoad("example.json");
 ChatterboxAddFunction("playMusic", play_background_music);
 ```
 
-#### **YarnScript**
+#### **ChatterScript**
 
-```yarn
+```chatterscript
 Here's some text!
 <<playMusic>>
 The music will have started now.
@@ -231,9 +231,9 @@ ChatterboxLoad("example.json");
 ChatterboxAddFunction("gotoRoom", go_to_room);
 ```
 
-#### **YarnScript**
+#### **ChatterScript**
 
-```yarn
+```chatterscript
 Let's go see what the priest is up to.
 <<gotoRoom "rChapel" $entrance>>
 <<stop>>
@@ -250,7 +250,7 @@ hold whatever value is in the `$entrance` variable.
 Declaring and Setting Variables:
 This statement serves to set a variable's value. No declarative statement is required; setting a variable's value brings it into existence.
 
-```yarn
+```chatterscript
 <<set $ExampleVariable to 1>>
 ```
 
@@ -260,9 +260,9 @@ If needed, you can access this ds_map via the `CHATTERBOX_VARIABLES_MAP` macro, 
 
 ### String Interpolation
 
-You may be familiar with string interpolation in native GML where the syntax `$"Some text, {aVariableToInsert}, some more text"` can be used to insert a value from a variable into a string. YarnScript has a similar feature and its syntax is very close. Variables can be inserted into string by wrapping a variable name in curly brackets. Variables can contain any type of data, strings or numbers. In fact, any YarnScript expression can be put inside curly brackets to insert the value returned by the expression into a string.
+You may be familiar with string interpolation in native GML where the syntax `$"Some text, {aVariableToInsert}, some more text"` can be used to insert a value from a variable into a string. ChatterScript has a similar feature and its syntax is very close. Variables can be inserted into string by wrapping a variable name in curly brackets. Variables can contain any type of data, strings or numbers. In fact, any ChatterScript expression can be put inside curly brackets to insert the value returned by the expression into a string.
 
-```yarn
+```chatterscript
 Clive: How many bottles of beer are there on the wall?
 Claire: {$bottlesOfBeer} bottles of beer.
 Clive: {$bottlesOfBeer}?
@@ -275,7 +275,7 @@ Clive: ... no.
 
 Yarn supports standard if/else/elseif statements.
 
-```yarn
+```chatterscript
 <<if "hi" == "hi">>
     The two strings are the same!
 <<endif>>
@@ -294,7 +294,7 @@ There are four different types of variable in Yarn: strings, floating-point numb
 
 Yarn will automatically convert between types. For example:
 
-```yarn
+```chatterscript
 <<if "hi" == "hi">>
     The two strings are the same!
 <<endif>>
@@ -308,7 +308,7 @@ Yarn will automatically convert between types. For example:
 
 By default, Chatterbox includes a `visited()` function which returns the number of times a node has been entered.
 
-```yarn
+```chatterscript
 <<if visited("GoToCity")>>
     We have gone to the city before!
 <<endif>>
@@ -316,7 +316,7 @@ By default, Chatterbox includes a `visited()` function which returns the number 
 
 Chatterbox also includes the `optionChosen()` function. This works similarly to `visited()` but can only be used in the condition for an option, like so:
 
-```yarn
+```chatterscript
 How can I help?
 -> Can I buy some green eggs please? <<if !optionChosen()>>
     No... This is a stationery shop.
@@ -337,9 +337,9 @@ ChatterboxLoad("example.json");
 ChatterboxAddFunction("AmIDead", am_i_dead);
 ```
 
-#### **YarnScript**
+#### **ChatterScript**
 
-```yarn
+```chatterscript
 Am I dead?
 <<if AmIDead("player")>>
     Yup. Definitely dead.
@@ -392,6 +392,6 @@ Chatterbox allows you to, at will, fast-forward past content strings. This is ha
 
 3. A `<<forcewait>>` action
 
-Fast-forwarding is typically triggered by calling `ChatterboxFastForward()` but you may also find it useful to trigger a fast-forward from YarnScript. You can do this using `<<fastforward>>` in YarnScript as you would other actions.
+Fast-forwarding is typically triggered by calling `ChatterboxFastForward()` but you may also find it useful to trigger a fast-forward from ChatterScript. You can do this using `<<fastforward>>` in ChatterScript as you would other actions.
 
-You can also turn fast-forwarding off from inside YarnScript as well; this is done with the `<<fastmark>>` action. Content **after** `<<fastmark>>` will still appear but any content between triggering fast-forwarding and `<<fastmark>>` will not appear.
+You can also turn fast-forwarding off from inside ChatterScript as well; this is done with the `<<fastmark>>` action. Content **after** `<<fastmark>>` will still appear but any content between triggering fast-forwarding and `<<fastmark>>` will not appear.

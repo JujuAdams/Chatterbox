@@ -1,22 +1,22 @@
 # Getting Started
 
-The Chatterbox library is built around little digital machines, called chatterboxes, that interpret narrative instructions stored in external files using a language called YarnScript. A chatterbox processes YarnScript and spits out text (called **content**) and sometimes a list of **options**. You can control these chatterbox machines by calling ["flow control" functions](reference-flow) using GML from your game, and this is how you communicate player decisions to chatterboxes.
+The Chatterbox library is built around little digital machines, called chatterboxes, that interpret narrative instructions stored in external files using a language called ChatterScript. A chatterbox processes ChatterScript and spits out text (called **content**) and sometimes a list of **options**. You can control these chatterbox machines by calling ["flow control" functions](reference-flow) using GML from your game, and this is how you communicate player decisions to chatterboxes.
 
 Chatterbox itself does little more than hand you lines of text that you can draw to the screen, but you are entirely responsible for determining how to draw that text. Equally, chatterboxes do no processing unless you specifically call a function to tell them to do something. Chatterbox execution is "synchronous" - when you tell a chatterbox to do something, it'll do it immediately. You can build functionality to make some behaviour asynchronous if you'd like but that is not a native feature.
 
-Chatterbox offers a lot of ways to [configure](reference-configuration) the way it works so that it can adapt to varied use cases, and has many functions available to otherwise interact with YarnScript data. This guide is intended to demonstrate basic usage for simple visual novel-style dialogue delivery which is generally applicable across most games.
+Chatterbox offers a lot of ways to [configure](reference-configuration) the way it works so that it can adapt to varied use cases, and has many functions available to otherwise interact with ChatterScript data. This guide is intended to demonstrate basic usage for simple visual novel-style dialogue delivery which is generally applicable across most games.
 
 &nbsp;
 
-## YarnScript
+## ChatterScript
 
-As mentioned, chatterboxes read instructions written in a language called YarnScript. You can find detailed information about Chatterbox's implementation of YarnScript [here](concept-chatterscript). YarnScript files are made out of nodes, and nodes contain lines of instructions. Every node in a YarnScript file has a unique name, and node names cannot contain spaces. You can also attach metadata to nodes should you wish, though we won't cover that in this particular guide. Beyond requiring a certain structure, YarnScript files themselves are "just text files" and you can edit them by hand if needed.
+As mentioned, chatterboxes read instructions written in a language called ChatterScript. You can find detailed information about ChatterScript [here](concept-chatterscript). ChatterScript files are made out of nodes, and nodes contain lines of instructions. Every node in a ChatterScript file has a unique name, and node names cannot contain spaces. You can also attach metadata to nodes should you wish, though we won't cover that in this particular guide. Beyond requiring a certain structure, ChatterScript files themselves are "just text files" and you can edit them by hand if needed.
 
-?> We recommend that you use the free visual edtior [Crochet](https://github.com/FaultyFunctions/Crochet) developed by [FaultyFunctions](https://twitter.com/faultyfunctions/). Crochet removes a lot of the organisational hurdles of writing YarnScript and gets you straight to writing dialogue.
+?> We recommend that you use the free visual edtior [Crochet](https://github.com/FaultyFunctions/Crochet) developed by [FaultyFunctions](https://twitter.com/faultyfunctions/). Crochet removes a lot of the organisational hurdles of writing ChatterScript and gets you straight to writing dialogue.
 
-YarnScript is a procedural language just like GML. Instructions start at the top of a node and are executed from top to bottom, one at a time. Let's presume we've got Chatterbox set up for operation in "singleton mode" where each line of dialogue is delivered one-by-one, like any number of visual novels or RPGs. If we write out the following YarnScript in a node like so:
+ChatterScript is a procedural language just like GML. Instructions start at the top of a node and are executed from top to bottom, one at a time. Let's presume we've got Chatterbox set up for operation in "singleton mode" where each line of dialogue is delivered one-by-one, like any number of visual novels or RPGs. If we write out the following ChatterScript in a node like so:
 
-```yarn
+```chatterscript
 This is the first line.
 A second line.
 And, finally, a third line.
@@ -26,9 +26,9 @@ And, finally, a third line.
 
 !> Once chatterbox reaches the end of a node it puts the chatterbox into a stopped state. If you want a node to flow into another node automatically you should use the `<<jump>>` action, explained a little later in this guide.
 
-YarnScript also supports **options**. Options come in blocks and you can have any number of options in a block which means you can have a single-choice option block if you'd like. Options work similarly to a line of dialogue but have a `->` little arrow at the start of the line.
+ChatterScript also supports **options**. Options come in blocks and you can have any number of options in a block which means you can have a single-choice option block if you'd like. Options work similarly to a line of dialogue but have a `->` little arrow at the start of the line.
 
-```yarn
+```chatterscript
 Where would you like to go today?
 -> To the shops.
 -> To outer space.
@@ -37,7 +37,7 @@ Very well! Let's go.
 
 You can choose to show dialogue after an option too. Dialogue that is indented and placed immediately following an option will only be shown if the player chooses that option and that option alone. In the following example, an appropriate response is scripted to appear after the player chooses an option. Note that the final line of dialogue will be shown regardless of which option the player chose.
 
-```yarn
+```chatterscript
 Where would you like to go today?
 -> To the shops.
     Yes, I'm hungry too.
@@ -48,7 +48,7 @@ Very well! Let's go.
 
 You can also nest options, again using indentation to indicate the structure of the branching dialogue.
 
-```yarn
+```chatterscript
 Where would you like to go today?
 -> To the shops.
     Yes, I'm hungry too.
@@ -60,9 +60,9 @@ Where would you like to go today?
 Very well! Let's go.
 ```
 
-One last thing before we talk about the GML-side implementation of Chatterbox - actions. Actions are neither **content** nor **options** and represent either flow control for the YarnScript, or a way to execute code that can affect the rest of your game. You'll always see actions written in `<<` angle brackets `>>`. For example:
+One last thing before we talk about the GML-side implementation of Chatterbox - actions. Actions are neither **content** nor **options** and represent either flow control for the ChatterScript, or a way to execute code that can affect the rest of your game. You'll always see actions written in `<<` angle brackets `>>`. For example:
 
-```yarn
+```chatterscript
 Where would you like to go today?
 -> To the shops.
     Yes, I'm hungry too.
@@ -84,11 +84,11 @@ This example demonstrates a couple of more advanced concepts - the `<<set>>` act
 
 ## GML Implementation
 
-Chatterbox requires a little setup inside GameMaker before you can start interacting with your YarnScript. There are a few steps to start things up, and we'll go through them in detail, but here's an overview:
+Chatterbox requires a little setup inside GameMaker before you can start interacting with your ChatterScript. There are a few steps to start things up, and we'll go through them in detail, but here's an overview:
 
 1. Import the Chatterbox .yymps into your project
-2. Call `ChatterboxLoadFromFile()` to load the YarnScript source file from Included Files
-3. Call `ChatterboxCreate()` to create a new chatterbox to manage YarnScript processing
+2. Call `ChatterboxLoadFromFile()` to load the ChatterScript source file from Included Files
+3. Call `ChatterboxCreate()` to create a new chatterbox to manage ChatterScript processing
 4. Call various [flow control](reference-flow) functions to navigate your dialogue
 5. Extract [content](reference-content-getters) and [option](reference-option-getters) strings from the chatterbox
 
@@ -96,24 +96,24 @@ Chatterbox requires a little setup inside GameMaker before you can start interac
 
 Chatterbox is distributed as a .yymps file. This is a compressed file (literally a .zip!) that contains all the GML code that Chatterbox needs to run. You can find the latest release [here](https://github.com/JujuAdams/Chatterbox/releases) and it can be imported via the `Tools` dropdown menu then `Import Local Pakage`. Generally, you'll want to be on the latest stable version. You can always check what version you're using by checking the debug log - Chatterbox outputs its version on boot - or by reading the value of the `__CHATTERBOX_VERSION` macro. Make sure to import all the assets in the .yymps!
 
-### 2. Loading your YarnScript source file
+### 2. Loading your ChatterScript source file
 
-Before you can create a chatterbox you'll need to load in a YarnScript file. Make sure you've added a source file to GameMaker as an "Included File" by saving it to the `\datafiles` directory in your project files. Loading that file is then as simple as calling `ChatterboxLoadFromFile()` targeting that specific filename: 
+Before you can create a chatterbox you'll need to load in a ChatterScript file. Make sure you've added a source file to GameMaker as an "Included File" by saving it to the `\datafiles` directory in your project files. Loading that file is then as simple as calling `ChatterboxLoadFromFile()` targeting that specific filename: 
 
 ```gml
 /// Create event for an object
 ChatterboxLoadFromFile("example.yarn");
 ```
 
-Once a source file has been loaded it can be accessed from anywhere by a chatterbox. You will encounter errors if a source file has not been loaded and you try to use it so be careful how you structure your YarnScript.
+Once a source file has been loaded it can be accessed from anywhere by a chatterbox. You will encounter errors if a source file has not been loaded and you try to use it so be careful how you structure your ChatterScript.
 
 ?> The first file that you load becomes the "default" source file for Chatterbox.
 
-!> Chatterbox parses and compiles YarnScript files when loaded for better performance later; as a result, you may find that there's a short hang when loading large YarnScript files. You should try to load YarnScript files during a loading screen to minimise disruption to the user experience.
+!> Chatterbox parses and compiles ChatterScript files when loaded for better performance later; as a result, you may find that there's a short hang when loading large ChatterScript files. You should try to load ChatterScript files during a loading screen to minimise disruption to the user experience.
 
 ### 3. Initializing a chatterbox
 
-Now that a YarnScript source file has been loaded, we can spin up a chatterbox and start navigating dialogue. Here's how:
+Now that a ChatterScript source file has been loaded, we can spin up a chatterbox and start navigating dialogue. Here's how:
 
 ```gml
 /// Create event for an object
@@ -126,17 +126,17 @@ It's very important to hold a reference to the chatterbox that gets created by `
 
 ### 4. Flow control
 
-Flow control functions are the way that you as a developer control how Chatterbox moves around inside a YarnScript file. You can see a full list of flow control functions [here](reference-flow).
+Flow control functions are the way that you as a developer control how Chatterbox moves around inside a ChatterScript file. You can see a full list of flow control functions [here](reference-flow).
 
-`ChatterboxJump()`, used above in the GML example, is one of these "flow control" functions, and is analogous to the `<<jump>>` action that's available for use in YarnScript itself. Whenever either the GML function or the YarnScript action are called, a chatterbox will jump to the specified node and start processing instruction from the top of that node.
+`ChatterboxJump()`, used above in the GML example, is one of these "flow control" functions, and is analogous to the `<<jump>>` action that's available for use in ChatterScript itself. Whenever either the GML function or the ChatterScript action are called, a chatterbox will jump to the specified node and start processing instruction from the top of that node.
 
 In singleton mode, the default processing mode for Chatterbox, each line of content is delivered one at a time. This means that after processing each line of dialogue (and if there are no options that come after that line of dialogue) a chatterbox will enter a "waiting" state. You can detect when a chatterbox is waiting by using the `ChatterboxIsWaiting()` function. In order to get a chatterbox to proceed onto the next line of dialogue, you must call the `ChatterboxContinue()` function.
 
-?> If you are not in singleton mode, you can force a chatterbox to wait at a particular line by using the `<<wait>>` action in YarnScript.
+?> If you are not in singleton mode, you can force a chatterbox to wait at a particular line by using the `<<wait>>` action in ChatterScript.
 
 As just mentioned, a chatterbox **won't** enter into a "waiting" state if there are any options that might need to be selected. If a chatterbox is waiting for an option to be selected, `ChatterboxContinue()` will do nothing. Instead, you should call `ChatterboxSelect()` to indicate which option the player has chosen. You can check how many options are being presented to the player with the `ChatterboxGetOptionCount()` function. This function will return `0` if no option are present, and any number greater than `0` indicates that the chatterbox is waiting for user input.
 
-Finally, you can completely stop processing in a chatterbox using `ChatterboxStop()`, which is also analogous to the `<<stop>>` command that can be used in YarnScript itself. A stopped chatterbox will return no content nor options. If a chatterbox reaches the end of a node and there are no more instructions to run, it'll enter into this "stopped" state. You can check if a chatterbox has stopped using the `ChatterboxIsStopped()` GML function. You can use `ChatterboxJump()` to restart a chatterbox if stopped, should you wish to.
+Finally, you can completely stop processing in a chatterbox using `ChatterboxStop()`, which is also analogous to the `<<stop>>` command that can be used in ChatterScript itself. A stopped chatterbox will return no content nor options. If a chatterbox reaches the end of a node and there are no more instructions to run, it'll enter into this "stopped" state. You can check if a chatterbox has stopped using the `ChatterboxIsStopped()` GML function. You can use `ChatterboxJump()` to restart a chatterbox if stopped, should you wish to.
 
 Here's an example of how to set up very simple user input, taken from the basic example in the GitHub repo.
 
@@ -172,11 +172,11 @@ else
 
 Chatterbox is, ultimately, a string delivery device with some clever logic attached to it. You are responsible for marshalling, queuing, and displaying text that Chatterbox returns. To this end, the output functions that are available in Chatterbox are very simple. They're split into two kinds: **content** and **options**.
 
-Content is plain text that is intended to be displayed to the player for them to read. You might want to come up with your own text formatting system or a particular syntax for controlling the details of text rendering, but to Chatterbox, all content is plain text. In singleton mode, the default setting for Chatterbox, you should only receive one content string at a time which correlates to each individiual line of text in a YarnScript node. Regardless, you can find the number of content strings that a chatterbox is handing over to you by using `ChatterboxGetContentCount()` and you can read each individual piece of content using `ChatterboxGetContent()`.
+Content is plain text that is intended to be displayed to the player for them to read. You might want to come up with your own text formatting system or a particular syntax for controlling the details of text rendering, but to Chatterbox, all content is plain text. In singleton mode, the default setting for Chatterbox, you should only receive one content string at a time which correlates to each individiual line of text in a ChatterScript node. Regardless, you can find the number of content strings that a chatterbox is handing over to you by using `ChatterboxGetContentCount()` and you can read each individual piece of content using `ChatterboxGetContent()`.
 
 ?> In non-singleton mode, you may receive many content strings at a time. Each line of text will be returned as a separate content string. If you're intending on displaying multiple lines of text using newlines, you may want to consider using `ChatterboxGetAllContentString()` to return a block of text.
 
-Similarly, options are also plain text. You can get the total number of options using `ChatterboxGetOptionCount()` and the text for each individual option with `ChatterboxGetOption()`. Options strings may be returned by a chatterbox at the same time as content strings depending on the layout of your YarnScript. Please read the previous section for more details.
+Similarly, options are also plain text. You can get the total number of options using `ChatterboxGetOptionCount()` and the text for each individual option with `ChatterboxGetOption()`. Options strings may be returned by a chatterbox at the same time as content strings depending on the layout of your ChatterScript. Please read the previous section for more details.
 
 Exactly how and where you present content and options is up to you. Radial menu? Scrollable list? Roulette wheel? The choice is yours. Here's a very basic example of how to display content and options together taken from the basic example in the GitHub repo:
 
@@ -225,29 +225,29 @@ else
 
 &nbsp;
 
-## Further YarnScript features
+## Further ChatterScript features
 
-YarnScript is considerably more complex than showing content and options and navigating through branching dialogue. YarnScript offers you variables, conditional logic, metadata, string insertion and [so much more](concept-chatterscript). I'd like to highlight a couple key features here, ones that are uniquely helpful when writing interactive storylines for your game.
+ChatterScript is considerably more complex than showing content and options and navigating through branching dialogue. ChatterScript offers you variables, conditional logic, metadata, string insertion and [so much more](concept-chatterscript). I'd like to highlight a couple key features here, ones that are uniquely helpful when writing interactive storylines for your game.
 
-Firstly, the `<<jump>>` action allows you to move between nodes in a YarnScript source file. The syntax for this action is `<<jump NameOfNode>>`. You can also jump to a node whose name is stored in a variable (and we saw an example of this earlier) by simply inserting the variable into the action, like so: `<<jump $nodeVariable>>` where `$nodeVariable` is the variable that holds the name of the node to jump to.
+Firstly, the `<<jump>>` action allows you to move between nodes in a ChatterScript source file. The syntax for this action is `<<jump NameOfNode>>`. You can also jump to a node whose name is stored in a variable (and we saw an example of this earlier) by simply inserting the variable into the action, like so: `<<jump $nodeVariable>>` where `$nodeVariable` is the variable that holds the name of the node to jump to.
 
 There's more, however! `<<jump>>` can also allow you to jump to a node in a _different_ source file entirely. You must have previously loaded the source file into memory using `ChatterboxLoadFromFile()`, and you can jump to a node into another file using this syntax: `<<jump filename.yarn:NameOfNode>>`. If you want to jump to node outside the current source file then you **must** specify the filename.
 
-?> Remember, node names must be unique _within_ a YarnScript file. Node names are allowed to collide _between_ source files. This is useful for templating character interactions.
+?> Remember, node names must be unique _within_ a ChatterScript file. Node names are allowed to collide _between_ source files. This is useful for templating character interactions.
 
 The other powerful feature I'd like to talk about is **Chatterbox variables**. These will be familiar to you if you've done really any work with GML. Chatterbox variables have a few special rules, however, and are a little stricter than their GML counterparts.
 
-1. Chatterbox variables must be prefixed with `$` in YarnScript.
-2. Chatterbox variables are globally scoped. You can access them at any point anywhere in YarnScript (`$variableName`) and GML (`ChatterboxVariableGet()`)
+1. Chatterbox variables must be prefixed with `$` in ChatterScript.
+2. Chatterbox variables are globally scoped. You can access them at any point anywhere in ChatterScript (`$variableName`) and GML (`ChatterboxVariableGet()`)
 3. Chatterbox variables are sandboxed. You can only access them using Chatterbox functions.
-4. Chatterbox variables should be declared before use, either using YarnScript (`<<declare $variableName = "value">>`) or GML (`ChatterboxVariableDefault()`). Variable declarations are important because they ensure type safety and that all Chatterbox variables have legal default value.
+4. Chatterbox variables should be declared before use, either using ChatterScript (`<<declare $variableName = "value">>`) or GML (`ChatterboxVariableDefault()`). Variable declarations are important because they ensure type safety and that all Chatterbox variables have legal default value.
 5. Chatterbox variables must only be strings, numbers, or booleans. Complex types are not permitted.
 
-When working with YarnScript, you can set variables using the `<<set>>` action e.g. `<<set $variableName = $variableName + 42>>`. This is already useful, but the real power with variables can be found in conditional logic - the almighty `<<if>>` action and its siblings `<<else>>` `<<elseif>>` and `<<endif>>`.
+When working with ChatterScript, you can set variables using the `<<set>>` action e.g. `<<set $variableName = $variableName + 42>>`. This is already useful, but the real power with variables can be found in conditional logic - the almighty `<<if>>` action and its siblings `<<else>>` `<<elseif>>` and `<<endif>>`.
 
-`<<if>>` is a special kind of action that performs flow control inside a node. Again, if you've written much GML, an if-statement will not be alien to you and YarnScript works in exactly the same way.
+`<<if>>` is a special kind of action that performs flow control inside a node. Again, if you've written much GML, an if-statement will not be alien to you and ChatterScript works in exactly the same way.
 
-```yarn
+```chatterscript
 <<if $cats == 3>>
 	Five cat plan in three cats!
 <<elseif $cats >= 5>>
@@ -259,7 +259,7 @@ When working with YarnScript, you can set variables using the `<<set>>` action e
 
 We can also apply `<<if>>` actions to options, allowing more intelligent options to be shown to the player.
 
-```yarn
+```chatterscript
 Have you packed your spacesuit?
 -> No... <<if not $spacesuit>>
     We'll have to swing by the shops then.
@@ -268,9 +268,9 @@ Have you packed your spacesuit?
     <<set $nextNode = "OuterSpace">>
 ```
 
-As per the YarnScript specification, all options will made available **regardless of whether the if-statement returns `true` or `false`**. This is unexpected behaviour but it does give you more control over how you communicate failed conditions e.g. showing options that are unavailable due to a low charisma stat and so on. To determine whether to display an option or not to a player you can call `ChatterboxGetOptionConditionBool()` which tells you the state of the associated condition.
+As per the ChatterScript specification, all options will made available **regardless of whether the if-statement returns `true` or `false`**. This is unexpected behaviour but it does give you more control over how you communicate failed conditions e.g. showing options that are unavailable due to a low charisma stat and so on. To determine whether to display an option or not to a player you can call `ChatterboxGetOptionConditionBool()` which tells you the state of the associated condition.
 
-Variables allow you to branch dialogue in response to a value that you're tracking, and that value will be reacting to decisions that the player has made. With a little effort, you could write an entire game in YarnScript with a very simple GameMaker program wrapped around it.
+Variables allow you to branch dialogue in response to a value that you're tracking, and that value will be reacting to decisions that the player has made. With a little effort, you could write an entire game in ChatterScript with a very simple GameMaker program wrapped around it.
 
 &nbsp;
 

@@ -17,9 +17,9 @@ _Returns:_ N/A (`undefined`)
 |`name` |string  |Variable to set        |
 |`value`|any     |The default value to set|
 
-This function sets the default value for a Chatterbox variable. This is equivalent to using the `<<declare>>` action in YarnScript. Chatterbox variables must be strings, booleans, or numbers.
+This function sets the default value for a Chatterbox variable. This is equivalent to using the `<<declare>>` action in ChatterScript. Chatterbox variables must be strings, booleans, or numbers.
 
-?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `camelCase` for variable names.
+?> Whilst Chatterbox and ChatterScript don't require any particular naming convention, we encourage the use of `camelCase` for variable names.
 
 &nbsp;
 
@@ -50,7 +50,7 @@ _Returns:_ N/A (`undefined`)
 
 Sets the value of a Chatterbox variable. Chatterbox variables must be strings, booleans, or numbers, and you cannot change the datatype of a variable once it has been declared. Additionally, Chatterbox constants cannot have their value changed (see below).
 
-?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `camelCase` for variable names.
+?> Whilst Chatterbox and ChatterScript don't require any particular naming convention, we encourage the use of `camelCase` for variable names.
 
 &nbsp;
 
@@ -66,7 +66,7 @@ _Returns:_ N/A (`undefined`)
 
 Sets a callback function that is executed whenever a Chatterbox variable is set. The callback will be executed in the following situations:
 
-- Setting a variable in YarnScript
+- Setting a variable in ChatterScript
 
 - Calling `ChatterboxVariableSet()`
 
@@ -93,14 +93,14 @@ _Returns:_ N/A (`undefined`)
 |`name` |string  |Variable to set as a constant|
 |`value`|any     |Value to set the variable to |
 
-Equivalent to the `<<constant>>` action in YarnScript. Setting a Chatterbox variable as a constant causes it to behave differently to a "standard" variable:
+Equivalent to the `<<constant>>` action in ChatterScript. Setting a Chatterbox variable as a constant causes it to behave differently to a "standard" variable:
 
-1. Constants cannot have their value set using either `ChatterboxVariableSet()` or the YarnScript `<<set>>` action.
+1. Constants cannot have their value set using either `ChatterboxVariableSet()` or the ChatterScript `<<set>>` action.
 2. Constants will not be exported or imported using `ChatterboxVariablesExport()` or `ChatterboxVariablesImport()`.
 
 Chatterbox constants can still have their value read by `ChatterboxVariableGet()` and can be found using `ChatterboxVariableFind()`.
 
-?> Whilst Chatterbox and YarnScript don't require any particular naming convention, we encourage the use of `SCREAMING_SNAKE_CASE` for constant names.
+?> Whilst Chatterbox and ChatterScript don't require any particular naming convention, we encourage the use of `SCREAMING_SNAKE_CASE` for constant names.
 
 &nbsp;
 
@@ -114,7 +114,7 @@ _Returns:_ N/A (`undefined`)
 |------|--------|-----------------|
 |`name`|string  |Variable to reset|
 
-Resets the value of a Chatterbox variable to its default starting value, either set by a `<<declare>>` YarnScript action or `ChatterboxVariableDefault()`.
+Resets the value of a Chatterbox variable to its default starting value, either set by a `<<declare>>` ChatterScript action or `ChatterboxVariableDefault()`.
 
 &nbsp;
 
@@ -171,7 +171,7 @@ _Returns:_ N/A (`undefined`)
 |`node`    |string  |Node to "unvisit"                     |
 |`filename`|string  |Filename that the node can be found in|
 
-Clears the visited state, as returned by the YarnScript native function `visited()`, for the given node found in the given file.
+Clears the visited state, as returned by the ChatterScript native function `visited()`, for the given node found in the given file.
 
 &nbsp;
 
@@ -185,7 +185,7 @@ _Returns:_ N/A (`undefined`)
 |----|--------|-------|
 |N/A |        |       |
 
-Clears the visited state, as returned by YarnScript native function `visited()`, for all nodes across all files.
+Clears the visited state, as returned by ChatterScript native function `visited()`, for all nodes across all files.
 
 &nbsp;
 
