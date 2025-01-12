@@ -269,12 +269,17 @@ Clive: ... no.
 
 ### if/else Statements: <!-- {docsify-ignore} -->
 
-ChatterScript supports standard if/else/elseif statements.
+ChatterScript supports standard if/endif statements.
 
 ```chatterscript
 <<if "hi" == "hi">>
     The two strings are the same!
 <<endif>>
+```
+
+Every `<<if>>` branch must be followed by an associated `<<endif>>`. You can also use `<<else>>` and `<<elseif>>` to create more complex multiple choice branches.
+
+```
 <<if $variable == 1>>
     Success!
 <<elseif $variable == "hello">>
