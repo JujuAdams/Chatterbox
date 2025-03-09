@@ -188,6 +188,18 @@ _Returns:_ Integer, the number of nodes in the source
 
 &nbsp;
 
+## `...GetSourceNodeArray()`
+
+_Full function name:_ `ChatterboxGetSourceNodeArray(sourceName)`
+
+_Returns:_ Array, names of all the nodes in the source file
+
+|Name        |Datatype|Purpose                     |
+|------------|--------|----------------------------|
+|`sourceName`|string  |Name of the source to target|
+
+&nbsp;
+
 ## `...SourceGetTags()`
 
 _Full function name:_ `ChatterboxSourceGetTags(sourceName)`
