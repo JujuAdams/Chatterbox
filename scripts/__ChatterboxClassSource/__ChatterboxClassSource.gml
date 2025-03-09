@@ -64,6 +64,20 @@ function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
         return undefined;
     }
     
+    static GetNodeArray = function()
+    {
+        var _nameArray = array_create(array_length(nodes), undefined);
+        
+        var _i = 0;
+        repeat(array_length(nodes))
+        {
+            _nameArray[_i] = nodes[_i].title;
+            ++_i;
+        }
+        
+        return _nameArray;
+    }
+    
     static NodeExists = function(_nodeTitle)
     {
         return (FindNode(_nodeTitle) != undefined);
