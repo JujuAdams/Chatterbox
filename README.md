@@ -18,7 +18,7 @@
 
 &nbsp;
 
-Chatterbox is a GameMaker narrative design tool. It is loosely based on version 2 of the [YarnScript language](https://yarnspinner.dev/), used in games such as [Far From Noise](https://www.georgebatchelor.com/farfromnoise) and [Night In The Woods](http://www.nightinthewoods.com/). Chatterbox itself has been used in many projects: [Notice Me Leena-senpai!](https://store.steampowered.com/app/1988530/Notice_Me_Leenasenpai), [Love Garden](https://cosmic-fox-studio.itch.io/love-garden), [Horizonite](https://store.steampowered.com/app/2151140/Horizonite/), [Schrodinger's Catgirl](https://store.steampowered.com/app/1460950/Schrodingers_Catgirl/) and [Demon Hearts](https://dontaericeart.itch.io/demon-hearts) to mention but a few.
+Chatterbox is a GameMaker narrative design tool. It is loosely based on version 2 of the [YarnScript language](https://yarnspinner.dev/), used in games such as [Far From Noise](https://sites.google.com/view/farfromnoise/home) and [Night In The Woods](http://www.nightinthewoods.com/). Chatterbox itself has been used in many projects: [Notice Me Leena-senpai!](https://store.steampowered.com/app/1988530/Notice_Me_Leenasenpai), [Love Garden](https://cosmic-fox-studio.itch.io/love-garden), [Horizonite](https://store.steampowered.com/app/2151140/Horizonite/), [Schrodinger's Catgirl](https://store.steampowered.com/app/1460950/Schrodingers_Catgirl/) and [Demon Hearts](https://dontaericeart.itch.io/demon-hearts) to mention but a few.
 
 Chatterbox uses a custom scripting language called "ChatterScript" that is both convenient for writing complex branching dialogue and accessible for people who are less confident when programming.
 
