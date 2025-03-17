@@ -90,9 +90,9 @@ _Returns:_ Boolean, whether the function was added successfully
 |`name`    |string         |Function name to use in ChatterScript|
 |`function`|function/method|GML function to call                 |
 
-Adds a custom function that can be called by ChatterScript expressions.
+Adds a custom function that can be called by ChatterScript expressions. Custom functions can be added at any point but should be added before loading in any source files. Custom functions can return values, but the return value should always be a **number** or a **string**.
 
-Custom functions can return values, but they should be **numbers** or **strings**.
+?> You can read more about setting up custom functions and actions on [this page](concept-actions-functions).
 
 GML:
 
@@ -113,10 +113,6 @@ No, not yet!
 ```
 
 This example shows how the script `am_i_dead()` is called by Chatterbox in an if statement. The value returned from `am_i_dead()` determines which text is displayed.
-
-Parameters for custom functions executed by ChatterScript should be separated by spaces. The parameters are passed into the given function as an array of values as `argument0`.
-
-Custom functions can be added at any point but should be added before loading in any source files.
 
 &nbsp;
 
