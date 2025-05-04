@@ -89,6 +89,7 @@
     {"id":{"name":"fntDefault","path":"fonts/fntDefault/fntDefault.yy",},"order":2,},
     {"id":{"name":"oTestCaseExpressionDatatypes","path":"objects/oTestCaseExpressionDatatypes/oTestCaseExpressionDatatypes.yy",},"order":19,},
     {"id":{"name":"__ChatterboxClassText","path":"scripts/__ChatterboxClassText/__ChatterboxClassText.yy",},"order":5,},
+    {"id":{"name":"oTestCaseDeclare","path":"objects/oTestCaseDeclare/oTestCaseDeclare.yy",},"order":51,},
     {"id":{"name":"ChatterboxSourceNodeExists","path":"scripts/ChatterboxSourceNodeExists/ChatterboxSourceNodeExists.yy",},"order":9,},
     {"id":{"name":"__ChatterboxStringLimit","path":"scripts/__ChatterboxStringLimit/__ChatterboxStringLimit.yy",},"order":21,},
     {"id":{"name":"ChatterboxGetCurrent","path":"scripts/ChatterboxGetCurrent/ChatterboxGetCurrent.yy",},"order":2,},
@@ -187,8 +188,8 @@
     "children": [],
   },
   "RoomOrderNodes": [
-    {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
     {"roomId":{"name":"rmTest","path":"rooms/rmTest/rmTest.yy",},},
+    {"roomId":{"name":"rmExample","path":"rooms/rmExample/rmExample.yy",},},
   ],
   "Folders": [
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Chatterbox","folderPath":"folders/Chatterbox.yy","order":0,},
@@ -257,6 +258,7 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_random_option.chatter","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_wait_names.chatter","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_jumpback.chatter","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_declare.chatter","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.3.85",
