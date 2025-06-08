@@ -276,4 +276,4 @@ Variables allow you to branch dialogue in response to a value that you're tracki
 
 ## Closing thoughts
 
-Chatterbox is a powerful tool and we've only scratched the surface. Please take the time to poke around the rest of the documentation and, if you have any questions, please swing by the [Discord server](https://discord.gg/8krYCqr).
+Chatterbox is a powerful tool and we've only scratched the surface. Please take the time to poke around the rest of the documentation and, if you have any questions, please swing by the [Discord server](https://discord.gg/hwgWpnsNw2).
