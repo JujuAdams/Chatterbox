@@ -7,7 +7,7 @@
 <p align="center">Narrative engine for GameMaker 2022 LTS by <a href="https://www.jujuadams.com/" target="_blank">Juju Adams</a></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/" target="_blank">Download the .yymps</a></p>
-<p align="center">Talk about Chatterbox on the <a href="https://discord.gg/8krYCqr" target="_blank">Discord server</a></p>
+<p align="center">Talk about Chatterbox on the <a href="https://discord.gg/hwgWpnsNw2" target="_blank">Discord server</a></p>
 <p align="center">Download the <a href="https://github.com/FaultyFunctions/YarnEditor/" target="_blank">visual editor</a> by <a href="https://twitter.com/FaultyFunctions" target="_blank">Faulty</a></p>
 
 ---

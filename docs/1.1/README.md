@@ -7,7 +7,7 @@
 <p align="center">Narrative engine for GameMaker Studio 2.3.1 by <a href="https://twitter.com/jujuadams" target="_blank">Juju Adams</a></p>
 
 <p align="center"><a href="https://github.com/JujuAdams/chatterbox/releases/" target="_blank">Download the .yymps</a></p>
-<p align="center">Talk about Chatterbox on the <a href="https://discord.gg/8krYCqr" target="_blank">Discord server</a></p>
+<p align="center">Talk about Chatterbox on the <a href="https://discord.gg/hwgWpnsNw2" target="_blank">Discord server</a></p>
 <p align="center">Download the <a href="https://github.com/YarnSpinnerTool/YarnEditor/releases/" target="_blank">visual editor</a></p>
 
 ---
@@ -32,7 +32,7 @@ Yarn files can be written by hand, but the best way to start with Yarn is to use
     Chatterbox is designed to be easy to implement and easy to make games with. [Yarn script](concept-yarn-script) can be written by hand or, more commonly, an editor is used to write your stories. There's a [web editor](https://yarnspinnertool.github.io/YarnEditor/) as well as [Windows, MacOS, & Ubuntu](https://github.com/YarnSpinnerTool/YarnEditor/releases/) binaries. Chatterbox loads in Yarn files straight from your [Included Files](https://manual.yoyogames.com/Settings/Included_Files.htm) with a [single command](reference-setup#chatterboxloadfromfilefilename-aliasname) without any other setup.
 
 -   **Community**<br>
-    Yarn has a thriving community of narrative designers. The maintainers of Yarn run a [Slack group](http://lab.to/narrativegamedev) & [Discord server](https://discord.gg/yarnspinner), and [YarnSpinner](https://github.com/YarnSpinnerTool/) and [YarnEditor](https://github.com/YarnSpinnerTool/YarnEditor/) are constantly being updated. Chatterbox has a lively community too, based around our [Discord server](https://discord.gg/8krYCqr).
+    Yarn has a thriving community of narrative designers. The maintainers of Yarn run a [Slack group](http://lab.to/narrativegamedev) & [Discord server](https://discord.gg/yarnspinner), and [YarnSpinner](https://github.com/YarnSpinnerTool/) and [YarnEditor](https://github.com/YarnSpinnerTool/YarnEditor/) are constantly being updated. Chatterbox has a lively community too, based around our [Discord server](https://discord.gg/hwgWpnsNw2).
 
 ?> For a full explanation of Yarn's features and syntax, please read the [Yarn Script](concept-yarn-script) page.
 
