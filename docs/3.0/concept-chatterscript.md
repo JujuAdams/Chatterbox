@@ -212,11 +212,10 @@ The music will have started now.
 
 <!-- tabs:end -->
 
-By adding the custom action `playMusic` and binding it to the script `play_background_music()`, Chatterbox will now call this script
-whenever `<<playMusic>>` is processed by Chatterbox.
+By adding the custom action `playMusic` and binding it to the function `play_background_music()`, Chatterbox will now call this function whenever `<<playMusic>>` is processed by Chatterbox.
 
 Custom actions can also have parameters. These parameters can be any Chatterbox value - a real number, a string, or a variable.
-Parameters should separated by spaces. Parameters are passed into a script as an array of values in argument0.
+Parameters should separated by spaces. Parameters are passed into the matching GML function in the same order that they were defined in ChatterScript.
 
 <!-- tabs:start -->
 
@@ -237,9 +236,7 @@ Let's go see what the priest is up to.
 
 <!-- tabs:end -->
 
-Chatterbox will execute the script `go_to_room()` whenever `<<gotoRoom>>` is processed. In this case, `go_to_room()` will receive an array
-of two values from Chatterbox. The first (index 0) element of the array will be `"rChapel"` and the second (index 1) element will
-hold whatever value is in the `$entrance` variable.
+Chatterbox will execute the script `go_to_room()` whenever `<<gotoRoom>>` is processed. In this case, `go_to_room()` will be executed with two parameters. The first parameter will be `"rChapel"` and the second parameter will hold whatever value is in the `$entrance` variable.
 
 ## Variables & Conditionals
 
