@@ -79,6 +79,11 @@ function __ChatterboxSplitBody(_source_buffer, _source_buffer_start, _source_buf
             buffer_seek(_buffer, buffer_seek_start, _old_tell);
         }
         
+        if (_type == "metadata")
+        {
+            _text = string_trim(_text);
+        }
+        
         if (__CHATTERBOX_DEBUG_SPLITTER)
         {
             __ChatterboxTrace("Read \"", _text, "\", writing as type=", _type, ", line=", _line, ", indent=", _indent);
