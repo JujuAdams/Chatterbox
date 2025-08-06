@@ -631,6 +631,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     
     static __ClearOptions = function(_count = 0)
     {
+        entered_option = false;
         randomize_option = false;
         choose_option = undefined;
         

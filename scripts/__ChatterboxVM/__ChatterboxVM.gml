@@ -133,9 +133,6 @@ function __ChatterboxVMInner(_instruction)
                 {
                     if (randomize_option)
                     {
-                        randomize_option = false;
-                        entered_option = false;
-                        
                         //Calculate the total weight and unweighted count
                         var _totalWeight      = 0;
                         var _unweightedCount  = 0;
