@@ -50,6 +50,7 @@
     {"id":{"name":"__ChatterboxReadUTF8Char","path":"scripts/__ChatterboxReadUTF8Char/__ChatterboxReadUTF8Char.yy",},"order":25,},
     {"id":{"name":"sBlank","path":"sprites/sBlank/sBlank.yy",},"order":1,},
     {"id":{"name":"oTestCaseInlineFastForward","path":"objects/oTestCaseInlineFastForward/oTestCaseInlineFastForward.yy",},"order":35,},
+    {"id":{"name":"ChatterboxSkipOptions","path":"scripts/ChatterboxSkipOptions/ChatterboxSkipOptions.yy",},"order":11,},
     {"id":{"name":"ChatterboxGetOption","path":"scripts/ChatterboxGetOption/ChatterboxGetOption.yy",},"order":0,},
     {"id":{"name":"ChatterboxGetOptionSpeaker","path":"scripts/ChatterboxGetOptionSpeaker/ChatterboxGetOptionSpeaker.yy",},"order":7,},
     {"id":{"name":"oTestCaseSetterLocalScope","path":"objects/oTestCaseSetterLocalScope/oTestCaseSetterLocalScope.yy",},"order":32,},
