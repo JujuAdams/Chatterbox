@@ -183,6 +183,27 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     }
                 break;
                 
+                case "choose":
+                    var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder, false);
+                    
+                    var _q = _s+1;
+                    repeat(_substring_count - _q)
+                    {
+                        if (_in_substring_array[_q] != _line) break;
+                        ++_q;
+                    }
+                        
+                    if (_q >= _substring_count-1)
+                    {
+                        __ChatterboxError("Cannot use <<choose>> at the end of a node");
+                    }
+                    else if (_in_substring_array[_q].type != "option")
+                    {
+                        __ChatterboxError("Must use <<choose>> immediately before an option (type=", _in_substring_array[_q].type, ", string=\"", _in_substring_array[_q].text, "\")");
+                    }
+                break;
+                
                 default:
                     if ((_first_word == "random") && (_remainder == "option"))
                     {

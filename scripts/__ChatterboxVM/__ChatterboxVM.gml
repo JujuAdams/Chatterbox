@@ -17,6 +17,7 @@ function __ChatterboxVM()
         entered_option   = false;
         leaving_option   = false;
         randomize_option = false;
+        choose_option    = undefined;
         rejected_if      = false;
         
         if (current_instruction.type == "stop")
@@ -132,6 +133,7 @@ function __ChatterboxVMInner(_instruction)
                 {
                     if (randomize_option)
                     {
+                        randomize_option = false;
                         entered_option = false;
                         
                         //Calculate the total weight and unweighted count
@@ -206,6 +208,54 @@ function __ChatterboxVMInner(_instruction)
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "Choosing random option index ", _random_option);
                         
                         _next = optionInstruction[_random_option];
+                        
+                        //Make sure we don't leak option data
+                        __ClearOptions(0);
+                    }
+                    else if (choose_option != undefined)
+                    {
+                        var _chosen_option = undefined;
+                        var _fallback_option = undefined;
+                        
+                        //Find an option that matches our search string
+                        var _i = 0;
+                        repeat(array_length(option))
+                        {
+                            if (optionConditionBool[_i])
+                            {
+                                if (GetOptionContainsMetadata(_i, choose_option))
+                                {
+                                    _chosen_option = _i;
+                                    break;
+                                }
+                                else if (GetOptionContainsMetadata(_i, "*"))
+                                {
+                                    _fallback_option = _i;
+                                }
+                            }
+                            
+                            ++_i;
+                        }
+                        
+                        //Try to use the fallback if possible
+                        if (_chosen_option == undefined)
+                        {
+                            if (_fallback_option == undefined)
+                            {
+                                if (CHATTERBOX_RUNNING_FROM_IDE)
+                                {
+                                    __ChatterboxError("Could not find fallback option for failed <<choose>> \"", choose_option, "\" (node \"", current_node.title, "\" in \"", filename, "\")");
+                                }
+                                
+                                _chosen_option = array_length(option)-1;
+                            }
+                            else
+                            {
+                                _chosen_option = _fallback_option;
+                            }
+                        }
+                        
+                        _next = optionInstruction[_chosen_option];
                         
                         //Make sure we don't leak option data
                         __ClearOptions(0);
@@ -458,6 +508,11 @@ function __ChatterboxVMInner(_instruction)
                     case "random option":
                         if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<random option>>");
                         randomize_option = true;
+                    break;
+                    
+                    case "choose":
+                        if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<choose>>");
+                        choose_option = string(__ChatterboxEvaluate(local_scope, current_node.title, filename, _instruction.expression, "choose", undefined));
                     break;
                     
                     case "if":
