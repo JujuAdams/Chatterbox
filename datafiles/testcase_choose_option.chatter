@@ -1,0 +1,15 @@
+title: Start
+---
+This example demonstrates the choose() behaviour.
+<<choose visited("Start")>>
+-> #1
+  Visited once
+-> #2
+  Visited twice
+-> #3
+  Visited thrice
+-> #*
+  Fallback option
+Looping back around!
+<<jump Start>>
+===

@@ -89,6 +89,7 @@
     {"id":{"name":"oTestCaseEscapedCharacters","path":"objects/oTestCaseEscapedCharacters/oTestCaseEscapedCharacters.yy",},"order":21,},
     {"id":{"name":"ChatterboxGetContent","path":"scripts/ChatterboxGetContent/ChatterboxGetContent.yy",},"order":1,},
     {"id":{"name":"__ChatterboxXORShift32Random","path":"scripts/__ChatterboxXORShift32Random/__ChatterboxXORShift32Random.yy",},"order":11,},
+    {"id":{"name":"oTestCaseChooseOption","path":"objects/oTestCaseChooseOption/oTestCaseChooseOption.yy",},"order":53,},
     {"id":{"name":"fntDefault","path":"fonts/fntDefault/fntDefault.yy",},"order":2,},
     {"id":{"name":"oTestCaseExpressionDatatypes","path":"objects/oTestCaseExpressionDatatypes/oTestCaseExpressionDatatypes.yy",},"order":19,},
     {"id":{"name":"ChatterboxGetOptionContainsMetadata","path":"scripts/ChatterboxGetOptionContainsMetadata/ChatterboxGetOptionContainsMetadata.yy",},"order":6,},
@@ -265,6 +266,7 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_declare.chatter","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_visited_option.chatter","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_once.chatter","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_choose_option.chatter","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.3.85",
