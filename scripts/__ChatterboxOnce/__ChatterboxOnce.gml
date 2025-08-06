@@ -22,9 +22,9 @@ function __ChatterboxOnce(_identifier, _node_title, _filename)
     }
     
     var _value = _system.__variablesMap[? _key];
-    if (_value == undefined) _value = true;
+    if (_value == undefined) _value = 0;
     
-    _system.__variablesMap[? _key] = false;
+    _system.__variablesMap[? _key] = _value + 1;
     
     return _value;
 }
