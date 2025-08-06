@@ -97,7 +97,16 @@ function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression,
                 }
                 else
                 {
-                    return ChatterboxGetVisited(_parameter_values[0], _filename);
+                    if ((array_length(_parameter_values) <= 0) && (_parameter_values[0] == undefined))
+                    {
+                        var _param_node_title = _node_title;
+                    }
+                    else
+                    {
+                        var _param_node_title = _parameter_values[0];
+                    }
+                    
+                    return ChatterboxGetVisited(_param_node_title, _filename);
                 }
             }
             else if (_expression.name == "once")
