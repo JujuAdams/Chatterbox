@@ -68,7 +68,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                     
                     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<declare>>");
-                    __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "declare", undefined);
+                    __ChatterboxEvaluate(undefined, undefined, undefined, _instruction.expression, "declare", undefined);
                     _instruction = undefined; //Don't add this instruction to the node
                 break;
                 
@@ -77,7 +77,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                     
                     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<constant>>");
-                    __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "constant", undefined);
+                    __ChatterboxEvaluate(undefined, undefined, undefined, _instruction.expression, "constant", undefined);
                     _instruction = undefined; //Don't add this instruction to the node
                 break;
                 
@@ -86,7 +86,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                     
                     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<set>>");
-                    __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "declare valueless", undefined);
+                    __ChatterboxEvaluate(undefined, undefined, undefined, _instruction.expression, "declare valueless", undefined);
                 break;
                 
                 case "jump":
