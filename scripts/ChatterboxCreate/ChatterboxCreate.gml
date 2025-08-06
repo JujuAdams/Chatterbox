@@ -497,6 +497,58 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return optionMetadata[_index];
     }
     
+    static FindOptionWithMetadata = function(_metadata)
+    {
+        VerifyIsLoaded();
+        
+        var _index = 0;
+        repeat(array_length(optionMetadata))
+        {
+            var _metadataArray = optionMetadata[_index];
+            if (is_array(_metadataArray))
+            {
+                var _i = 0;
+                repeat(array_length(_metadataArray))
+                {
+                    if (_metadataArray[_i] == _metadata)
+                    {
+                        return _index;
+                    }
+                }
+                
+                ++_i;
+            }
+            
+            ++_index;
+        }
+        
+        return undefined;
+    }
+    
+    static GetOptionContainsMetadata = function(_index, _metadata)
+    {
+        VerifyIsLoaded();
+        
+        if ((_index < 0) || (_index >= array_length(optionMetadata))) return false;
+        
+        var _metadataArray = optionMetadata[_index];
+        if (is_array(_metadataArray))
+        {
+            var _i = 0;
+            repeat(array_length(_metadataArray))
+            {
+                if (_metadataArray[_i] == _metadata)
+                {
+                    return true;
+                }
+                
+                ++_i;
+            }
+        }
+        
+        return false;
+    }
+    
     static GetOptionConditionBool = function(_index)
     {
         VerifyIsLoaded();
