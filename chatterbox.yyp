@@ -75,7 +75,7 @@
     {"id":{"name":"ChatterboxGetOptionSpeech","path":"scripts/ChatterboxGetOptionSpeech/ChatterboxGetOptionSpeech.yy",},"order":8,},
     {"id":{"name":"oTestCaseComments","path":"objects/oTestCaseComments/oTestCaseComments.yy",},"order":12,},
     {"id":{"name":"oTestCaseEvaluationOrder","path":"objects/oTestCaseEvaluationOrder/oTestCaseEvaluationOrder.yy",},"order":38,},
-    {"id":{"name":"__ChatterboxOnce","path":"scripts/__ChatterboxOnce/__ChatterboxOnce.yy",},"order":7,},
+    {"id":{"name":"__ChatterboxOnce","path":"scripts/__ChatterboxOnce/__ChatterboxOnce.yy",},"order":33,},
     {"id":{"name":"ChatterboxVariableGet","path":"scripts/ChatterboxVariableGet/ChatterboxVariableGet.yy",},"order":1,},
     {"id":{"name":"ChatterboxSourceGetNodeMetadata","path":"scripts/ChatterboxSourceGetNodeMetadata/ChatterboxSourceGetNodeMetadata.yy",},"order":12,},
     {"id":{"name":"oTestCaseEmptyParam","path":"objects/oTestCaseEmptyParam/oTestCaseEmptyParam.yy",},"order":7,},
