@@ -29,7 +29,7 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
     {
         __ChatterboxError("ChatterboxLocalizationBuild() only available when running on Windows, MacOS, or Linux");
     }
-    else if (GM_build_type != "run")
+    else if (not CHATTERBOX_RUNNING_FROM_IDE)
     {
         __ChatterboxError("ChatterboxLocalizationBuild() only available when running from the IDE");
     }

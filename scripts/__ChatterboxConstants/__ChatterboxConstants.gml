@@ -20,3 +20,5 @@
 
 #macro CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android) || (os_type == os_tvos))
 #macro CHATTERBOX_ON_WEB     (os_browser != browser_not_a_browser)
+
+#macro CHATTERBOX_RUNNING_FROM_IDE  (GM_build_type == "run")
