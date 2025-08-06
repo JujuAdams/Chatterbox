@@ -302,6 +302,34 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChatterboxVM();
     }
     
+    static SkipOptions = function()
+    {
+        if (!VerifyIsLoaded())
+        {
+            __ChatterboxError("Could not skip options because \"", filename, "\" is not loaded");
+            return undefined;
+        }
+        
+        if (stopped)
+        {
+            __ChatterboxTrace("Warning! Could not skip options because this chatterbox has been stopped");
+            return undefined;
+        }
+        
+        if (array_length(optionInstruction) <= 0)
+        {
+            __ChatterboxError("Could not skip options because this chatterbox is not displaying any options");
+            return undefined;
+        }
+        
+        // 1. Choose the last option
+        // 2. Get the instruction inside the branch
+        // 3. Set up to the branch parent which is the -> option instruction itself
+        // 4. Go to the next instruction after that which is the instruction after the option block
+        current_instruction = optionInstruction[array_length(optionInstruction)-1].option_branch_parent.next;
+        __ChatterboxVM();
+    }
+    
     static __CurrentlyProcessing = function()
     {
         //Figure out if we're currently processing this chatterbox in a VM
