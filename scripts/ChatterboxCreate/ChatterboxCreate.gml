@@ -504,19 +504,22 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         var _index = 0;
         repeat(array_length(optionMetadata))
         {
-            var _metadataArray = optionMetadata[_index];
-            if (is_array(_metadataArray))
+            if (optionConditionBool[_index])
             {
-                var _i = 0;
-                repeat(array_length(_metadataArray))
+                var _metadataArray = optionMetadata[_index];
+                if (is_array(_metadataArray))
                 {
-                    if (_metadataArray[_i] == _metadata)
+                    var _i = 0;
+                    repeat(array_length(_metadataArray))
                     {
-                        return _index;
+                        if (_metadataArray[_i] == _metadata)
+                        {
+                            return _index;
+                        }
                     }
+                    
+                    ++_i;
                 }
-                
-                ++_i;
             }
             
             ++_index;
@@ -530,6 +533,12 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         VerifyIsLoaded();
         
         if ((_index < 0) || (_index >= array_length(optionMetadata))) return false;
+        
+        if (not optionConditionBool[_index])
+        {
+            __ChatterboxTrace("Warning! Option ", _index, " failed its conditional check, returning `false` for GetOptionContainsMetadata() check");
+            return false;
+        }
         
         var _metadataArray = optionMetadata[_index];
         if (is_array(_metadataArray))
