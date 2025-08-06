@@ -109,6 +109,7 @@
     {"id":{"name":"oTestCaseNegateFunction","path":"objects/oTestCaseNegateFunction/oTestCaseNegateFunction.yy",},"order":8,},
     {"id":{"name":"ChatterboxGetPrevious","path":"scripts/ChatterboxGetPrevious/ChatterboxGetPrevious.yy",},"order":3,},
     {"id":{"name":"ChatterboxGetContentCount","path":"scripts/ChatterboxGetContentCount/ChatterboxGetContentCount.yy",},"order":2,},
+    {"id":{"name":"oTestCaseOnce","path":"objects/oTestCaseOnce/oTestCaseOnce.yy",},"order":52,},
     {"id":{"name":"oTestCaseStopFunction","path":"objects/oTestCaseStopFunction/oTestCaseStopFunction.yy",},"order":42,},
     {"id":{"name":"__ChatterboxClassInstruction","path":"scripts/__ChatterboxClassInstruction/__ChatterboxClassInstruction.yy",},"order":4,},
     {"id":{"name":"ChatterboxVariableSetCallback","path":"scripts/ChatterboxVariableSetCallback/ChatterboxVariableSetCallback.yy",},"order":13,},
@@ -263,6 +264,7 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_jumpback.chatter","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_declare.chatter","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_visited_option.chatter","CopyToMask":-1,"filePath":"datafiles",},
+    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"testcase_once.chatter","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "MetaData": {
     "IDEVersion": "2022.0.3.85",

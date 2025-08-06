@@ -1,0 +1,17 @@
+title: Start
+---
+This is a test case for once().
+
+<<if once("text")>>
+    You should see this text only once.
+<<endif>>
+
+Please choose an option.
+-> You should see this option only once. <<if once("option test 1")>>
+-> You should see this option after the first time. <<if !once("option test 2")>>
+-> You should always see this option.
+
+Returning to the start.
+
+<<jump Start>>
+===
