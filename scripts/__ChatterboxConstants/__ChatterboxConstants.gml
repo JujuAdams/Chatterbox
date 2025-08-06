@@ -11,8 +11,8 @@
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-#macro CHATTERBOX_VERSION  "3.0.1"
-#macro CHATTERBOX_DATE     "2025-03-09"
+#macro CHATTERBOX_VERSION  "3.1.0 (alpha)"
+#macro CHATTERBOX_DATE     "2025-08-05"
 
 #macro CHATTERBOX_VARIABLES_MAP   (__ChatterboxSystem().__variablesMap)
 #macro CHATTERBOX_VARIABLES_LIST  (__ChatterboxSystem().__variablesList)
