@@ -68,7 +68,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                     
                     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<declare>>");
-                    __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "declare", undefined);
+                    __ChatterboxEvaluate(undefined, undefined, undefined, _instruction.expression, "declare", undefined);
                     _instruction = undefined; //Don't add this instruction to the node
                 break;
                 
@@ -77,7 +77,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                     
                     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<constant>>");
-                    __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "constant", undefined);
+                    __ChatterboxEvaluate(undefined, undefined, undefined, _instruction.expression, "constant", undefined);
                     _instruction = undefined; //Don't add this instruction to the node
                 break;
                 
@@ -86,7 +86,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     _instruction.expression = __ChatterboxParseExpression(_remainder, false);
                     
                     if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("Declaring \"", _remainder, "\" on compile via <<set>>");
-                    __ChatterboxEvaluate(undefined, undefined, _instruction.expression, "declare valueless", undefined);
+                    __ChatterboxEvaluate(undefined, undefined, undefined, _instruction.expression, "declare valueless", undefined);
                 break;
                 
                 case "jump":
@@ -130,6 +130,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 case "elif":
                 case "else if":
                     if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<", _first_word, ">> is non-standard ChatterScript syntax, please use <<elseif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                    //Fall through!
                 case "elseif":
                     var _instruction = new __ChatterboxClassInstruction("else if", _line, _indent);
                     _instruction.condition = __ChatterboxParseExpression(_remainder, false);
@@ -146,6 +147,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 
                 case "end if":
                     if (CHATTERBOX_ERROR_NONSTANDARD_SYNTAX) __ChatterboxError("<<end if>> is non-standard ChatterScript syntax, please use <<endif>>\n \n(Set CHATTERBOX_ERROR_NONSTANDARD_SYNTAX to <false> to hide this error)");
+                    //Fall through!
                 case "endif":
                     var _instruction = new __ChatterboxClassInstruction("end if", _line, _indent);
                     if (_if_depth < 0)
@@ -178,6 +180,27 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     else
                     {
                         var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
+                    }
+                break;
+                
+                case "choose":
+                    var _instruction = new __ChatterboxClassInstruction(_first_word, _line, _indent);
+                    _instruction.expression = __ChatterboxParseExpression(_remainder, false);
+                    
+                    var _q = _s+1;
+                    repeat(_substring_count - _q)
+                    {
+                        if (_in_substring_array[_q] != _line) break;
+                        ++_q;
+                    }
+                        
+                    if (_q >= _substring_count-1)
+                    {
+                        __ChatterboxError("Cannot use <<choose>> at the end of a node");
+                    }
+                    else if (_in_substring_array[_q].type != "option")
+                    {
+                        __ChatterboxError("Must use <<choose>> immediately before an option (type=", _in_substring_array[_q].type, ", string=\"", _in_substring_array[_q].text, "\")");
                     }
                 break;
                 

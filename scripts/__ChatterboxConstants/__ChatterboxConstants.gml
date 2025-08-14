@@ -11,10 +11,12 @@
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-#macro CHATTERBOX_VERSION  "3.0.1"
-#macro CHATTERBOX_DATE     "2025-03-09"
+#macro CHATTERBOX_VERSION  "3.1.2 (beta)"
+#macro CHATTERBOX_DATE     "2025-08-14"
 
 #macro CHATTERBOX_CURRENT  (__ChatterboxSystem().__current)
 
 #macro CHATTERBOX_ON_MOBILE  ((os_type == os_ios) || (os_type == os_android) || (os_type == os_tvos))
 #macro CHATTERBOX_ON_WEB     (os_browser != browser_not_a_browser)
+
+#macro CHATTERBOX_RUNNING_FROM_IDE  (GM_build_type == "run")

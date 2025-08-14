@@ -1,0 +1,26 @@
+title: Start
+---
+<<declare $declared_variable = false>>
+Start node (variable = {$declared_variable})
+Please choose an option (variable = {$declared_variable})
+-> Skip
+	Skipping options
+-> Loop back
+	Restarting node
+	<<jump Start>>
+-> Set variable to true
+	Set variable to true
+	<<set $declared_variable = true>>
+-> Condition check <<if $declared_variable>>
+-> Stop
+	<<stop>>
+Variable = {$declared_variable}
+We'll now jump to another node...
+<<jump Other Node>>
+===
+
+title: Other Node
+---
+Here's another node!
+<<jump Start>>
+===

@@ -1,4 +1,5 @@
 // Feather disable all
+
 /// Returns how many times an option has been chosen.
 ///
 /// @param chatterbox

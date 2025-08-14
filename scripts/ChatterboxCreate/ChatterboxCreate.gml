@@ -302,6 +302,34 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChatterboxVM();
     }
     
+    static SkipOptions = function()
+    {
+        if (!VerifyIsLoaded())
+        {
+            __ChatterboxError("Could not skip options because \"", filename, "\" is not loaded");
+            return undefined;
+        }
+        
+        if (stopped)
+        {
+            __ChatterboxTrace("Warning! Could not skip options because this chatterbox has been stopped");
+            return undefined;
+        }
+        
+        if (array_length(optionInstruction) <= 0)
+        {
+            __ChatterboxError("Could not skip options because this chatterbox is not displaying any options");
+            return undefined;
+        }
+        
+        // 1. Choose the last option
+        // 2. Get the instruction inside the branch
+        // 3. Set up to the branch parent which is the -> option instruction itself
+        // 4. Go to the next instruction after that which is the instruction after the option block
+        current_instruction = optionInstruction[array_length(optionInstruction)-1].option_branch_parent.next;
+        __ChatterboxVM();
+    }
+    
     static __CurrentlyProcessing = function()
     {
         //Figure out if we're currently processing this chatterbox in a VM
@@ -469,6 +497,67 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return optionMetadata[_index];
     }
     
+    static FindOptionWithMetadata = function(_metadata, _respectCondition = true)
+    {
+        VerifyIsLoaded();
+        
+        var _index = 0;
+        repeat(array_length(optionMetadata))
+        {
+            if ((not _respectCondition) || optionConditionBool[_index])
+            {
+                var _metadataArray = optionMetadata[_index];
+                if (is_array(_metadataArray))
+                {
+                    var _i = 0;
+                    repeat(array_length(_metadataArray))
+                    {
+                        if (_metadataArray[_i] == _metadata)
+                        {
+                            return _index;
+                        }
+                    }
+                    
+                    ++_i;
+                }
+            }
+            
+            ++_index;
+        }
+        
+        return undefined;
+    }
+    
+    static GetOptionContainsMetadata = function(_index, _metadata, _respectCondition = true)
+    {
+        VerifyIsLoaded();
+        
+        if ((_index < 0) || (_index >= array_length(optionMetadata))) return false;
+        
+        if (_respectCondition && (not optionConditionBool[_index]))
+        {
+            __ChatterboxTrace("Warning! Option ", _index, " failed its conditional check, returning `false` for GetOptionContainsMetadata() check");
+            return false;
+        }
+        
+        var _metadataArray = optionMetadata[_index];
+        if (is_array(_metadataArray))
+        {
+            var _i = 0;
+            repeat(array_length(_metadataArray))
+            {
+                if (_metadataArray[_i] == _metadata)
+                {
+                    return true;
+                }
+                
+                ++_i;
+            }
+        }
+        
+        return false;
+    }
+    
     static GetOptionConditionBool = function(_index)
     {
         VerifyIsLoaded();
@@ -551,6 +640,10 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     
     static __ClearOptions = function(_count = 0)
     {
+        entered_option = false;
+        randomize_option = false;
+        choose_option = undefined;
+        
         array_resize(option,              _count);
         array_resize(optionConditionBool, _count);
         array_resize(optionMetadata,      _count);

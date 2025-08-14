@@ -29,7 +29,7 @@
 // those options yourself. This is useful for games like Fallout 3 which show you options that you
 // could have taken if you had e.g. higher charisma. Set this option to <false> if you deliberately
 // want to hide every failed option (which is a lot simpler to implement!).
-#macro CHATTERBOX_SHOW_REJECTED_OPTIONS  true
+#macro CHATTERBOX_SHOW_REJECTED_OPTIONS  false
 
 // Whether to show extra debug information. This is useful to narrow down problems that you might
 // run into.

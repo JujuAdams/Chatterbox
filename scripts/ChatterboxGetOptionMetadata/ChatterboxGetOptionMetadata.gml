@@ -1,5 +1,6 @@
 // Feather disable all
-/// Returns an option string with the given index in the given chatterbox
+
+/// Returns an option string with the given index in the given chatterbox.
 ///
 /// @param chatterbox
 /// @param index

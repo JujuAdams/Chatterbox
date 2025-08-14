@@ -1,11 +1,13 @@
 // Feather disable all
+
 /// @param localScope
+/// @param nodeTitle
 /// @param filename
 /// @param expression
 /// @param behaviour
 /// @param optionUUID
 
-function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, _optionUUID)
+function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression, _behaviour, _optionUUID)
 {
     static _system = __ChatterboxSystem();
     
@@ -38,15 +40,15 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
         case "*=":
         case "-=":
         case "+=":
-            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined, _optionUUID);
-            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined, _optionUUID);
+            _a = __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression.a, undefined, _optionUUID);
+            _b = __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression.b, undefined, _optionUUID);
         break;
         
         case "!":
         case "neg":
         case "paren":
         case "param":
-            _a = __ChatterboxEvaluate(_local_scope, _filename, _expression.a, undefined, _optionUUID);
+            _a = __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression.a, undefined, _optionUUID);
         break;
         
         case "func":
@@ -55,13 +57,13 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
             var _p = 0;
             repeat(array_length(_parameters))
             {
-                _parameter_values[@ _p] = __ChatterboxEvaluate(_local_scope, _filename, _parameters[_p], undefined, _optionUUID);
+                _parameter_values[@ _p] = __ChatterboxEvaluate(_local_scope, _node_title, _filename, _parameters[_p], undefined, _optionUUID);
                 ++_p;
             }
         break;
         
         case "=":
-            _b = __ChatterboxEvaluate(_local_scope, _filename, _expression.b, undefined, _optionUUID);
+            _b = __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression.b, undefined, _optionUUID);
         break;
     }
     
@@ -95,14 +97,45 @@ function __ChatterboxEvaluate(_local_scope, _filename, _expression, _behaviour, 
                 }
                 else
                 {
-                    return ChatterboxGetVisited(_parameter_values[0], _filename);
+                    if ((array_length(_parameter_values) <= 0) && (_parameter_values[0] == undefined))
+                    {
+                        var _param_node_title = _node_title;
+                    }
+                    else
+                    {
+                        var _param_node_title = _parameter_values[0];
+                    }
+                    
+                    return ChatterboxGetVisited(_param_node_title, _filename);
+                }
+            }
+            else if (_expression.name == "once")
+            {
+                if (_filename == undefined)
+                {
+                    return false;
+                }
+                else
+                {
+                    return (__ChatterboxLocalCounter(_parameter_values[0], _node_title, _filename) == 1);
+                }
+            }
+            else if (_expression.name == "localCounter")
+            {
+                if (_filename == undefined)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return __ChatterboxLocalCounter(_parameter_values[0], _node_title, _filename);
                 }
             }
             else if (_expression.name == "optionChosen")
             {
                 if (_optionUUID == undefined)
                 {
-                    __ChatterboxError("Cannot use optionChosen() outside of a option condition");
+                    __ChatterboxError("Cannot use optionChosen() outside of an option condition");
                 }
                 else
                 {

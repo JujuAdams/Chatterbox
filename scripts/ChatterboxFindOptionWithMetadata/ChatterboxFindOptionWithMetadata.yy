@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxGetOptionMetadata",
+  "name": "ChatterboxFindOptionWithMetadata",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

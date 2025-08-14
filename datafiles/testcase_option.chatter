@@ -3,7 +3,12 @@ title: Start
 This is a test case for options.
 
 -> This is an option label
+    You chose the first option.
     <<jump Node 0>>
+-> This is another option label
+    You chose the second option.
+    <<jump Node 0>>
+Here's some text that you can see when you skip! (Start node)
 
 ===
 title: Node 0
@@ -21,6 +26,7 @@ This is node 1.
     <<jump Node 2>>
 -> This takes us to Node 3
     <<jump Node 3>>
+Here's some text that you can see when you skip! (Node 1)
 
 ===
 title: Node 2
@@ -31,6 +37,7 @@ This is node 2.
     <<jump Node 1>>
 -> This takes us to Node 3
     <<jump Node 3>>
+Here's some text that you can see when you skip! (Node 2)
 
 ===
 title: Node 3
@@ -42,5 +49,7 @@ This is node 3.
 -> This takes us to Node 2
     <<jump Node 2>>
 -> This option ends the test case.
+    <<stop>>
+Here's some text that you can see when you skip! (Node 3)
 
 ===
