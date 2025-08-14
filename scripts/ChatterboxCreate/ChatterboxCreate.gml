@@ -497,14 +497,14 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return optionMetadata[_index];
     }
     
-    static FindOptionWithMetadata = function(_metadata)
+    static FindOptionWithMetadata = function(_metadata, _respectCondition = true)
     {
         VerifyIsLoaded();
         
         var _index = 0;
         repeat(array_length(optionMetadata))
         {
-            if (optionConditionBool[_index])
+            if ((not _respectCondition) || optionConditionBool[_index])
             {
                 var _metadataArray = optionMetadata[_index];
                 if (is_array(_metadataArray))
@@ -528,13 +528,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return undefined;
     }
     
-    static GetOptionContainsMetadata = function(_index, _metadata)
+    static GetOptionContainsMetadata = function(_index, _metadata, _respectCondition = true)
     {
         VerifyIsLoaded();
         
         if ((_index < 0) || (_index >= array_length(optionMetadata))) return false;
         
-        if (not optionConditionBool[_index])
+        if (_respectCondition && (not optionConditionBool[_index]))
         {
             __ChatterboxTrace("Warning! Option ", _index, " failed its conditional check, returning `false` for GetOptionContainsMetadata() check");
             return false;

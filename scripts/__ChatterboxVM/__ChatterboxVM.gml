@@ -220,12 +220,12 @@ function __ChatterboxVMInner(_instruction)
                         {
                             if (optionConditionBool[_i])
                             {
-                                if (GetOptionContainsMetadata(_i, choose_option))
+                                if (GetOptionContainsMetadata(_i, choose_option, true))
                                 {
                                     _chosen_option = _i;
                                     break;
                                 }
-                                else if (GetOptionContainsMetadata(_i, "*"))
+                                else if (GetOptionContainsMetadata(_i, "*", true))
                                 {
                                     _fallback_option = _i;
                                 }
