@@ -77,7 +77,7 @@ _Returns:_ String, the name of the node that the given [chatterbox](concept-chat
 
 _Full function name:_ `ChatterboxGetCurrentMetadata(chatterbox)`
 
-_Returns:_ Array, the metadata associated with the node
+_Returns:_ Struct, the metadata associated with the node
 
 |Name        |Datatype                          |Purpose                                         |
 |------------|----------------------------------|------------------------------------------------|
