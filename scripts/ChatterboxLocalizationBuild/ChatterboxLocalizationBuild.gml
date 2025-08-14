@@ -83,7 +83,17 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
         _source.__BuildLocalisation(_file_order, _file_dict, _buffer_batch);
         
         //Save out the modified ChatterScript file
-        buffer_save(_buffer_batch.__GetBuffer(), _absolute_path);
+        var _buffer = _buffer_batch.__GetBuffer();
+        
+        var _size = buffer_get_size(_buffer);
+        
+        //We artificially add a null when parsing the source buffer. Let's trim off the final null when re-saving it
+        if (buffer_peek(_buffer, buffer_get_size(_buffer)-1, buffer_u8) == 0x00)
+        {
+            --_size;
+        }
+        
+        buffer_save_ext(_buffer, _absolute_path, 0, _size);
         _buffer_batch.__Destroy();
         
         ++_i;
