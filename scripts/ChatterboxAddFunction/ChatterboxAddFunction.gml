@@ -72,6 +72,7 @@ function ChatterboxAddFunction(_name, _in_function)
         case "hop":
         case "hopback":
         case "visited":
+        case "localCounter":
         case "once":
         case "choose":
         case "optionChosen":

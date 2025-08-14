@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "__ChatterboxOnce",
+  "name": "__ChatterboxLocalCounter",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

@@ -117,7 +117,18 @@ function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression,
                 }
                 else
                 {
-                    return __ChatterboxOnce(_parameter_values[0], _node_title, _filename);
+                    return (__ChatterboxLocalCounter(_parameter_values[0], _node_title, _filename) == 1);
+                }
+            }
+            else if (_expression.name == "localCounter")
+            {
+                if (_filename == undefined)
+                {
+                    return 0;
+                }
+                else
+                {
+                    return __ChatterboxLocalCounter(_parameter_values[0], _node_title, _filename);
                 }
             }
             else if (_expression.name == "optionChosen")
