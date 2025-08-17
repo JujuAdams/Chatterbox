@@ -302,11 +302,41 @@ ChatterScript will automatically convert between types. For example:
 <<endif>>
 ```
 
+&nbsp;
+
+Here's a list of supported operators (in no particular order) that are supported in expressions:
+
+|     Word     | Symbol | Use                                    |
+| :----------: | :----: | -------------------------------------- |
+|    `not`     |  `!`   | Logical negation                       |
+|              |  `+`   | Real addition, or string concatenation |
+|              |  `-`   | Real substraction, or negative         |
+|              |  `*`   | Real multiplication                    |
+|              |  `/`   | Real division                          |
+| _Assignment_ |        |                                        |
+|     `to`     |  `=`   | Assignment                             |
+|              |  `+=`  | Add or concatenate, then assign        |
+|              |  `-=`  | Subtract, then assign                  |
+|              |  `*=`  | Multiply, then assign                  |
+|              |  `/=`  | Divide, then assign                    |
+| _Comparison_ |        |                                        |
+|    `and`     |  `&&`  | Logical AND                            |
+|     `le`     |  `<`   | Less than                              |
+|     `gt`     |  `>`   | Greater than                           |
+|     `or`     | `\|\|` | Logical OR                             |
+|    `leq`     |  `<=`  | Less-than-or-equal-to                  |
+|    `geq`     |  `>=`  | Greater-than-or-equal-to               |
+|    `lte`     |  `<=`  | Less-than-or-equal-to                  |
+|    `gte`     |  `>=`  | Greater-than-or-equal-to               |
+|     `eq`     |  `==`  | Equal to                               |
+|     `is`     |  `==`  | Equal to                               |
+|    `neq`     |  `!=`  | Not equal to                           |
+
 ## Functions
 
 ### `visited`
 
-By default, Chatterbox includes a `visited()` function which returns the number of times a node has been entered.
+Chatterbox includes a `visited()` function which returns the number of times a node has been entered.
 
 ```chatterscript
 <<if visited("GoToCity")>>
@@ -383,36 +413,6 @@ Am I dead?
 <!-- tabs:end -->
 
 This example shows how the script `am_i_dead()` is called by Chatterbox in an if statement. The value returned from `am_i_dead()` determines which text is displayed.
-
-&nbsp;
-
-Here's a list of supported operators (in no particular order) that are supported in expressions:
-
-|     Word     | Symbol | Use                                    |
-| :----------: | :----: | -------------------------------------- |
-|    `not`     |  `!`   | Logical negation                       |
-|              |  `+`   | Real addition, or string concatenation |
-|              |  `-`   | Real substraction, or negative         |
-|              |  `*`   | Real multiplication                    |
-|              |  `/`   | Real division                          |
-| _Assignment_ |        |                                        |
-|     `to`     |  `=`   | Assignment                             |
-|              |  `+=`  | Add or concatenate, then assign        |
-|              |  `-=`  | Subtract, then assign                  |
-|              |  `*=`  | Multiply, then assign                  |
-|              |  `/=`  | Divide, then assign                    |
-| _Comparison_ |        |                                        |
-|    `and`     |  `&&`  | Logical AND                            |
-|     `le`     |  `<`   | Less than                              |
-|     `gt`     |  `>`   | Greater than                           |
-|     `or`     | `\|\|` | Logical OR                             |
-|    `leq`     |  `<=`  | Less-than-or-equal-to                  |
-|    `geq`     |  `>=`  | Greater-than-or-equal-to               |
-|    `lte`     |  `<=`  | Less-than-or-equal-to                  |
-|    `gte`     |  `>=`  | Greater-than-or-equal-to               |
-|     `eq`     |  `==`  | Equal to                               |
-|     `is`     |  `==`  | Equal to                               |
-|    `neq`     |  `!=`  | Not equal to                           |
 
 ## Fast-Forwarding
 
