@@ -304,6 +304,8 @@ ChatterScript will automatically convert between types. For example:
 
 ## Functions
 
+### `visited`
+
 By default, Chatterbox includes a `visited()` function which returns the number of times a node has been entered.
 
 ```chatterscript
@@ -311,6 +313,36 @@ By default, Chatterbox includes a `visited()` function which returns the number 
     We have gone to the city before!
 <<endif>>
 ```
+
+You may skip providing the node name to get the number of times the current node has been entered.
+
+```chatterscript
+We have visted this node {visited()} times before.
+```
+
+### `localCounter`
+
+This special ChatterScript function will increment a counter and return the new value. The counter is unique to the filename and node, and is further unique based on the identifier i.e. two `localCounter()` calls with the same identifier in two different nodes will use two counters internally.
+
+```chatterscript
+You've seen this line of dialogue {localCounter("apple")} times.
+```
+
+Local counters are further saved and loaded by `ChatterboxVariablesExport()` and `ChatterboxVariablesImport()`.
+
+### `once`
+
+Shorthand for `localCounter("identifier") == 1`.
+
+```chatterscript
+<<if once("greeting")>>
+    You are an unfamiliar face. Greetings.
+<<else>>
+    Hello again friend!
+<<endif>>
+```
+
+### `optionChosen`
 
 Chatterbox also includes the `optionChosen()` function. This works similarly to `visited()` but can only be used in the condition for an option, like so:
 
@@ -322,7 +354,9 @@ How can I help?
     Huh? We mostly sell birthday cards.
 ```
 
-Using `optionChosen()` outside of an option condition is invalid and will throw an error. What options have been chosen is not intended to persist between gameplay sessions and is not included in the data returned by `ChatterboxVariablesExport()`. If you want to track which options have been chosen, you will instead need to write your own system.
+Using `optionChosen()` outside of an option condition is invalid and will throw an error. What options have been chosen is **not** intended to persist between gameplay sessions and is **not** included in the data returned by `ChatterboxVariablesExport()`. If you want to track which options have been chosen, you should use `localCounter()` above.
+
+### Custom Functions
 
 Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
 
