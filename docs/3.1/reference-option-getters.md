@@ -72,6 +72,43 @@ _Returns:_ Integer, the total number of option strings in the given [chatterbox]
 
 &nbsp;
 
+## `...FindOptionWithMetadata()`
+
+_Full function name:_ `ChatterboxFindOptionWithMetadata(chatterbox, metadata, [respectCondition=true])`
+
+_Returns:_ Number, index of the option with the given metadata string.
+
+|Name                |Datatype                          |Purpose                                                             |
+|--------------------|----------------------------------|--------------------------------------------------------------------|
+|`chatterbox`        |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                    |
+|`metadata`          |string                            |Metadata string to search for                                       |
+|`[respectCondition]`|boolean                           |Whether to filter out options that have failed their condition check|
+
+If there are multiple options that contain the metadata string then the first option index is returned. If no option has the metadata string then this function returns `undefined`.
+
+If the optional `respectCondition` parameter is set to `true` (as it is by default) then this function will always ignore options that have failed their condition check (if they have one).
+
+&nbsp;
+
+## `...GetOptionContainsMetadata()`
+
+_Full function name:_ `ChatterboxGetOptionContainsMetadata(chatterbox, optionIndex, metadata, [respectCondition=true])`
+
+_Returns:_ Boolean, whether the given option contains a particular metadata string
+
+|Name                |Datatype                          |Purpose                                                             |
+|--------------------|----------------------------------|--------------------------------------------------------------------|
+|`chatterbox`        |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                    |
+|`optionIndex`       |integer                           |Option item to target                                               |
+|`metadata`          |string                            |Metadata string to search for                                       |
+|`[respectCondition]`|boolean                           |Whether to filter out options that have failed their condition check|
+
+If the index provided is out of bounds then this function will return `false`.
+
+If the optional `respectCondition` parameter is set to `true` (as it is by default) then this function will always return `false` if the option failed its condition check.
+
+&nbsp;
+
 ## `...OptionArray()`
 
 _Full function name:_ `ChatterboxGetOptionArray(chatterbox)`
