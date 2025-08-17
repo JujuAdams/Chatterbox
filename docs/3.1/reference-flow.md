@@ -20,21 +20,6 @@ This function jumps to a specific node in a [source file](concept-source-files).
 
 &nbsp;
 
-## `...Select()`
-
-_Full function name:_ `ChatterboxSelect(chatterbox, optionIndex)`
-
-_Returns:_ N/A (`undefined`)
-
-|Name         |Datatype                          |Purpose                                                                                                                  |
-|-------------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------|
-|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                         |
-|`optionIndex`|integer                           |Option to select, as detailed by [`chatterbox_get_option()`](reference-getters#chatterboxgetoptionchatterbox-optionindex)|
-
-This function selects an option as defined by a ChatterScript shortcut (`->`).
-
-&nbsp;
-
 ## `...Continue()`
 
 _Full function name:_ `ChatterboxContinue(chatterbox, [name=""])`
@@ -54,43 +39,24 @@ The name is used to link continue commands to similarly named wait commands (eit
 
 &nbsp;
 
-## `...JumpBack()`
+## `...Select()`
 
-_Full function name:_ `ChatterboxJumpBack(chatterbox)`
-
-_Returns:_ N/A (`undefined`)
-
-|Name        |Datatype                          |Purpose                                                                                                                                                                 |
-|------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                                                                        |
-
-This function jumps to the previously visited node. If there is no previous node, this function does nothing.
-
-?> `ChatterboxJumpBack()` doesn't use a stack and will literally jump back to previous node. This means calling `ChatterboxJumpBack()` multiple times in a row will bounce between two nodes.
-
-&nbsp;
-
-## `...Hop()`
-
-_Full function name:_ `ChatterboxHop(chatterbox, nodeTitle, [filename])`
+_Full function name:_ `ChatterboxSelect(chatterbox, optionIndex)`
 
 _Returns:_ N/A (`undefined`)
 
-|Name        |Datatype                          |Purpose                                                                                                                                                                 |
-|------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                                                                        |
-|`nodeTitle` |string                            |Name of the node to jump to                                                                                                                                             |
-|`[filename]`|string                            |[Source file](concept-source-files) to target. If not specified, the current [source file](concept-source-files) for the [chatterbox](concept-chatterboxes) will be used|
+|Name         |Datatype                          |Purpose                                                                                                                  |
+|-------------|----------------------------------|-------------------------------------------------------------------------------------------------------------------------|
+|`chatterbox` |[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                         |
+|`optionIndex`|integer                           |Option to select, as detailed by [`chatterbox_get_option()`](reference-getters#chatterboxgetoptionchatterbox-optionindex)|
 
-This function pushes the current node (and position in the node) to an internal stack, and then jumps to a specific node in a [source file](concept-source-files). You can then hop back to where you left off by calling `ChatterboxHopBack()`.
-
-!> The hop stack is not available to be manually accessed or modified. The hop stack cannot be exported or imported. You should not rely on the hop stack to exist if you're handling savedata.
+This function selects an option as defined by a ChatterScript shortcut (`->`).
 
 &nbsp;
 
-## `...HopBack()`
+## `...SkipOptions()`
 
-_Full function name:_ `ChatterboxHopBack(chatterbox)`
+_Full function name:_ `ChatterboxSkipOptions(chatterbox)`
 
 _Returns:_ N/A (`undefined`)
 
@@ -98,7 +64,7 @@ _Returns:_ N/A (`undefined`)
 |------------|----------------------------------|------------------------------------------------|
 |`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
-This function pops a node and position from the internal stack, and then jumps to that specific node and position. Please see `ChatterboxHop()` above for more information.
+Skips the current block of options that the chatterbox is displaying. This function will do nothing if there are no options being shown.
 
 &nbsp;
 
@@ -156,3 +122,51 @@ _Returns:_ N/A (`undefined`)
 |`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
 
 Essentially a super-charged version of [`ChatterboxContinue()`](reference-flow#chatterboxcontinuechatterbox). Advances dialogue in a chatterbox all the way until the next occasion where the player is prompted to make a decision i.e. where options are being displayed and [`ChatterboxSelect()`](reference-flow#chatterboxselectchatterbox-optionindex) would be used. Fast forwarding ignores `<<wait>>` commands; if you'd like to force a fast forwarding chatterbox to wait then please use `<<forcewait>>` instead.
+
+&nbsp;
+
+## `...JumpBack()`
+
+_Full function name:_ `ChatterboxJumpBack(chatterbox)`
+
+_Returns:_ N/A (`undefined`)
+
+|Name        |Datatype                          |Purpose                                                                                                                                                                 |
+|------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                                                                        |
+
+This function jumps to the previously visited node. If there is no previous node, this function does nothing.
+
+?> `ChatterboxJumpBack()` doesn't use a stack and will literally jump back to previous node. This means calling `ChatterboxJumpBack()` multiple times in a row will bounce between two nodes.
+
+&nbsp;
+
+## `...Hop()`
+
+_Full function name:_ `ChatterboxHop(chatterbox, nodeTitle, [filename])`
+
+_Returns:_ N/A (`undefined`)
+
+|Name        |Datatype                          |Purpose                                                                                                                                                                 |
+|------------|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target                                                                                                                        |
+|`nodeTitle` |string                            |Name of the node to jump to                                                                                                                                             |
+|`[filename]`|string                            |[Source file](concept-source-files) to target. If not specified, the current [source file](concept-source-files) for the [chatterbox](concept-chatterboxes) will be used|
+
+This function pushes the current node (and position in the node) to an internal stack, and then jumps to a specific node in a [source file](concept-source-files). You can then hop back to where you left off by calling `ChatterboxHopBack()`.
+
+!> The hop stack is not available to be manually accessed or modified. The hop stack cannot be exported or imported. You should not rely on the hop stack to exist if you're handling savedata.
+
+&nbsp;
+
+## `...HopBack()`
+
+_Full function name:_ `ChatterboxHopBack(chatterbox)`
+
+_Returns:_ N/A (`undefined`)
+
+|Name        |Datatype                          |Purpose                                         |
+|------------|----------------------------------|------------------------------------------------|
+|`chatterbox`|[chatterbox](concept-chatterboxes)|The [chatterbox](concept-chatterboxes) to target|
+
+This function pops a node and position from the internal stack, and then jumps to that specific node and position. Please see `ChatterboxHop()` above for more information.
