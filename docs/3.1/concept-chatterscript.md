@@ -109,6 +109,26 @@ Randomly chosen options also respect if-statements. Any option that is set to be
 
 In the above example, if the player has obtained all three items then they have an equal chance of each of the four outcomes happening.
 
+## choose (switch ... case)
+
+ChatterScript doesn't specifically have switch...case syntax (which you might know from [other programming languages](https://manual.gamemaker.io/monthly/en/GameMaker_Language/GML_Overview/Language_Features/switch.htm)). Instead, ChatterScript allows you to use option syntax with a specical command `<<choose>>` to do the same thing.
+
+```chatterscript
+<<choose $apples>>
+-> #1
+  You have a single, lonely apple.
+-> #2
+  You have two apples.
+-> #3 #4
+  You have three or four apples. Is that enough for a pie?
+-> #*
+  You have more apples than you can hold.
+```
+
+When using `<<choose>>`, a chatterbox will automatically select the option with metadata matching whatever value you give to `choose`. You can use the wildcard `*` to act as a "default" option that will be chosen if no other option has matching metadata.
+
+!> If there's no matching option, and there's no wildcard option, then Chatterbox will crash and show an error message.
+
 ## Links Between Nodes
 
 Moving between nodes can be done using a `<<jump>>` action (other action are available, see below):
