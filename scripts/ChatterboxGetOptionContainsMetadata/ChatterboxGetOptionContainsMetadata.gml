@@ -4,10 +4,10 @@
 /// is out of bounds then this function will return `false`.
 /// 
 /// If the optional `respectCondition` parameter is set to `true` (as it is by default) then this
-/// function will always return `false`.
+/// function will always return `false` if the option failed its condition check.
 /// 
 /// @param chatterbox
-/// @param index
+/// @param optionIndex
 /// @param metadata
 /// @param [respectCondition=true]
 
