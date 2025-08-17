@@ -140,15 +140,85 @@ You can also specify a name in a force wait command. This name is then used to f
 
 ## Functions
 
-Chatterbox contains one native function: `visited("NodeTitle")`. This function returns the number of times that a particular node has been visited. You can specifiy a node in a particular file by You can specifying the filename first, typing a `:` colon, and then specifying the node in that file. If you don't specify a file then Chatterbox will search in the current file for the desired node.
+### `visited`
 
-Powerful custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) function. This is a global function and you only need to call it once per custom function. Custom functions can do anything that GML can do... because they're written in GML!
+Chatterbox includes a `visited()` function which returns the number of times a node has been entered.
 
-!> Custom functions must be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
+```chatterscript
+<<if visited("GoToCity")>>
+    We have gone to the city before!
+<<endif>>
+```
 
-Custom functions can have parameters. Parameters should be separated by spaces and are passed into a script as an array of values in `argument0`. Custom functions can return values, and like Chatterbox variables, a function must return a number, a string, or a boolean `true` / `false`. A function can also return nothing (`undefined`).
+You may skip providing the node name to get the number of times the current node has been entered.
 
-?> You can use the `CHATTERBOX_CURRENT` read-only macro to get the chatterbox that is currently being processed. This is helpful when using `ChatterboxJump()` etc.
+```chatterscript
+We have visted this node {visited()} times before.
+```
+
+### `localCounter`
+
+This special ChatterScript function will increment a counter and return the new value. The counter is unique to the filename and node, and is further unique based on the identifier i.e. two `localCounter()` calls with the same identifier in two different nodes will use two counters internally.
+
+```chatterscript
+You've seen this line of dialogue {localCounter("apple")} times.
+```
+
+Local counters are further saved and loaded by `ChatterboxVariablesExport()` and `ChatterboxVariablesImport()`.
+
+### `once`
+
+Shorthand for `localCounter("identifier") == 1`.
+
+```chatterscript
+<<if once("greeting")>>
+    You are an unfamiliar face. Greetings.
+<<else>>
+    Hello again friend!
+<<endif>>
+```
+
+### `optionChosen`
+
+Chatterbox also includes the `optionChosen()` function. This works similarly to `visited()` but can only be used in the condition for an option, like so:
+
+```chatterscript
+How can I help?
+-> Can I buy some green eggs please? <<if !optionChosen()>>
+    No... This is a stationery shop.
+-> Do you have any ham for sale? <<if !optionChosen()>>
+    Huh? We mostly sell birthday cards.
+```
+
+Using `optionChosen()` outside of an option condition is invalid and will throw an error. What options have been chosen is **not** intended to persist between gameplay sessions and is **not** included in the data returned by `ChatterboxVariablesExport()`. If you want to track which options have been chosen, you should use `localCounter()` above.
+
+### Custom Functions
+
+Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
+
+<!-- tabs:start -->
+
+#### **GML**
+
+```gml
+ChatterboxLoad("example.json");
+ChatterboxAddFunction("AmIDead", am_i_dead);
+```
+
+#### **ChatterScript**
+
+```chatterscript
+Am I dead?
+<<if AmIDead("player")>>
+    Yup. Definitely dead.
+<<else>>
+    No, not yet!
+<<endif>>
+```
+
+<!-- tabs:end -->
+
+This example shows how the script `am_i_dead()` is called by Chatterbox in an if statement. The value returned from `am_i_dead()` determines which text is displayed.
 
 <!-- tabs:start -->
 
