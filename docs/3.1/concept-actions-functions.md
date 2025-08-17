@@ -130,7 +130,7 @@ You can also specify a name in a force wait command. This name is then used to f
 
 &nbsp;
 
-### `v`
+### `fastmark`
 
 *Example:* `<<fastmark>>`
 
