@@ -97,7 +97,7 @@ function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression,
                 }
                 else
                 {
-                    if ((array_length(_parameter_values) <= 0) && (_parameter_values[0] == undefined))
+                    if ((array_length(_parameter_values) <= 0) || (_parameter_values[0] == undefined))
                     {
                         var _param_node_title = _node_title;
                     }
