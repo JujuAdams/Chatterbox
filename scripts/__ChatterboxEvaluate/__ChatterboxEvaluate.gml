@@ -212,7 +212,6 @@ function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression,
                 {
                     _system.__declaredVariablesMap[? _variable_name] = true;
                     _system.__constantsMap[? _variable_name] = false;
-                    ds_list_add(_system.__variablesList, _variable_name);
                 }
             break;
             

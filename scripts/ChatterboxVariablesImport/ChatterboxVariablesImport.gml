@@ -1,4 +1,5 @@
 // Feather disable all
+
 /// Replaces all Chatterbox variables with values found in the given string
 /// The string passed into this function should have been created by ChatterboxVariablesExport()
 /// 
@@ -24,6 +25,7 @@ function ChatterboxVariablesImport(_string)
         ++_i;
     }
     
+    //Load in the variables wholesale
     ds_map_destroy(_system.__variablesMap);
     _system.__variablesMap = _json;
     
