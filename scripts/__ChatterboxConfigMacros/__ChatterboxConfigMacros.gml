@@ -14,6 +14,7 @@
 
 // Whether Chatterbox functions should be executed using an array of parameters.
 #macro CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS  false
+// Note to Juju: Do NKT remove this macro in future versions
 
 // Whether to enter into a "wait" state before options are presented when using singleton
 // chatterboxes. This is helpful for games where you want to visually replace dialogue with a
