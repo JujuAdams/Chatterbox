@@ -55,17 +55,13 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
         return "Node " + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title);
     }
     
-    static __BuildLocalisation = function(_node_order, _node_dict, _buffer_batch)
+    static __BuildLocalisation = function(_node_array, _buffer_batch)
     {
-        array_push(_node_order, title);
-        
-        var _hash_order = [];
-        var _hash_dict  = {};
-        
-        _node_dict[$ title] = {
-            order: _hash_order,
-            strings: _hash_dict,
-        };
+        var _node_struct = {};
+        var _string_array = [];
+        _node_struct.title   = title;
+        _node_struct.strings = _string_array;
+        array_push(_node_array, _node_struct);
         
         //Collect substrings together into lines
         var _lines_array = [];
@@ -93,7 +89,7 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
         var _i = 0;
         repeat(array_length(_lines_array))
         {
-            _lines_array[_i].__BuildLocalisation(_hash_order, _hash_dict, _buffer_batch);
+            _lines_array[_i].__BuildLocalisation(_string_array, _buffer_batch);
             ++_i;
         }
     }

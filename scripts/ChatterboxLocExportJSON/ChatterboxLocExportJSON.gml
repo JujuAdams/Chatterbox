@@ -5,43 +5,38 @@
 ///   THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT
 ///   ENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL
 /// 
-/// File order:
 /// [
-///     <filename>,
+///     {
+///         filename: <string>,
+///         nodes: [
+///             {
+///                 title: <string>,
+///                 strings: [
+///                     {
+///                         hash: <string>,
+///                         content: <string>,
+///                     },
+///                     ...
+///                 ]
+///             },
+///             ...
+///         ]
+///    ],
+///    ...
 /// ]
 /// 
-/// File dict:
-/// {
-///     <filename>: {
-///         order: [
-///             <node title>,
-///         ],
-///         nodes: {
-///             <node title>: {
-///                 order: [
-///                     <hash>,
-///                 ],
-///                 strings: {
-///                     <hash>: <string>,
-///                 },
-///             },
-///         },
-///     }.
-/// }
+/// 
 /// @param chatterPathArray   Array of paths to source ChatterScript files, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
-/// @param csvOutputPath      Path to save the localisation CSV to, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
-/// @param [fileOrder]
 
-function ChatterboxLocExportJSON(_chatter_path_array, _csv_path_array, _file_order = [])
+function ChatterboxLocExportJSON(_chatter_path_array)
 {
     static _system = __ChatterboxSystem();
     
-    var _file_dict = {};
+    var _json = [];
     
     var _root_directory = ChatterboxLocGetRootDirectory();
     
     if (!is_array(_chatter_path_array)) _chatter_path_array = [_chatter_path_array];
-    if (!is_array( _csv_path_array))  _csv_path_array = [ _csv_path_array];
     
     var _count = array_length(_chatter_path_array);
     var _i = 0;
@@ -56,7 +51,7 @@ function ChatterboxLocExportJSON(_chatter_path_array, _csv_path_array, _file_ord
         var _buffer_batch = new __ChatterboxBufferBatch();
         _buffer_batch.__FromBuffer(_buffer);
         
-        _source.__BuildLocalisation(_file_order, _file_dict, _buffer_batch);
+        _source.__BuildLocalisation(_json, _buffer_batch);
         
         //Save out the modified ChatterScript file
         var _buffer = _buffer_batch.__GetBuffer();
@@ -75,5 +70,5 @@ function ChatterboxLocExportJSON(_chatter_path_array, _csv_path_array, _file_ord
         ++_i;
     }
     
-    return _file_dict;
+    return _json;
 }

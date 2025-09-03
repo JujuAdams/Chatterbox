@@ -18,12 +18,9 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
     static _system = __ChatterboxSystem();
     
     var _root_directory = ChatterboxLocGetRootDirectory();
+    var _json = ChatterboxLocExportJSON(_chatter_path_array);
     
-    if (!is_array(_chatter_path_array)) _chatter_path_array = [_chatter_path_array];
     if (!is_array( _csv_path_array))  _csv_path_array = [ _csv_path_array];
-    
-    var _file_order = [];
-    var _file_dict = ChatterboxLocExportJSON(_chatter_path_array, _csv_path_array, _file_order);
     
     //Go through each CSV file and merge in changes
     var _csv_loc_map = ds_map_create();
@@ -42,37 +39,34 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
         __ChatterboxLocalizationLoadIntoMap(_absolute_path, _csv_loc_map, true);
         
         var _f = 0;
-        repeat(array_length(_file_order))
+        repeat(array_length(_json))
         {
-            var _filename = _file_order[_f];
+            var _file_struct = _json[_f];
+            var _filename    = _file_struct.filename;
+            var _node_array  = _file_struct.nodes;
             
             buffer_write(_output_buffer, buffer_text, ",\"");
             buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(_filename));
             buffer_write(_output_buffer, buffer_text, "\",,,,\n");
             
-            var _file_struct = _file_dict[$ _filename];
-            var _node_order = _file_struct.order;
-            var _node_dict  = _file_struct.nodes;
-            
             var _n = 0;
-            repeat(array_length(_node_order))
+            repeat(array_length(_node_array))
             {
-                var _node_title = _node_order[_n];
+                var _node_struct  = _node_array[_n];
+                var _node_title   = _node_struct.title;
+                var _string_array = _node_struct.strings;
                 
                 buffer_write(_output_buffer, buffer_text, ",,\"");
                 buffer_write(_output_buffer, buffer_text, __ChatterboxEscapeForCSV(_node_title));
                 buffer_write(_output_buffer, buffer_text, "\",,,\n");
                 
-                var _node_struct = _node_dict[$ _node_title];
-                var _string_order = _node_struct.order;
-                var _string_dict  = _node_struct.strings;
-                
                 var _s = 0;
-                repeat(array_length(_string_order))
+                repeat(array_length(_string_array))
                 {
-                    var _line_id = _string_order[_s];
+                    var _string_struct = _string_array[_s];
+                    var _line_id       = _string_struct.line_id;
+                    var _new_text      = _string_struct.content;
                     
-                    var _new_text = _string_dict[$ _line_id];
                     var _new_hash = "#" + string_copy(md5_string_unicode(_new_text), 1, __CHATTERBOX_TEXT_HASH_LENGTH);
                     
                     var _full_key = _filename + ":" + _node_title + ":#" + _line_id;

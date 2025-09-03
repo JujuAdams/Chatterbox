@@ -209,6 +209,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Content Getters","folderPath":"folders/Chatterbox/Content Getters.yy","order":5,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Flow","folderPath":"folders/Chatterbox/Flow.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Localisation","folderPath":"folders/Chatterbox/Localisation.yy","order":8,},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Advanced","folderPath":"folders/Chatterbox/Localisation/Advanced.yy","order":4,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Option Getters","folderPath":"folders/Chatterbox/Option Getters.yy","order":6,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Setup","folderPath":"folders/Chatterbox/Setup.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Variables and Constants","folderPath":"folders/Chatterbox/Variables and Constants.yy","order":7,},
@@ -216,7 +217,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Basic","folderPath":"folders/Examples/Basic.yy","order":2,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"SpeakerDataSprite","folderPath":"folders/Examples/SpeakerDataSprite.yy","order":3,},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Test Cases","folderPath":"folders/Test Cases.yy","order":4,},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Advanced","folderPath":"folders/Chatterbox/Localisation/Advanced.yy","order":4,},
   ],
   "AudioGroups": [
     {"resourceType":"GMAudioGroup","resourceVersion":"1.3","name":"audiogroup_default","targets":-1,},
