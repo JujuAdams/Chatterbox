@@ -17,87 +17,13 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
 {
     static _system = __ChatterboxSystem();
     
-    if (!CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING)
-    {
-        __ChatterboxError("THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT\nENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL\n \nSet CHATTERBOX_LOCALIZATION_ACKNOWLEDGE_WARNING to <true> to turn off this warning");
-    }
-    else if (os_browser != browser_not_a_browser)
-    {
-        __ChatterboxError("ChatterboxLocalizationBuild() not available when running in a browser");
-    }
-    else if ((os_type != os_windows) && (os_type != os_macosx) && (os_type != os_linux))
-    {
-        __ChatterboxError("ChatterboxLocalizationBuild() only available when running on Windows, MacOS, or Linux");
-    }
-    else if (not CHATTERBOX_RUNNING_FROM_IDE)
-    {
-        __ChatterboxError("ChatterboxLocalizationBuild() only available when running from the IDE");
-    }
-    var _root_directory = filename_dir(GM_project_filename) + "/datafiles/" + _system.__directory;
-    
-    if (!directory_exists(_root_directory))
-    {
-        __ChatterboxError("Could not find \"", _root_directory, "\"\nPlease check the file system sandbox is disabled");
-    }
+    var _root_directory = ChatterboxLocGetRootDirectory();
     
     if (!is_array(_chatter_path_array)) _chatter_path_array = [_chatter_path_array];
     if (!is_array( _csv_path_array))  _csv_path_array = [ _csv_path_array];
     
     var _file_order = [];
-    var _file_dict  = {};
-    // [
-    //     <filename>,
-    // ]
-    // 
-    // {
-    //     <filename>: {
-    //         order: [
-    //             <node title>,
-    //         ],
-    //         nodes: {
-    //             <node title>: {
-    //                 order: [
-    //                     <hash>,
-    //                 ],
-    //                 strings: {
-    //                     <hash>: <string>,
-    //                 },
-    //             },
-    //         },
-    //     }.
-    // }
-    
-    var _count = array_length(_chatter_path_array);
-    var _i = 0;
-    repeat(_count)
-    {
-        var _local_path    = __ChatterboxReplaceBackslashes(_chatter_path_array[_i]);
-        var _absolute_path = __ChatterboxReplaceBackslashes(_root_directory + _local_path);
-        
-        var _buffer = buffer_load(_absolute_path);
-        var _source = new __ChatterboxClassSource(_local_path, _buffer, false);
-        
-        var _buffer_batch = new __ChatterboxBufferBatch();
-        _buffer_batch.__FromBuffer(_buffer);
-        
-        _source.__BuildLocalisation(_file_order, _file_dict, _buffer_batch);
-        
-        //Save out the modified ChatterScript file
-        var _buffer = _buffer_batch.__GetBuffer();
-        
-        var _size = buffer_get_size(_buffer);
-        
-        //We artificially add a null when parsing the source buffer. Let's trim off the final null when re-saving it
-        if (buffer_peek(_buffer, buffer_get_size(_buffer)-1, buffer_u8) == 0x00)
-        {
-            --_size;
-        }
-        
-        buffer_save_ext(_buffer, _absolute_path, 0, _size);
-        _buffer_batch.__Destroy();
-        
-        ++_i;
-    }
+    var _file_dict = ChatterboxLocExportJSON(_chatter_path_array, _csv_path_array, _file_order);
     
     //Go through each CSV file and merge in changes
     var _csv_loc_map = ds_map_create();
