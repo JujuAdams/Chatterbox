@@ -1,4 +1,4 @@
-function ChatterboxLocGetRootDirectory()
+function __ChatterboxLocGetRootDirectory()
 {
     static _system = __ChatterboxSystem();
     

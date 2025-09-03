@@ -1,4 +1,5 @@
 // Feather disable all
+
 /// Parses an array of ChatternScript files stored in your project's Included Filess directory and
 /// creates a CSV that contains all strings in those source files. The ChatterScript files are
 /// modified by this function such that they link up to the CSV. You should then create a copy of
@@ -17,8 +18,8 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
 {
     static _system = __ChatterboxSystem();
     
-    var _root_directory = ChatterboxLocGetRootDirectory();
-    var _json = ChatterboxLocExportJSON(_chatter_path_array);
+    var _root_directory = __ChatterboxLocGetRootDirectory();
+    var _data = ChatterboxLocalizationExportData(_chatter_path_array);
     
     if (!is_array( _csv_path_array))  _csv_path_array = [ _csv_path_array];
     
@@ -39,9 +40,9 @@ function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
         __ChatterboxLocalizationLoadIntoMap(_absolute_path, _csv_loc_map, true);
         
         var _f = 0;
-        repeat(array_length(_json))
+        repeat(array_length(_data))
         {
-            var _file_struct = _json[_f];
+            var _file_struct = _data[_f];
             var _filename    = _file_struct.filename;
             var _node_array  = _file_struct.nodes;
             

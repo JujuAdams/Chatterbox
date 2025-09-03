@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxLocSafetyCheck",
+  "name": "ChatterboxLocalizationImportData",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {
-    "name": "Advanced",
-    "path": "folders/Chatterbox/Localisation/Advanced.yy",
+    "name": "Localisation",
+    "path": "folders/Chatterbox/Localisation.yy",
   },
 }

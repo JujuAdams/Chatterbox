@@ -1,4 +1,5 @@
 // Feather disable all
+
 function __ChatterboxLocalizationLoadIntoMap(_path, _map, _read_hash = false)
 {
     if (!file_exists(_path))
