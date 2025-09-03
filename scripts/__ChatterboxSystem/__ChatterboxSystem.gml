@@ -58,6 +58,11 @@ function __ChatterboxSystem()
             }
         }
         
+        if (CHATTERBOX_RUNNING_FROM_IDE)
+        {
+            global.__Chatterbox = self;
+        }
+        
         //Declare global variables
         __directory            = _chatterboxDirectory;
         
