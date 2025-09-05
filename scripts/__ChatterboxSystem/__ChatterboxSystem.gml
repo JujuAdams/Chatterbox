@@ -108,6 +108,50 @@ function __ChatterboxSystem()
         ds_list_add(__opList, "*=");
         ds_list_add(__opList, "/=");
         ds_list_add(__opList, "=" );
+        
+        ChatterboxAddFunction("modulo", function(_a, _b)
+        {
+            if (CHATTERBOX_FUNCTION_ARRAY_ARGUMENTS)
+            {
+                if (array_length(_a) != 2)
+                {
+                    __ChatterboxError("`modulo()` requires two number parameters");
+                }
+                
+                _b = _a[1];
+                _a = _a[0];
+            }
+            
+            try
+            {
+                _a = real(_a);
+            }
+            catch(_error)
+            {
+                if (CHATTERBOX_RUNNING_FROM_IDE)
+                {
+                    __ChatterboxError("Both parameters to `modulo()` must be numbers (a=", typeof(_a), ", b=", typeof(_b), ")");
+                }
+                
+                _a = 0;
+            }
+            
+            try
+            {
+                _b = real(_b);
+            }
+            catch(_error)
+            {
+                if (CHATTERBOX_RUNNING_FROM_IDE)
+                {
+                    __ChatterboxError("Both parameters to `modulo()` must be numbers (a=", typeof(_a), ", b=", typeof(_b), ")");
+                }
+                
+                _b = 1;
+            }
+            
+            return (_a mod _b);
+        });
     }
     
     return _system;
