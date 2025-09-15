@@ -261,6 +261,7 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                         else
                         {
                             _instruction_text.loc_hash = _hash_prefix + string_delete(_string, 1, __CHATTERBOX_LINE_HASH_PREFIX_LENGTH);
+                            _previous_instruction.loc_hash = _instruction_text.loc_hash; //Store the line ID in the instruction too for collection later
                         }
                     }
                     

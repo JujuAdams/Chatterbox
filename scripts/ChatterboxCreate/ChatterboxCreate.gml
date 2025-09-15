@@ -59,11 +59,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     content              = [];
     contentConditionBool = [];
     contentMetadata      = [];
+    contentLineID        = [];
     contentStructArray   = [];
     
     option              = [];
     optionConditionBool = [];
     optionMetadata      = [];
+    optionLineID        = [];
     optionInstruction   = [];
     __optionUUIDArray   = [];
     optionStructArray   = [];
@@ -458,6 +460,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return contentMetadata[_index];
     }
     
+    static GetContentLineID = function(_index)
+    {
+        VerifyIsLoaded();
+        if ((_index < 0) || (_index >= array_length(contentLineID))) return undefined;
+        return contentLineID[_index];
+    }
+    
     static GetContentArray = function()
     {
         VerifyIsLoaded();
@@ -495,6 +504,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         VerifyIsLoaded();
         if ((_index < 0) || (_index >= array_length(optionMetadata))) return undefined;
         return optionMetadata[_index];
+    }
+    
+    static GetOptionLineID = function(_index)
+    {
+        VerifyIsLoaded();
+        if ((_index < 0) || (_index >= array_length(optionLineID))) return undefined;
+        return optionLineID[_index];
     }
     
     static FindOptionWithMetadata = function(_metadata, _respectCondition = true)
@@ -635,6 +651,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         array_resize(content,              _count);
         array_resize(contentConditionBool, _count);
         array_resize(contentMetadata,      _count);
+        array_resize(contentLineID,        _count);
         array_resize(contentStructArray,   _count);
     }
     
@@ -647,6 +664,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         array_resize(option,              _count);
         array_resize(optionConditionBool, _count);
         array_resize(optionMetadata,      _count);
+        array_resize(optionLineID,        _count);
         array_resize(optionInstruction,   _count);
         array_resize(__optionUUIDArray,   _count);
         array_resize(optionStructArray,   _count);

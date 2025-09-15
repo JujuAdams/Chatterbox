@@ -81,6 +81,7 @@ function __ChatterboxVMInner(_instruction)
                     array_push(option, _optionString);
                     array_push(optionConditionBool, !_condition_failed);
                     array_push(optionMetadata, _instruction.metadata);
+                    array_push(optionLineID, _instruction.loc_hash);
                     array_push(optionInstruction, _branch);
                     array_push(__optionUUIDArray, _instruction.optionUUID);
                     
@@ -274,6 +275,7 @@ function __ChatterboxVMInner(_instruction)
                         array_push(content, _contentString);
                         array_push(contentConditionBool, !_condition_failed);
                         array_push(contentMetadata, _instruction.metadata);
+                        array_push(contentLineID, _instruction.loc_hash);
                         array_push(contentStructArray, {
                             text: _contentString,
                             conditionBool: !_condition_failed,
