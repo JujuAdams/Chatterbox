@@ -18,8 +18,9 @@ else
     repeat(ChatterboxGetContentCount(box))
     {
         var _string = ChatterboxGetContent(box, _i);
-        draw_text(_x, _y, _string);
-        _y += string_height(_string);
+        _string += "  //" + string(ChatterboxGetContentLineID(box, _i)) + "//";
+        draw_text_ext(_x, _y, _string, -1, room_width-20);
+        _y += string_height_ext(_string, -1, room_width-20);
         ++_i;
     }
     
@@ -38,6 +39,7 @@ else
         repeat(ChatterboxGetOptionCount(box))
         {
             var _string = ChatterboxGetOption(box, _i);
+            _string += "  //" + string(ChatterboxGetOptionLineID(box, _i)) + "//";
             draw_text(_x, _y, string(_i+1) + ") " + _string);
             _y += string_height(_string);
             ++_i;
