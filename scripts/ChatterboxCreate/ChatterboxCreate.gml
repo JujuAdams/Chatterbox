@@ -83,6 +83,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     fastForward         = false;
     loaded              = true;
     wait_instruction    = undefined;
+    scanToNext          = false;
     
     __fastForwardContentCount = 0;
     

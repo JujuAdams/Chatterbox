@@ -204,6 +204,24 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     }
                 break;
                 
+                case "next":
+                    if (is_struct(_previous_instruction))
+                    {
+                        if (_previous_instruction.type != "content")
+                        {
+                            __ChatterboxError("Cannot use <<next>> after any instruction other than content");
+                        }
+                        else if (_previous_instruction.line != _line)
+                        {
+                            __ChatterboxError("Cannot use <<next>> on a new line");
+                        }
+                        else
+                        {
+                            _previous_instruction.startScanToNext = true;
+                        }
+                    }
+                break;
+                
                 default:
                     if ((_first_word == "random") && (_remainder == "option"))
                     {

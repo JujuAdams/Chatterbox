@@ -4,12 +4,13 @@
 /// @param indent
 function __ChatterboxClassInstruction(_type, _line, _indent) constructor
 {
-    type     = _type;
-    line     = _line;
-    indent   = _indent;
-    metadata = [];
-    text     = undefined;
-    loc_hash = undefined;
+    type            = _type;
+    line            = _line;
+    indent          = _indent;
+    metadata        = [];
+    text            = undefined;
+    loc_hash        = undefined;
+    startScanToNext = false;
     
     static toString = function()
     {
