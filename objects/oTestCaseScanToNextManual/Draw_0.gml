@@ -29,7 +29,9 @@ else
     if (ChatterboxIsWaiting(box))
     {
         //If we're in a "waiting" state then prompt the user for basic input
-        draw_text(_x, _y, "(Press Space)");
+        var _string = "(Press Space)";
+        draw_text(_x, _y, _string);
+        _y += string_height(_string);
     }
     else
     {
@@ -42,5 +44,11 @@ else
             _y += string_height(_string);
             ++_i;
         }
+    }
+    
+    if (allowScanToNext)
+    {
+        _y += 30;
+        draw_text(_x, _y, "Press [S] to scan ahead");
     }
 }

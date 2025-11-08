@@ -25,8 +25,11 @@ else
 
 if (_check)
 {
-    if (ChatterboxGetContentHasMetadata(box, 0, "scanToNext"))
-    {
-        ChatterboxScanToNext(box);
-    }
+    allowScanToNext = ChatterboxGetContentHasMetadata(box, 0, "allowScanToNext");
+}
+
+if (allowScanToNext && keyboard_check_pressed(ord("S")))
+{
+    allowScanToNext = false;
+    ChatterboxScanToNext(box);
 }
