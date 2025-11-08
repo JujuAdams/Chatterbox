@@ -7,6 +7,6 @@
 
 function ChatterboxGetOptionMetadata(_chatterbox, _index)
 {
-    if (!IsChatterbox(_chatterbox)) return undefined;
+    if (!IsChatterbox(_chatterbox)) return [];
     return _chatterbox.GetOptionMetadata(_index);
 }

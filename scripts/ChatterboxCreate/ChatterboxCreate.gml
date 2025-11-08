@@ -456,7 +456,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     static GetContentMetadata = function(_index)
     {
         VerifyIsLoaded();
-        if ((_index < 0) || (_index >= array_length(contentMetadata))) return undefined;
+        if ((_index < 0) || (_index >= array_length(contentMetadata))) return [];
         return contentMetadata[_index];
     }
     
@@ -502,7 +502,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     static GetOptionMetadata = function(_index)
     {
         VerifyIsLoaded();
-        if ((_index < 0) || (_index >= array_length(optionMetadata))) return undefined;
+        if ((_index < 0) || (_index >= array_length(optionMetadata))) return [];
         return optionMetadata[_index];
     }
     
