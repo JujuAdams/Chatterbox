@@ -58,7 +58,7 @@ function __ChatterboxVMInner(_instruction)
     var _instructionType = _instruction.type;
     if (is_string(_instructionType))
     {
-        if (scanToNext && ((_instructionType == "content") || (_instructionType == "option") || (_instructionType == "random option") || (_instructionType == "choose")))
+        if (scanToNext && (_instructionType == "content"))
         {
             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "scan-to-next waiting at \"", _instructionType, "\"");
             
