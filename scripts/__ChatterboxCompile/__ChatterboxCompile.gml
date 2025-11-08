@@ -204,16 +204,16 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     }
                 break;
                 
-                case "next":
+                case "scanToNext":
                     if (is_struct(_previous_instruction))
                     {
                         if (_previous_instruction.type != "content")
                         {
-                            __ChatterboxError("Cannot use <<next>> after any instruction other than content");
+                            __ChatterboxError("Cannot use <<scanToNext>> after any instruction other than content");
                         }
                         else if (_previous_instruction.line != _line)
                         {
-                            __ChatterboxError("Cannot use <<next>> on a new line");
+                            __ChatterboxError("Cannot use <<scanToNext>> on a new line");
                         }
                         else
                         {
