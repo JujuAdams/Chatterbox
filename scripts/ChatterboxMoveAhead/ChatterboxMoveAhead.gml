@@ -2,7 +2,7 @@
 
 /// @param chatterbox
 
-function ChatterboxScanToNext(_chatterbox)
+function ChatterboxMoveAhead(_chatterbox)
 {
     static _vmInstanceStack = __ChatterboxSystem().__vmInstanceStack;
     
@@ -11,12 +11,12 @@ function ChatterboxScanToNext(_chatterbox)
         var _i = 0;
         repeat(array_length(_vmInstanceStack))
         {
-            ChatterboxScanToNext(_vmInstanceStack[_i]);
+            ChatterboxMoveAhead(_vmInstanceStack[_i]);
             ++_i;
         }
         
         return;
     }
     
-    return _chatterbox.ScanToNext();
+    return _chatterbox.MoveAhead();
 }

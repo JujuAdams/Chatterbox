@@ -1,14 +1,14 @@
 // Feather disable all
 
-/// @param [scanToNext=false]
+/// @param [moveAhead=false]
 
-function __ChatterboxVM(_scanToNext = false)
+function __ChatterboxVM(_moveAhead = false)
 {
     static _system = __ChatterboxSystem();
     
     do 
     {
-        if (not _scanToNext)
+        if (not _moveAhead)
         {
             __ClearContent(0);
         }
@@ -18,7 +18,7 @@ function __ChatterboxVM(_scanToNext = false)
         stopped          = false;
         waiting          = false;
         forced_waiting   = false;
-        scanToNext       = _scanToNext;
+        moveAhead       = _moveAhead;
         waitingName      = "";
         wait_instruction = undefined;
         entered_option   = false;
@@ -64,9 +64,9 @@ function __ChatterboxVMInner(_instruction)
     var _instructionType = _instruction.type;
     if (is_string(_instructionType))
     {
-        if (scanToNext && (_instructionType == "content"))
+        if (moveAhead && (_instructionType == "content"))
         {
-            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "scan-to-next waiting at \"", _instructionType, "\"");
+            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "move ahead waiting at \"", _instructionType, "\"");
             
             waiting          = true;
             waitingName      = "";
@@ -302,10 +302,10 @@ function __ChatterboxVMInner(_instruction)
                         
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), (_condition_failed? "<false> " : ""), _instruction.text.raw_string);
                             
-                            if (_instruction.startScanToNext)
+                            if (_instruction.startMoveAhead)
                             {
-                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "beginning scan-to-next");
-                                scanToNext = true;
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "beginning move ahead");
+                                moveAhead = true;
                             }
                             else
                             {

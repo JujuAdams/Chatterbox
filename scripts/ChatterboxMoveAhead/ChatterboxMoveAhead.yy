@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxScanToNext",
+  "name": "ChatterboxMoveAhead",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

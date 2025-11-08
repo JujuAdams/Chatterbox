@@ -25,11 +25,11 @@ else
 
 if (_check)
 {
-    allowScanToNext = ChatterboxGetContentHasMetadata(box, 0, "allowScanToNext");
+    allowMoveAhead = ChatterboxGetContentHasMetadata(box, 0, "allowMoveAhead");
 }
 
-if (allowScanToNext && keyboard_check_pressed(ord("S")))
+if (allowMoveAhead && keyboard_check_pressed(ord("M")))
 {
-    allowScanToNext = false;
-    ChatterboxScanToNext(box);
+    allowMoveAhead = false;
+    ChatterboxMoveAhead(box);
 }

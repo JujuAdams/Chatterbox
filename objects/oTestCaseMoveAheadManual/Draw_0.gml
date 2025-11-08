@@ -46,9 +46,9 @@ else
         }
     }
     
-    if (allowScanToNext)
+    if (allowMoveAhead)
     {
         _y += 30;
-        draw_text(_x, _y, "Press [S] to scan ahead");
+        draw_text(_x, _y, "Press [M] to move ahead");
     }
 }

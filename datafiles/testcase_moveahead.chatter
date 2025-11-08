@@ -5,9 +5,9 @@ Normally actions happen before the next piece of content is processed by Chatter
 You'll see a debug message appear after pressing space now.
 <<testAction()>>
 However, you'll very occasionally want actions to happen *after* content is processed.
-Such as this line. <<scanToNext>>
+Such as this line. <<moveAhead>>
 <<testAction()>>
-Would you like this test case to repeat? <<scanToNext>>
+Would you like this test case to repeat? <<moveAhead>>
 <<testAction()>>
 -> Yep.
   <<jump Start>>

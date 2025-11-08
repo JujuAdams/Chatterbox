@@ -83,7 +83,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     fastForward         = false;
     loaded              = true;
     wait_instruction    = undefined;
-    scanToNext          = false;
+    moveAhead          = false;
     
     __fastForwardContentCount = 0;
     
@@ -305,23 +305,23 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChatterboxVM(false);
     }
     
-    static ScanToNext = function()
+    static MoveAhead = function()
     {
         if (!VerifyIsLoaded())
         {
-            __ChatterboxError("Could not scan to next because \"", filename, "\" is not loaded");
+            __ChatterboxError("Could not move ahead because \"", filename, "\" is not loaded");
             return undefined;
         }
         
         if (stopped)
         {
-            __ChatterboxTrace("Warning! Could not scan to next because this chatterbox has been stopped");
+            __ChatterboxTrace("Warning! Could not move ahead because this chatterbox has been stopped");
             return undefined;
         }
         
         if (!waiting)
         {
-            __ChatterboxError("Can't scan to next, provided chatterbox isn't waiting");
+            __ChatterboxError("Can't move ahead, provided chatterbox isn't waiting");
             return undefined;
         }
         
