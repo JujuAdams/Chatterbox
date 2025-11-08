@@ -126,7 +126,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChangeNode(_node, true, "jump");
         current_instruction = current_node.root_instruction;
         
-        __ChatterboxVM();
+        __ChatterboxVM(false);
     }
     
     static JumpBack = function()
@@ -136,7 +136,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChangeNode(previous_node, true, "jump");
         current_instruction = current_node.root_instruction;
         
-        __ChatterboxVM();
+        __ChatterboxVM(false);
     }
     
     //Jumps to a given node in the given source
@@ -171,7 +171,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChangeNode(_node, true, "hop");
         current_instruction = current_node.root_instruction;
         
-        __ChatterboxVM();
+        __ChatterboxVM(false);
     }
     
     static __HopPush = function(_next)
@@ -231,7 +231,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         __ChangeNode(_hop_data.node, false, "hopback");
         current_instruction = _hop_data.next;
         
-        __ChatterboxVM();
+        __ChatterboxVM(false);
     }
     
     static Select = function(_index)
@@ -268,7 +268,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             }
             
             current_instruction = optionInstruction[_index];
-            __ChatterboxVM();
+            __ChatterboxVM(false);
         }
         else
         {
@@ -302,7 +302,31 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         }
         
         current_instruction = wait_instruction;
-        __ChatterboxVM();
+        __ChatterboxVM(false);
+    }
+    
+    static ScanToNext = function()
+    {
+        if (!VerifyIsLoaded())
+        {
+            __ChatterboxError("Could not scan to next because \"", filename, "\" is not loaded");
+            return undefined;
+        }
+        
+        if (stopped)
+        {
+            __ChatterboxTrace("Warning! Could not scan to next because this chatterbox has been stopped");
+            return undefined;
+        }
+        
+        if (!waiting)
+        {
+            __ChatterboxError("Can't scan to next, provided chatterbox isn't waiting");
+            return undefined;
+        }
+        
+        current_instruction = wait_instruction;
+        __ChatterboxVM(true);
     }
     
     static SkipOptions = function()
@@ -330,7 +354,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         // 3. Set up to the branch parent which is the -> option instruction itself
         // 4. Go to the next instruction after that which is the instruction after the option block
         current_instruction = optionInstruction[array_length(optionInstruction)-1].option_branch_parent.next;
-        __ChatterboxVM();
+        __ChatterboxVM(false);
     }
     
     static __CurrentlyProcessing = function()
@@ -431,7 +455,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             fastForward = true;
             __fastForwardContentCount = 0;
             
-            __ChatterboxVM();
+            __ChatterboxVM(false);
         }
     }
     
@@ -472,6 +496,24 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     {
         VerifyIsLoaded();
         return contentStructArray;
+    }
+    
+    static GetContentHasMetadata = function(_index, _string)
+    {
+        var _metadataArray = GetContentMetadata(_index);
+        
+        var _i = 0;
+        repeat(array_length(_metadataArray))
+        {
+            if (_metadataArray[_i] == _string)
+            {
+                return true;
+            }
+            
+            ++_i;
+        }
+        
+        return false;
     }
     
     #endregion

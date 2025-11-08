@@ -1,17 +1,24 @@
 // Feather disable all
 
-function __ChatterboxVM()
+/// @param [scanToNext=false]
+
+function __ChatterboxVM(_scanToNext = false)
 {
     static _system = __ChatterboxSystem();
     
     do 
     {
-        __ClearContent(0);
+        if (not _scanToNext)
+        {
+            __ClearContent(0);
+        }
+        
         __ClearOptions(0);
         
         stopped          = false;
         waiting          = false;
         forced_waiting   = false;
+        scanToNext       = _scanToNext;
         waitingName      = "";
         wait_instruction = undefined;
         entered_option   = false;
@@ -19,7 +26,6 @@ function __ChatterboxVM()
         randomize_option = false;
         choose_option    = undefined;
         rejected_if      = false;
-        scanToNext       = false;
         
         if (current_instruction.type == "stop")
         {
