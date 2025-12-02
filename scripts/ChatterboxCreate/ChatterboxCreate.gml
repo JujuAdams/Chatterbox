@@ -64,6 +64,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
     
     option              = [];
     optionConditionBool = [];
+    optionHasCondition  = [];
     optionMetadata      = [];
     optionLineID        = [];
     optionInstruction   = [];
@@ -624,6 +625,13 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         return optionConditionBool[_index];
     }
     
+    static GetOptionHasCondition = function(_index)
+    {
+        VerifyIsLoaded();
+        if ((_index < 0) || (_index >= array_length(option))) return undefined;
+        return optionHasCondition[_index];
+    }
+    
     static GetOptionArray = function()
     {
         VerifyIsLoaded();
@@ -706,6 +714,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
         
         array_resize(option,              _count);
         array_resize(optionConditionBool, _count);
+        array_resize(optionHasCondition,  _count);
         array_resize(optionMetadata,      _count);
         array_resize(optionLineID,        _count);
         array_resize(optionInstruction,   _count);

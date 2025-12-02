@@ -1,5 +1,7 @@
 // Feather disable all
-/// Returns an option string with the given index in the given chatterbox
+
+/// Returns whether the condition attached to an option has passed (`true`) or failed (`false`).
+/// If an option doesn't have a condition then this function will return `true`.
 ///
 /// @param chatterbox
 /// @param index

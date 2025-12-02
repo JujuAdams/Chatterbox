@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxGetOptionConditionBool",
+  "name": "ChatterboxGetOptionHasCondition",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

@@ -75,9 +75,12 @@ function __ChatterboxVMInner(_instruction)
         else
         {
             var _condition_failed = false;
+            var _has_condition = false;
             
             if (not ((_instructionType == "if") || (_instructionType == "else if")) && variable_struct_exists(_instruction, "condition"))
             {
+                _has_condition = true;
+                
                 if (not __ChatterboxEvaluate(local_scope, current_node.title, filename, _instruction.condition, undefined, _instruction[$ "optionUUID"]))
                 {
                     _condition_failed = true;
@@ -98,6 +101,7 @@ function __ChatterboxVMInner(_instruction)
                         var _optionString = _instruction.text.Evaluate(local_scope, current_node.title, filename, false);
                         array_push(option, _optionString);
                         array_push(optionConditionBool, !_condition_failed);
+                        array_push(optionHasCondition, _has_condition);
                         array_push(optionMetadata, _instruction.metadata);
                         array_push(optionLineID, _instruction.loc_hash);
                         array_push(optionInstruction, _branch);
