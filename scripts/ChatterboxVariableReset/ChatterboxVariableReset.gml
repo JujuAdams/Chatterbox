@@ -19,7 +19,7 @@ function ChatterboxVariableReset(_name)
     if (!ds_map_exists(_system.__declaredVariablesMap, _name))
     {
         if ((string_copy(_name, 1, string_length(__CHATTERBOX_VISITED_PREFIX)) != __CHATTERBOX_VISITED_PREFIX)
-        ||  (string_copy(_name, 1, string_length(__CHATTERBOX_OPTION_CHOSEN_PREFIX)) != __CHATTERBOX_OPTION_CHOSEN_PREFIX)) //Don't throw an error for internal variables
+        &&  (string_copy(_name, 1, string_length(__CHATTERBOX_OPTION_CHOSEN_PREFIX)) != __CHATTERBOX_OPTION_CHOSEN_PREFIX)) //Don't throw an error for internal variables
         {
             if (CHATTERBOX_ERROR_UNDECLARED_VARIABLE)
             {
