@@ -37,7 +37,7 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
     
     static MarkVisited = function()
     {
-        var _long_name = "visited(" + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
+        var _long_name = __CHATTERBOX_VISITED_PREFIX + string(filename) + CHATTERBOX_FILENAME_SEPARATOR + string(title) + ")";
         
         var _value = _system.__variablesMap[? _long_name];
         if (_value == undefined)

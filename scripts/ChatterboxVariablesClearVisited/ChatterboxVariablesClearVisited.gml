@@ -10,6 +10,6 @@ function ChatterboxVariablesClearVisited(_node, _filename)
 {
     static _system = __ChatterboxSystem();
     
-    var _variable = "visited(" + string(_filename) + CHATTERBOX_FILENAME_SEPARATOR + string(_node) + ")";
+    var _variable = __CHATTERBOX_VISITED_PREFIX + string(_filename) + CHATTERBOX_FILENAME_SEPARATOR + string(_node) + ")";
     ds_map_delete(_system.__variablesMap, _variable);
 }

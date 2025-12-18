@@ -14,7 +14,7 @@ function ChatterboxVariablesClearVisitedAll()
     repeat(array_length(_array))
     {
         var _key = _array[_i];
-        if (string_copy(_key, 1, 8) == "visited(")
+        if (string_copy(_key, 1, 8) == __CHATTERBOX_VISITED_PREFIX)
         {
             ds_map_delete(_map, _key);
         }

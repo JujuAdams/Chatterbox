@@ -18,7 +18,7 @@ function ChatterboxVariableReset(_name)
     
     if (!ds_map_exists(_system.__declaredVariablesMap, _name))
     {
-        if (string_copy(_name, 1, 8) != "visited(") //Don't throw an error for "node visited" variables
+        if (string_copy(_name, 1, 8) != __CHATTERBOX_VISITED_PREFIX) //Don't throw an error for "node visited" variables
         {
             if (CHATTERBOX_ERROR_UNDECLARED_VARIABLE)
             {
