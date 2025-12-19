@@ -4,7 +4,7 @@
   "name": "Windows",
   "option_windows_display_name": "Chatterbox",
   "option_windows_executable_name": "${project_name}",
-  "option_windows_version": "3.2.2.3",
+  "option_windows_version": "3.2.2.4",
   "option_windows_company_info": "Juju Adams",
   "option_windows_product_info": "Chatterbox",
   "option_windows_copyright_info": "Juju Adams (c) 2025",
