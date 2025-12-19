@@ -1,13 +1,16 @@
 // Feather disable all
+
 /// @param variableName
 
 function ChatterboxVariableReset(_name)
 {
     static _system = __ChatterboxSystem();
     
-    if ((string_copy(_name, 1, string_length(__CHATTERBOX_VISITED_PREFIX)) != __CHATTERBOX_VISITED_PREFIX)
-    &&  (string_copy(_name, 1, string_length(__CHATTERBOX_OPTION_CHOSEN_PREFIX)) != __CHATTERBOX_OPTION_CHOSEN_PREFIX)) //Don't throw an error for internal variables
+    //Internal variables just get cleaned up
+    if ((string_copy(_name, 1, string_length(__CHATTERBOX_VISITED_PREFIX)) == __CHATTERBOX_VISITED_PREFIX)
+    ||  (string_copy(_name, 1, string_length(__CHATTERBOX_OPTION_CHOSEN_PREFIX)) == __CHATTERBOX_OPTION_CHOSEN_PREFIX))
     {
+        ds_map_delete(_system.__variablesMap, _name);
         return;
     }
     
