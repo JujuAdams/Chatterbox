@@ -27,15 +27,6 @@ function ChatterboxVariableReset(_name)
     
     if (not ds_map_exists(_system.__declaredVariablesMap, _name))
     {
-        if (CHATTERBOX_ERROR_UNDECLARED_VARIABLE)
-        {
-            __ChatterboxError("Trying to reset Chatterbox variable $", _name, " but a default value has not been declared");
-        }
-        else
-        {
-            __ChatterboxTrace("Warning! Trying to reset Chatterbox variable $", _name, " but a default value has not been declared. Deleting variable instead");
-        }
-        
         ds_map_delete(_system.__variablesMap, _name);
     }
     else if (not ds_map_exists(_system.__defaultVariablesMap, _name))

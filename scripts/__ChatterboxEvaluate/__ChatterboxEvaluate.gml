@@ -117,7 +117,7 @@ function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression,
                 }
                 else
                 {
-                    return (__ChatterboxLocalCounter(_parameter_values[0], _node_title, _filename) == 1);
+                    return (__ChatterboxLocalCounter(_parameter_values[0], undefined, _node_title, _filename) == 1);
                 }
             }
             else if (_expression.name == "localCounter")
@@ -128,7 +128,8 @@ function __ChatterboxEvaluate(_local_scope, _node_title, _filename, _expression,
                 }
                 else
                 {
-                    return __ChatterboxLocalCounter(_parameter_values[0], _node_title, _filename);
+                    var _modulo = (array_length(_parameter_values) >= 2)? _parameter_values[1] : undefined;
+                    return __ChatterboxLocalCounter(_parameter_values[0], _modulo, _node_title, _filename);
                 }
             }
             else if (_expression.name == "optionChosen")

@@ -1,10 +1,11 @@
 // Feather disable all
 
 /// @param identifier
+/// @param modulo
 /// @param nodeTitle
 /// @param filename
 
-function __ChatterboxLocalCounter(_identifier, _node_title, _filename)
+function __ChatterboxLocalCounter(_identifier, _modulo, _node_title, _filename)
 {
     static _system = __ChatterboxSystem();
     
@@ -32,6 +33,11 @@ function __ChatterboxLocalCounter(_identifier, _node_title, _filename)
     }
     
     _system.__variablesMap[? _key] = _value;
+    
+    if (_modulo != undefined)
+    {
+        _value = ((_value - 1) mod _modulo) + 1;
+    }
     
     return _value;
 }
