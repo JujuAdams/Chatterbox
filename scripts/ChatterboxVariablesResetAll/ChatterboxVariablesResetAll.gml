@@ -7,10 +7,9 @@ function ChatterboxVariablesResetAll()
     __ChatterboxTrace("Resetting all variables...");
     
     var _constantsMap = _system.__constantsMap;
+    var _variablesMap = _system.__variablesMap;
     
-    var _array = ds_map_keys_to_array(_system.__variablesMap);
-    ds_map_clear(_system.__variablesMap);
-    
+    var _array = ds_map_keys_to_array(_variablesMap);
     var _i = 0;
     repeat(array_length(_array))
     {
