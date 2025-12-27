@@ -404,7 +404,9 @@ How can I help?
     Huh? We mostly sell birthday cards.
 ```
 
-Using `optionChosen()` outside of an option condition is invalid and will throw an error. What options have been chosen is **not** intended to persist between gameplay sessions and is **not** included in the data returned by `ChatterboxVariablesExport()`. If you want to track which options have been chosen, you should use `localCounter()` above.
+Using `optionChosen()` outside of an option condition is invalid and will throw an error.
+
+!> What options have been chosen is **not** intended to persist between gameplay sessions and is **not** included in the data returned by `ChatterboxVariablesExport()`. If you want to track which options have been chosen, you should use `localCounter()` above.
 
 ### Custom Functions
 
