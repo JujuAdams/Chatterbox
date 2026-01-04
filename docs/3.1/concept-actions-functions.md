@@ -6,8 +6,8 @@ ChatterScript allows for flow control and the execution of external code by usin
 title: FlowerSeedShelf
 ---
 
-<<declare $flowerSeeds as 0>>
-<<const $maximumFlowerSeeds as 3>>
+<<declare $flowerSeeds to 0>>
+<<const $maximumFlowerSeeds to 3>>
 
 You see upon the shelf a selection of packets of flower seeds arranged clumsily.
 -> Inspect them.
@@ -62,7 +62,7 @@ The `<<jump>>` action causes a chatterbox to immediately swap execution to anoth
 
 *Example:* `<<declare $favouriteFood = "Cheesecake">>`
 
-*Example:* `<<declare $favouriteFood as "Cheesecake">>`
+*Example:* `<<declare $favouriteFood to "Cheesecake">>`
 
 This action instructs Chatterbox to declare a variable and to give it a default value.
 
@@ -72,7 +72,7 @@ This action instructs Chatterbox to declare a variable and to give it a default 
 
 *Example:* `<<set $favouriteFood = "Curry">>`
     
-*Example:* `<<set $favouriteFood as "Curry">>`
+*Example:* `<<set $favouriteFood to "Curry">>`
 
 Sets the value of a variable, plain and simple. The datatype of a variable (string, number, or boolean `true`/`false`) cannot change.
 
@@ -80,7 +80,7 @@ Sets the value of a variable, plain and simple. The datatype of a variable (stri
 
 ### `const`
 
-*Example:* `<<const $favouriteFood as "Crisps">>`
+*Example:* `<<const $favouriteFood to "Crisps">>`
 
 The `<<const>>` action defines a special kind of variable - it is a variable whose value cannot be changed. This might seem contradictory at first glace - a variable must surely be able to vary?! - but this behaviour is very helpful when trying to keep track of so-called "magic numbers" in your game. For example, you might want to set the maximum number of health points that a player can have. At some point in development, that number might need to go up or down in order to balance the game's difficulty. Using a constant means that you can tweak the maximum number of health points throughout the game without having to find and adjust every single occurrence of a special number (a time-consuming endeavour that is likely to result in bugs).
 
