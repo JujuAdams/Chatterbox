@@ -201,7 +201,7 @@ Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunct
 #### **GML**
 
 ```gml
-ChatterboxLoad("example.json");
+ChatterboxLoadFromFile("example.json");
 ChatterboxAddFunction("AmIDead", am_i_dead);
 ```
 
@@ -231,7 +231,7 @@ function am_i_dead()
 }
 
 
-ChatterboxLoad("example.json");
+ChatterboxLoadFromFile("example.json");
 ChatterboxAddFunction("AmIDead", am_i_dead);
 ```
 
