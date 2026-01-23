@@ -9,13 +9,12 @@ function __ChatterboxClassSource(_filename, _alias, _buffer, _compile) construct
 {
     originalFilename = _filename;
     
-    filename = _alias;
-    name     = _alias; //FIXME - These two variables should be combined into one
+    filename = _alias; //TODO - Rename to `alias`
     tags     = [];
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
-    __ChatterboxTrace("Parsing \"", originalFilename, "\" as a source file with alias \"", name, "\"");
+    __ChatterboxTrace("Parsing \"", originalFilename, "\" as a source file with alias \"", filename, "\"");
     
     try
     {
