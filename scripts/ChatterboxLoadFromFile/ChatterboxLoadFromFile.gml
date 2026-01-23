@@ -34,10 +34,8 @@ function ChatterboxLoadFromFile(_path, _aliasName = _path)
     if (os_browser == browser_not_a_browser)
     {
         var _buffer = buffer_load(_path);
-        var _result = ChatterboxLoadFromBuffer(_aliasName, _buffer);
+        __ChatterboxLoadFromBufferInternal(_path, _aliasName, _buffer);
         buffer_delete(_buffer);
-        
-        return _result;
     }
     else
     {
@@ -48,6 +46,6 @@ function ChatterboxLoadFromFile(_path, _aliasName = _path)
         while(!file_text_eof(_file)) _string += file_text_readln(_file);
         file_text_close(_file);
         
-        return ChatterboxLoadFromString(_aliasName, _string);
+        ChatterboxLoadFromString(_aliasName, _string);
     }
 }

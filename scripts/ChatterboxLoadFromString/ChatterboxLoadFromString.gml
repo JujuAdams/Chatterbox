@@ -17,7 +17,7 @@ function ChatterboxLoadFromString(_aliasName, _string)
     buffer_seek(_buffer, buffer_seek_start, 0);
     
     //Create a struct that represents this source
-    ChatterboxLoadFromBuffer(_aliasName, _buffer);
+    __ChatterboxLoadFromBufferInternal(_aliasName, _aliasName, _buffer);
     
     //No! Memory! Leaks!
     buffer_delete(_buffer);

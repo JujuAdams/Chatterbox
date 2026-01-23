@@ -1,4 +1,6 @@
 // Feather disable all
+
+/// @param originalFilename
 /// @param filename
 /// @param nodeTags
 /// @param bodyString
@@ -7,10 +9,11 @@
 /// @param bufferStart
 /// @param bufferEnd
 
-function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _buffer_start, _buffer_end) constructor
+function __ChatterboxClassNode(_originalFilename, _filename, _node_metadata, _compile, _buffer, _buffer_start, _buffer_end) constructor
 {
     static _system = __ChatterboxSystem();
     
+    originalFilename = _originalFilename;
     filename         = _filename;
     title            = _node_metadata.title;
     metadata         = _node_metadata;
@@ -28,7 +31,7 @@ function __ChatterboxClassNode(_filename, _node_metadata, _compile, _buffer, _bu
     if (compile)
     {
         root_instruction = new __ChatterboxClassInstruction(undefined, -1, 0);
-        __ChatterboxCompile(_substring_array, root_instruction, filename + ":" + title + ":#");
+        __ChatterboxCompile(_substring_array, root_instruction, originalFilename + ":" + title + ":#");
     }
     else
     {

@@ -1,17 +1,21 @@
 // Feather disable all
+
 /// @param filename
+/// @param alias
 /// @param string
 /// @param compile
 
-function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
+function __ChatterboxClassSource(_filename, _alias, _buffer, _compile) constructor
 {
-    filename = _filename;
-    name     = _filename;
+    originalFilename = _filename;
+    
+    filename = _alias;
+    name     = _alias; //FIXME - These two variables should be combined into one
     tags     = [];
     nodes    = [];
     loaded   = false; //We set this to <true> at the bottom of the constructor
     
-    __ChatterboxTrace("Parsing \"", filename, "\" as a source file with alias \"", name, "\"");
+    __ChatterboxTrace("Parsing \"", originalFilename, "\" as a source file with alias \"", name, "\"");
     
     try
     {
@@ -40,7 +44,7 @@ function __ChatterboxClassSource(_filename, _buffer, _compile) constructor
         }
         else
         {
-            var _node = new __ChatterboxClassNode(filename, _node_metadata, _compile, _buffer, _node_temp_struct.buffer_start, _node_temp_struct.buffer_end);
+            var _node = new __ChatterboxClassNode(originalFilename, filename, _node_metadata, _compile, _buffer, _node_temp_struct.buffer_start, _node_temp_struct.buffer_end);
             array_push(nodes, _node);
         }
         
