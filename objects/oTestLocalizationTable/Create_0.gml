@@ -1,7 +1,7 @@
 if (file_exists("localization table.csv"))
 {
-    show_debug_message(ChatterboxLocalizationGetGlyphs("localization table.csv"));
-    show_debug_message(ChatterboxLocalizationGetGlyphs("localization table.csv", true));
+    show_debug_message(ChatterboxLocalizationGetChars("localization table.csv"));
+    show_debug_message(ChatterboxLocalizationGetChars("localization table.csv", true));
     ChatterboxLocalizationLoad("localization table.csv");
 }
 

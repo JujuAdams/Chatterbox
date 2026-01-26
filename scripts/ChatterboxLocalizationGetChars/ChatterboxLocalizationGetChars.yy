@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "ChatterboxLocalizationGetGlyphs",
+  "name": "ChatterboxLocalizationGetChars",
   "isDnD": false,
   "isCompatibility": false,
   "parent": {

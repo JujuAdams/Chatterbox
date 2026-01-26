@@ -1,12 +1,12 @@
 // Feather disable all
 
-/// Returns an array of glyphs that are used in the target localisation CSV. This is useful for
-/// building font ranges.
+/// Returns an array of text characters (letters, numbers, symbols etc.) that are used in the
+/// target localisation CSV. This is useful for building font ranges.
 /// 
 /// @param path  Path to the localisation file to use, relative to `CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY`
 /// @param [returnCodepoints=false]  Whether to return numeric Unicode codepoint (`true`) or character strings (`false`)
 
-function ChatterboxLocalizationGetGlyphs(_path, _returnCodepoints)
+function ChatterboxLocalizationGetChars(_path, _returnCodepoints)
 {
     static _system = __ChatterboxSystem();
     

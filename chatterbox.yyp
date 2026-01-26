@@ -71,7 +71,7 @@
     {"id":{"name":"IsChatterbox","path":"scripts/IsChatterbox/IsChatterbox.yy",},"order":1,},
     {"id":{"name":"ChatterboxGetAllContentString","path":"scripts/ChatterboxGetAllContentString/ChatterboxGetAllContentString.yy",},"order":0,},
     {"id":{"name":"oTestCaseAllContentString","path":"objects/oTestCaseAllContentString/oTestCaseAllContentString.yy",},"order":26,},
-    {"id":{"name":"ChatterboxLocalizationGetGlyphs","path":"scripts/ChatterboxLocalizationGetGlyphs/ChatterboxLocalizationGetGlyphs.yy",},"order":5,},
+    {"id":{"name":"ChatterboxLocalizationGetChars","path":"scripts/ChatterboxLocalizationGetChars/ChatterboxLocalizationGetChars.yy",},"order":5,},
     {"id":{"name":"oTestCaseBOM","path":"objects/oTestCaseBOM/oTestCaseBOM.yy",},"order":9,},
     {"id":{"name":"ChatterboxFastForward","path":"scripts/ChatterboxFastForward/ChatterboxFastForward.yy",},"order":3,},
     {"id":{"name":"sElppaAmazed","path":"sprites/sElppaAmazed/sElppaAmazed.yy",},"order":6,},
