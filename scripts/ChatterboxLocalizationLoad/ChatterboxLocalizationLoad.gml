@@ -6,7 +6,7 @@
 /// localisation file can be used at once. New localisation is applied the next time a Chatterbox
 /// flow function is executed (ChatterboxContinue() etc.)
 /// 
-/// @param path  Path to the localisation file to use, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
+/// @param path  Path to the localisation file to use, relative to `CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY`
 
 function ChatterboxLocalizationLoad(_path)
 {

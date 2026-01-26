@@ -11,8 +11,8 @@
 ///   THIS FUNCTION WILL MODIFY SOURCE FILES ON DISK INSIDE YOUR PROJECT
 ///   ENSURE YOU HAVE BACKED UP YOUR WORK IN SOURCE CONTROL
 /// 
-/// @param chatterPathArray   Array of paths to source ChatterScript files, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
-/// @param csvOutputPath      Path to save the localisation CSV to, relative to CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY
+/// @param chatterPathArray   Array of paths to source ChatterScript files, relative to `CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY`
+/// @param csvOutputPath      Path to save the localisation CSV to, relative to `CHATTERBOX_INCLUDED_FILES_SUBDIRECTORY`
 
 function ChatterboxLocalizationBuild(_chatter_path_array, _csv_path_array)
 {
