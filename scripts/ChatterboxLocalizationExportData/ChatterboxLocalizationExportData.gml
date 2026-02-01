@@ -54,7 +54,7 @@ function ChatterboxLocalizationExportData(_chatter_path_array)
         var _absolute_path = __ChatterboxReplaceBackslashes(_root_directory + _local_path);
         
         var _buffer = buffer_load(_absolute_path);
-        var _source = new __ChatterboxClassSource(_local_path, _buffer, false);
+        var _source = new __ChatterboxClassSource(_local_path, _local_path, _buffer, false);
         
         var _buffer_batch = new __ChatterboxBufferBatch();
         _buffer_batch.__FromBuffer(_buffer);
