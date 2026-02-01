@@ -208,6 +208,7 @@ Chatterbox has the following native actions:
 <<forcewait>>
 <<fastforward>>
 <<fastmark>>
+<<moveahead>>
 ```
 
 Custom actions can be added to Chatterbox by using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Custom actions should be added before
