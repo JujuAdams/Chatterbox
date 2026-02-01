@@ -22,8 +22,8 @@
 const config = {
 	name: 'Chatterbox',
 	description: 'Narrative design toolkit for GameMaker',
-	latestVersion: '3.1',
-	otherVersions: ['3.0','2.18', '2.17', '2.16', '2.15', '2.14', '2.13', '2.12', '2.11', '2.10', '2.9', '2.8', '2.7', '2.6', '2.5', '2.4', '2.3', '2.2', '2.1', '1.1'],
+	latestVersion: '3.2',
+	otherVersions: ['3.1', '3.0','2.18', '2.17', '2.16', '2.15', '2.14', '2.13', '2.12', '2.11', '2.10', '2.9', '2.8', '2.7', '2.6', '2.5', '2.4', '2.3', '2.2', '2.1', '1.1'],
 	favicon: 'assets/favicon.ico',
 	themeColor: '#f0Bc00',
 };
