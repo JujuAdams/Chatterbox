@@ -1,6 +1,6 @@
 title: Start
 ---
-This is a test case for the <next> action.
+This is a test case for the <moveAhead> action.
 Normally actions happen before the next piece of content is processed by Chatterbox.
 You'll see a debug message appear after pressing space now.
 <<testAction()>>

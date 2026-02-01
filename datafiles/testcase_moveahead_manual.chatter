@@ -1,6 +1,6 @@
 title: Start
 ---
-This is a test case for the ChatterboxScanToNext() function.
+This is a test case for the ChatterboxMoveAhead() function.
 Normally actions happen before the next piece of content is processed by Chatterbox.
 You'll see a debug message appear after pressing space now.
 <<testAction()>>
