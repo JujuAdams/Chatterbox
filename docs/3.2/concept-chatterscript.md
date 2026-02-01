@@ -370,6 +370,16 @@ You may skip providing the node name to get the number of times the current node
 We have visted this node {visited()} times before.
 ```
 
+### `modulo`
+
+A helpful function that wraps a value around between `0` and some number. Another way to describe modulo is that it returns the remainder of a division. For example, 12 modulo 10 is equal to 2.
+
+In ChatterScript, the first argument for `modulo()` is the input number. The second argument is the modulo.
+
+```chatterscript
+{modulo(12, 10)} should be equal to 2.
+```
+
 ### `localCounter`
 
 This special ChatterScript function will increment a counter and return the new value. The counter is unique to the filename and node, and is further unique based on the identifier i.e. two `localCounter()` calls with the same identifier in two different nodes will use two counters internally.
