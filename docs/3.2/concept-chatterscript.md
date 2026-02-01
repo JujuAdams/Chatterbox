@@ -380,6 +380,20 @@ You've seen this line of dialogue {localCounter("apple")} times.
 
 Local counters are further saved and loaded by `ChatterboxVariablesExport()` and `ChatterboxVariablesImport()`.
 
+You may optionally specify a second argument which is a modulo value. The modulo is one-indexed such that a modulo of 4 will allow the local counter to count `1` `2` `3` `4`. This allows you to cycle through multiple options.
+
+```chatterscript
+<<if localCounter("greeting", 4) == 1>>
+    Hello!
+<<if localCounter("greeting", 4) == 2>>
+    Welcome!
+<<if localCounter("greeting", 4) == 3>>
+    Hey there.
+<<if localCounter("greeting", 4) == 4>>
+    Um, hi.
+<<endif>>
+```
+
 ### `once`
 
 Shorthand for `localCounter("identifier") == 1`.
