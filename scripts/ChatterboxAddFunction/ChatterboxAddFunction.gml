@@ -77,6 +77,7 @@ function ChatterboxAddFunction(_name, _in_function)
         case "choose":
         case "optionChosen":
         case "moveAhead":
+        case "moveahead":
             __ChatterboxError("Function name \"", _name, "\" is reserved for internal Chatterbox use.\nPlease choose another action name.");
             return false;
         break;

@@ -204,16 +204,17 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                     }
                 break;
                 
+                case "moveahead":
                 case "moveAhead":
                     if (is_struct(_previous_instruction))
                     {
                         if (_previous_instruction.type != "content")
                         {
-                            __ChatterboxError("Cannot use <<moveAhead>> after any instruction other than content");
+                            __ChatterboxError("Cannot use <<moveahead>> after any instruction other than content");
                         }
                         else if (_previous_instruction.line != _line)
                         {
-                            __ChatterboxError("Cannot use <<moveAhead>> on a new line");
+                            __ChatterboxError("Cannot use <<moveahead>> on a new line");
                         }
                         else
                         {
