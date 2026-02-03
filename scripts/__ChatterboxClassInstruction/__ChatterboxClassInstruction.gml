@@ -34,7 +34,7 @@ function __ChatterboxInstructionAdd(_parent, _child)
         &&  !variable_struct_exists(_parent, "option_branch"))
         {
             //Add a marker to the end of a branch. This helps the VM understand what's going on!
-            var _branch_end = new __ChatterboxClassInstruction("option end", _parent.line, _parent.indent);
+            var _branch_end = new __ChatterboxClassInstruction("option branch end", _parent.line, _parent.indent);
             _parent.option_branch = _branch_end;
             _branch_end.option_branch_parent = _parent;
             _branch_end.next = _child;
@@ -47,7 +47,7 @@ function __ChatterboxInstructionAdd(_parent, _child)
                 __ChatterboxInstructionAdd(_parent.option_branch_parent, _child);
                 
                 //Add a marker to the end of a branch. This helps the VM understand what's going on!
-                var _branch_end = new __ChatterboxClassInstruction("option end", _parent.line, _parent.indent);
+                var _branch_end = new __ChatterboxClassInstruction("option branch end", _parent.line, _parent.indent);
                 __ChatterboxInstructionAdd(_parent, _branch_end);
                 
                 _branch_end.next = _child;
