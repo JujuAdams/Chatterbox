@@ -18,7 +18,7 @@ function __ChatterboxVM(_moveAhead = false)
         stopped          = false;
         waiting          = false;
         forced_waiting   = false;
-        moveAhead       = _moveAhead;
+        moveAhead        = _moveAhead;
         waitingName      = "";
         wait_instruction = undefined;
         entered_option   = false;
@@ -77,7 +77,8 @@ function __ChatterboxVMInner(_instruction)
             var _condition_failed = false;
             var _has_condition = false;
             
-            if (not ((_instructionType == "if") || (_instructionType == "else if")) && variable_struct_exists(_instruction, "condition"))
+            //If this instruction has an in-line condition then evaluate it
+            if ((not ((_instructionType == "if") || (_instructionType == "else if"))) && variable_struct_exists(_instruction, "condition"))
             {
                 _has_condition = true;
                 
@@ -86,10 +87,10 @@ function __ChatterboxVMInner(_instruction)
                     _condition_failed = true;
                 }
             }
-        
-            if (CHATTERBOX_SHOW_REJECTED_OPTIONS || !_condition_failed)
+            
+            if (CHATTERBOX_SHOW_REJECTED_OPTIONS || (not _condition_failed))
             {
-                if ((_instructionType == "option") && !leaving_option)
+                if ((_instructionType == "option") && (not leaving_option))
                 {
                     entered_option = true;
                 
@@ -147,7 +148,10 @@ function __ChatterboxVMInner(_instruction)
                 }
                 else
                 {
-                    if ((_instructionType != "option") && leaving_option) leaving_option = false;
+                    if ((_instructionType != "option") && leaving_option)
+                    {
+                        leaving_option = false;
+                    }
                 }
             
                 if (entered_option)
@@ -321,6 +325,7 @@ function __ChatterboxVMInner(_instruction)
                                         &&  (_next.type != "wait")
                                         &&  (_next.type != "forcewait")
                                         &&  (_next.type != "stop")
+                                        &&  (_next.type != "option end")
                                         &&  !((_next.type == "hopback") && __HopEmpty()))
                                         {
                                             waiting          = true;
