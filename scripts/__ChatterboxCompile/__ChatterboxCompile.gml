@@ -224,7 +224,11 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
                 break;
                 
                 default:
-                    if ((_first_word == "random") && (_remainder == "option"))
+                    if ((_first_word == "") || ((_first_word == "option") && (_remainder == "break")))
+                    {
+                        var _instruction = new __ChatterboxClassInstruction("option break", _line, _indent);
+                    }
+                    else if ((_first_word == "random") && (_remainder == "option"))
                     {
                         var _q = _s+1;
                         repeat(_substring_count - _q)

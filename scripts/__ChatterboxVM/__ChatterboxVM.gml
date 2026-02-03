@@ -542,7 +542,12 @@ function __ChatterboxVMInner(_instruction)
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<random option>>");
                             randomize_option = true;
                         break;
-                    
+                        
+                        case "option break":
+                            //Do nothing!
+                            if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<option break>>");
+                        break;
+                        
                         case "choose":
                             if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<choose>>");
                             choose_option = string(__ChatterboxEvaluate(local_scope, current_node.title, filename, _instruction.expression, "choose", undefined));
