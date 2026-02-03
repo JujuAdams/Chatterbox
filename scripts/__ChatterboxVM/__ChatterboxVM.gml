@@ -325,7 +325,6 @@ function __ChatterboxVMInner(_instruction)
                                         &&  (_next.type != "wait")
                                         &&  (_next.type != "forcewait")
                                         &&  (_next.type != "stop")
-                                        &&  (_next.type != "option branch end")
                                         &&  !((_next.type == "hopback") && __HopEmpty()))
                                         {
                                             waiting          = true;
