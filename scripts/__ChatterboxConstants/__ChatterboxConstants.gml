@@ -11,8 +11,8 @@
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-#macro CHATTERBOX_VERSION  "3.2.4-beta"
-#macro CHATTERBOX_DATE     "2026-02-01"
+#macro CHATTERBOX_VERSION  "3.2.5"
+#macro CHATTERBOX_DATE     "2026-02-04"
 
 #macro CHATTERBOX_CURRENT  (__ChatterboxSystem().__current)
 
