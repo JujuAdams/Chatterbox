@@ -86,7 +86,8 @@ function __ChatterboxVMInner(_instruction)
             &&  (_instructionType != "forcewait")
             &&  (_instructionType != "stop")
             &&  (not ((_instructionType == "hopback") && __HopEmpty()))) //Effectively a <<stop>>
-            &&  (_instructionType != "option break")
+            &&  (_instructionType != "blank")
+            &&  (_instructionType != "option split")
             &&  (_instructionType != "option branch end")
             {
                 if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "singleton text waiting at \"", _instructionType, "\"");
@@ -541,9 +542,14 @@ function __ChatterboxVMInner(_instruction)
                                 randomize_option = true;
                             break;
                     
-                            case "option break":
+                            case "blank":
                                 //Do nothing!
-                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<option break>>");
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<blank>>");
+                            break;
+                    
+                            case "option split":
+                                //Do nothing!
+                                if (__CHATTERBOX_DEBUG_VM) __ChatterboxTrace(__ChatterboxGenerateIndent(_instruction.indent), "<<option split>>");
                             break;
                     
                             case "choose":
