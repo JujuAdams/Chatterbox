@@ -1,13 +1,82 @@
 title: Start
 ---
-Pre
-<<random option>>
--> #10%
-  Outcome 1
--> #10%
-  Outcome 2
--> #30%
-  Outcome 3
-Post
+Please choose a mode:
+-> Basic Test
+  <<random option>>
+  -> #10%
+    Outcome 1
+  -> #10%
+    Outcome 2
+  -> #30%
+    Outcome 3
+  Test complete.
+-> Random Options Into Content
+  <<random option>>
+  ->
+    Outcome 1
+  ->
+    Outcome 2
+  ->
+    Outcome 3
+  Content
+  -> Option 1 after content
+  -> Option 2 after content
+  Test complete.
+-> Random Options Using <moveahead>
+  <<random option>>
+  ->
+    Outcome 1 <<moveahead>>
+  ->
+    Outcome 2 <<moveahead>>
+  ->
+    Outcome 3 <<moveahead>>
+  <<fastmark>> //An arbitrary action that does nothing
+  -> Option 1 after <moveahead>
+  -> Option 2 after <moveahead>
+  Test complete.
+-> Random Options Into Jump
+  <<random option>>
+  ->
+    Outcome 1
+    <<jump JumpTarget>>
+  ->
+    Outcome 2
+    <<jump JumpTarget>>
+  ->
+    Outcome 3
+    <<jump JumpTarget>>
+  This should never be visible.
+-> Random Options Into Hop
+  <<random option>>
+  ->
+    Outcome 1
+    <<hop HopTarget>>
+  ->
+    Outcome 2
+    <<hop HopTarget>>
+  ->
+    Outcome 3
+    <<hop HopTarget>>
+  This should be shown after hopping back.
 <<jump Start>>
+===
+
+
+title: JumpTarget
+---
+Post-jump content
+-> Option 1 after jump
+-> Option 2 after jump
+Test complete.
+<<jump Start>>
+===
+
+
+title: HopTarget
+---
+Post-hop content
+-> Option 1 after hop
+-> Option 2 after hop
+Test complete.
+<<hopback>>
 ===

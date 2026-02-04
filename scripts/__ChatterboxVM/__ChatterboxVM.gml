@@ -116,6 +116,7 @@ function __ChatterboxVMInner(_instruction)
                     if ((_instructionType == "option") && (not leaving_option))
                     {
                         entered_option = true;
+                        moveAhead = false;
                         
                         if (_instructionType == "option")
                         {
