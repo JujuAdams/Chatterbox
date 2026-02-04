@@ -136,6 +136,14 @@ You can also specify a name in a force wait command. This name is then used to f
 
 `<<fastmark>>` will not pause a chatterbox but it will disable fast-forward mode. Any content after the `<<fastmark>>` action will still be displayed but any content between triggering fast-forward mode and `<<fastmark>>` will not appear. If a chatterbox is not fast-forwarding then this action does nothing.
 
+### `moveahead`
+
+*Example:* `<<moveahead>>`
+
+This is a special action that instructs a chatterbox to continue evaluating further lines of ChatterScript after a line of text. A `<<moveahead>>` instruction only works in singleton text mode where a chatterbox will wait immediately after a line of text.
+
+It may not be readily apparent when this instruction is useful. When in singleton text mode, a chatterbox will wait for `ChatterboxContinue()` to be called immediately after a line of text. This means that any actions after a line of text will not be executed until `ChatterboxContinue()` is called. This behaviour is usually help but not always. Sometimes you want to be able to execute actions after the line of text and `<<moveahead>>` allows you to do this.
+
 &nbsp;
 
 ## Functions
