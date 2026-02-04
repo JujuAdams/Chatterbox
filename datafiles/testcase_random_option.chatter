@@ -58,6 +58,19 @@ Please choose a mode:
     Outcome 3
     <<hop HopTarget>>
   This should be shown after hopping back.
+-> Random Variables
+  <<declare $value = "">>
+  <<random option>>
+  ->
+    <<set $value = "Outcome 1">>
+  ->
+    <<set $value = "Outcome 2">>
+  ->
+    <<set $value = "Outcome 3">>
+  {$value}
+  -> Option 1 after random choice
+  -> Option 2 after random choice
+  Test complete.
 <<jump Start>>
 ===
 
