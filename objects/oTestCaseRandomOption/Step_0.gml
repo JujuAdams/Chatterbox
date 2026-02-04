@@ -9,5 +9,7 @@ else
     if (keyboard_check_released(ord("2"))) _index = 1;
     if (keyboard_check_released(ord("3"))) _index = 2;
     if (keyboard_check_released(ord("4"))) _index = 3;
+    if (keyboard_check_released(ord("5"))) _index = 4;
+    if (keyboard_check_released(ord("6"))) _index = 5;
     if (_index != undefined) ChatterboxSelect(box, _index);
 }
