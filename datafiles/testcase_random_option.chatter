@@ -22,15 +22,15 @@ Please choose a mode:
   -> Option 1 after content
   -> Option 2 after content
   Test complete.
--> Random Options Using Semantic Whitespace
+-> Random Options Using <moveahead>
   <<random option>>
   ->
-    Outcome 1
+    Outcome 1 <<moveahead>>
   ->
-    Outcome 2
+    Outcome 2 <<moveahead>>
   ->
-    Outcome 3
-
+    Outcome 3 <<moveahead>>
+  <<fastmark>> //An arbitrary action that does nothing
   -> Option 1 after <moveahead>
   -> Option 2 after <moveahead>
   Test complete.

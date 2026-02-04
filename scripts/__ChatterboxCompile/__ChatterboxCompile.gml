@@ -28,16 +28,6 @@ function __ChatterboxCompile(_in_substring_array, _root_instruction, _hash_prefi
         
         if (_line != _previous_line)
         {
-            if ((_line > _previous_line+1) && (not is_infinity(_line)))
-            {
-                if (__CHATTERBOX_DEBUG_COMPILER) __ChatterboxTrace("ln ", string_format(_previous_line+1, 4, 0), " ", __ChatterboxGenerateIndent(_indent), "(empty line)");
-                
-                var _instruction = new __ChatterboxClassInstruction("option break", _previous_line+1, _indent);
-                __ChatterboxInstructionAdd(_previous_instruction, _instruction);
-                _previous_instruction = _instruction;
-                array_push(_line_instructions, _instruction);
-            }
-            
             _line_instructions = [];
             _previous_line = _line;
         }
