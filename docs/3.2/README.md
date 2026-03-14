@@ -50,7 +50,7 @@ Chatterbox is supported for all GameMaker export modules, apart from HTML5. You 
 
 ---
 
-Chatterbox is built and maintained by [Juju Adams](https://www.jujuadams.com/) who has a long history of fiddling with text engines. Juju's worked on a lot of [commercial GameMaker games](http://www.jujuadams.com/); Chatterbox is the product of experience writing a custom narrative scripting language for [Retrace](https://store.steampowered.com/app/1052640/Retrace/) and tooling for another major GameMaker title, as yet unreleased.
+Chatterbox is built and maintained by [Juju Adams](https://www.jujuadams.com/) who has a long history of fiddling with text engines. Juju's worked on a lot of [commercial GameMaker games](http://www.jujuadams.com/); Chatterbox is the product of experience writing a custom narrative scripting language for [Retrace](https://store.steampowered.com/app/1052640/Retrace/) and tooling for other GameMaker narrative games. This library was made with human hands. No generative AI models have been used to make this library.
 
 Additional contributions have been made by [squircledev](https://github.com/squircledev) and [Faulty](https://github.com/FaultyFunctions). A big thank you to Els White, Jukio Kallio, rIKmAN, and squircledev for helping to test this library.
 
