@@ -81,16 +81,19 @@ _Returns:_ Boolean, if the given file has been loaded as a [source file](concept
 
 ## `...AddFunction()`
 
-_Full function name:_ `ChatterboxAddFunction(name, function)`
+_Full function name:_ `ChatterboxAddFunction(name, function, [stripScope=true])`
 
 _Returns:_ Boolean, whether the function was added successfully
 
-|Name      |Datatype       |Purpose                              |
-|----------|---------------|-------------------------------------|
-|`name`    |string         |Function name to use in ChatterScript|
-|`function`|function/method|GML function to call                 |
+|Name        |Datatype       |Purpose                                                                 |
+|------------|---------------|------------------------------------------------------------------------|
+|`name`      |string         |Function name to use in ChatterScript                                   |
+|`function`  |function/method|GML function/method to call                                             |
+|`stripScope`|boolean        |Whether to strip the execution scope from the method. Defaults to `true`|
 
 Adds a custom function that can be called by ChatterScript expressions. Custom functions can be added at any point but should be added before loading in any source files. Custom functions can return values, but the return value should always be a **number** or a **string**.
+
+The optional `stripScope` parameter controls how Chatterbox handles execution scope. By default, the scope of the input method is "stripped". This means that when the method is called by a chatterbox the local scope for that chatterbox is used as the execution scope. If you set `stripScope` to `false` then the execution scope of the method is retained.
 
 ?> You can read more about setting up custom functions and actions on [this page](concept-actions-functions).
 
