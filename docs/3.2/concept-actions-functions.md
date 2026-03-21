@@ -228,6 +228,8 @@ Using `optionChosen()` outside of an option condition is invalid and will throw 
 
 Other custom functions can be added to Chatterbox using the [`ChatterboxAddFunction()`](reference-configuration#chatterboxaddfunctionname-function) script. Much like custom actions, custom functions can have parameters. Custom functions should be defined before calling [`ChatterboxCreate()`](reference-chatterboxes#chatterboxcreatefilename-singletontext-localscope).
 
+Chatterbox functions (and actions) are called downstream of flow control functions such as `ChatterboxJump()` or `ChatterboxContinue()`. The scope of Chatterbox function calls is determined by the `localScope` parameter you specify when calling `ChatterboxCreate()`. If you don't specify `localScope` then the current execution scope when you called `ChatterboxCreate()` is used instead.
+
 <!-- tabs:start -->
 
 #### **GML**
@@ -299,6 +301,8 @@ What a beautiful evening, Amelia.
 ```
 
 In this example, both `<<HideTheMoon>>` and `<<FlickerStars>>` are custom actions. 
+
+Chatterbox actions (and functions) are called downstream of flow control functions such as `ChatterboxJump()` or `ChatterboxContinue()`. The scope of Chatterbox action calls is determined by the `localScope` parameter you specify when calling `ChatterboxCreate()`. If you don't specify `localScope` then the current execution scope when you called `ChatterboxCreate()` is used instead.
 
 There are three ways that custom actions can be used in Chatterbox; to swap between the different implementations set [`CHATTERBOX_ACTION_MODE`](reference-configuration?id=chatterbox_action_mode) to one of the following (the default is option `1`):
 - `1` Treat actions as expressions
