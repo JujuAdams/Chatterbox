@@ -46,18 +46,18 @@ Please choose a mode:
     Outcome 3
     <<jump JumpTarget>>
   This should never be visible.
--> Random Options Into Hop
+-> Random Options Using Option Split
   <<random option>>
   ->
     Outcome 1
-    <<hop HopTarget>>
   ->
     Outcome 2
-    <<hop HopTarget>>
   ->
     Outcome 3
-    <<hop HopTarget>>
-  This should be shown after hopping back.
+  <<option split>>
+  -> Option 1 after <option split>
+  -> Option 2 after <option split>
+  Test complete.
 -> Random Variables
   <<declare $value = "">>
   <<random option>>
