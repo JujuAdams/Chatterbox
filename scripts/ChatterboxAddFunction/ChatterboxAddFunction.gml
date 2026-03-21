@@ -24,10 +24,11 @@
 /// 
 /// Custom functions can be added at any point but should be added before loading in any source files.
 /// 
-/// @param name      Script name; as a string
-/// @param function  Function to call
+/// @param name               Script name; as a string
+/// @param function           Function to call
+/// @param [stripScope=true]  Whether to strip method scope
 
-function ChatterboxAddFunction(_name, _in_function)
+function ChatterboxAddFunction(_name, _in_function, _stripScope = true)
 {
     static _system = __ChatterboxSystem();
     
@@ -87,6 +88,11 @@ function ChatterboxAddFunction(_name, _in_function)
     if (is_method(_old_function))
     {
         __ChatterboxTrace("WARNING! Overwriting script name \"", _name, "\" tied to \"", _old_function, "()\"" );
+    }
+    
+    if (_stripScope)
+    {
+        _function = method(undefined, _function);
     }
     
     _system.__functionsMap[? _name ] = _function;
