@@ -266,6 +266,7 @@ function __ChatterboxClass(_filename, _singleton, _local_scope) constructor
             {
                 __ChatterboxVariableSetInternal(_lookup, 1);
                 ds_list_add(_system.__constantsList, _lookup);
+                _system.__constantsMap[? _lookup] = true;
             }
             
             current_instruction = optionInstruction[_index];

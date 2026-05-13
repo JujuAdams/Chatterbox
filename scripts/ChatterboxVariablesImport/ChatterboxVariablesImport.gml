@@ -17,23 +17,42 @@ function ChatterboxVariablesImport(_string)
     }
     
     //Back up constant values
-    var _constantValueArray = array_create(ds_list_size(_system.__constantsList));
+    var _variablesMap  = _system.__variablesMap;
+    var _constantsList = _system.__constantsList;
+    
+    var _constantValueArray = array_create(ds_list_size(_constantsList));
     var _i = 0;
-    repeat(ds_list_size(_system.__constantsList))
+    repeat(ds_list_size(_constantsList))
     {
-        _constantValueArray[@ _i] = _system.__variablesMap[? _system.__constantsList[| _i]];
+        var _variableName = _constantsList[| _i];
+        
+        if (ds_map_exists(_variablesMap, _variableName))
+        {
+            _constantValueArray[@ _i] = _variablesMap[? _variableName];
+        }
+        else
+        {
+            _constantValueArray[@ _i] = pointer_null; //Hack!
+        }
+        
         ++_i;
     }
     
     //Load in the variables wholesale
-    ds_map_destroy(_system.__variablesMap);
-    _system.__variablesMap = _json;
+    ds_map_destroy(_variablesMap);
+    _variablesMap = _json;
+    _system.__variablesMap = _variablesMap;
     
     //Reimport constants into new variables map
     var _i = 0;
     repeat(array_length(_constantValueArray))
     {
-        _system.__variablesMap[? _system.__constantsList[| _i]] = _constantValueArray[@ _i];
+        var _value = _constantValueArray[_i];
+        if (not is_ptr(_value))
+        {
+            _variablesMap[? _constantsList[| _i]] = _constantValueArray[@ _i];
+        }
+        
         ++_i;
     }
 }

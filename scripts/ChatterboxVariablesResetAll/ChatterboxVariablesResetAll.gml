@@ -14,7 +14,9 @@ function ChatterboxVariablesResetAll()
     repeat(array_length(_array))
     {
         var _variableName = _array[_i];
-        if (_constantsMap[? _variableName] != true) //Don't try to reset constants
+        
+        //Don't try to reset constants
+        if not (ds_map_exists(_constantsMap, _variableName) && _constantsMap[? _variableName])
         {
             ChatterboxVariableReset(_variableName);
         }
