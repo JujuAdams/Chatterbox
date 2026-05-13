@@ -6,7 +6,11 @@ draw_set_font(fntDefault);
 var _x = 10;
 var _y = 10;
 
-if (ChatterboxIsStopped(box))
+if (box == undefined)
+{
+    draw_text(_x, _y, "Chatterbox destroyed. Press space to recreate it");
+}
+else if (ChatterboxIsStopped(box))
 {
     //If we're stopped then show that
     draw_text(_x, _y, "(Chatterbox stopped)");
