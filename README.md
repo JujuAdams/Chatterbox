@@ -1,7 +1,7 @@
 <p align="center"><img src="https://raw.githubusercontent.com/JujuAdams/Chatterbox/master/LOGO.png" style="display:block; margin:auto; width:400px"></p>
-<h1 align="center">Chatterbox 3.3.2-beta</h1>
+<h1 align="center">Chatterbox 4.0.0</h1>
 
-<p align="center">Narrative engine for GameMaker LTS 2022</p>
+<p align="center">Narrative engine for GameMaker LTS 2026</p>
 
 &nbsp;
 

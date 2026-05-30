@@ -2,17 +2,12 @@
 
 ////////////////////////////////////////////////////////////////////////////
 //                                                                        //
-// You're welcome to use any of the following macros in your game but ... //
-//                                                                        //
-//                       DO NOT EDIT THIS SCRIPT                          //
-//                       Bad things might happen.                         //
-//                                                                        //
 //    Customisation options can be found in the Configuration script.     //
 //                                                                        //
 ////////////////////////////////////////////////////////////////////////////
 
-#macro CHATTERBOX_VERSION  "3.3.2-beta"
-#macro CHATTERBOX_DATE     "2026-05-13"
+#macro CHATTERBOX_VERSION  "4.0.0"
+#macro CHATTERBOX_DATE     "2026-05-30"
 
 #macro CHATTERBOX_CURRENT  (__ChatterboxSystem().__current)
 
