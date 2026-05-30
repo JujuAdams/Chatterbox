@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "ChatterboxVariablesImport",
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Variables and Constants",
-    "path": "folders/Chatterbox/Variables and Constants.yy",
+  "$GMScript":"v1",
+  "%Name":"ChatterboxVariablesImport",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ChatterboxVariablesImport",
+  "parent":{
+    "name":"Variables and Constants",
+    "path":"folders/Chatterbox/Variables and Constants.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

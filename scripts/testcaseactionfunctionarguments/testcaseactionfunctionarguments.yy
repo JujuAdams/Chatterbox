@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Test Cases",
-    "path": "folders/Test Cases.yy",
+  "$GMScript":"v1",
+  "%Name":"TestCaseActionFunctionArguments",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TestCaseActionFunctionArguments",
+  "parent":{
+    "name":"Test Cases",
+    "path":"folders/Test Cases.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "TestCaseActionFunctionArguments",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

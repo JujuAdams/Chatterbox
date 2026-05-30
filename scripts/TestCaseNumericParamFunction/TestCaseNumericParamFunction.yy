@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Test Cases",
-    "path": "folders/Test Cases.yy",
+  "$GMScript":"v1",
+  "%Name":"TestCaseNumericParamFunction",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"TestCaseNumericParamFunction",
+  "parent":{
+    "name":"Test Cases",
+    "path":"folders/Test Cases.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "TestCaseNumericParamFunction",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

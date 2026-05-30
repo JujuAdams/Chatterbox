@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Chatterboxes",
-    "path": "folders/Chatterbox/Chatterboxes.yy",
+  "$GMScript":"v1",
+  "%Name":"ChatterboxGetCurrent",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ChatterboxGetCurrent",
+  "parent":{
+    "name":"Chatterboxes",
+    "path":"folders/Chatterbox/Chatterboxes.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "ChatterboxGetCurrent",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

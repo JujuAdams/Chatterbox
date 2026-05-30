@@ -1,12 +1,13 @@
 {
-  "isDnD": false,
-  "isCompatibility": false,
-  "parent": {
-    "name": "Content Getters",
-    "path": "folders/Chatterbox/Content Getters.yy",
+  "$GMScript":"v1",
+  "%Name":"ChatterboxGetContentArray",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"ChatterboxGetContentArray",
+  "parent":{
+    "name":"Content Getters",
+    "path":"folders/Chatterbox/Content Getters.yy",
   },
-  "resourceVersion": "1.0",
-  "name": "ChatterboxGetContentArray",
-  "tags": [],
-  "resourceType": "GMScript",
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
