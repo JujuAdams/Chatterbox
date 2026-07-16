@@ -26,7 +26,10 @@ function __ChatterboxCompilerRemoveWhitespace(_string, _leading)
                 _i++;
             }
             
-            _result = string_delete(_result, 1, _i-1);
+            if (_i - 1 > 0)
+            {
+                _result = string_delete(_result, 1, _i-1);
+            }
         }
     }
     
