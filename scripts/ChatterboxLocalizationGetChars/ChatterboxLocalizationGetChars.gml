@@ -38,7 +38,12 @@ function ChatterboxLocalizationGetChars(_path, _returnCodepoints)
     var _i = 0;
     repeat(array_length(_valuesArray))
     {
-        string_foreach(_valuesArray[_i], _method);
+        var _value = _valuesArray[_i];
+        if (_value != "")
+        {
+            string_foreach(_value, _method);
+        }
+        
         ++_i;
     }
     

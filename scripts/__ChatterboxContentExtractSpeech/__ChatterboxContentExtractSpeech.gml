@@ -3,6 +3,7 @@
 function __ChatterboxContentExtractSpeech(_string, _default)
 {
     if (_string == undefined) return _default; //Catch invalid index 
+    if (_string == "") return "";
     
     var _colon_pos = string_pos(CHATTERBOX_SPEAKER_DELIMITER, _string);
     if (_colon_pos <= 0) return _string;

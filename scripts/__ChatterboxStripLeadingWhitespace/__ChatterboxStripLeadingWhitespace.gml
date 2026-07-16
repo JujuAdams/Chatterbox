@@ -9,5 +9,5 @@ function __ChatterboxStripLeadingWhitespace(_string)
         ++_i;
     }
     
-    return string_delete(_string, 1, _i);
+    return (_i > 0)? string_delete(_string, 1, _i) : _string;
 }
