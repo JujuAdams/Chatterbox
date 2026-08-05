@@ -224,6 +224,7 @@
     {"id":{"name":"ChatterboxLocalizationClear","path":"scripts/ChatterboxLocalizationClear/ChatterboxLocalizationClear.yy",},},
     {"id":{"name":"ChatterboxLocalizationExportData","path":"scripts/ChatterboxLocalizationExportData/ChatterboxLocalizationExportData.yy",},},
     {"id":{"name":"ChatterboxLocalizationGetChars","path":"scripts/ChatterboxLocalizationGetChars/ChatterboxLocalizationGetChars.yy",},},
+    {"id":{"name":"ChatterboxLocalizationGetRaw","path":"scripts/ChatterboxLocalizationGetRaw/ChatterboxLocalizationGetRaw.yy",},},
     {"id":{"name":"ChatterboxLocalizationImportData","path":"scripts/ChatterboxLocalizationImportData/ChatterboxLocalizationImportData.yy",},},
     {"id":{"name":"ChatterboxLocalizationLoad","path":"scripts/ChatterboxLocalizationLoad/ChatterboxLocalizationLoad.yy",},},
     {"id":{"name":"ChatterboxMoveAhead","path":"scripts/ChatterboxMoveAhead/ChatterboxMoveAhead.yy",},},

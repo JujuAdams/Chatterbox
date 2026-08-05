@@ -127,6 +127,7 @@
     {"name":"ChatterboxLocalizationClear","order":2,"path":"scripts/ChatterboxLocalizationClear/ChatterboxLocalizationClear.yy",},
     {"name":"ChatterboxLocalizationExportData","order":3,"path":"scripts/ChatterboxLocalizationExportData/ChatterboxLocalizationExportData.yy",},
     {"name":"ChatterboxLocalizationGetChars","order":5,"path":"scripts/ChatterboxLocalizationGetChars/ChatterboxLocalizationGetChars.yy",},
+    {"name":"ChatterboxLocalizationGetRaw","order":6,"path":"scripts/ChatterboxLocalizationGetRaw/ChatterboxLocalizationGetRaw.yy",},
     {"name":"ChatterboxLocalizationImportData","order":4,"path":"scripts/ChatterboxLocalizationImportData/ChatterboxLocalizationImportData.yy",},
     {"name":"ChatterboxLocalizationLoad","order":1,"path":"scripts/ChatterboxLocalizationLoad/ChatterboxLocalizationLoad.yy",},
     {"name":"ChatterboxMoveAhead","order":12,"path":"scripts/ChatterboxMoveAhead/ChatterboxMoveAhead.yy",},
