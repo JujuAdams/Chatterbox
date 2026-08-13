@@ -14,18 +14,15 @@
 /// @param [singletonText]
 /// @param [localScope]
 
-function ChatterboxCreate()
+function ChatterboxCreate(_filename = undefined, _singleton = CHATTERBOX_DEFAULT_SINGLETON, _local_scope = undefined)
 {
     static _system = __ChatterboxSystem();
     
-    var _filename    = ((argument_count > 0) && (argument[0] != undefined))? argument[0] : _system.__defaultFile;
-    var _singleton   = ((argument_count > 1) && (argument[1] != undefined))? argument[1] : CHATTERBOX_DEFAULT_SINGLETON;
-    var _local_scope = ((argument_count > 2) && (argument[2] != undefined))? argument[2] : id;
+    _filename ??= _system.__defaultFile;
     
-    //Check for people accidentally referencing objects
-    if (is_numeric(_local_scope) && (_local_scope < 100000))
+    if (_local_scope == undefined)
     {
-        __ChatterboxError("Local scope set to an invalid instance ID (was ", _local_scope, ", must be >= 100000)");
+        _local_scope = self;
     }
     
     return new __ChatterboxClass(_filename, _singleton, _local_scope);
